@@ -1,0 +1,78 @@
+{
+  "schemaVersion": 1,
+  "sourceId": "ldraw-official-2026-09",
+  "name": "The LDraw Parts Library",
+  "upstreamUrl": "https://library.ldraw.org/updates?latest",
+  "mirrorUrl": "https://library.ldraw.org/",
+  "revision": "2026-09",
+  "snapshotDate": "2026-09-30",
+  "archiveUrl": "https://library.ldraw.org/library/updates/complete.zip",
+  "license": "CC-BY-4.0; dual-licensed files retain CC-BY-2.0 AND CC-BY-4.0",
+  "licenseUrl": "https://creativecommons.org/licenses/by/4.0/",
+  "attribution": "The LDraw Parts Library and its contributors",
+  "previewParts": [
+    {
+      "id": "3005",
+      "color": 71
+    },
+    {
+      "id": "3020",
+      "color": 2
+    },
+    {
+      "id": "6141",
+      "color": 4
+    },
+    {
+      "id": "3062b",
+      "color": 14
+    },
+    {
+      "id": "11477",
+      "color": 4
+    },
+    {
+      "id": "3039",
+      "color": 15
+    },
+    {
+      "id": "3659",
+      "color": 71
+    },
+    {
+      "id": "60601",
+      "color": 47
+    },
+    {
+      "id": "60592",
+      "color": 15
+    },
+    {
+      "id": "24866",
+      "color": 14
+    },
+    {
+      "id": "2423",
+      "color": 2
+    },
+    {
+      "id": "30176",
+      "color": 2
+    },
+    {
+      "id": "3700",
+      "color": 71
+    },
+    {
+      "id": "3647",
+      "color": 71
+    },
+    {
+      "id": "4624",
+      "color": 0
+    }
+  ],
+  "archiveSha256": "f3e496d0ede69ca7942fa4aa198e661ee2d22723906101e2e339d8917a4dd5f2",
+  "recordBaseUrl": "https://library.ldraw.org/library/official/parts/",
+  "treeVerified": false
+}

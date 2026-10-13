@@ -12,6 +12,7 @@ import {
   Check,
 } from "lucide-react";
 import Link from "next/link";
+import libraryManifest from "../../../public/catalog/rebrickable-manifest.json";
 import { ProjectSelector } from "@/components/project-selector";
 import { CATALOG, COLORS } from "@/domain/catalog";
 import { createHouse } from "@/domain/house";
@@ -102,6 +103,17 @@ function BuildParts({ active }: { active: Project }) {
           Go to builder <ArrowRight size={16} />
         </Link>
       </div>
+      <Link href="/catalog" className="parts-library-link">
+        <Shapes size={24} />
+        <span>
+          <strong>Beyond the basic brick</strong>
+          <small>
+            Explore {libraryManifest.partCount.toLocaleString("en-US")} part
+            designs: curves, glass, flowers, gears, and more.
+          </small>
+        </span>
+        <ArrowRight size={19} />
+      </Link>
       <div className="parts-layout">
         <aside className="bag-sidebar">
           <span className="eyebrow">A little organization</span>

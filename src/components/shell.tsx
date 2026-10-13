@@ -22,6 +22,8 @@ const links = [
 
 export function Shell({ children }: { children: React.ReactNode }) {
   const pathname = usePathname().replace(/\/$/, "") || "/";
+  const isActive = (href: string) =>
+    pathname === href || (href === "/parts" && pathname === "/catalog");
   return (
     <>
       <header className="site-header">
@@ -34,7 +36,7 @@ export function Shell({ children }: { children: React.ReactNode }) {
               <Link
                 key={link.href}
                 href={link.href}
-                aria-current={pathname === link.href ? "page" : undefined}
+                aria-current={isActive(link.href) ? "page" : undefined}
               >
                 {link.label}
               </Link>
@@ -43,7 +45,7 @@ export function Shell({ children }: { children: React.ReactNode }) {
           <div className="header-right">
             <span className="private-badge">
               <span />
-            Prototype preview
+              Prototype preview
             </span>
             <Link
               href="/account"
@@ -68,11 +70,11 @@ export function Shell({ children }: { children: React.ReactNode }) {
           <Link
             key={link.href}
             href={link.href}
-            aria-current={pathname === link.href ? "page" : undefined}
+            aria-current={isActive(link.href) ? "page" : undefined}
           >
             <link.icon
               size={21}
-              strokeWidth={pathname === link.href ? 2.2 : 1.7}
+              strokeWidth={isActive(link.href) ? 2.2 : 1.7}
             />
             <span>{link.label}</span>
           </Link>

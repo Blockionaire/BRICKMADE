@@ -136,7 +136,7 @@ describe("House variants share consistent model, inventory, bags, and instructio
     expect(models[0].stats.dimensions[2]).toBeLessThan(
       models[2].stats.dimensions[2],
     );
-    expect(models[0].placements.some((p) => p.partId === "3013")).toBe(true);
+    expect(models[0].placements.some((p) => p.partId === "3009")).toBe(true);
     expect(
       models[2].placements.filter((p) => p.partId === "3005").length,
     ).toBeGreaterThan(

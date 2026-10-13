@@ -1,0 +1,65 @@
+{
+  "status": "metadata-reviewed illustration links; not provider buying mappings",
+  "links": [
+    {
+      "rebrickablePartId": "3005",
+      "ldrawPartId": "3005"
+    },
+    {
+      "rebrickablePartId": "3020",
+      "ldrawPartId": "3020"
+    },
+    {
+      "rebrickablePartId": "6141",
+      "ldrawPartId": "6141"
+    },
+    {
+      "rebrickablePartId": "3062b",
+      "ldrawPartId": "3062b"
+    },
+    {
+      "rebrickablePartId": "11477",
+      "ldrawPartId": "11477"
+    },
+    {
+      "rebrickablePartId": "3039",
+      "ldrawPartId": "3039"
+    },
+    {
+      "rebrickablePartId": "3659",
+      "ldrawPartId": "3659"
+    },
+    {
+      "rebrickablePartId": "60601",
+      "ldrawPartId": "60601"
+    },
+    {
+      "rebrickablePartId": "60592",
+      "ldrawPartId": "60592"
+    },
+    {
+      "rebrickablePartId": "24866",
+      "ldrawPartId": "24866"
+    },
+    {
+      "rebrickablePartId": "2423",
+      "ldrawPartId": "2423"
+    },
+    {
+      "rebrickablePartId": "30176",
+      "ldrawPartId": "30176"
+    },
+    {
+      "rebrickablePartId": "3700",
+      "ldrawPartId": "3700"
+    },
+    {
+      "rebrickablePartId": "3647",
+      "ldrawPartId": "3647"
+    },
+    {
+      "rebrickablePartId": "4624",
+      "ldrawPartId": "4624"
+    }
+  ]
+}

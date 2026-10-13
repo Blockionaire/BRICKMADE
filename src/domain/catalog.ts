@@ -17,7 +17,8 @@ export const COLORS: Record<ColorId, { name: string; hex: string }> = {
   flower: { name: "Soft gold", hex: "#e4b757" },
 };
 
-// Common catalog identities; colors/rendering are illustrative, not stock guarantees.
+// Curated Rebrickable shape identities; geometry/vendor mappings are separate.
+// Colors and house rendering are illustrative, not stock guarantees.
 export const CATALOG: Record<string, CatalogPart> = {
   "3005": {
     id: "3005",
@@ -46,8 +47,8 @@ export const CATALOG: Record<string, CatalogPart> = {
     height: 0.96,
     studs: true,
   },
-  "3013": {
-    id: "3013",
+  "3009": {
+    id: "3009",
     name: "Brick 1 × 6",
     category: "Brick",
     width: 6,

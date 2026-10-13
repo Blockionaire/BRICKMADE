@@ -4,7 +4,7 @@ A mobile-first, private-testing prototype for turning personal objects into bric
 
 ## Run locally
 
-Use Node.js 24 and npm 11 (the versions verified in this cloud environment):
+Use Node.js 24 and npm 11 (the versions verified in this cloud environment). Catalog/database checks and imports also use Python 3 with its standard library; Python 3.12 was verified:
 
 ```sh
 cd /workspace/BRICKMADE
@@ -12,7 +12,7 @@ npm ci --cache /tmp/brickmade-npm
 npm run dev
 ```
 
-No credentials, environment variables, database, or external AI service are required. Fonts and illustrations are bundled locally. For a production build, use `npm run build` followed by `npm start`.
+No credentials, environment variables, database server, or external AI service are required. The imported catalog database and browser index are bundled. Fonts and illustrations are bundled locally. For a production build, use `npm run build` followed by `npm start`.
 
 ## Try the prototype
 
@@ -41,7 +41,8 @@ The spotlight highlights one placement or all visible placements with the same p
 
 Version-2 saves map their old construction phases into the selected instructions. Version-3 saves migrate from the original 6/8/10-piece boundaries to version 4 using the exact completed placement IDs. Switching difficulty preserves those IDs and resumes at the first group containing unbuilt pieces; a partially completed larger group may repeat. Switching back without advancing returns to the original place. Completed builds remain complete, and each saved build retains its own pace.
 
-The brick catalog is currently bundled demo data: see [BRICK_CATALOG.md](docs/BRICK_CATALOG.md) for its contents and proposed future sources.
+The house uses 12 curated shapes. The separate library imports **64,895 Rebrickable part records**, **100,148 observed part/color pairs**, **114,656 element-ID records**, and **15,654 selected official LDraw geometry entries**. Open **Parts → Beyond the basic brick** to search the two source namespaces and inspect 15 real geometry previews. Rebrickable data is current to 2026-10-13; LDraw is official release 2026-09. The SQLite download retains provenance and reserved connection/vendor-mapping tables. Historical colors are not live stock, and new parts are not automatically enabled in generation. See [BRICK_CATALOG.md](docs/BRICK_CATALOG.md) for permissions and import commands, and [SOURCING_PLAN.md](docs/SOURCING_PLAN.md) for the complete-list buying architecture.
+
 
 ## Checks
 
@@ -67,7 +68,7 @@ npm run build:pages
 
 This writes the deployable site to `out/`, including every page, bundled fonts, and demo illustrations. Pages builds use the `/BRICKMADE` prefix and directory URLs so direct links and reloads work. The GitHub workflow takes the prefix from the Pages configuration, allowing a custom domain later. Normal development and production-server commands retain their original behavior.
 
-`npm run test:pages` checks a running static site: images, all six routes, the 3D model, parts, assistant, and progress after reload. Set `PAGES_SMOKE_URL` to its full project URL; the default is the internal test server at port 4173 under `/BRICKMADE`.
+`npm run test:pages` checks a running static site: images, all seven routes, the 3D model, parts, assistant, and progress after reload. Set `PAGES_SMOKE_URL` to its full project URL; the default is the internal test server at port 4173 under `/BRICKMADE`.
 
 The hosted prototype requires no server, API keys, or database. Each visitor's photos stay in that browser session; build names and progress stay in that browser's local storage. Pages hosting does not add authentication.
 

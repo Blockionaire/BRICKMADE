@@ -107,7 +107,7 @@ function buildHouse(settings: GenerationSettings, legacy: boolean): HouseModel {
             ? "3023"
             : "3024"
         : len === 6
-          ? "3013"
+          ? "3009"
           : len === 4
             ? "3010"
             : len === 2

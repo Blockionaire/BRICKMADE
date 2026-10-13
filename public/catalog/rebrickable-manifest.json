@@ -1,0 +1,384 @@
+{
+  "schemaVersion": 1,
+  "source": {
+    "sourceId": "rebrickable-bulk-2026-10-13",
+    "name": "Rebrickable",
+    "snapshotDate": "2026-10-13",
+    "downloadPage": "https://rebrickable.com/downloads/",
+    "termsUrl": "https://rebrickable.com/terms/",
+    "permission": "You can use these files for any purpose, including commercial, provided you acknowledge Rebrickable as your source of data.",
+    "attribution": "Catalog and historical part/color data sourced from Rebrickable",
+    "downloadLimit": "At most once per day per bulk file",
+    "files": [
+      {
+        "name": "parts",
+        "url": "https://cdn.rebrickable.com/media/downloads/parts.csv.gz?1791908735.1870708",
+        "lastModified": "Tue, 13 Oct 2026 16:25:35 GMT",
+        "etag": "\"6ace5b7f-10346e\"",
+        "sha256": "364e0dff2e0c643715b4afbaabbd7c9584db17496cc885b733e3545467a0de1a",
+        "bytes": 1061998,
+        "gzipCrcValidated": true
+      },
+      {
+        "name": "colors",
+        "url": "https://cdn.rebrickable.com/media/downloads/colors.csv.gz?1791908733.995038",
+        "lastModified": "Tue, 13 Oct 2026 16:25:33 GMT",
+        "etag": "\"6ace5b7d-1325\"",
+        "sha256": "f1c254e7a70abaf180a1f51187ab05f8e02abdf6e6a0345c92fa6bdf86e503bf",
+        "bytes": 4901,
+        "gzipCrcValidated": true
+      },
+      {
+        "name": "part_categories",
+        "url": "https://cdn.rebrickable.com/media/downloads/part_categories.csv.gz?1791908734.0030384",
+        "lastModified": "Tue, 13 Oct 2026 16:25:34 GMT",
+        "etag": "\"6ace5b7e-358\"",
+        "sha256": "96e7f86fcbb21df503811abe4733a570d7f72ddaa373133f86c295e9504293be",
+        "bytes": 856,
+        "gzipCrcValidated": true
+      },
+      {
+        "name": "part_relationships",
+        "url": "https://cdn.rebrickable.com/media/downloads/part_relationships.csv.gz?1791908770.240033",
+        "lastModified": "Tue, 13 Oct 2026 16:26:10 GMT",
+        "etag": "\"6ace5ba2-30041\"",
+        "sha256": "860aeb0071e1ad13f0ae78cb3328387f759d1601727b45ee6b7b21c52d9e6784",
+        "bytes": 196673,
+        "gzipCrcValidated": true
+      },
+      {
+        "name": "elements",
+        "url": "https://cdn.rebrickable.com/media/downloads/elements.csv.gz?1791908736.6431108",
+        "lastModified": "Tue, 13 Oct 2026 16:25:36 GMT",
+        "etag": "\"6ace5b80-115431\"",
+        "sha256": "4cc57842d1247bc5d014febd749e50fe8b034f5d7dac10d4320184ccafc81af5",
+        "bytes": 1135665,
+        "gzipCrcValidated": true
+      },
+      {
+        "name": "inventory_parts",
+        "url": "https://cdn.rebrickable.com/media/downloads/inventory_parts.csv.gz?1791908765.7479095",
+        "lastModified": "Tue, 13 Oct 2026 16:26:05 GMT",
+        "etag": "\"6ace5b9d-d88bf4\"",
+        "sha256": "f5a5746759510f21242a6247446da550ecb4dd7c62e850be1f08cd0762641de9",
+        "bytes": 14191604,
+        "gzipCrcValidated": true
+      }
+    ]
+  },
+  "partCount": 64895,
+  "categoryCount": 76,
+  "colorCount": 273,
+  "observedPartColorCount": 100148,
+  "elementCount": 114656,
+  "relationshipCount": 37533,
+  "inventoryRowCount": 1567023,
+  "categories": [
+    {
+      "name": "Animal / Creature Accessories",
+      "count": 67
+    },
+    {
+      "name": "Animal / Creature Body Parts",
+      "count": 964
+    },
+    {
+      "name": "Animals / Creatures",
+      "count": 909
+    },
+    {
+      "name": "Bars, Ladders and Fences",
+      "count": 138
+    },
+    {
+      "name": "Baseplates",
+      "count": 243
+    },
+    {
+      "name": "Belville, Scala and Fabuland",
+      "count": 743
+    },
+    {
+      "name": "Bricks",
+      "count": 1822
+    },
+    {
+      "name": "Bricks Curved",
+      "count": 899
+    },
+    {
+      "name": "Bricks Round and Cones",
+      "count": 734
+    },
+    {
+      "name": "Bricks Sloped",
+      "count": 647
+    },
+    {
+      "name": "Bricks Special",
+      "count": 327
+    },
+    {
+      "name": "Bricks Wedged",
+      "count": 479
+    },
+    {
+      "name": "Clikits",
+      "count": 413
+    },
+    {
+      "name": "Containers",
+      "count": 193
+    },
+    {
+      "name": "Duplo, Quatro and Primo",
+      "count": 5200
+    },
+    {
+      "name": "Electronics",
+      "count": 616
+    },
+    {
+      "name": "Energy Effects",
+      "count": 97
+    },
+    {
+      "name": "Flags, Banners and Signs",
+      "count": 391
+    },
+    {
+      "name": "Gear Parts",
+      "count": 5052
+    },
+    {
+      "name": "HO Scale",
+      "count": 107
+    },
+    {
+      "name": "Hinges, Arms and Turntables",
+      "count": 239
+    },
+    {
+      "name": "Large Buildable Figures",
+      "count": 1427
+    },
+    {
+      "name": "Magnets and Holders",
+      "count": 45
+    },
+    {
+      "name": "Mechanical",
+      "count": 29
+    },
+    {
+      "name": "Minidoll Heads",
+      "count": 471
+    },
+    {
+      "name": "Minidoll Lower Body",
+      "count": 536
+    },
+    {
+      "name": "Minidoll Upper Body",
+      "count": 798
+    },
+    {
+      "name": "Minifig Accessories",
+      "count": 742
+    },
+    {
+      "name": "Minifig Heads",
+      "count": 5423
+    },
+    {
+      "name": "Minifig Headwear",
+      "count": 2251
+    },
+    {
+      "name": "Minifig Headwear Accessories",
+      "count": 165
+    },
+    {
+      "name": "Minifig Hipwear",
+      "count": 134
+    },
+    {
+      "name": "Minifig Lower Body",
+      "count": 3253
+    },
+    {
+      "name": "Minifig Neckwear",
+      "count": 612
+    },
+    {
+      "name": "Minifig Shields, Weapons, & Tools",
+      "count": 569
+    },
+    {
+      "name": "Minifig Upper Body",
+      "count": 7880
+    },
+    {
+      "name": "Minifigs",
+      "count": 622
+    },
+    {
+      "name": "Modulex",
+      "count": 1186
+    },
+    {
+      "name": "Non-Buildable Figures (Duplo, Fabuland, etc)",
+      "count": 1245
+    },
+    {
+      "name": "Non-System Parts",
+      "count": 336
+    },
+    {
+      "name": "Other",
+      "count": 39
+    },
+    {
+      "name": "Panels",
+      "count": 452
+    },
+    {
+      "name": "Pen & Watch",
+      "count": 731
+    },
+    {
+      "name": "Plants & Trees",
+      "count": 140
+    },
+    {
+      "name": "Plates",
+      "count": 148
+    },
+    {
+      "name": "Plates Round Curved and Dishes",
+      "count": 390
+    },
+    {
+      "name": "Plates Special",
+      "count": 499
+    },
+    {
+      "name": "Plates Wedged",
+      "count": 79
+    },
+    {
+      "name": "Pneumatics",
+      "count": 33
+    },
+    {
+      "name": "Projectiles / Launchers",
+      "count": 224
+    },
+    {
+      "name": "Rock",
+      "count": 60
+    },
+    {
+      "name": "Stickers",
+      "count": 4656
+    },
+    {
+      "name": "String, Bands and Reels",
+      "count": 134
+    },
+    {
+      "name": "Supports, Girders and Cranes",
+      "count": 93
+    },
+    {
+      "name": "Technic Axles",
+      "count": 29
+    },
+    {
+      "name": "Technic Beams",
+      "count": 53
+    },
+    {
+      "name": "Technic Beams Special",
+      "count": 43
+    },
+    {
+      "name": "Technic Bricks",
+      "count": 29
+    },
+    {
+      "name": "Technic Bushes",
+      "count": 7
+    },
+    {
+      "name": "Technic Connectors",
+      "count": 118
+    },
+    {
+      "name": "Technic Gears",
+      "count": 117
+    },
+    {
+      "name": "Technic Panels",
+      "count": 178
+    },
+    {
+      "name": "Technic Pins",
+      "count": 35
+    },
+    {
+      "name": "Technic Special",
+      "count": 229
+    },
+    {
+      "name": "Technic Steering, Suspension and Engine",
+      "count": 135
+    },
+    {
+      "name": "Tiles",
+      "count": 3717
+    },
+    {
+      "name": "Tiles Round and Curved",
+      "count": 1289
+    },
+    {
+      "name": "Tiles Special",
+      "count": 522
+    },
+    {
+      "name": "Tools",
+      "count": 21
+    },
+    {
+      "name": "Transportation - Land",
+      "count": 566
+    },
+    {
+      "name": "Transportation - Sea and Air",
+      "count": 482
+    },
+    {
+      "name": "Tubes and Hoses",
+      "count": 197
+    },
+    {
+      "name": "Wheels and Tyres",
+      "count": 425
+    },
+    {
+      "name": "Windows and Doors",
+      "count": 476
+    },
+    {
+      "name": "Windscreens and Fuselage",
+      "count": 523
+    },
+    {
+      "name": "Znap",
+      "count": 22
+    }
+  ],
+  "stockVerified": false,
+  "providerMappingsVerified": false
+}

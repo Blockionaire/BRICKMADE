@@ -1,0 +1,538 @@
+{
+  "schemaVersion": 1,
+  "source": {
+    "schemaVersion": 1,
+    "sourceId": "ldraw-official-2026-09",
+    "name": "The LDraw Parts Library",
+    "upstreamUrl": "https://library.ldraw.org/updates?latest",
+    "mirrorUrl": "https://library.ldraw.org/",
+    "revision": "2026-09",
+    "snapshotDate": "2026-09-30",
+    "archiveUrl": "https://library.ldraw.org/library/updates/complete.zip",
+    "license": "CC-BY-4.0; dual-licensed files retain CC-BY-2.0 AND CC-BY-4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by/4.0/",
+    "attribution": "The LDraw Parts Library and its contributors",
+    "previewParts": [
+      {
+        "id": "3005",
+        "color": 71
+      },
+      {
+        "id": "3020",
+        "color": 2
+      },
+      {
+        "id": "6141",
+        "color": 4
+      },
+      {
+        "id": "3062b",
+        "color": 14
+      },
+      {
+        "id": "11477",
+        "color": 4
+      },
+      {
+        "id": "3039",
+        "color": 15
+      },
+      {
+        "id": "3659",
+        "color": 71
+      },
+      {
+        "id": "60601",
+        "color": 47
+      },
+      {
+        "id": "60592",
+        "color": 15
+      },
+      {
+        "id": "24866",
+        "color": 14
+      },
+      {
+        "id": "2423",
+        "color": 2
+      },
+      {
+        "id": "30176",
+        "color": 2
+      },
+      {
+        "id": "3700",
+        "color": 71
+      },
+      {
+        "id": "3647",
+        "color": 71
+      },
+      {
+        "id": "4624",
+        "color": 0
+      }
+    ],
+    "archiveSha256": "f3e496d0ede69ca7942fa4aa198e661ee2d22723906101e2e339d8917a4dd5f2",
+    "recordBaseUrl": "https://library.ldraw.org/library/official/parts/",
+    "treeVerified": false
+  },
+  "partCount": 15654,
+  "categoryCount": 85,
+  "colorCount": 320,
+  "previewCount": 15,
+  "excludedRootFiles": 9202,
+  "categories": [
+    {
+      "name": "Animal",
+      "count": 360
+    },
+    {
+      "name": "Antenna",
+      "count": 8
+    },
+    {
+      "name": "Arch",
+      "count": 52
+    },
+    {
+      "name": "Arm",
+      "count": 12
+    },
+    {
+      "name": "Bar",
+      "count": 78
+    },
+    {
+      "name": "Baseplate",
+      "count": 193
+    },
+    {
+      "name": "Belville",
+      "count": 10
+    },
+    {
+      "name": "Boat",
+      "count": 66
+    },
+    {
+      "name": "Bracket",
+      "count": 45
+    },
+    {
+      "name": "Brick",
+      "count": 1171
+    },
+    {
+      "name": "Car",
+      "count": 81
+    },
+    {
+      "name": "Clikits",
+      "count": 3
+    },
+    {
+      "name": "Cockpit",
+      "count": 12
+    },
+    {
+      "name": "Cone",
+      "count": 42
+    },
+    {
+      "name": "Constraction",
+      "count": 119
+    },
+    {
+      "name": "Constraction Accessory",
+      "count": 28
+    },
+    {
+      "name": "Container",
+      "count": 133
+    },
+    {
+      "name": "Conveyor",
+      "count": 8
+    },
+    {
+      "name": "Crane",
+      "count": 24
+    },
+    {
+      "name": "Cylinder",
+      "count": 88
+    },
+    {
+      "name": "Dish",
+      "count": 150
+    },
+    {
+      "name": "Door",
+      "count": 166
+    },
+    {
+      "name": "Duplo",
+      "count": 136
+    },
+    {
+      "name": "Electric",
+      "count": 132
+    },
+    {
+      "name": "Exhaust",
+      "count": 5
+    },
+    {
+      "name": "Fence",
+      "count": 25
+    },
+    {
+      "name": "Figure",
+      "count": 427
+    },
+    {
+      "name": "Figure Accessory",
+      "count": 112
+    },
+    {
+      "name": "Flag",
+      "count": 109
+    },
+    {
+      "name": "Garage",
+      "count": 6
+    },
+    {
+      "name": "Glass",
+      "count": 47
+    },
+    {
+      "name": "Hinge",
+      "count": 139
+    },
+    {
+      "name": "Homemaker",
+      "count": 8
+    },
+    {
+      "name": "Hose",
+      "count": 52
+    },
+    {
+      "name": "Ladder",
+      "count": 14
+    },
+    {
+      "name": "Magnet",
+      "count": 6
+    },
+    {
+      "name": "Minifig",
+      "count": 1937
+    },
+    {
+      "name": "Minifig Accessory",
+      "count": 738
+    },
+    {
+      "name": "Minifig Footwear",
+      "count": 12
+    },
+    {
+      "name": "Minifig Head",
+      "count": 12
+    },
+    {
+      "name": "Minifig Headwear",
+      "count": 607
+    },
+    {
+      "name": "Minifig Hips",
+      "count": 5
+    },
+    {
+      "name": "Minifig Hipwear",
+      "count": 31
+    },
+    {
+      "name": "Minifig Leg",
+      "count": 11
+    },
+    {
+      "name": "Minifig Neckwear",
+      "count": 109
+    },
+    {
+      "name": "Minifig Torso",
+      "count": 7
+    },
+    {
+      "name": "Modulex",
+      "count": 39
+    },
+    {
+      "name": "Monorail",
+      "count": 15
+    },
+    {
+      "name": "Panel",
+      "count": 199
+    },
+    {
+      "name": "Plane",
+      "count": 19
+    },
+    {
+      "name": "Plant",
+      "count": 70
+    },
+    {
+      "name": "Plate",
+      "count": 441
+    },
+    {
+      "name": "Platform",
+      "count": 2
+    },
+    {
+      "name": "Propeller",
+      "count": 27
+    },
+    {
+      "name": "Rack",
+      "count": 4
+    },
+    {
+      "name": "Roadsign",
+      "count": 130
+    },
+    {
+      "name": "Rock",
+      "count": 36
+    },
+    {
+      "name": "Scala",
+      "count": 18
+    },
+    {
+      "name": "Sheet Cardboard",
+      "count": 15
+    },
+    {
+      "name": "Sheet Fabric",
+      "count": 83
+    },
+    {
+      "name": "Sheet Plastic",
+      "count": 54
+    },
+    {
+      "name": "Slope",
+      "count": 494
+    },
+    {
+      "name": "Sphere",
+      "count": 16
+    },
+    {
+      "name": "Staircase",
+      "count": 12
+    },
+    {
+      "name": "Sticker",
+      "count": 2766
+    },
+    {
+      "name": "Sticker Shortcut",
+      "count": 34
+    },
+    {
+      "name": "String",
+      "count": 1
+    },
+    {
+      "name": "Support",
+      "count": 38
+    },
+    {
+      "name": "Tail",
+      "count": 26
+    },
+    {
+      "name": "Tap",
+      "count": 8
+    },
+    {
+      "name": "Technic",
+      "count": 932
+    },
+    {
+      "name": "Tile",
+      "count": 1652
+    },
+    {
+      "name": "Tipper",
+      "count": 10
+    },
+    {
+      "name": "Tractor",
+      "count": 6
+    },
+    {
+      "name": "Trailer",
+      "count": 3
+    },
+    {
+      "name": "Train",
+      "count": 150
+    },
+    {
+      "name": "Turntable",
+      "count": 13
+    },
+    {
+      "name": "Tyre",
+      "count": 94
+    },
+    {
+      "name": "Vehicle",
+      "count": 81
+    },
+    {
+      "name": "Wedge",
+      "count": 99
+    },
+    {
+      "name": "Wheel",
+      "count": 183
+    },
+    {
+      "name": "Window",
+      "count": 71
+    },
+    {
+      "name": "Windscreen",
+      "count": 185
+    },
+    {
+      "name": "Wing",
+      "count": 70
+    },
+    {
+      "name": "Znap",
+      "count": 22
+    }
+  ],
+  "previews": [
+    {
+      "id": "3005",
+      "color": 71,
+      "file": "/catalog/previews/3005.mpd",
+      "dependencyCount": 8,
+      "sha256": "b0c39ac1300b57feba727ddf54dc6a0e66c22a8cf1a51558d2f4dfaad327d153"
+    },
+    {
+      "id": "3020",
+      "color": 2,
+      "file": "/catalog/previews/3020.mpd",
+      "dependencyCount": 8,
+      "sha256": "64c4ab7c2f8ee6c2bc3740665385d34b5587a35ff7b147b67a33747a1d323014"
+    },
+    {
+      "id": "6141",
+      "color": 4,
+      "file": "/catalog/previews/6141.mpd",
+      "dependencyCount": 9,
+      "sha256": "404ae57619274d4466a5b4561c98baf076a96694b67bc069c6869da400d24a12"
+    },
+    {
+      "id": "3062b",
+      "color": 14,
+      "file": "/catalog/previews/3062b.mpd",
+      "dependencyCount": 10,
+      "sha256": "740f13c531eecc22898730ee68772058dc3f6c56d3de480d4dd526d71aa3912e"
+    },
+    {
+      "id": "11477",
+      "color": 4,
+      "file": "/catalog/previews/11477.mpd",
+      "dependencyCount": 16,
+      "sha256": "feec05e6db018871c3d84175676543d2d2aa71ab1585cf6eb6d78bcc98c18636"
+    },
+    {
+      "id": "3039",
+      "color": 15,
+      "file": "/catalog/previews/3039.mpd",
+      "dependencyCount": 17,
+      "sha256": "97a6b135260945863a1ab21074d94d019c1e954ea717f1975959e4e4446a8d07"
+    },
+    {
+      "id": "3659",
+      "color": 71,
+      "file": "/catalog/previews/3659.mpd",
+      "dependencyCount": 10,
+      "sha256": "d8996677b63fb9820af589abb91334dd16252527dc5af63ba4233aef12a1ef2a"
+    },
+    {
+      "id": "60601",
+      "color": 47,
+      "file": "/catalog/previews/60601.mpd",
+      "dependencyCount": 7,
+      "sha256": "930ad06175fba1bfcfa036077efd5e24884341cd937e1ddfb20e8613fabb5672"
+    },
+    {
+      "id": "60592",
+      "color": 15,
+      "file": "/catalog/previews/60592.mpd",
+      "dependencyCount": 26,
+      "sha256": "5c37d0902fa30bef3db9ea91c4ebeadd0e78c2698264021c0017353c9f6e46dd"
+    },
+    {
+      "id": "24866",
+      "color": 14,
+      "file": "/catalog/previews/24866.mpd",
+      "dependencyCount": 10,
+      "sha256": "3dffdadeec8852bcb1811b547af54e4035b262e3270ab7a80960f062d8b1bcef"
+    },
+    {
+      "id": "2423",
+      "color": 2,
+      "file": "/catalog/previews/2423.mpd",
+      "dependencyCount": 29,
+      "sha256": "7fd384702fdc59e664c22665986a62c3836e2278c140e00e10f8c84fef465af7"
+    },
+    {
+      "id": "30176",
+      "color": 2,
+      "file": "/catalog/previews/30176.mpd",
+      "dependencyCount": 15,
+      "sha256": "ecd7f0b8c36d755a159760a6ebe6ef79aa3469b01cc51feb0c30fe76ca472b57"
+    },
+    {
+      "id": "3700",
+      "color": 71,
+      "file": "/catalog/previews/3700.mpd",
+      "dependencyCount": 17,
+      "sha256": "341023ccdc08cea6c097c2751b904ed86ce95c4535dcd1b066ebef98f8320d41"
+    },
+    {
+      "id": "3647",
+      "color": 71,
+      "file": "/catalog/previews/3647.mpd",
+      "dependencyCount": 18,
+      "sha256": "eb687211d8eb3a0c0378e9a9acc5b5859dda9442a6ef666469508d7f7116af45"
+    },
+    {
+      "id": "4624",
+      "color": 0,
+      "file": "/catalog/previews/4624.mpd",
+      "dependencyCount": 21,
+      "sha256": "3e210a5c91ef559646b4101ee9cf4dfc9c348a57f9fd94aef2cef5acb61428aa"
+    }
+  ],
+  "manufacturedPartColorCount": 0,
+  "verifiedConnectionCount": 0,
+  "verifiedPurchaseMappingCount": 0
+}

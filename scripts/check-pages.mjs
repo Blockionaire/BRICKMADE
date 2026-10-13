@@ -98,7 +98,33 @@ try {
   await expect(
     page.getByRole("heading", { name: "The path home" }),
   ).toBeVisible();
-  for (const route of ["", "review", "parts", "account", "builder", "create"]) {
+  await page.goto(`${site}/catalog/`);
+  await expect(page.locator(".library-result-count")).toContainText(
+    "64,895 designs",
+  );
+  await page
+    .getByRole("textbox", { name: "Search the part library" })
+    .fill("60601");
+  await page
+    .locator(".library-results-grid")
+    .getByRole("button", { name: /Rebrickable 60601$/ })
+    .click();
+  await expect(
+    page.getByRole("dialog").locator('canvas[data-library-part="60601"]'),
+  ).toHaveAttribute("data-transparency", "true", { timeout: 15000 });
+  await page
+    .getByRole("dialog")
+    .getByRole("button", { name: "Close", exact: true })
+    .click();
+  for (const route of [
+    "",
+    "review",
+    "parts",
+    "account",
+    "builder",
+    "create",
+    "catalog",
+  ]) {
     const response = await page.goto(`${site}/${route ? `${route}/` : ""}`);
     assert.equal(response.status(), 200);
     await expect(page.locator("h1")).toBeVisible();
@@ -106,7 +132,7 @@ try {
   assert.deepEqual(errors, []);
   assert.deepEqual(failedRequests, []);
   console.log(
-    "Pages smoke check passed: six routes, photos, 3D model, parts filter, independent instruction difficulty, assistant, and saved progress. No browser errors or failed requests.",
+    "Pages smoke check passed: seven routes, photos, 3D model, parts filter, independent instruction difficulty, broad part catalog, glass geometry, assistant, and saved progress. No browser errors or failed requests.",
   );
 } finally {
   await browser.close();
