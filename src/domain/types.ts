@@ -1,4 +1,4 @@
-export type DetailLevel = "easy" | "standard" | "high" | "collector";
+export type DetailLevel = "easy" | "normal" | "hard";
 export type BuildSize = "compact" | "standard" | "large";
 export type ColorId =
   "sand" | "roof" | "glass" | "wood" | "grass" | "stone" | "leaf" | "flower";

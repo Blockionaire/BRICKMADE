@@ -84,9 +84,32 @@ describe("House variants share consistent model, inventory, bags, and instructio
     const models = DETAIL_LEVELS.map((d) =>
       createHouse({ detail: d.id, size: "compact" }),
     );
-    expect(new Set(models.map((m) => m.stats.pieceCount)).size).toBe(4);
+    expect(new Set(models.map((m) => m.stats.pieceCount)).size).toBe(3);
+    expect(models[0].stats.pieceCount).toBeLessThan(models[1].stats.pieceCount);
+    expect(models[1].stats.pieceCount).toBeLessThan(models[2].stats.pieceCount);
+    expect(models[0].stats.dimensions[2]).toBeLessThan(
+      models[2].stats.dimensions[2],
+    );
+    expect(models[0].placements.some((p) => p.partId === "3013")).toBe(true);
+    expect(
+      models[2].placements.filter((p) => p.partId === "3005").length,
+    ).toBeGreaterThan(
+      models[0].placements.filter((p) => p.partId === "3005").length * 3,
+    );
+    expect(models[0].steps.some((s) => s.title.includes("chimney"))).toBe(
+      false,
+    );
+    expect(models[1].steps.some((s) => s.title.includes("chimney"))).toBe(true);
+    expect(models[2].steps.map((s) => s.title)).toEqual(
+      expect.arrayContaining([
+        "A welcoming porch",
+        "Shutters & a rooftop skylight",
+        "The garden fence",
+      ]),
+    );
+    expect(models[1].steps.some((s) => s.title.includes("porch"))).toBe(false);
     const sizes = BUILD_SIZES.map((s) =>
-      createHouse({ detail: "standard", size: s.id }),
+      createHouse({ detail: "normal", size: s.id }),
     );
     expect(sizes[0].stats.dimensions[0]).toBeLessThan(
       sizes[2].stats.dimensions[0],
@@ -96,7 +119,7 @@ describe("House variants share consistent model, inventory, bags, and instructio
 });
 
 describe("Demo providers", () => {
-  const model = createHouse({ detail: "standard", size: "compact" });
+  const model = createHouse({ detail: "normal", size: "compact" });
   const context = {
     projectName: "Compact House",
     step: model.steps[2],
@@ -146,6 +169,37 @@ describe("Demo providers", () => {
 });
 
 describe("Saved progress validation", () => {
+  it("migrates all old modes while retaining names and resetting obsolete instructions", () => {
+    const projects = ["easy", "standard", "high", "collector"].map(
+      (detail, i) => ({
+        id: `old-${i}`,
+        name: `Saved build ${i}`,
+        createdAt: "2026-10-13",
+        settings: { detail, size: "compact" },
+        currentStep: 8,
+        completed: true,
+      }),
+    );
+    const migrated = parseSavedState(
+      JSON.stringify({ version: 1, projects, activeId: "old-2" }),
+    );
+    expect(migrated.version).toBe(2);
+    expect(migrated.activeId).toBe("old-2");
+    expect(migrated.projects.map((p) => p.settings.detail)).toEqual([
+      "easy",
+      "normal",
+      "hard",
+      "hard",
+    ]);
+    expect(migrated.projects.map((p) => p.name)).toEqual(
+      projects.map((p) => p.name),
+    );
+    expect(
+      migrated.projects.every((p) => p.currentStep === 1 && !p.completed),
+    ).toBe(true);
+    expect(parseSavedState(JSON.stringify(migrated))).toEqual(migrated);
+  });
+
   it("recovers from corrupt or incompatible local state", () => {
     expect(parseSavedState("not json").activeId).toBe("compact-house");
     expect(

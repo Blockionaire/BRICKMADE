@@ -10,6 +10,9 @@ This document describes the full product vision. Where later examples differ, th
 - Demonstrate Home → Create → Upload → Settings → Generate → Preview → Parts → Interactive Builder → Build Assistant.
 - Use deterministic demo generation and assistant responses behind replaceable interfaces. Clearly identify demo functionality.
 - Exclude payments, purchase/unlock gates, pricing, brick cost estimates, and actual ordering from this prototype. Parts exploration remains included; commercial and sourcing features below describe future product work.
+- Use three difficulty modes: **Easy, Normal, Hard**. Easy has bigger pieces and a simpler, lower house; Normal adds windows, a chimney and garden details; Hard has fine brickwork, taller windows, shutters, a porch, skylight and fencing. All model geometry, parts, bags and instructions must describe the same design.
+- In Builder, clicking/tapping a visible brick highlights it and reveals its catalog article, color, originating step and bag. Display the visible piece count and the full design total.
+- My builds cards show a projection of each saved model's actual brick placements. Builder and Parts each offer a saved-build selector and preserve each build's independent progress.
 - House statistics must match the implemented demo. The earlier car figures are illustrative, not validated house specifications.
 
 

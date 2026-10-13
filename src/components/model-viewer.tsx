@@ -2,7 +2,8 @@
 
 import { useState } from "react";
 import dynamic from "next/dynamic";
-import { Maximize2, RotateCcw, Minus, Plus, Move3D } from "lucide-react";
+import { Maximize2, RotateCcw, Minus, Plus, Move3D, X } from "lucide-react";
+import { CATALOG, COLORS } from "@/domain/catalog";
 import type { HouseModel } from "@/domain/types";
 import type { CameraView } from "./model-canvas";
 import { Sheet } from "./ui";
@@ -20,6 +21,7 @@ export function ModelViewer({
   model,
   step,
   controls = true,
+  selectable = false,
   requestedView,
   onViewChange,
   highlight = true,
@@ -28,11 +30,16 @@ export function ModelViewer({
   model: HouseModel;
   step?: number;
   controls?: boolean;
+  selectable?: boolean;
   requestedView?: CameraView;
   onViewChange?: () => void;
   highlight?: boolean;
   className?: string;
 }) {
+  const [selectedId, setSelectedId] = useState<string>();
+  const selected = model.placements.find(
+    (p) => p.id === selectedId && (!step || p.step <= step),
+  );
   const [view, setView] = useState<CameraView>("perspective");
   const [zoom, setZoom] = useState(1);
   const [expanded, setExpanded] = useState(false);
@@ -51,12 +58,39 @@ export function ModelViewer({
         view={effectiveView}
         zoom={zoom}
         highlight={highlight}
+        selectedPlacementId={selectable ? selected?.id : undefined}
+        onPick={selectable ? (p) => setSelectedId(p?.id) : undefined}
       />
+      {selectable && selected && (
+        <div
+          className="brick-inspector"
+          role="status"
+          aria-label="Selected brick"
+        >
+          <i style={{ background: COLORS[selected.color].hex }} />
+          <div>
+            <strong>
+              {CATALOG[selected.partId].name} · #{selected.partId}
+            </strong>
+            <span>
+              {COLORS[selected.color].name} · Added in step {selected.step} ·
+              Bag {model.steps[selected.step - 1].bag}
+            </span>
+          </div>
+          <button
+            aria-label="Clear brick selection"
+            onClick={() => setSelectedId(undefined)}
+          >
+            <X size={16} />
+          </button>
+        </div>
+      )}
       {controls && (
         <>
           <div className="viewer-top">
             <span className="viewer-caption">
-              <Move3D size={14} /> Interactive model
+              <Move3D size={14} />{" "}
+              {selectable ? "Tap a brick to identify it" : "Interactive model"}
             </span>
             <button
               className="viewer-icon"
@@ -116,7 +150,12 @@ export function ModelViewer({
           onClose={() => setExpanded(false)}
           className="model-sheet"
         >
-          <ModelViewer model={model} step={step} highlight={highlight} />
+          <ModelViewer
+            model={model}
+            step={step}
+            highlight={highlight}
+            selectable={selectable}
+          />
           <p className="muted center">
             Drag to rotate. Pinch or scroll to zoom.
           </p>

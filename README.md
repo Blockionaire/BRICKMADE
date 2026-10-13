@@ -17,15 +17,19 @@ No credentials, environment variables, database, or external AI service are requ
 ## Try the prototype
 
 1. Choose **Create new build**, then **Use demo photos**, or select three local JPG, PNG, or WebP images.
-2. Name the build and choose a detail level and size.
+2. Name the build and choose Easy, Normal, or Hard and a size.
 3. Generate the demo, rotate the house, and compare variants.
 4. Explore parts by color, type, or sorting bag.
-5. Enter the builder, move through the steps, and ask the Build Assistant about the current pieces, their placement, or the next step.
+5. Choose a saved build in Builder or Parts. In the builder, tap a brick to identify its part number, color, step, and bag; move through the steps and ask the Build Assistant about the current pieces, their placement, or the next step.
 6. Finish the walkthrough, or resume later. Progress and build names are stored in this browser.
 
 Every photo selection produces a predefined house variant. Photos remain in memory for that browser session and are never uploaded or persisted. Assistant responses are deterministic demonstrations, not external AI calls. No payments, pricing, cost estimates, ordering, or unlock gates are included.
 
-The standard compact house has 342 modeled placements, 13 part/color combinations, 15 demo steps, and 4 sorting bags. Statistics, parts, bags, and instructions are calculated from the same placement data. These are digital sample instructions; physical connections, stability, stock, and part/color combinations have not been validated.
+The Normal compact house has 342 modeled placements, 13 part/color combinations, 15 demo steps, and 4 sorting bags. Statistics, parts, bags, and instructions are calculated from the same placement data. These are digital sample instructions; physical connections, stability, stock, and part/color combinations have not been validated.
+
+Easy uses larger wall bricks, broad roof plates, lower walls, and minimal landscaping. Normal adds a chimney and fuller windows and garden. Hard uses smaller pieces and taller windows with crossbars, shutters, a porch canopy, a ridge skylight, and a rear garden fence. The saved-build thumbnails project actual model placements rather than a generic illustration. Builder counts report the actual visible pieces at each step and the full design total.
+
+Existing version-1 browser saves migrate to the three modes (Standard → Normal; High Detail/Collector → Hard). Names and selected sizes are preserved; progress restarts because the designs and their instructions changed.
 
 ## Checks
 

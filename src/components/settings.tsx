@@ -18,7 +18,7 @@ export function DetailSelector({
       <legend>How much detail feels right?</legend>
       {!compact && (
         <p className="field-description">
-          Same little house. A different kind of adventure.
+          Three house designs, from simple shapes to rich architectural detail.
         </p>
       )}
       <div>
@@ -41,7 +41,7 @@ export function DetailSelector({
             <span>
               <strong>
                 {level.name}
-                {level.id === "standard" && (
+                {level.id === "normal" && (
                   <small className="recommended">Recommended</small>
                 )}
               </strong>
@@ -53,6 +53,11 @@ export function DetailSelector({
           </label>
         ))}
       </div>
+      {compact && (
+        <p className="field-description">
+          {DETAIL_LEVELS.find((level) => level.id === value)?.description}
+        </p>
+      )}
     </fieldset>
   );
 }

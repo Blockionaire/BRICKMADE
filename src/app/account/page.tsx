@@ -84,10 +84,7 @@ export default function AccountPage() {
                       {project.completed
                         ? "Completed"
                         : `Step ${project.currentStep}`}{" "}
-                      ·{" "}
-                      {project.settings.detail === "high"
-                        ? "High detail"
-                        : project.settings.detail}
+                      · {project.settings.detail}
                     </small>
                   </Link>
                   <button

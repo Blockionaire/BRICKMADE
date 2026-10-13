@@ -12,6 +12,7 @@ import {
   Check,
 } from "lucide-react";
 import Link from "next/link";
+import { ProjectSelector } from "@/components/project-selector";
 import { CATALOG, COLORS } from "@/domain/catalog";
 import { createHouse } from "@/domain/house";
 import {
@@ -21,7 +22,7 @@ import {
   Sheet,
 } from "@/components/ui";
 import { useProjects } from "@/services/project-repository";
-import type { PartQuantity } from "@/domain/types";
+import type { PartQuantity, Project } from "@/domain/types";
 
 export default function PartsPage() {
   return (
@@ -35,6 +36,10 @@ export default function PartsPage() {
 
 function PartsContent() {
   const { active } = useProjects();
+  return <BuildParts key={active.id} active={active} />;
+}
+
+function BuildParts({ active }: { active: Project }) {
   const model = createHouse(active.settings);
   const params = useSearchParams();
   const [query, setQuery] = useState("");
@@ -64,6 +69,7 @@ function PartsContent() {
   }
   return (
     <div id="page-content" className="parts-page">
+      <ProjectSelector />
       <PageHeading
         eyebrow="Every little piece has a place"
         title="Meet your building blocks."
@@ -112,7 +118,7 @@ function PartsContent() {
             <Layers size={18} />
             <span>
               <strong>All parts</strong>
-              <small>The complete house</small>
+              <small>The complete build</small>
             </span>
             {bag === "all" && <Check size={16} />}
           </button>

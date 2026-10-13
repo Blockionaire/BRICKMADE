@@ -5,7 +5,7 @@ import { DEFAULT_SETTINGS } from "@/domain/catalog";
 import type { Project } from "@/domain/types";
 
 interface SavedState {
-  version: 1;
+  version: 2;
   projects: Project[];
   activeId: string;
 }
@@ -18,7 +18,7 @@ export const DEMO_PROJECT: Project = {
   completed: false,
 };
 const INITIAL: SavedState = {
-  version: 1,
+  version: 2,
   projects: [DEMO_PROJECT],
   activeId: DEMO_PROJECT.id,
 };
@@ -38,7 +38,9 @@ function validProject(value: unknown): value is Project {
     p.name.length <= 60 &&
     typeof p.createdAt === "string" &&
     !!p.settings &&
-    ["easy", "standard", "high", "collector"].includes(p.settings.detail) &&
+    ["easy", "normal", "hard", "standard", "high", "collector"].includes(
+      p.settings.detail,
+    ) &&
     ["compact", "standard", "large"].includes(p.settings.size) &&
     Number.isInteger(p.currentStep) &&
     p.currentStep >= 1 &&
@@ -52,12 +54,45 @@ export function parseSavedState(raw: string | null): SavedState {
   try {
     const state = JSON.parse(raw);
     if (
-      state.version !== 1 ||
+      (state.version !== 1 && state.version !== 2) ||
       !Array.isArray(state.projects) ||
       !state.projects.length ||
       state.projects.length > 100 ||
       !state.projects.every(validProject) ||
       !state.projects.some((p: Project) => p.id === state.activeId)
+    )
+      return INITIAL;
+    if (state.version === 1) {
+      // Designs changed, so old step numbers must not claim progress in a new design.
+      return {
+        ...state,
+        version: 2,
+        projects: state.projects.map(
+          (
+            p: Omit<Project, "settings"> & {
+              settings: { detail: string; size: Project["settings"]["size"] };
+            },
+          ) => ({
+            ...p,
+            settings: {
+              ...p.settings,
+              detail:
+                p.settings.detail === "standard"
+                  ? "normal"
+                  : ["high", "collector"].includes(p.settings.detail)
+                    ? "hard"
+                    : p.settings.detail,
+            },
+            currentStep: 1,
+            completed: false,
+          }),
+        ),
+      };
+    }
+    if (
+      state.projects.some(
+        (p: Project) => !["easy", "normal", "hard"].includes(p.settings.detail),
+      )
     )
       return INITIAL;
     return state;
@@ -106,7 +141,7 @@ export const projectRepository = {
     const current = getSnapshot();
     const others = current.projects.filter((p) => p.id !== project.id);
     write({
-      version: 1,
+      version: 2,
       projects: [project, ...others].slice(0, 100),
       activeId: project.id,
     });
@@ -122,7 +157,7 @@ export const projectRepository = {
     write(
       projects.length
         ? {
-            version: 1,
+            version: 2,
             projects,
             activeId: projects.some((p) => p.id === state.activeId)
               ? state.activeId

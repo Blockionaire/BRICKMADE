@@ -40,6 +40,24 @@ export const CATALOG: Record<string, CatalogPart> = {
     height: 0.96,
     studs: true,
   },
+  "3013": {
+    id: "3013",
+    name: "Brick 1 × 6",
+    category: "Brick",
+    width: 6,
+    depth: 1,
+    height: 0.96,
+    studs: true,
+  },
+  "3022": {
+    id: "3022",
+    name: "Plate 2 × 2",
+    category: "Plate",
+    width: 2,
+    depth: 2,
+    height: 0.32,
+    studs: true,
+  },
   "3003": {
     id: "3003",
     name: "Brick 2 × 2",
@@ -112,23 +130,19 @@ export const DETAIL_LEVELS: {
 }[] = [
   {
     id: "easy",
-    name: "Easy Build",
-    description: "Simple shapes. A little less detail.",
+    name: "Easy",
+    description: "Big bricks, low walls, a simple roof and a tiny garden.",
   },
   {
-    id: "standard",
-    name: "Standard",
-    description: "The sweet spot of character and detail.",
+    id: "normal",
+    name: "Normal",
+    description: "Window details, a stepped roof, a chimney and shrubs.",
   },
   {
-    id: "high",
-    name: "High Detail",
-    description: "Finer brickwork and a fuller garden.",
-  },
-  {
-    id: "collector",
-    name: "Collector",
-    description: "Small pieces. All the little details.",
+    id: "hard",
+    name: "Hard",
+    description:
+      "Fine brickwork, shutters, a porch, skylight and fenced garden.",
   },
 ];
 export const BUILD_SIZES: { id: BuildSize; name: string }[] = [
@@ -137,6 +151,6 @@ export const BUILD_SIZES: { id: BuildSize; name: string }[] = [
   { id: "large", name: "Large" },
 ];
 export const DEFAULT_SETTINGS = {
-  detail: "standard",
+  detail: "normal",
   size: "compact",
 } as const;

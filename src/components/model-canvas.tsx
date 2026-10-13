@@ -15,13 +15,21 @@ export default function ModelCanvas({
   view = "perspective",
   zoom = 1,
   highlight = true,
+  selectedPlacementId,
+  onPick,
 }: {
   model: HouseModel;
   step?: number;
   view?: CameraView;
   zoom?: number;
   highlight?: boolean;
+  selectedPlacementId?: string;
+  onPick?: (placement: Placement | null) => void;
 }) {
+  const pickCallback = useRef(onPick);
+  useEffect(() => {
+    pickCallback.current = onPick;
+  }, [onPick]);
   const container = useRef<HTMLDivElement>(null);
   const rendererRef = useRef<THREE.WebGLRenderer | null>(null);
   const materialCache = useRef(new Map<string, THREE.Material>());
@@ -30,6 +38,8 @@ export default function ModelCanvas({
     controls: OrbitControls;
     renderer: THREE.WebGLRenderer;
     render: () => void;
+    scene: THREE.Scene;
+    selection?: THREE.Mesh;
   } | null>(null);
   const [failed, setFailed] = useState(false);
   useEffect(() => {
@@ -141,6 +151,7 @@ export default function ModelCanvas({
       if (!groups.has(key)) groups.set(key, []);
       groups.get(key)!.push(p);
     }
+    const pickTargets: THREE.InstancedMesh[] = [];
     const studGeometry = new THREE.CylinderGeometry(0.24, 0.24, 0.15, 12);
     const matrix = new THREE.Object3D();
     const outlinePositions: number[] = [];
@@ -184,6 +195,9 @@ export default function ModelCanvas({
             entries.length * part.width * part.depth,
           )
         : null;
+      bodies.userData.placements = entries;
+      pickTargets.push(bodies);
+      const studPlacements: Placement[] = [];
       let studIndex = 0;
       let edges: THREE.EdgesGeometry | null = null;
       if (active) {
@@ -225,11 +239,14 @@ export default function ModelCanvas({
               matrix.rotation.set(0, 0, 0);
               matrix.updateMatrix();
               studs.setMatrixAt(studIndex++, matrix.matrix);
+              studPlacements.push(p);
             }
       });
       edges?.dispose();
       scene.add(bodies);
       if (studs) {
+        studs.userData.placements = studPlacements;
+        pickTargets.push(studs);
         studs.castShadow = true;
         scene.add(studs);
       }
@@ -256,7 +273,58 @@ export default function ModelCanvas({
       );
     }
     const render = () => renderer.render(scene, camera);
-    sceneRef.current = { camera, controls, renderer, render };
+    sceneRef.current = { camera, controls, renderer, render, scene };
+    renderer.domElement.dataset.pieceCount = String(
+      [...groups.values()].reduce(
+        (count, entries) => count + entries.length,
+        0,
+      ),
+    );
+    renderer.domElement.dataset.totalPieces = String(model.placements.length);
+    const raycaster = new THREE.Raycaster();
+    let pointerStart: { x: number; y: number; id: number } | null = null;
+    const pointerDown = (event: PointerEvent) => {
+      if (!event.isPrimary || event.button !== 0) {
+        pointerStart = null;
+        return;
+      }
+      pointerStart = {
+        x: event.clientX,
+        y: event.clientY,
+        id: event.pointerId,
+      };
+    };
+    const pointerUp = (event: PointerEvent) => {
+      const start = pointerStart;
+      pointerStart = null;
+      if (
+        !start ||
+        event.pointerId !== start.id ||
+        Math.hypot(event.clientX - start.x, event.clientY - start.y) > 6 ||
+        !pickCallback.current
+      )
+        return;
+      const rect = renderer.domElement.getBoundingClientRect();
+      raycaster.setFromCamera(
+        new THREE.Vector2(
+          ((event.clientX - rect.left) / rect.width) * 2 - 1,
+          -((event.clientY - rect.top) / rect.height) * 2 + 1,
+        ),
+        camera,
+      );
+      const hit = raycaster.intersectObjects(pickTargets, false)[0];
+      const placement =
+        hit?.instanceId !== undefined
+          ? (hit.object.userData.placements[hit.instanceId] as Placement)
+          : null;
+      pickCallback.current(placement);
+    };
+    const pointerCancel = () => {
+      pointerStart = null;
+    };
+    renderer.domElement.addEventListener("pointerdown", pointerDown);
+    renderer.domElement.addEventListener("pointerup", pointerUp);
+    renderer.domElement.addEventListener("pointercancel", pointerCancel);
     const resize = () => {
       const { width, height } = element.getBoundingClientRect();
       if (!width || !height) return;
@@ -286,6 +354,9 @@ export default function ModelCanvas({
     controls.addEventListener("change", requestRender);
     render();
     return () => {
+      renderer.domElement.removeEventListener("pointerdown", pointerDown);
+      renderer.domElement.removeEventListener("pointerup", pointerUp);
+      renderer.domElement.removeEventListener("pointercancel", pointerCancel);
       observer.disconnect();
       cancelAnimationFrame(frame);
       controls.removeEventListener("change", requestRender);
@@ -302,6 +373,44 @@ export default function ModelCanvas({
       sceneRef.current = null;
     };
   }, [model, step, highlight]);
+
+  useEffect(() => {
+    const current = sceneRef.current;
+    if (!current) return;
+    const placement = model.placements.find(
+      (p) => p.id === selectedPlacementId && (!step || p.step <= step),
+    );
+    if (placement) {
+      const part = CATALOG[placement.partId];
+      const selection = new THREE.Mesh(
+        new THREE.BoxGeometry(
+          part.width + 0.015,
+          part.height + 0.015,
+          part.depth + 0.015,
+        ),
+        new THREE.MeshStandardMaterial({
+          color: "#ffe6a0",
+          emissive: "#ffce62",
+          emissiveIntensity: 0.55,
+          transparent: true,
+          opacity: 0.38,
+          depthWrite: false,
+        }),
+      );
+      selection.position.set(...placement.position);
+      selection.rotation.y = placement.rotated ? Math.PI / 2 : 0;
+      current.scene.add(selection);
+      current.selection = selection;
+      current.render();
+      return () => {
+        current.scene.remove(selection);
+        selection.geometry.dispose();
+        (selection.material as THREE.Material).dispose();
+        current.selection = undefined;
+        if (sceneRef.current === current) current.render();
+      };
+    }
+  }, [selectedPlacementId, model, step, highlight]);
 
   useEffect(() => {
     const current = sceneRef.current;

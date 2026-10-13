@@ -11,6 +11,7 @@ import {
   ChevronRight,
   Play,
 } from "lucide-react";
+import { ModelThumbnail } from "@/components/model-thumbnail";
 import { ModelViewer } from "@/components/model-viewer";
 import { createHouse } from "@/domain/house";
 import { ActionLink } from "@/components/ui";
@@ -138,7 +139,7 @@ export default function HomePage() {
                 onClick={() => projectRepository.activate(project.id)}
               >
                 <div className="build-thumbnail">
-                  <HouseThumbnail />
+                  <ModelThumbnail model={m} name={project.name} />
                   <span
                     className={`status-pill ${project.completed ? "completed" : ""}`}
                   >
@@ -202,40 +203,5 @@ export default function HomePage() {
         <span>Turn anything into a brick build.</span>
       </div>
     </div>
-  );
-}
-
-export function HouseThumbnail() {
-  return (
-    <svg viewBox="0 0 400 250" aria-hidden="true">
-      <ellipse
-        cx="206"
-        cy="201"
-        rx="115"
-        ry="18"
-        fill="#807561"
-        opacity=".08"
-      />
-      <path d="m87 178 126 29 91-51-126-29Z" fill="#adb48b" />
-      <path d="m127 155 79 18v-69l-79-18Z" fill="#dfcaa3" />
-      <path d="m206 173 64-37V67l-64 37Z" fill="#baa682" />
-      <path d="m114 88 62-39 108 20-76 45Z" fill="#ba5b43" />
-      <path d="m114 88 94 26-25-57-7-8Z" fill="#a84c38" />
-      <path d="m232 74 16 4V49l-16-4Z" fill="#6b4834" />
-      <path d="m164 164 19 4v-35l-19-4Z" fill="#74513e" />
-      <path
-        d="m138 119 15 3v19l-15-3Zm45 10 15 3v19l-15-3Zm38-15 15-9v19l-15 9Z"
-        fill="#719ba3"
-      />
-      <path d="m164 171 19 4-18 11-18-4Z" fill="#d4d0c5" />
-      <g fill="#627b51">
-        <rect x="109" y="155" width="18" height="18" rx="3" />
-        <rect x="252" y="159" width="18" height="18" rx="3" />
-      </g>
-      <g fill="#e4b757">
-        <circle cx="115" cy="155" r="3" />
-        <circle cx="262" cy="159" r="3" />
-      </g>
-    </svg>
   );
 }

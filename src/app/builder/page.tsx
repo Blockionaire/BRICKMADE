@@ -12,6 +12,8 @@ import {
   RotateCcw,
   BookOpen,
 } from "lucide-react";
+import { ProjectSelector } from "@/components/project-selector";
+import type { Project } from "@/domain/types";
 import { ModelViewer } from "@/components/model-viewer";
 import { PartCard, Sheet } from "@/components/ui";
 import { Assistant } from "@/components/assistant";
@@ -21,6 +23,10 @@ import type { CameraView } from "@/components/model-canvas";
 
 export default function BuilderPage() {
   const { active } = useProjects();
+  return <BuilderContent key={active.id} active={active} />;
+}
+
+function BuilderContent({ active }: { active: Project }) {
   const model = createHouse(active.settings);
   const number = Math.min(active.currentStep, model.steps.length);
   const step = model.steps[number - 1];
@@ -41,12 +47,13 @@ export default function BuilderPage() {
   if (active.completed)
     return (
       <div id="page-content" className="completion-page">
+        <ProjectSelector />
         <span className="tag">
           <Check size={14} /> A little accomplishment
         </span>
         <h1>Home, made by you.</h1>
         <p>One brick at a time. One little memory to keep.</p>
-        <ModelViewer model={model} className="completion-viewer" />
+        <ModelViewer model={model} selectable className="completion-viewer" />
         <div className="completion-stats">
           <span>
             <strong>{model.stats.pieceCount}</strong>pieces
@@ -97,6 +104,7 @@ export default function BuilderPage() {
 
   return (
     <div id="page-content" className="builder-page">
+      <ProjectSelector />
       <div className="builder-title">
         <div>
           <Link href="/review" className="back-link">
@@ -134,6 +142,7 @@ export default function BuilderPage() {
             <ModelViewer
               model={model}
               step={number}
+              selectable
               requestedView={view}
               onViewChange={() => setView(undefined)}
               highlight={highlight}
@@ -153,6 +162,11 @@ export default function BuilderPage() {
               </button>
             </div>
           </div>
+          <p className="builder-piece-count" role="status">
+            {model.placements.filter((p) => p.step <= number).length} of{" "}
+            {model.stats.pieceCount} pieces shown · {step.placementIds.length}{" "}
+            added in this step
+          </p>
           <div className="step-navigation">
             <button
               className="button button-secondary"
