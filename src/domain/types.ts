@@ -1,4 +1,5 @@
 export type DetailLevel = "easy" | "normal" | "hard";
+export type BuildDifficulty = "easy" | "medium" | "hard";
 export type CameraView =
   "perspective" | "front" | "back" | "side" | "left" | "top";
 export type PlacementMode = "assembled" | "guide";
@@ -10,6 +11,7 @@ export type Category = "Brick" | "Plate" | "Tile";
 export interface GenerationSettings {
   detail: DetailLevel;
   size: BuildSize;
+  buildDifficulty?: BuildDifficulty;
 }
 
 export interface CatalogPart {
@@ -89,6 +91,8 @@ export interface Project {
   settings: GenerationSettings;
   currentStep: number;
   completed: boolean;
+  /** Retain the exact completed pieces when regrouping instructions mid-build. */
+  completedPlacementIds?: string[];
 }
 
 export interface AssistantContext {

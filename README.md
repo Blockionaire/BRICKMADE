@@ -17,10 +17,10 @@ No credentials, environment variables, database, or external AI service are requ
 ## Try the prototype
 
 1. Choose **Create new build**, then **Use demo photos**, or select three local JPG, PNG, or WebP images.
-2. Name the build and choose Easy, Normal, or Hard and a size.
+2. Name the build, choose Easy/Normal/Hard model detail and a size, then choose Easy/Medium/Hard building difficulty independently.
 3. Generate the demo, rotate the house, and compare variants.
 4. Explore parts by color, type, or sorting bag.
-5. Switch saved builds using visual model cards in Builder or Parts. Follow small groups of pieces, replay their placement, and use automatic or manual camera guidance. Tap a brick or a current-step part card to spotlight it, highlight visible matches, or find its exact part/color in Parts. Ask the demo assistant about the current step.
+5. Switch saved builds using visual model cards in Builder or Parts. Follow your selected instruction pace, replay each group’s placement, and use automatic or manual camera guidance. Tap a brick or a current-step part card to spotlight it, highlight visible matches, or find its exact part/color in Parts. Ask the demo assistant about the current step.
 6. Finish the walkthrough, or resume later. Progress and build names are stored in this browser.
 
 Every photo selection produces a predefined house variant. Photos remain in memory for that browser session and are never uploaded or persisted. Assistant responses are deterministic demonstrations, not external AI calls. No payments, pricing, cost estimates, ordering, or unlock gates are included.
@@ -33,13 +33,13 @@ Existing version-1 browser saves migrate to the three modes (Standard → Normal
 
 ## Build studio
 
-Instructions group pieces by elevation and wall face, with at most 6 pieces per Easy step, 8 per Normal step and 10 per Hard step. Each group has its own parts list, focus point and suggested camera angle. The model geometry and inventories remain unchanged.
+Building difficulty controls the instructions independently of model detail. Easy uses groups of at most 6 pieces; Medium uses groups of at most 16. Both stay on one elevation and wall face. Hard builds whole horizontal layers, combining all wall faces at the same height, within each construction section and sorting bag. Each step has its exact parts list, focus point and suggested camera angle. The model geometry, piece count and inventories remain unchanged. Choose the pace in Create, Preview, or Builder; cards show the actual step counts.
 
 Placement guide animates the current group down into its actual destination outlines. Replay and Assembled controls let users repeat or skip the motion. Camera transitions stop when users start dragging; automatic camera guidance can be turned off. Reduced-motion preferences skip the animations and show the settled model immediately. Rendering runs on demand between short interactions.
 
 The spotlight highlights one placement or all visible placements with the same part/color, showing both the visible and full-build matching counts. Find in parts opens the matching part/color filter. Build selection uses model cards; parts filters use category chips and color swatches.
 
-Version-2 saves migrate to version 3: each old instruction phase maps to its first smaller step, preserving completed phases and completed builds. New saves support the longer instruction sequences without losing progress above step 100.
+Version-2 saves map their old construction phases into the selected instructions. Version-3 saves migrate from the original 6/8/10-piece boundaries to version 4 using the exact completed placement IDs. Switching difficulty preserves those IDs and resumes at the first group containing unbuilt pieces; a partially completed larger group may repeat. Switching back without advancing returns to the original place. Completed builds remain complete, and each saved build retains its own pace.
 
 The brick catalog is currently bundled demo data: see [BRICK_CATALOG.md](docs/BRICK_CATALOG.md) for its contents and proposed future sources.
 

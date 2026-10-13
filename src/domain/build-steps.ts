@@ -8,14 +8,21 @@ import type {
   Placement,
 } from "./types";
 
-export const STEP_LIMITS = { easy: 6, normal: 8, hard: 10 } as const;
+export const STEP_LIMITS = { easy: 6, medium: 16, hard: Infinity } as const;
+const LEGACY_STEP_LIMITS = { easy: 6, normal: 8, hard: 10 } as const;
 
-/** Keep each group on a single elevation and, for walls, on a single face. */
+/** Hard combines complete layers; guided levels keep each wall face separate. */
 export function planBuildSteps(
   source: Placement[],
   phases: BuildPhase[],
   settings: GenerationSettings,
+  legacy = false,
 ) {
+  const difficulty = settings.buildDifficulty ?? "medium";
+  const layers = !legacy && difficulty === "hard";
+  const limit = legacy
+    ? LEGACY_STEP_LIMITS[settings.detail]
+    : STEP_LIMITS[difficulty];
   const placements: Placement[] = [];
   const steps: BuildStep[] = [];
   for (const phase of phases) {
@@ -74,20 +81,25 @@ export function planBuildSteps(
                       : view === "left"
                         ? "Left garden"
                         : "Right garden";
-      const key = `${bottom}:${view}`;
-      if (!buckets.has(key)) buckets.set(key, { area, view, pieces: [] });
+      const key = layers ? bottom : `${bottom}:${view}`;
+      if (!buckets.has(key))
+        buckets.set(key, {
+          area: layers
+            ? phase.bag === 2
+              ? "Full wall layer"
+              : `${phase.bag === 3 ? "Roof" : phase.title === "A garden of your own" ? "Garden" : area} layer`
+            : area,
+          view: layers ? (phase.bag === 1 ? "top" : "perspective") : view,
+          pieces: [],
+        });
       buckets.get(key)!.pieces.push(p);
     }
     const clusters = [...buckets.values()].flatMap((bucket) => {
       const chunks = [];
-      for (
-        let i = 0;
-        i < bucket.pieces.length;
-        i += STEP_LIMITS[settings.detail]
-      )
+      for (let i = 0; i < bucket.pieces.length; i += limit)
         chunks.push({
           ...bucket,
-          pieces: bucket.pieces.slice(i, i + STEP_LIMITS[settings.detail]),
+          pieces: bucket.pieces.slice(i, i + limit),
         });
       return chunks;
     });
@@ -123,7 +135,7 @@ export function planBuildSteps(
         area: cluster.area,
         suggestedView: cluster.view,
         focus,
-        description: `Place ${list} in the highlighted ${cluster.area.toLowerCase()} positions. This is group ${index + 1} of ${clusters.length} for this section.`,
+        description: `Place ${list} in the highlighted ${cluster.area.toLowerCase()} positions. This is ${layers ? "layer" : "group"} ${index + 1} of ${clusters.length} for this section.`,
         hint: `${phase.hint} Watch the placement replay to see the destinations.`,
       });
     });

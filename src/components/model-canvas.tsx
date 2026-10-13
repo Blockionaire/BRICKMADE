@@ -606,15 +606,17 @@ export default function ModelCanvas({
     recordPose();
     canvas.dataset.placementState = "lifting";
     current.render();
+    // Whole layers keep a short wave of motion even when they contain hundreds of pieces.
+    const stagger = Math.min(0.055, 0.5 / Math.max(1, incoming.length - 1));
     const animate = (time: number) => {
       started ??= time;
       const elapsed = (time - started) / 1000;
       incoming.forEach((b, i) =>
-        update(b, 2.8 * (1 - ease((elapsed - 0.3 - i * 0.055) / 0.75))),
+        update(b, 2.8 * (1 - ease((elapsed - 0.3 - i * stagger) / 0.75))),
       );
       canvas.dataset.placementState = "placing";
       current.render();
-      if (elapsed < 1.08 + incoming.length * 0.055)
+      if (elapsed < 1.08 + incoming.length * stagger)
         frame = requestAnimationFrame(animate);
       else finish();
     };

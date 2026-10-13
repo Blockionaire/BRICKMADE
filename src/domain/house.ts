@@ -15,7 +15,18 @@ const cache = new Map<string, HouseModel>();
 
 /** A deterministic demonstration model, not a structural solver or validated build. */
 export function createHouse(settings: GenerationSettings): HouseModel {
-  const key = `${settings.detail}:${settings.size}`;
+  return buildHouse(settings, false);
+}
+
+/** Only for migrating progress saved before instruction difficulty was independent. */
+export function createLegacyInstructionModel(
+  settings: GenerationSettings,
+): HouseModel {
+  return buildHouse(settings, true);
+}
+
+function buildHouse(settings: GenerationSettings, legacy: boolean): HouseModel {
+  const key = `${settings.detail}:${settings.size}:${legacy ? "legacy" : (settings.buildDifficulty ?? "medium")}`;
   const cached = cache.get(key);
   if (cached) return cached;
   const width =
@@ -346,7 +357,7 @@ export function createHouse(settings: GenerationSettings): HouseModel {
     );
   }
 
-  const sequence = planBuildSteps(placements, phases, settings);
+  const sequence = planBuildSteps(placements, phases, settings, legacy);
   placements.splice(0, placements.length, ...sequence.placements);
   const steps = sequence.steps;
   const parts = countParts(placements);
@@ -368,7 +379,10 @@ export function createHouse(settings: GenerationSettings): HouseModel {
     ...placements.map((p) => p.position[1] + CATALOG[p.partId].height / 2),
   );
   const model: HouseModel = {
-    settings: { ...settings },
+    settings: {
+      ...settings,
+      buildDifficulty: settings.buildDifficulty ?? "medium",
+    },
     placements,
     steps,
     parts,

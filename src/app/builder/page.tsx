@@ -18,6 +18,8 @@ import {
   ArrowUpRight,
 } from "lucide-react";
 import { ProjectSelector } from "@/components/project-selector";
+import { BuildDifficultySelector } from "@/components/settings";
+import { regroupProject } from "@/domain/instruction-progress";
 import type { CameraView, PlacementMode, Project } from "@/domain/types";
 import { ModelViewer } from "@/components/model-viewer";
 import { PartCard, Sheet } from "@/components/ui";
@@ -56,7 +58,12 @@ function BuilderContent({ active }: { active: Project }) {
   function goTo(next: number) {
     setView(undefined);
     setSelected(undefined);
-    projectRepository.save({ ...active, currentStep: next, completed: false });
+    projectRepository.save({
+      ...active,
+      currentStep: next,
+      completed: false,
+      completedPlacementIds: undefined,
+    });
   }
   function findPlace() {
     setPickerBag(bag.number);
@@ -105,6 +112,13 @@ function BuilderContent({ active }: { active: Project }) {
             <RotateCcw size={16} /> Build it again
           </button>
         </div>
+        <BuildDifficultySelector
+          compact
+          settings={active.settings}
+          onChange={(difficulty) =>
+            projectRepository.save(regroupProject(active, difficulty))
+          }
+        />
         <p className="demo-note">
           Digital demo complete. Physical construction still needs validation.
         </p>
@@ -155,6 +169,16 @@ function BuilderContent({ active }: { active: Project }) {
           </span>
         </div>
       </div>
+      <BuildDifficultySelector
+        compact
+        settings={active.settings}
+        onChange={(difficulty) => {
+          setView(undefined);
+          setSelected(undefined);
+          setAssistant(false);
+          projectRepository.save(regroupProject(active, difficulty));
+        }}
+      />
       <div className="studio-status">
         <button onClick={findPlace}>
           <Layers size={15} /> Step <strong>{number}</strong> of{" "}
@@ -283,6 +307,7 @@ function BuilderContent({ active }: { active: Project }) {
                       ...active,
                       currentStep: number,
                       completed: true,
+                      completedPlacementIds: undefined,
                     })
               }
             >
@@ -319,7 +344,8 @@ function BuilderContent({ active }: { active: Project }) {
             <span className="instruction-kicker">
               {step.area}{" "}
               <span>
-                GROUP {step.cluster} / {step.clusters}
+                {active.settings.buildDifficulty === "hard" ? "LAYER" : "GROUP"}{" "}
+                {step.cluster} / {step.clusters}
               </span>
             </span>
             <h2>{step.title}</h2>

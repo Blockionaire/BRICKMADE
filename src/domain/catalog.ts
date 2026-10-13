@@ -1,4 +1,10 @@
-import type { CatalogPart, ColorId, DetailLevel, BuildSize } from "./types";
+import type {
+  CatalogPart,
+  ColorId,
+  DetailLevel,
+  BuildSize,
+  BuildDifficulty,
+} from "./types";
 
 export const COLORS: Record<ColorId, { name: string; hex: string }> = {
   sand: { name: "Warm sand", hex: "#dfcaa3" },
@@ -153,4 +159,19 @@ export const BUILD_SIZES: { id: BuildSize; name: string }[] = [
 export const DEFAULT_SETTINGS = {
   detail: "normal",
   size: "compact",
+  buildDifficulty: "medium",
 } as const;
+
+export const BUILD_DIFFICULTIES: {
+  id: BuildDifficulty;
+  name: string;
+  description: string;
+}[] = [
+  { id: "easy", name: "Easy", description: "Tiny steps · up to 6 pieces" },
+  {
+    id: "medium",
+    name: "Medium",
+    description: "Bigger groups · up to 16 pieces",
+  },
+  { id: "hard", name: "Hard", description: "Whole layers · more per step" },
+];

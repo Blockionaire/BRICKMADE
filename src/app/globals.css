@@ -4753,3 +4753,125 @@ button.part-card:active {
     scroll-behavior: auto !important;
   }
 }
+
+/* Instruction pace is independent of model detail. */
+.instruction-selector {
+  border: 0;
+  padding: 0;
+  margin: 26px 0 24px;
+  min-width: 0;
+}
+.instruction-selector legend {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  font-size: 13px;
+  font-weight: 600;
+}
+.instruction-options {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 8px;
+}
+.instruction-options label {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 8px;
+  min-width: 0;
+  padding: 14px;
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  background: var(--surface);
+  cursor: pointer;
+  transition:
+    background 180ms,
+    border-color 180ms,
+    transform 180ms,
+    box-shadow 180ms;
+}
+.instruction-options label:hover {
+  transform: translateY(-2px);
+}
+.instruction-options label.selected {
+  border-color: var(--accent);
+  background: #fff1e9;
+  box-shadow: 0 4px 16px #bd624411;
+}
+.instruction-options input {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  cursor: pointer;
+}
+.instruction-options label:has(input:focus-visible) {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+}
+.instruction-option-top {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+}
+.instruction-option-top > svg {
+  color: var(--accent);
+}
+.instruction-options strong {
+  font-size: 14px;
+}
+.instruction-option-description {
+  font-size: 11px;
+  color: var(--muted);
+  line-height: 1.5;
+}
+.instruction-step-count {
+  font-size: 10px;
+  font-weight: 600;
+  padding: 4px 8px;
+  border-radius: 20px;
+  background: #eeece4;
+  margin-top: auto;
+}
+.selected .instruction-step-count {
+  background: #f5dacb;
+}
+.instruction-progress-note {
+  color: var(--muted);
+  font-size: 10px;
+  margin: 10px 0 0;
+}
+.build-studio > .instruction-selector {
+  max-width: 640px;
+}
+.completion-page > .instruction-selector {
+  max-width: 500px;
+  margin-inline: auto;
+  text-align: left;
+}
+@media (max-width: 400px) {
+  .instruction-options {
+    gap: 6px;
+  }
+  .instruction-options label {
+    padding: 10px;
+    border-radius: 13px;
+    gap: 6px;
+  }
+  .instruction-options strong {
+    font-size: 13px;
+  }
+  .instruction-option-description {
+    font-size: 10px;
+  }
+  .instruction-step-count {
+    padding: 4px 6px;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .instruction-options label {
+    transition: none;
+  }
+}

@@ -1,6 +1,15 @@
 import { describe, expect, it } from "vitest";
-import { createHouse, countParts } from "@/domain/house";
-import { BUILD_SIZES, CATALOG, DETAIL_LEVELS } from "@/domain/catalog";
+import {
+  createHouse,
+  createLegacyInstructionModel,
+  countParts,
+} from "@/domain/house";
+import {
+  BUILD_SIZES,
+  CATALOG,
+  DETAIL_LEVELS,
+  BUILD_DIFFICULTIES,
+} from "@/domain/catalog";
 import {
   demoAssistant,
   demoGeneration,
@@ -8,7 +17,8 @@ import {
 } from "@/services/providers";
 import { parseSavedState } from "@/services/project-repository";
 import { STEP_LIMITS } from "@/domain/build-steps";
-import type { Placement } from "@/domain/types";
+import { regroupProject } from "@/domain/instruction-progress";
+import type { Placement, Project } from "@/domain/types";
 
 function bounds(p: Placement) {
   const part = CATALOG[p.partId];
@@ -45,7 +55,7 @@ describe("House variants share consistent model, inventory, bags, and instructio
         for (const step of model.steps) {
           expect(step.placementIds.length).toBeGreaterThan(0);
           expect(step.placementIds.length).toBeLessThanOrEqual(
-            STEP_LIMITS[detail.id],
+            STEP_LIMITS.medium,
           );
           const additions = model.placements.filter(
             (p) => p.step === step.number,
@@ -219,7 +229,7 @@ describe("Saved progress validation", () => {
     const migrated = parseSavedState(
       JSON.stringify({ version: 1, projects, activeId: "old-2" }),
     );
-    expect(migrated.version).toBe(3);
+    expect(migrated.version).toBe(4);
     expect(migrated.activeId).toBe("old-2");
     expect(migrated.projects.map((p) => p.settings.detail)).toEqual([
       "easy",
@@ -264,15 +274,30 @@ describe("Saved progress validation", () => {
     ).projects[0];
     expect(completed.currentStep).toBe(model.steps.length);
     expect(completed.completed).toBe(true);
+    const legacy = createLegacyInstructionModel(project.settings);
     const farAlong = parseSavedState(
       JSON.stringify({
         version: 3,
         activeId: project.id,
-        projects: [{ ...project, currentStep: model.steps.length - 1 }],
+        projects: [{ ...project, currentStep: legacy.steps.length - 1 }],
       }),
     ).projects[0];
-    expect(farAlong.currentStep).toBe(model.steps.length - 1);
+    expect(farAlong.completedPlacementIds?.sort()).toEqual(
+      legacy.placements
+        .filter((p) => p.step < legacy.steps.length - 1)
+        .map((p) => p.id)
+        .sort(),
+    );
     expect(farAlong.currentStep).toBeGreaterThan(100);
+    expect(
+      parseSavedState(
+        JSON.stringify({
+          version: 4,
+          activeId: project.id,
+          projects: [farAlong],
+        }),
+      ).projects[0],
+    ).toEqual(farAlong);
   });
 
   it("recovers from corrupt or incompatible local state", () => {
@@ -283,5 +308,143 @@ describe("Saved progress validation", () => {
       ).activeId,
     ).toBe("compact-house");
     expect(parseSavedState(null).projects).toHaveLength(1);
+  });
+});
+
+describe("Independent building difficulty", () => {
+  for (const size of BUILD_SIZES)
+    for (const detail of DETAIL_LEVELS)
+      it(`${size.name} / ${detail.name}: regroups the same bricks into small groups, medium groups, and full layers`, () => {
+        const models = BUILD_DIFFICULTIES.map((level) =>
+          createHouse({
+            detail: detail.id,
+            size: size.id,
+            buildDifficulty: level.id,
+          }),
+        );
+        const geometry = (model: (typeof models)[number]) =>
+          model.placements
+            .map(({ id, partId, color, position, rotated }) => ({
+              id,
+              partId,
+              color,
+              position,
+              rotated,
+            }))
+            .sort((a, b) => a.id.localeCompare(b.id));
+        const inventory = (parts: (typeof models)[number]["parts"]) =>
+          [...parts].sort((a, b) => a.key.localeCompare(b.key));
+        for (const [index, model] of models.entries()) {
+          expect(geometry(model)).toEqual(geometry(models[0]));
+          expect(inventory(model.parts)).toEqual(inventory(models[0].parts));
+          expect(model.stats).toEqual(models[0].stats);
+          expect(model.steps.flatMap((s) => s.placementIds).sort()).toEqual(
+            model.placements.map((p) => p.id).sort(),
+          );
+          for (const step of model.steps) {
+            const pieces = model.placements.filter(
+              (p) => p.step === step.number,
+            );
+            expect(step.parts).toEqual(countParts(pieces));
+            expect(pieces.length).toBeLessThanOrEqual(
+              STEP_LIMITS[BUILD_DIFFICULTIES[index].id],
+            );
+            const bottom = (p: Placement) =>
+              (p.position[1] - CATALOG[p.partId].height / 2).toFixed(2);
+            expect(new Set(pieces.map(bottom)).size).toBe(1);
+            if (index === 2) {
+              const phasePieceIds = new Set(
+                model.steps
+                  .filter((s) => s.phaseNumber === step.phaseNumber)
+                  .flatMap((s) => s.placementIds),
+              );
+              const fullLayer = model.placements.filter(
+                (p) =>
+                  phasePieceIds.has(p.id) && bottom(p) === bottom(pieces[0]),
+              );
+              expect([...step.placementIds].sort()).toEqual(
+                fullLayer.map((p) => p.id).sort(),
+              );
+              if (step.bag === 2) expect(step.area).toBe("Full wall layer");
+            }
+          }
+          model.bags.forEach((bag, i) =>
+            expect(inventory(bag.parts)).toEqual(
+              inventory(models[0].bags[i].parts),
+            ),
+          );
+        }
+        expect(models[0].steps.length).toBeGreaterThan(models[1].steps.length);
+        expect(models[1].steps.length).toBeGreaterThan(models[2].steps.length);
+        expect(models[2].steps[0].placementIds.length).toBeGreaterThan(16);
+      });
+
+  it("retains exact completed bricks when switching repeatedly or reloading a partially completed layer", () => {
+    const project: Project = {
+      id: "pace",
+      name: "My pace",
+      createdAt: "2026-10-13",
+      settings: { detail: "hard", size: "compact", buildDifficulty: "easy" },
+      currentStep: 5,
+      completed: false,
+    };
+    const easy = createHouse(project.settings);
+    const completed = easy.placements
+      .filter((p) => p.step < project.currentStep)
+      .map((p) => p.id)
+      .sort();
+    const hard = regroupProject(project, "hard");
+    expect(hard.currentStep).toBe(1); // This layer still has unbuilt bricks.
+    expect(hard.completedPlacementIds?.sort()).toEqual(completed);
+    const loaded = parseSavedState(
+      JSON.stringify({ version: 4, projects: [hard], activeId: hard.id }),
+    ).projects[0];
+    const medium = regroupProject(loaded, "medium");
+    const back = regroupProject(medium, "easy");
+    expect(back.currentStep).toBe(project.currentStep);
+    expect(back.completedPlacementIds?.sort()).toEqual(completed);
+    for (const next of [hard, medium, back]) {
+      const model = createHouse(next.settings);
+      expect(
+        model.placements
+          .filter((p) => p.step < next.currentStep)
+          .every((p) => completed.includes(p.id)),
+      ).toBe(true);
+    }
+    const finished = regroupProject({ ...project, completed: true }, "hard");
+    expect(finished.completed).toBe(true);
+    expect(finished.currentStep).toBe(
+      createHouse(finished.settings).steps.length,
+    );
+  });
+
+  it("migrates version-3 progress from the original 6/8/10-piece boundaries", () => {
+    for (const detail of DETAIL_LEVELS) {
+      const settings = { detail: detail.id, size: "compact" as const };
+      const legacy = createLegacyInstructionModel(settings);
+      const old: Project = {
+        id: detail.id,
+        name: detail.name,
+        createdAt: "2026-10-13",
+        settings,
+        currentStep: 8,
+        completed: false,
+      };
+      const saved = parseSavedState(
+        JSON.stringify({ version: 3, projects: [old], activeId: old.id }),
+      ).projects[0];
+      const completed = legacy.placements
+        .filter((p) => p.step < 8)
+        .map((p) => p.id)
+        .sort();
+      expect(saved.completedPlacementIds?.sort()).toEqual(completed);
+      const model = createHouse(saved.settings);
+      expect(
+        model.placements
+          .filter((p) => p.step < saved.currentStep)
+          .every((p) => completed.includes(p.id)),
+      ).toBe(true);
+      expect(saved.settings.buildDifficulty).toBe("medium");
+    }
   });
 });

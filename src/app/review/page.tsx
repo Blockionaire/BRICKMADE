@@ -5,7 +5,12 @@ import { Check, ArrowRight, Layers, Blocks, Info, Pencil } from "lucide-react";
 import Link from "next/link";
 import { ModelViewer } from "@/components/model-viewer";
 import { ModelStats, PageHeading, Sheet } from "@/components/ui";
-import { DetailSelector, SizeSelector } from "@/components/settings";
+import {
+  DetailSelector,
+  SizeSelector,
+  BuildDifficultySelector,
+} from "@/components/settings";
+import { regroupProject } from "@/domain/instruction-progress";
 import { createHouse } from "@/domain/house";
 import { projectRepository, useProjects } from "@/services/project-repository";
 import type { GenerationSettings } from "@/domain/types";
@@ -26,6 +31,7 @@ export default function ReviewPage() {
         settings,
         currentStep: 1,
         completed: false,
+        completedPlacementIds: undefined,
       });
   }
   return (
@@ -93,6 +99,13 @@ export default function ReviewPage() {
               {model.steps.length} demo steps · {model.bags.length} sorting bags
             </span>
           </div>
+          <BuildDifficultySelector
+            compact
+            settings={active.settings}
+            onChange={(difficulty) =>
+              projectRepository.save(regroupProject(active, difficulty))
+            }
+          />
           <Link className="button button-primary" href="/builder">
             {active.completed
               ? "Revisit the build"
@@ -135,6 +148,7 @@ export default function ReviewPage() {
                   settings: pendingSettings,
                   currentStep: 1,
                   completed: false,
+                  completedPlacementIds: undefined,
                 });
                 setPendingSettings(null);
               }}

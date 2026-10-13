@@ -66,6 +66,20 @@ try {
       .getByRole("navigation", { name: "Mobile navigation" })
       .getByRole("link", { name: "Builder", exact: true }),
   ).toHaveAttribute("aria-current", "page");
+  const pace = page.getByRole("group", { name: "Building difficulty" });
+  await pace.getByRole("radio", { name: /^Hard/ }).check();
+  await expect(page.locator("canvas")).toHaveAttribute(
+    "data-piece-count",
+    "40",
+  );
+  await page.reload();
+  await expect(pace.getByRole("radio", { name: /^Hard/ })).toBeChecked();
+  await pace.getByRole("radio", { name: /^Easy/ }).check();
+  await expect(page.locator("canvas")).toHaveAttribute("data-piece-count", "6");
+  await expect(page.locator("canvas")).toHaveAttribute(
+    "data-total-pieces",
+    "342",
+  );
   await page.getByRole("button", { name: /Step 1 of/ }).click();
   await page
     .getByRole("dialog")
@@ -92,7 +106,7 @@ try {
   assert.deepEqual(errors, []);
   assert.deepEqual(failedRequests, []);
   console.log(
-    "Pages smoke check passed: six routes, photos, 3D model, parts filter, assistant, and saved progress. No browser errors or failed requests.",
+    "Pages smoke check passed: six routes, photos, 3D model, parts filter, independent instruction difficulty, assistant, and saved progress. No browser errors or failed requests.",
   );
 } finally {
   await browser.close();

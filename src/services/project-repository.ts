@@ -1,12 +1,13 @@
 "use client";
 
 import { useSyncExternalStore } from "react";
-import { createHouse } from "@/domain/house";
+import { createHouse, createLegacyInstructionModel } from "@/domain/house";
+import { regroupProject } from "@/domain/instruction-progress";
 import { DEFAULT_SETTINGS } from "@/domain/catalog";
 import type { Project } from "@/domain/types";
 
 interface SavedState {
-  version: 3;
+  version: 4;
   projects: Project[];
   activeId: string;
 }
@@ -19,7 +20,7 @@ export const DEMO_PROJECT: Project = {
   completed: false,
 };
 const INITIAL: SavedState = {
-  version: 3,
+  version: 4,
   projects: [DEMO_PROJECT],
   activeId: DEMO_PROJECT.id,
 };
@@ -43,6 +44,12 @@ function validProject(value: unknown): value is Project {
       p.settings.detail,
     ) &&
     ["compact", "standard", "large"].includes(p.settings.size) &&
+    (p.settings.buildDifficulty === undefined ||
+      ["easy", "medium", "hard"].includes(p.settings.buildDifficulty)) &&
+    (p.completedPlacementIds === undefined ||
+      (Array.isArray(p.completedPlacementIds) &&
+        p.completedPlacementIds.length <= 10000 &&
+        p.completedPlacementIds.every((id) => typeof id === "string"))) &&
     Number.isInteger(p.currentStep) &&
     p.currentStep >= 1 &&
     p.currentStep <= 10000 &&
@@ -55,7 +62,7 @@ export function parseSavedState(raw: string | null): SavedState {
   try {
     const state = JSON.parse(raw);
     if (
-      ![1, 2, 3].includes(state.version) ||
+      ![1, 2, 3, 4].includes(state.version) ||
       !Array.isArray(state.projects) ||
       !state.projects.length ||
       state.projects.length > 100 ||
@@ -67,6 +74,7 @@ export function parseSavedState(raw: string | null): SavedState {
       const detail = String(p.settings.detail);
       const settings = {
         ...p.settings,
+        buildDifficulty: p.settings.buildDifficulty ?? "medium",
         detail:
           detail === "standard"
             ? "normal"
@@ -77,6 +85,19 @@ export function parseSavedState(raw: string | null): SavedState {
       if (!["easy", "normal", "hard"].includes(settings.detail))
         throw new Error("Invalid detail");
       const model = createHouse(settings);
+      if (state.version === 3) {
+        const previous = createLegacyInstructionModel(settings);
+        return regroupProject(
+          {
+            ...p,
+            settings,
+            currentStep: Math.min(p.currentStep, previous.steps.length),
+            completedPlacementIds: undefined,
+          },
+          settings.buildDifficulty!,
+          previous,
+        );
+      }
       const currentStep =
         state.version === 1
           ? 1
@@ -86,14 +107,19 @@ export function parseSavedState(raw: string | null): SavedState {
               ? (model.steps.find((step) => step.phaseNumber >= p.currentStep)
                   ?.number ?? model.steps.length)
               : Math.min(p.currentStep, model.steps.length);
+      const validIds = new Set(model.placements.map((piece) => piece.id));
       return {
         ...p,
         settings,
         currentStep,
         completed: state.version === 1 ? false : p.completed,
+        completedPlacementIds:
+          state.version < 4
+            ? undefined
+            : p.completedPlacementIds?.filter((id) => validIds.has(id)),
       };
     });
-    return { version: 3, activeId: state.activeId, projects };
+    return { version: 4, activeId: state.activeId, projects };
   } catch {
     return INITIAL;
   }
@@ -139,7 +165,7 @@ export const projectRepository = {
     const current = getSnapshot();
     const others = current.projects.filter((p) => p.id !== project.id);
     write({
-      version: 3,
+      version: 4,
       projects: [project, ...others].slice(0, 100),
       activeId: project.id,
     });
@@ -155,7 +181,7 @@ export const projectRepository = {
     write(
       projects.length
         ? {
-            version: 3,
+            version: 4,
             projects,
             activeId: projects.some((p) => p.id === state.activeId)
               ? state.activeId

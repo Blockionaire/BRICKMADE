@@ -19,7 +19,11 @@ import {
   ScanLine,
 } from "lucide-react";
 import { PageHeading } from "@/components/ui";
-import { DetailSelector, SizeSelector } from "@/components/settings";
+import {
+  DetailSelector,
+  SizeSelector,
+  BuildDifficultySelector,
+} from "@/components/settings";
 import { DEFAULT_SETTINGS } from "@/domain/catalog";
 import type { GenerationSettings } from "@/domain/types";
 import { demoGeneration, GENERATION_STAGES } from "@/services/providers";
@@ -386,11 +390,17 @@ export default function CreatePage() {
               value={settings.size}
               onChange={(size) => setSettings((s) => ({ ...s, size }))}
             />
+            <BuildDifficultySelector
+              settings={settings}
+              onChange={(buildDifficulty) =>
+                setSettings((s) => ({ ...s, buildDifficulty }))
+              }
+            />
             <div className="settings-note">
               <Sparkles size={18} />
               <p>
-                Each choice loads a different house demo. You can explore other
-                versions in the preview.
+                Detail and size shape your house. Building difficulty only
+                changes the instructions. You can change your pace anytime.
               </p>
             </div>
             {error && (
