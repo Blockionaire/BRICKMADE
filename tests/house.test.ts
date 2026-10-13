@@ -7,6 +7,7 @@ import {
   GENERATION_STAGES,
 } from "@/services/providers";
 import { parseSavedState } from "@/services/project-repository";
+import { STEP_LIMITS } from "@/domain/build-steps";
 import type { Placement } from "@/domain/types";
 
 function bounds(p: Placement) {
@@ -41,10 +42,45 @@ describe("House variants share consistent model, inventory, bags, and instructio
         expect(model.steps.map((s) => s.number)).toEqual(
           model.steps.map((_, i) => i + 1),
         );
-        for (const step of model.steps)
+        for (const step of model.steps) {
+          expect(step.placementIds.length).toBeGreaterThan(0);
+          expect(step.placementIds.length).toBeLessThanOrEqual(
+            STEP_LIMITS[detail.id],
+          );
+          const additions = model.placements.filter(
+            (p) => p.step === step.number,
+          );
+          const bottoms = additions.map((p) =>
+            (p.position[1] - CATALOG[p.partId].height / 2).toFixed(2),
+          );
+          expect(new Set(bottoms).size).toBe(1);
+          expect(step.focus.every(Number.isFinite)).toBe(true);
+          expect(step.cluster).toBeLessThanOrEqual(step.clusters);
+          if (
+            step.title === "The garden fence" ||
+            step.title === "The little chimney"
+          )
+            expect(step.suggestedView).toBe("back");
+          if (step.title === "A garden of your own")
+            expect(["left", "side"]).toContain(step.suggestedView);
+          if (step.bag === 2)
+            expect(
+              new Set(
+                additions.map((p) =>
+                  p.rotated
+                    ? p.position[0] > 0
+                      ? "right"
+                      : "left"
+                    : p.position[2] > 0
+                      ? "front"
+                      : "back",
+                ),
+              ).size,
+            ).toBe(1);
           expect(step.parts).toEqual(
             countParts(model.placements.filter((p) => p.step === step.number)),
           );
+        }
         for (const bag of model.bags) {
           expect(bag.parts).toEqual(
             countParts(
@@ -122,8 +158,8 @@ describe("Demo providers", () => {
   const model = createHouse({ detail: "normal", size: "compact" });
   const context = {
     projectName: "Compact House",
-    step: model.steps[2],
-    nextStep: model.steps[3],
+    step: model.steps.find((s) => s.bag === 2)!,
+    nextStep: model.steps.find((s) => s.bag === 2 && s.cluster === 2)!,
     bag: model.bags[1],
   };
   it("answers parts and sorting questions from the exact current step", () => {
@@ -183,7 +219,7 @@ describe("Saved progress validation", () => {
     const migrated = parseSavedState(
       JSON.stringify({ version: 1, projects, activeId: "old-2" }),
     );
-    expect(migrated.version).toBe(2);
+    expect(migrated.version).toBe(3);
     expect(migrated.activeId).toBe("old-2");
     expect(migrated.projects.map((p) => p.settings.detail)).toEqual([
       "easy",
@@ -198,6 +234,45 @@ describe("Saved progress validation", () => {
       migrated.projects.every((p) => p.currentStep === 1 && !p.completed),
     ).toBe(true);
     expect(parseSavedState(JSON.stringify(migrated))).toEqual(migrated);
+  });
+
+  it("keeps completed geometry and maps version-2 progress into the small steps", () => {
+    const model = createHouse({ detail: "hard", size: "large" });
+    const project = {
+      id: "saved",
+      name: "Kept house",
+      createdAt: "2026-10-13",
+      settings: model.settings,
+      currentStep: 8,
+      completed: false,
+    };
+    const migrated = parseSavedState(
+      JSON.stringify({ version: 2, activeId: project.id, projects: [project] }),
+    ).projects[0];
+    expect(model.steps[migrated.currentStep - 1].phaseNumber).toBe(8);
+    expect(
+      model.steps
+        .filter((s) => s.number < migrated.currentStep)
+        .every((s) => s.phaseNumber < 8),
+    ).toBe(true);
+    const completed = parseSavedState(
+      JSON.stringify({
+        version: 2,
+        activeId: project.id,
+        projects: [{ ...project, completed: true }],
+      }),
+    ).projects[0];
+    expect(completed.currentStep).toBe(model.steps.length);
+    expect(completed.completed).toBe(true);
+    const farAlong = parseSavedState(
+      JSON.stringify({
+        version: 3,
+        activeId: project.id,
+        projects: [{ ...project, currentStep: model.steps.length - 1 }],
+      }),
+    ).projects[0];
+    expect(farAlong.currentStep).toBe(model.steps.length - 1);
+    expect(farAlong.currentStep).toBeGreaterThan(100);
   });
 
   it("recovers from corrupt or incompatible local state", () => {

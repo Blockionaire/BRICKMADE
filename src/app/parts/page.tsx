@@ -42,8 +42,8 @@ function PartsContent() {
 function BuildParts({ active }: { active: Project }) {
   const model = createHouse(active.settings);
   const params = useSearchParams();
-  const [query, setQuery] = useState("");
-  const [color, setColor] = useState("all");
+  const [query, setQuery] = useState(params.get("part") ?? "");
+  const [color, setColor] = useState(params.get("color") ?? "all");
   const [category, setCategory] = useState("all");
   const [bag, setBag] = useState(params.get("bag") ?? "all");
   const [selected, setSelected] = useState<PartQuantity | null>(null);
@@ -159,35 +159,48 @@ function BuildParts({ active }: { active: Project }) {
                 </button>
               )}
             </label>
-            <div className="select-filters">
-              <label>
-                <span className="visually-hidden">Filter by color</span>
-                <select
-                  aria-label="Filter by color"
-                  value={color}
-                  onChange={(e) => setColor(e.target.value)}
+            <div className="part-filter-chips">
+              <div
+                className="filter-chip-row"
+                role="group"
+                aria-label="Filter by category"
+              >
+                {["all", "Brick", "Plate", "Tile"].map((c) => (
+                  <button
+                    key={c}
+                    aria-pressed={category === c}
+                    onClick={() => setCategory(c)}
+                  >
+                    {c === "all" ? "All types" : c + "s"}
+                  </button>
+                ))}
+              </div>
+              <div
+                className="color-chip-row"
+                role="group"
+                aria-label="Filter by color"
+              >
+                <button
+                  aria-label="All colors"
+                  aria-pressed={color === "all"}
+                  onClick={() => setColor("all")}
+                  className="all-color-chip"
                 >
-                  <option value="all">All colors</option>
-                  {Object.entries(COLORS).map(([id, c]) => (
-                    <option key={id} value={id}>
-                      {c.name}
-                    </option>
-                  ))}
-                </select>
-              </label>
-              <label>
-                <span className="visually-hidden">Filter by category</span>
-                <select
-                  aria-label="Filter by category"
-                  value={category}
-                  onChange={(e) => setCategory(e.target.value)}
-                >
-                  <option value="all">All types</option>
-                  {["Brick", "Plate", "Tile"].map((c) => (
-                    <option key={c}>{c}</option>
-                  ))}
-                </select>
-              </label>
+                  <Shapes size={17} />
+                </button>
+                {Object.entries(COLORS).map(([id, c]) => (
+                  <button
+                    key={id}
+                    aria-label={c.name}
+                    title={c.name}
+                    aria-pressed={color === id}
+                    onClick={() => setColor(id)}
+                  >
+                    <i style={{ background: c.hex }} />
+                    {color === id && <Check size={12} />}
+                  </button>
+                ))}
+              </div>
             </div>
           </div>
           <div className="parts-results">

@@ -66,7 +66,13 @@ try {
       .getByRole("navigation", { name: "Mobile navigation" })
       .getByRole("link", { name: "Builder", exact: true }),
   ).toHaveAttribute("aria-current", "page");
-  await page.getByRole("button", { name: "Next step" }).click();
+  await page.getByRole("button", { name: /Step 1 of/ }).click();
+  await page
+    .getByRole("dialog")
+    .locator(".step-picker button")
+    .filter({ hasText: "The path home" })
+    .first()
+    .click();
   await expect(
     page.getByRole("heading", { name: "The path home" }),
   ).toBeVisible();

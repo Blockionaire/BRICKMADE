@@ -13,6 +13,10 @@ This document describes the full product vision. Where later examples differ, th
 - Use three difficulty modes: **Easy, Normal, Hard**. Easy has bigger pieces and a simpler, lower house; Normal adds windows, a chimney and garden details; Hard has fine brickwork, taller windows, shutters, a porch, skylight and fencing. All model geometry, parts, bags and instructions must describe the same design.
 - In Builder, clicking/tapping a visible brick highlights it and reveals its catalog article, color, originating step and bag. Display the visible piece count and the full design total.
 - My builds cards show a projection of each saved model's actual brick placements. Builder and Parts each offer a saved-build selector and preserve each build's independent progress.
+- The build studio uses small groups on one elevation or wall face: at most 6/8/10 pieces for Easy/Normal/Hard. Animate incoming bricks into their real destination outlines, with Replay and Assembled controls; honor reduced-motion preferences.
+- Suggest camera angles from the step geometry. Automatic guidance can be disabled, and dragging immediately interrupts camera motion. The brick spotlight offers Find in parts and Highlight matching pieces, distinguishing visible matches from the complete inventory.
+- Use visual build cards, category chips, color swatches and tactile controls instead of native dropdowns. Preserve the independent brand and warm palette while adding modern motion and mobile interaction.
+- The current brick catalog is 12 locally defined shapes and 8 illustrative colors; external catalogs, exact geometry, valid colors and physical connection validation are future work. See `docs/BRICK_CATALOG.md`.
 - House statistics must match the implemented demo. The earlier car figures are illustrative, not validated house specifications.
 
 

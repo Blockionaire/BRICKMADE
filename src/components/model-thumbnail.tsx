@@ -1,9 +1,12 @@
+"use client";
+
+import { memo } from "react";
 import { CATALOG, COLORS } from "@/domain/catalog";
 import type { HouseModel } from "@/domain/types";
 
 // Isometric projection of the very same placements used by the 3D viewer.
 // SVG avoids starting a separate WebGL renderer for every saved build card.
-export function ModelThumbnail({
+export const ModelThumbnail = memo(function ModelThumbnail({
   model,
   name,
 }: {
@@ -105,4 +108,4 @@ export function ModelThumbnail({
       ))}
     </svg>
   );
-}
+});

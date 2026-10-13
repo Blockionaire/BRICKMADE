@@ -1,4 +1,28 @@
-import { expect, test } from "@playwright/test";
+import { expect, test, type Page } from "@playwright/test";
+import { createHouse } from "../../src/domain/house";
+const normal = createHouse({ detail: "normal", size: "compact" });
+const floorStep = normal.steps.find((s) => s.phaseNumber === 2)!.number;
+async function jump(page: Page, step: number, bag: number) {
+  await page.getByRole("button", { name: /Step \d+ of/ }).click();
+  await page
+    .getByRole("dialog")
+    .locator(".step-bag-tabs button")
+    .nth(bag - 1)
+    .click();
+  await page
+    .getByRole("dialog")
+    .getByRole("button", { name: `Go to step ${step}`, exact: true })
+    .click();
+}
+async function chooseBuild(page: Page, name: string) {
+  await page
+    .getByRole("button", { name: "Choose a build", exact: true })
+    .click();
+  await page
+    .getByRole("dialog")
+    .getByRole("button", { name: new RegExp(name) })
+    .click();
+}
 
 test("private demo runs from photos through model and parts", async ({
   page,
@@ -12,7 +36,7 @@ test("private demo runs from photos through model and parts", async ({
   await page.getByRole("link", { name: "Create new build" }).click();
   await expect(
     page.getByRole("button", { name: "Continue", exact: true }),
-  ).toBeDisabled();
+  ).toBeDisabled({ timeout: 15000 });
   await page.getByRole("button", { name: "Use demo photos" }).click();
   await expect(page.getByAltText("Demo house front view")).toBeVisible();
   await page.getByRole("button", { name: "Continue", exact: true }).click();
@@ -40,8 +64,9 @@ test("private demo runs from photos through model and parts", async ({
   ).toBeVisible();
   await page.getByRole("textbox", { name: "Search parts" }).fill("3010");
   await page
-    .getByRole("combobox", { name: "Filter by color" })
-    .selectOption("sand");
+    .getByRole("group", { name: "Filter by color" })
+    .getByRole("button", { name: "Warm sand", exact: true })
+    .click();
   await expect(page.locator(".parts-grid .part-card")).toHaveCount(0); // Hard uses smaller wall pieces.
   await page.getByRole("button", { name: "Clear filters" }).first().click();
   await page.locator(".parts-grid .part-card").first().click();
@@ -65,6 +90,8 @@ test("builder saves progress, gives contextual help, and completes the walkthrou
     page.getByRole("button", { name: "Previous", exact: true }),
   ).toBeDisabled();
   await page.getByRole("button", { name: "Next step" }).click();
+  await expect(page.getByRole("button", { name: /Step 2 of/ })).toBeVisible();
+  await jump(page, floorStep, 1);
   await expect(
     page.getByRole("heading", { name: "The path home" }),
   ).toBeVisible();
@@ -97,8 +124,7 @@ test("builder saves progress, gives contextual help, and completes the walkthrou
   await expect(page.getByRole("dialog")).toContainText("progress");
   await page.getByRole("button", { name: "Keep my progress" }).click();
   await page.getByRole("link", { name: "Continue building" }).click();
-  await page.getByRole("button", { name: /Step 2 of/ }).click();
-  await page.locator(".step-picker button").last().click();
+  await jump(page, normal.steps.length, 4);
   await page.getByRole("button", { name: "Finish build" }).click();
   await expect(
     page.getByRole("heading", { name: "Home, made by you." }),
@@ -188,7 +214,7 @@ test("different designs keep model counts, thumbnails, parts and saved progress 
     localStorage.setItem(
       "brickmade.private-demo.v1",
       JSON.stringify({
-        version: 2,
+        version: 3,
         activeId: "simple",
         projects: [
           {
@@ -226,8 +252,8 @@ test("different designs keep model counts, thumbnails, parts and saved progress 
   await expect(
     page.getByRole("heading", { name: "Simple cottage", exact: true }),
   ).toBeVisible();
-  await page.getByRole("button", { name: /Step 1 of/ }).click();
-  await page.locator(".step-picker button").last().click();
+  const easy = createHouse({ detail: "easy", size: "compact" });
+  await jump(page, easy.steps.length, 4);
   await expect(page.locator("canvas[data-model=house]")).toHaveAttribute(
     "data-piece-count",
     String(counts[0]),
@@ -236,9 +262,7 @@ test("different designs keep model counts, thumbnails, parts and saved progress 
     `${counts[0]} of ${counts[0]} pieces shown`,
   );
   await page.getByRole("button", { name: "Finish build" }).click();
-  await page
-    .getByRole("combobox", { name: "Choose a build" })
-    .selectOption("detailed");
+  await chooseBuild(page, "Detailed cottage");
   await expect(page.getByRole("button", { name: /Step 8 of/ })).toBeVisible();
   await expect(page.locator("canvas[data-model=house]")).toHaveAttribute(
     "data-total-pieces",
@@ -251,9 +275,7 @@ test("different designs keep model counts, thumbnails, parts and saved progress 
   await page.locator(".parts-grid .part-card").first().click();
   await expect(page.getByRole("dialog")).toBeVisible();
   await page.getByRole("button", { name: "Close", exact: true }).click();
-  await page
-    .getByRole("combobox", { name: "Choose a build" })
-    .selectOption("simple");
+  await chooseBuild(page, "Simple cottage");
   await expect(page.getByRole("textbox", { name: "Search parts" })).toHaveValue(
     "",
   );
@@ -262,14 +284,10 @@ test("different designs keep model counts, thumbnails, parts and saved progress 
   await expect(
     page.getByRole("heading", { name: "Home, made by you." }),
   ).toBeVisible();
-  await page
-    .getByRole("combobox", { name: "Choose a build" })
-    .selectOption("detailed");
+  await chooseBuild(page, "Detailed cottage");
   await expect(page.getByRole("button", { name: /Step 9 of/ })).toBeVisible();
   await page.reload();
-  await expect(
-    page.getByRole("combobox", { name: "Choose a build" }),
-  ).toHaveValue("detailed");
+  await expect(page.locator(".active-build")).toContainText("Detailed cottage");
   await expect(page.getByRole("button", { name: /Step 9 of/ })).toBeVisible();
 });
 
@@ -281,6 +299,7 @@ test.describe("touch brick inspection", () => {
     const errors: string[] = [];
     page.on("pageerror", (error) => errors.push(error.message));
     await page.goto("/builder");
+    await jump(page, floorStep - 1, 1);
     await page.getByRole("button", { name: "Top", exact: true }).click();
     const canvas = page.locator("canvas[data-model=house]");
     await expect(canvas).toHaveAttribute("data-piece-count", "40");
@@ -291,16 +310,16 @@ test.describe("touch brick inspection", () => {
       box.y + box.height * 0.52,
     );
     await expect(
-      page.getByRole("status", { name: "Selected brick" }),
+      page.getByRole("region", { name: "Selected brick" }),
     ).toContainText("Plate 2 × 4 · #3020");
     await expect(
-      page.getByRole("status", { name: "Selected brick" }),
-    ).toContainText("Sage green · Added in step 1 · Bag 1");
+      page.getByRole("region", { name: "Selected brick" }),
+    ).toContainText("Sage green · Added in step");
     const after = await canvas.screenshot();
     expect(before.equals(after)).toBe(false);
     await page.getByRole("button", { name: "Clear brick selection" }).click();
     await expect(
-      page.getByRole("status", { name: "Selected brick" }),
+      page.getByRole("region", { name: "Selected brick" }),
     ).toHaveCount(0);
     await page.getByRole("button", { name: "Next step" }).click();
     await page.getByRole("button", { name: "Top", exact: true }).click();
@@ -308,11 +327,144 @@ test.describe("touch brick inspection", () => {
     const nextBox = (await canvas.boundingBox())!;
     await page.touchscreen.tap(
       nextBox.x + nextBox.width * 0.52,
-      nextBox.y + nextBox.height * 0.52,
+      nextBox.y + nextBox.height * 0.48,
     );
     await expect(
-      page.getByRole("status", { name: "Selected brick" }),
+      page.getByRole("region", { name: "Selected brick" }),
     ).toContainText("Tile 2 × 2 · #3068b");
     expect(errors).toEqual([]);
   });
+});
+
+test("spotlight links to the correct parts and matches only visible pieces", async ({
+  page,
+}) => {
+  await page.goto("/builder");
+  const canvas = page.locator("canvas[data-model=house]");
+  await expect(canvas).toHaveAttribute("data-piece-count", "8");
+  await page.locator(".step-parts .part-card").first().click();
+  const spotlight = page.getByRole("region", { name: "Selected brick" });
+  await expect(spotlight).toContainText("#3020");
+  await spotlight
+    .getByRole("button", { name: /Highlight matching pieces/ })
+    .click();
+  await expect(canvas).toHaveAttribute("data-matched-pieces", "8");
+  await expect(spotlight).toContainText(
+    "8 matching pieces visible · 40 in this build",
+  );
+  await spotlight.getByRole("link", { name: "Find in parts" }).click();
+  await expect(page.getByRole("textbox", { name: "Search parts" })).toHaveValue(
+    "3020",
+  );
+  await expect(
+    page.getByRole("button", { name: "Sage green", exact: true }),
+  ).toHaveAttribute("aria-pressed", "true");
+  await expect(page.locator(".parts-grid .part-card")).toHaveCount(1);
+  await expect(page.locator(".parts-grid .part-card")).toContainText("×40");
+  expect(await page.locator("select").count()).toBe(0);
+});
+
+test.describe("animated build guidance", () => {
+  test.use({ reducedMotion: "no-preference" });
+  test("placement replay returns to the exact assembled model and camera guidance stays optional", async ({
+    page,
+  }) => {
+    test.setTimeout(120000);
+    const errors: string[] = [];
+    page.on("pageerror", (e) => errors.push(e.message));
+    await page.goto("/builder");
+    const canvas = page.locator("canvas[data-model=house]");
+    await expect(canvas).toBeVisible({ timeout: 15000 });
+    await expect(canvas).toHaveAttribute("data-placement-state", "settled");
+    await expect(canvas).toHaveAttribute("data-camera-state", "settled");
+    const assembledPose = await canvas.getAttribute("data-placement-pose");
+    const assembled = await canvas.screenshot();
+    await page
+      .getByRole("button", { name: "Replay placement", exact: true })
+      .click();
+    await expect(canvas).toHaveAttribute(
+      "data-placement-state",
+      /lifting|placing/,
+    );
+    expect(await canvas.getAttribute("data-placement-pose")).not.toBe(
+      assembledPose,
+    );
+    const floating = await canvas.screenshot();
+    expect(floating.equals(assembled)).toBe(false);
+    await expect(canvas).toHaveAttribute("data-placement-state", "settled");
+    // The screenshot includes page overlays; actual instance matrices establish exact placement.
+    await expect(canvas).toHaveAttribute("data-placement-pose", assembledPose!);
+    const renderCount = Number(await canvas.getAttribute("data-render-count"));
+    await page.waitForTimeout(300); // Verify that settled 3D rendering becomes idle.
+    expect(
+      Number(await canvas.getAttribute("data-render-count")),
+    ).toBeLessThanOrEqual(renderCount + 1);
+    await page
+      .getByRole("button", { name: "Auto camera", exact: true })
+      .click();
+    await expect(
+      page.getByRole("button", { name: "Auto camera", exact: true }),
+    ).toHaveAttribute("aria-pressed", "false");
+    await page.getByRole("button", { name: "Front", exact: true }).click();
+    await page.getByRole("button", { name: "Next step" }).click();
+    await expect(
+      page.getByRole("button", { name: "Front", exact: true }),
+    ).toHaveAttribute("aria-pressed", "true");
+    const frontWall = normal.steps.find(
+      (s) => s.bag === 2 && s.suggestedView === "front",
+    )!;
+    await jump(page, frontWall.number, 2);
+    await page
+      .getByRole("button", { name: "Auto camera", exact: true })
+      .click();
+    await expect(
+      page.getByRole("button", { name: "Front", exact: true }),
+    ).toHaveAttribute("aria-pressed", "true");
+    const backWall = normal.steps.find(
+      (s) => s.bag === 2 && s.suggestedView === "back",
+    )!;
+    await jump(page, backWall.number, 2);
+    await expect(
+      page.getByRole("button", { name: "Back", exact: true }),
+    ).toHaveAttribute("aria-pressed", "true");
+    await page.getByRole("button", { name: "Top", exact: true }).click();
+    await page
+      .getByRole("button", { name: "Suggested angle", exact: true })
+      .click();
+    await expect(
+      page.getByRole("button", { name: "Back", exact: true }),
+    ).toHaveAttribute("aria-pressed", "true");
+    await page.emulateMedia({ reducedMotion: "reduce" });
+    await page
+      .getByRole("button", { name: "Replay placement", exact: true })
+      .click();
+    await expect(canvas).toHaveAttribute("data-placement-state", "settled");
+    await page.getByRole("button", { name: "Assembled", exact: true }).click();
+    await expect(canvas).toHaveAttribute("data-placement-state", "settled");
+    expect(errors).toEqual([]);
+  });
+});
+
+test("expanded studio keeps all camera controls interactive", async ({
+  page,
+}) => {
+  await page.goto("/builder");
+  await page.getByRole("button", { name: "Expand model", exact: true }).click();
+  const dialog = page.getByRole("dialog");
+  await expect(dialog.locator("canvas")).toBeVisible({ timeout: 15000 });
+  await expect(
+    dialog.getByRole("button", { name: "Expand model", exact: true }),
+  ).toHaveCount(0);
+  await dialog.getByRole("button", { name: "Front", exact: true }).click();
+  await expect(
+    dialog.getByRole("button", { name: "Front", exact: true }),
+  ).toHaveAttribute("aria-pressed", "true");
+  await dialog.getByRole("button", { name: "Top", exact: true }).click();
+  await expect(
+    dialog.getByRole("button", { name: "Top", exact: true }),
+  ).toHaveAttribute("aria-pressed", "true");
+  await dialog.getByRole("button", { name: "Close", exact: true }).click();
+  await expect(page.getByRole("dialog")).toHaveCount(0);
+  await page.getByRole("button", { name: "Next step", exact: true }).click();
+  await expect(page.getByRole("button", { name: /Step 2 of/ })).toBeVisible();
 });

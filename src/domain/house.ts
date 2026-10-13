@@ -1,24 +1,15 @@
+import { planBuildSteps } from "./build-steps";
+import { countParts } from "./inventory";
 import { CATALOG } from "./catalog";
 import type {
-  BuildStep,
+  BuildPhase,
   ColorId,
   GenerationSettings,
   HouseModel,
-  PartQuantity,
   Placement,
 } from "./types";
 
-export function countParts(placements: Placement[]): PartQuantity[] {
-  const counts = new Map<string, PartQuantity>();
-  for (const p of placements) {
-    const key = `${p.partId}:${p.color}`;
-    const current = counts.get(key);
-    if (current) current.quantity += 1;
-    else
-      counts.set(key, { key, partId: p.partId, color: p.color, quantity: 1 });
-  }
-  return [...counts.values()].sort((a, b) => b.quantity - a.quantity);
-}
+export { countParts } from "./inventory";
 
 const cache = new Map<string, HouseModel>();
 
@@ -39,7 +30,7 @@ export function createHouse(settings: GenerationSettings): HouseModel {
   const maxBrick = easy ? 6 : hard ? 1 : 4;
   const wallRows = easy ? 4 : hard ? 8 : 6;
   const placements: Placement[] = [];
-  const steps: BuildStep[] = [];
+  const phases: BuildPhase[] = [];
 
   function step(
     title: string,
@@ -48,11 +39,11 @@ export function createHouse(settings: GenerationSettings): HouseModel {
     bag: number,
     build: (n: number) => void,
   ) {
-    const number = steps.length + 1;
+    const number = phases.length + 1;
     build(number);
     const added = placements.filter((p) => p.step === number);
     if (!added.length) return;
-    steps.push({
+    phases.push({
       number,
       title,
       description,
@@ -137,7 +128,7 @@ export function createHouse(settings: GenerationSettings): HouseModel {
   );
   step(
     "The path home",
-    "Make a two-stud-wide stone path in front of the house. Add the gray floor plates inside its footprint.",
+    "Make a two-stud-wide stone path in front of the house. Add the gray floor tiles inside its footprint.",
     "The path meets the middle of the front wall. Leave the garden on either side clear.",
     1,
     (n) => {
@@ -285,7 +276,9 @@ export function createHouse(settings: GenerationSettings): HouseModel {
     );
   step(
     "A garden of your own",
-    "Add olive-green shrubs beside the house. Finish with little gold flowers and gray stepping stones.",
+    easy
+      ? "Add two olive-green shrubs beside the house and finish with little gold flowers."
+      : "Add olive-green shrubs beside the house. Finish with little gold flowers and gray stepping stones.",
     "Keep the path to the front door clear. The garden details stay outside the walls.",
     4,
     (n) => {
@@ -353,6 +346,9 @@ export function createHouse(settings: GenerationSettings): HouseModel {
     );
   }
 
+  const sequence = planBuildSteps(placements, phases, settings);
+  placements.splice(0, placements.length, ...sequence.placements);
+  const steps = sequence.steps;
   const parts = countParts(placements);
   const bags = [1, 2, 3, 4].map((number) => {
     const grouped = steps.filter((s) => s.bag === number);

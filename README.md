@@ -20,16 +20,28 @@ No credentials, environment variables, database, or external AI service are requ
 2. Name the build and choose Easy, Normal, or Hard and a size.
 3. Generate the demo, rotate the house, and compare variants.
 4. Explore parts by color, type, or sorting bag.
-5. Choose a saved build in Builder or Parts. In the builder, tap a brick to identify its part number, color, step, and bag; move through the steps and ask the Build Assistant about the current pieces, their placement, or the next step.
+5. Switch saved builds using visual model cards in Builder or Parts. Follow small groups of pieces, replay their placement, and use automatic or manual camera guidance. Tap a brick or a current-step part card to spotlight it, highlight visible matches, or find its exact part/color in Parts. Ask the demo assistant about the current step.
 6. Finish the walkthrough, or resume later. Progress and build names are stored in this browser.
 
 Every photo selection produces a predefined house variant. Photos remain in memory for that browser session and are never uploaded or persisted. Assistant responses are deterministic demonstrations, not external AI calls. No payments, pricing, cost estimates, ordering, or unlock gates are included.
 
-The Normal compact house has 342 modeled placements, 13 part/color combinations, 15 demo steps, and 4 sorting bags. Statistics, parts, bags, and instructions are calculated from the same placement data. These are digital sample instructions; physical connections, stability, stock, and part/color combinations have not been validated.
+The Normal compact house has 342 modeled placements, 13 part/color combinations, small guided steps, and 4 sorting bags. Statistics, parts, bags, and instructions are calculated from the same placement data. These are digital sample instructions; physical connections, stability, stock, and part/color combinations have not been validated.
 
 Easy uses larger wall bricks, broad roof plates, lower walls, and minimal landscaping. Normal adds a chimney and fuller windows and garden. Hard uses smaller pieces and taller windows with crossbars, shutters, a porch canopy, a ridge skylight, and a rear garden fence. The saved-build thumbnails project actual model placements rather than a generic illustration. Builder counts report the actual visible pieces at each step and the full design total.
 
 Existing version-1 browser saves migrate to the three modes (Standard → Normal; High Detail/Collector → Hard). Names and selected sizes are preserved; progress restarts because the designs and their instructions changed.
+
+## Build studio
+
+Instructions group pieces by elevation and wall face, with at most 6 pieces per Easy step, 8 per Normal step and 10 per Hard step. Each group has its own parts list, focus point and suggested camera angle. The model geometry and inventories remain unchanged.
+
+Placement guide animates the current group down into its actual destination outlines. Replay and Assembled controls let users repeat or skip the motion. Camera transitions stop when users start dragging; automatic camera guidance can be turned off. Reduced-motion preferences skip the animations and show the settled model immediately. Rendering runs on demand between short interactions.
+
+The spotlight highlights one placement or all visible placements with the same part/color, showing both the visible and full-build matching counts. Find in parts opens the matching part/color filter. Build selection uses model cards; parts filters use category chips and color swatches.
+
+Version-2 saves migrate to version 3: each old instruction phase maps to its first smaller step, preserving completed phases and completed builds. New saves support the longer instruction sequences without losing progress above step 100.
+
+The brick catalog is currently bundled demo data: see [BRICK_CATALOG.md](docs/BRICK_CATALOG.md) for its contents and proposed future sources.
 
 ## Checks
 

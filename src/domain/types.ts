@@ -1,4 +1,7 @@
 export type DetailLevel = "easy" | "normal" | "hard";
+export type CameraView =
+  "perspective" | "front" | "back" | "side" | "left" | "top";
+export type PlacementMode = "assembled" | "guide";
 export type BuildSize = "compact" | "standard" | "large";
 export type ColorId =
   "sand" | "roof" | "glass" | "wood" | "grass" | "stone" | "leaf" | "flower";
@@ -43,7 +46,18 @@ export interface BuildStep {
   bag: number;
   parts: PartQuantity[];
   placementIds: string[];
+  phaseNumber: number;
+  cluster: number;
+  clusters: number;
+  area: string;
+  suggestedView: CameraView;
+  focus: [number, number, number];
 }
+
+export type BuildPhase = Omit<
+  BuildStep,
+  "phaseNumber" | "cluster" | "clusters" | "area" | "suggestedView" | "focus"
+>;
 
 export interface SortingGroup {
   number: number;

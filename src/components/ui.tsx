@@ -101,7 +101,7 @@ export function PartIllustration({
   const part = CATALOG[partId];
   const fill = COLORS[color].hex;
   const tall = part.category === "Brick" ? 22 : 9;
-  const w = part.width === 4 ? 66 : part.width === 2 ? 48 : 33;
+  const w = part.width >= 4 ? 66 : part.width === 2 ? 48 : 33;
   const d = part.depth === 2 ? 27 : 17;
   const x = (100 - w - d) / 2;
   const y = 23;
