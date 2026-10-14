@@ -80,6 +80,10 @@ try {
     "data-total-pieces",
     "342",
   );
+  await expect(page.locator("canvas")).toHaveAttribute(
+    "data-geometry",
+    "ldraw",
+  );
   await page.getByRole("button", { name: /Step 1 of/ }).click();
   await page
     .getByRole("dialog")
@@ -116,6 +120,25 @@ try {
     .getByRole("dialog")
     .getByRole("button", { name: "Close", exact: true })
     .click();
+  await page.goto(`${site}/connections/`);
+  await expect(page.locator("canvas[data-connection-canvas=true]")).toBeVisible(
+    { timeout: 15000 },
+  );
+  await page
+    .getByRole("button", { name: "Connect pieces", exact: true })
+    .click();
+  await expect(page.locator(".connection-feedback")).toHaveAttribute(
+    "data-mate-count",
+    "4",
+  );
+  await page.getByRole("button", { name: "Technic fit", exact: true }).click();
+  await page
+    .getByRole("button", { name: "Connect pieces", exact: true })
+    .click();
+  await expect(page.locator(".connection-feedback")).toHaveAttribute(
+    "data-mate-count",
+    "1",
+  );
   for (const route of [
     "",
     "review",
@@ -124,6 +147,7 @@ try {
     "builder",
     "create",
     "catalog",
+    "connections",
   ]) {
     const response = await page.goto(`${site}/${route ? `${route}/` : ""}`);
     assert.equal(response.status(), 200);
@@ -132,7 +156,7 @@ try {
   assert.deepEqual(errors, []);
   assert.deepEqual(failedRequests, []);
   console.log(
-    "Pages smoke check passed: seven routes, photos, 3D model, parts filter, independent instruction difficulty, broad part catalog, glass geometry, assistant, and saved progress. No browser errors or failed requests.",
+    "Pages smoke check passed: eight routes, photos, real builder meshes, connection snapping and Technic fit, parts filter, independent instruction difficulty, broad part catalog, glass geometry, assistant, and saved progress. No browser errors or failed requests.",
   );
 } finally {
   await browser.close();
