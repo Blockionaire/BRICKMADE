@@ -71,7 +71,8 @@ export default function HomePage() {
               <h2>{active.name}</h2>
               <p>
                 {model.stats.pieceCount} pieces <span>·</span>{" "}
-                {model.stats.difficulty} <span>·</span> Demo design
+                {model.stats.difficulty} <span>·</span>{" "}
+                {model.design ? "Generated house" : "Demo design"}
               </p>
             </div>
             <Link

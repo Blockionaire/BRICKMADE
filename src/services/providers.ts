@@ -30,7 +30,6 @@ function delay(ms: number, signal: AbortSignal) {
   });
 }
 
-// TODO: replace with a production image-to-3D provider that accepts private photo references.
 export const demoGeneration: GenerationProvider = {
   async generate(settings, onStage, signal) {
     for (let i = 0; i < GENERATION_STAGES.length; i++) {
@@ -42,6 +41,35 @@ export const demoGeneration: GenerationProvider = {
     if (signal.aborted) throw new DOMException("Cancelled", "AbortError");
     if (report.status !== "passed")
       throw Error("This demo did not pass its digital assembly review.");
+    return model;
+  },
+};
+
+export const HOUSE_GENERATION_STAGES = [
+  "Reading your house description",
+  "Choosing recorded parts and colors",
+  "Creating the connected model",
+  "Checking geometry and placement access",
+  "Preparing your exact building steps",
+];
+export const houseGeneration: GenerationProvider = {
+  async generate(settings, onStage, signal) {
+    if (!settings.houseBrief) throw Error("A house description is required.");
+    onStage(0);
+    await delay(80, signal);
+    onStage(1);
+    const model = createModel(settings);
+    onStage(2);
+    await delay(80, signal);
+    onStage(3);
+    const report = await reviewAssembly(model);
+    if (signal.aborted) throw new DOMException("Cancelled", "AbortError");
+    if (report.status !== "passed")
+      throw Error(
+        "This design did not pass the assembly checks. Adjust the description and try again; no build has been saved.",
+      );
+    onStage(4);
+    await delay(80, signal);
     return model;
   },
 };

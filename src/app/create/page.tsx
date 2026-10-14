@@ -17,6 +17,7 @@ import {
   LoaderCircle,
   Sun,
   ScanLine,
+  Blocks,
 } from "lucide-react";
 import { PageHeading } from "@/components/ui";
 import {
@@ -30,6 +31,14 @@ import { modelInfo, MODEL_KINDS } from "@/domain/models";
 import type { GenerationSettings } from "@/domain/types";
 import { demoGeneration, GENERATION_STAGES } from "@/services/providers";
 import { projectRepository } from "@/services/project-repository";
+import { HouseBriefEditor } from "@/components/house-brief-editor";
+import { AiConnectionPanel } from "@/components/ai-connection";
+import { HOUSE_PRESETS, type HouseBrief } from "../../../shared/house-brief";
+import { houseGeneration, HOUSE_GENERATION_STAGES } from "@/services/providers";
+import {
+  analyzePhotos,
+  readAiConnection,
+} from "@/services/photo-interpretation";
 
 type Photo = { id: string; url: string; label: string; demo: boolean };
 const demoPhotos: Photo[] = ["front", "side", "rear"].map((view, index) => ({
@@ -41,9 +50,9 @@ const demoPhotos: Photo[] = ["front", "side", "rear"].map((view, index) => ({
 
 export default function CreatePage() {
   const router = useRouter();
-  const [stage, setStage] = useState<"upload" | "settings" | "generating">(
-    "upload",
-  );
+  const [stage, setStage] = useState<
+    "upload" | "settings" | "generating" | "analyzing"
+  >("upload");
   const [photos, setPhotos] = useState<Photo[]>([]);
   const [name, setName] = useState("Compact House");
   const [settings, setSettings] = useState<GenerationSettings>({
@@ -51,6 +60,7 @@ export default function CreatePage() {
   });
   const [error, setError] = useState("");
   const [generationStage, setGenerationStage] = useState(0);
+  const [photoConsent, setPhotoConsent] = useState(false);
   const input = useRef<HTMLInputElement>(null);
   const urls = useRef(new Set<string>());
   const controller = useRef<AbortController | null>(null);
@@ -59,12 +69,14 @@ export default function CreatePage() {
     return () => {
       allocated.forEach(URL.revokeObjectURL);
       controller.current?.abort();
+      controller.current = null;
     };
   }, []);
 
   function addPhotos(files: FileList | null) {
     if (!files) return;
     setError("");
+    setPhotoConsent(false);
     const list = Array.from(files);
     if (
       list.some(
@@ -91,11 +103,87 @@ export default function CreatePage() {
     if (input.current) input.current.value = "";
   }
   function removePhoto(photo: Photo) {
+    setPhotoConsent(false);
     if (!photo.demo) {
       URL.revokeObjectURL(photo.url);
       urls.current.delete(photo.url);
     }
     setPhotos((p) => p.filter((item) => item.id !== photo.id));
+  }
+  function editBrief(brief: HouseBrief) {
+    setSettings((s) => ({
+      ...s,
+      modelKind: "house",
+      houseBrief: brief,
+      designSource: s.designSource ?? "manual",
+    }));
+  }
+  function startHouseStudio() {
+    setSettings((s) => ({
+      ...s,
+      modelKind: "house",
+      houseBrief: s.houseBrief ?? HOUSE_PRESETS[0].brief,
+      designSource: s.designSource ?? "manual",
+    }));
+    if (name === "Compact House") setName("My little house");
+    setStage("settings");
+    setError("");
+  }
+  async function interpret() {
+    if (controller.current && !controller.current.signal.aborted) return;
+    const connection = readAiConnection();
+    if (!connection) {
+      setError(
+        "Connect your private AI service below before interpreting photos.",
+      );
+      return;
+    }
+    const real = photos.filter((p) => !p.demo).slice(0, 3);
+    if (!photoConsent || !real.length) return;
+    const abort = new AbortController();
+    controller.current = abort;
+    setError("");
+    setStage("analyzing");
+    const timer = setTimeout(() => abort.abort(), 75000);
+    try {
+      const brief = await analyzePhotos(
+        real.map((p) => p.url),
+        connection,
+        photoConsent,
+        abort.signal,
+      );
+      if (abort.signal.aborted) return;
+      setSettings((s) => ({
+        ...s,
+        modelKind: "house",
+        houseBrief: brief,
+        designSource: "openai",
+      }));
+      if (["Compact House", "My little house"].includes(name))
+        setName(brief.title);
+      setPhotoConsent(false);
+      setStage("settings");
+      controller.current = null;
+    } catch (e) {
+      if (controller.current !== abort) return;
+      if (abort.signal.aborted) {
+        setError(
+          "Photo interpretation timed out. Your photos have not been saved.",
+        );
+        setPhotoConsent(false);
+        setStage("settings");
+      } else {
+        setError(
+          e instanceof Error
+            ? e.message
+            : "The photos could not be interpreted.",
+        );
+        setStage("settings");
+      }
+      controller.current = null;
+    } finally {
+      clearTimeout(timer);
+    }
   }
   async function generate() {
     if (controller.current && !controller.current.signal.aborted) return;
@@ -105,24 +193,70 @@ export default function CreatePage() {
     setStage("generating");
     setGenerationStage(0);
     try {
-      await demoGeneration.generate(settings, setGenerationStage, abort.signal);
+      const model = await (
+        settings.houseBrief ? houseGeneration : demoGeneration
+      ).generate(settings, setGenerationStage, abort.signal);
       if (abort.signal.aborted) return;
       projectRepository.save({
         id: crypto.randomUUID(),
         name: name.trim() || modelInfo(settings).name,
-        settings: { ...settings },
+        settings: { ...model.settings },
         createdAt: new Date().toISOString(),
         currentStep: 1,
         completed: false,
       });
       router.push("/review?new=1");
     } catch (e) {
-      if (e instanceof DOMException && e.name === "AbortError") return;
-      setError("We couldn’t prepare your demo. Please try again.");
+      if (
+        abort.signal.aborted ||
+        controller.current !== abort ||
+        (e instanceof DOMException && e.name === "AbortError")
+      )
+        return;
+      setError(
+        settings.houseBrief && e instanceof Error
+          ? e.message
+          : "We couldn’t prepare your demo. Please try again.",
+      );
       setStage("settings");
       controller.current = null;
     }
   }
+
+  const generationStages = settings.houseBrief
+    ? HOUSE_GENERATION_STAGES
+    : GENERATION_STAGES;
+  if (stage === "analyzing")
+    return (
+      <div id="page-content" className="generation-page">
+        <span className="eyebrow">A first look at your place</span>
+        <div className="photo-analysis-orbit" aria-hidden="true">
+          <ScanLine size={48} />
+        </div>
+        <h1>
+          Finding the shape
+          <br />
+          <span>of your little world.</span>
+        </h1>
+        <p role="status">Resizing and interpreting up to three photos…</p>
+        <p className="demo-note">
+          You’ll review an editable description before any bricks are generated.
+          Images are processed by your connected service and OpenAI; BrickMade
+          does not store them.
+        </p>
+        <button
+          className="button button-secondary"
+          onClick={() => {
+            controller.current?.abort();
+            controller.current = null;
+            setStage("settings");
+            setPhotoConsent(false);
+          }}
+        >
+          Cancel interpretation
+        </button>
+      </div>
+    );
 
   if (stage === "generating")
     return (
@@ -141,9 +275,12 @@ export default function CreatePage() {
           <br />
           <span>A whole lot of heart.</span>
         </h1>
-        <p>Preparing your {name.trim() || modelInfo(settings).name} demo…</p>
+        <p>
+          Preparing your {name.trim() || modelInfo(settings).name}{" "}
+          {settings.houseBrief ? "design" : "demo"}…
+        </p>
         <div className="generation-stages" role="status" aria-live="polite">
-          {GENERATION_STAGES.map((label, index) => (
+          {generationStages.map((label, index) => (
             <div
               key={label}
               className={
@@ -170,12 +307,14 @@ export default function CreatePage() {
         <div className="generation-track">
           <span
             style={{
-              width: `${((generationStage + 1) / GENERATION_STAGES.length) * 100}%`,
+              width: `${((generationStage + 1) / generationStages.length) * 100}%`,
             }}
           />
         </div>
         <p className="demo-note">
-          Demo generation · Your photos are not analyzed.
+          {settings.houseBrief
+            ? "Description-driven prototype · Independent assembly checks · Physical fit untested"
+            : "Demo generation · Your photos are not analyzed."}
         </p>
         <button
           className="text-link"
@@ -311,7 +450,8 @@ export default function CreatePage() {
               <p>
                 Your photos stay in this browser session.
                 <br />
-                Nothing is uploaded or saved.
+                Nothing is uploaded unless you choose photo interpretation and
+                confirm sharing.
               </p>
             </div>
             <div className="flow-actions">
@@ -330,6 +470,20 @@ export default function CreatePage() {
             </div>
           </div>
           <aside className="photo-guide">
+            <div className="house-studio-entry">
+              <span className="tag">New · House studio</span>
+              <h2>Start with a shape.</h2>
+              <p>
+                Design a house now, with editable proportions and features. Add
+                photo interpretation when your private service is connected.
+              </p>
+              <button
+                className="button button-secondary"
+                onClick={startHouseStudio}
+              >
+                Design a house <ArrowRight size={16} />
+              </button>
+            </div>
             <span className="eyebrow">A better starting point</span>
             <h2>
               A few angles.
@@ -365,14 +519,40 @@ export default function CreatePage() {
               </p>
             </div>
             <span className="demo-note">
-              Choose a demo assembly in the next step. Your own photos stay
-              local and are not analyzed yet.
+              Demo generation keeps photos local. The house studio offers
+              optional photo interpretation with explicit sharing consent.
             </span>
           </aside>
         </div>
       ) : (
         <div className="settings-layout">
-          <div className="panel settings-panel">
+          <div
+            className={`panel settings-panel ${settings.houseBrief ? "house-studio-panel" : ""}`}
+          >
+            <div
+              className="generation-mode-switch"
+              aria-label="Generation mode"
+            >
+              <button
+                aria-pressed={!settings.houseBrief}
+                onClick={() => {
+                  const { houseBrief, designSource, ...rest } = settings;
+                  void houseBrief;
+                  void designSource;
+                  setSettings(rest);
+                  setError("");
+                  setPhotoConsent(false);
+                }}
+              >
+                Demo collection
+              </button>
+              <button
+                aria-pressed={!!settings.houseBrief}
+                onClick={startHouseStudio}
+              >
+                House studio <Sparkles size={15} />
+              </button>
+            </div>
             <label className="field-label" htmlFor="build-name">
               Give your build a name
             </label>
@@ -384,14 +564,73 @@ export default function CreatePage() {
               onChange={(e) => setName(e.target.value)}
               placeholder="My favorite little place"
             />
-            <ModelKindSelector
-              value={settings.modelKind ?? "house"}
-              onChange={(modelKind) => {
-                if (name === modelInfo(settings).name)
-                  setName(MODEL_KINDS.find((k) => k.id === modelKind)!.name);
-                setSettings((s) => ({ ...s, modelKind }));
-              }}
-            />
+            {settings.houseBrief ? (
+              <>
+                {settings.designSource === "openai" && (
+                  <p className="house-uncertainties" role="status">
+                    Photo interpretation · {settings.houseBrief.confidence}{" "}
+                    confidence. Check and correct the description before
+                    generating.
+                  </p>
+                )}
+                <HouseBriefEditor
+                  brief={settings.houseBrief}
+                  onChange={editBrief}
+                />
+                <section
+                  className="photo-interpretation-panel"
+                  aria-label="Photo interpretation"
+                >
+                  <div className="house-section-title">
+                    <ScanLine size={20} />
+                    <h2>Let your photos shape it</h2>
+                    <span className="tag">Optional AI</span>
+                  </div>
+                  <p>
+                    {photos.some((p) => !p.demo)
+                      ? `Interpret the first ${Math.min(3, photos.filter((p) => !p.demo).length)} real photos, then check and edit the result above.`
+                      : "Add real house photos to use interpretation. You can generate this description without photos or an API key."}
+                  </p>
+                  <details>
+                    <summary>Connect your private photo service</summary>
+                    <AiConnectionPanel
+                      onChange={() => setPhotoConsent(false)}
+                    />
+                  </details>
+                  <label className="photo-consent">
+                    <input
+                      type="checkbox"
+                      checked={photoConsent}
+                      disabled={!photos.some((p) => !p.demo)}
+                      onChange={(e) => setPhotoConsent(e.target.checked)}
+                    />
+                    <span>
+                      Send up to three resized photos to my connected private
+                      service and OpenAI for interpretation. BrickMade does not
+                      store the images; OpenAI’s applicable data retention
+                      policy still applies.
+                    </span>
+                  </label>
+                  <button
+                    className="button button-secondary"
+                    onClick={interpret}
+                    disabled={!photoConsent || !photos.some((p) => !p.demo)}
+                  >
+                    <ScanLine size={17} />
+                    Interpret my photos
+                  </button>
+                </section>
+              </>
+            ) : (
+              <ModelKindSelector
+                value={settings.modelKind ?? "house"}
+                onChange={(modelKind) => {
+                  if (name === modelInfo(settings).name)
+                    setName(MODEL_KINDS.find((k) => k.id === modelKind)!.name);
+                  setSettings((s) => ({ ...s, modelKind }));
+                }}
+              />
+            )}
             <DetailSelector
               settings={settings}
               value={settings.detail}
@@ -410,8 +649,10 @@ export default function CreatePage() {
             <div className="settings-note">
               <Sparkles size={18} />
               <p>
-                Detail and size shape your selected model. Building difficulty
-                only changes the instructions. You can change your pace anytime.
+                Detail and size shape your selected{" "}
+                {settings.houseBrief ? "description" : "model"}. Building
+                difficulty only changes the instructions. You can change your
+                pace anytime.
               </p>
             </div>
             {error && (
@@ -420,7 +661,13 @@ export default function CreatePage() {
               </p>
             )}
             <div className="flow-actions">
-              <button className="text-link" onClick={() => setStage("upload")}>
+              <button
+                className="text-link"
+                onClick={() => {
+                  setStage("upload");
+                  setPhotoConsent(false);
+                }}
+              >
                 <ArrowLeft size={16} /> Photos
               </button>
               <button
@@ -428,34 +675,60 @@ export default function CreatePage() {
                 disabled={!name.trim()}
                 onClick={generate}
               >
-                Create my preview <ArrowRight size={17} />
+                {settings.houseBrief
+                  ? "Generate my house"
+                  : "Create my preview"}{" "}
+                <ArrowRight size={17} />
               </button>
             </div>
           </div>
           <aside className="settings-aside">
-            <span className="tag">Your inspiration</span>
-            <div className="inspiration-stack">
-              {photos.slice(0, 3).map((p, i) => (
-                <div
-                  key={p.id}
-                  style={{ transform: `rotate(${(i - 1) * 7}deg)` }}
-                >
-                  <Image
-                    width={400}
-                    height={400}
-                    unoptimized
-                    src={p.url}
-                    alt={p.label}
-                  />
-                </div>
-              ))}
-            </div>
+            <span className="tag">
+              {settings.houseBrief
+                ? "Description-driven design"
+                : "Your inspiration"}
+            </span>
+            {!photos.length && settings.houseBrief ? (
+              <div className="house-description-aside">
+                <Blocks size={44} />
+                <h2>
+                  Your description.
+                  <br />A real brick build.
+                </h2>
+                <p>
+                  The compiler chooses supported pieces, places each one, then
+                  checks the assembly before saving.
+                </p>
+                <span>Shape → Parts → Connections → Instructions</span>
+              </div>
+            ) : (
+              <div className="inspiration-stack">
+                {photos.slice(0, 3).map((p, i) => (
+                  <div
+                    key={p.id}
+                    style={{ transform: `rotate(${(i - 1) * 7}deg)` }}
+                  >
+                    <Image
+                      width={400}
+                      height={400}
+                      unoptimized
+                      src={p.url}
+                      alt={p.label}
+                    />
+                  </div>
+                ))}
+              </div>
+            )}
             <p>
               From a familiar place
               <br />
               to a little keepsake.
             </p>
-            <small>Demo generation · No payment needed</small>
+            <small>
+              {settings.houseBrief
+                ? "Real parts · Checked assembly · Private prototype"
+                : "Demo generation · No payment needed"}
+            </small>
           </aside>
         </div>
       )}

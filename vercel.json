@@ -1,0 +1,11 @@
+{
+  "framework": null,
+  "buildCommand": "node scripts/prepare-api.mjs",
+  "outputDirectory": ".api-public",
+  "functions": {
+    "api/*.mjs": {
+      "maxDuration": 60,
+      "includeFiles": "{server/**,shared/**}"
+    }
+  }
+}

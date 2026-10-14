@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Check, ArrowRight, Layers, Blocks, Info, Pencil } from "lucide-react";
 import Link from "next/link";
 import { ModelViewer } from "@/components/model-viewer";
@@ -18,6 +18,9 @@ import { modelInfo } from "@/domain/models";
 import { createModel } from "@/domain/models";
 import { projectRepository, useProjects } from "@/services/project-repository";
 import type { GenerationSettings } from "@/domain/types";
+import { HouseBriefEditor } from "@/components/house-brief-editor";
+import type { HouseBrief } from "../../../shared/house-brief";
+import { reviewAssembly } from "@/services/assembly-validation";
 
 export default function ReviewPage() {
   const { active } = useProjects();
@@ -26,17 +29,46 @@ export default function ReviewPage() {
     useState<GenerationSettings | null>(null);
   const [renaming, setRenaming] = useState(false);
   const [name, setName] = useState("");
-  function updateSettings(settings: GenerationSettings) {
-    if (active.currentStep > 1 || active.completed)
-      setPendingSettings(settings);
-    else
-      projectRepository.save({
-        ...active,
-        settings,
-        currentStep: 1,
-        completed: false,
-        completedPlacementIds: undefined,
-      });
+  const [draft, setDraft] = useState<HouseBrief | null>(null);
+  const [checking, setChecking] = useState(false);
+  const [designError, setDesignError] = useState("");
+  const request = useRef(0);
+  useEffect(
+    () => () => {
+      request.current++;
+    },
+    [],
+  );
+  async function updateSettings(settings: GenerationSettings) {
+    const id = ++request.current;
+    setChecking(true);
+    setDesignError("");
+    try {
+      const report = await reviewAssembly(createModel(settings));
+      if (id !== request.current) return;
+      if (report.status !== "passed")
+        throw Error(
+          "This version did not pass the assembly checks. Your saved design has been kept.",
+        );
+      setDraft(null);
+      if (active.currentStep > 1 || active.completed)
+        setPendingSettings(settings);
+      else
+        projectRepository.save({
+          ...active,
+          settings,
+          currentStep: 1,
+          completed: false,
+          completedPlacementIds: undefined,
+        });
+    } catch (e) {
+      if (id === request.current)
+        setDesignError(
+          e instanceof Error ? e.message : "Could not check this design.",
+        );
+    } finally {
+      if (id === request.current) setChecking(false);
+    }
   }
   return (
     <div id="page-content" className="review-page">
@@ -54,7 +86,13 @@ export default function ReviewPage() {
               <span className="tag">
                 <Check size={13} /> Your preview is ready
               </span>
-              <span className="demo-label">DEMO MODEL</span>
+              <span className="demo-label">
+                {model.design
+                  ? model.design.source === "openai"
+                    ? "PHOTO-ASSISTED PROTOTYPE"
+                    : "GENERATED HOUSE"
+                  : "DEMO MODEL"}
+              </span>
             </div>
             <ModelViewer model={model} className="review-viewer" />
           </div>
@@ -80,13 +118,52 @@ export default function ReviewPage() {
               <Pencil size={17} />
             </button>
           </div>
-          <p>{modelInfo(active.settings).description}</p>
-          <ModelKindSelector
-            value={active.settings.modelKind ?? "house"}
-            onChange={(modelKind) =>
-              updateSettings({ ...active.settings, modelKind })
-            }
-          />
+          <p>
+            {model.design
+              ? "Generated from your editable house description. Review the adaptations below for the actual design choices."
+              : modelInfo(active.settings).description}
+          </p>
+          {model.design ? (
+            <div className="generated-design-summary">
+              <span className="tag">Your editable design</span>
+              <p>
+                {model.design.brief.roof === "flat"
+                  ? "Flat roof"
+                  : "Stepped gable"}{" "}
+                · {model.design.brief.height} height ·{" "}
+                {model.design.brief.aspectRatio.toFixed(2)} : 1 requested
+                proportions
+              </p>
+              <button
+                className="button button-secondary"
+                onClick={() => {
+                  setDraft(model.design!.brief);
+                  setDesignError("");
+                }}
+              >
+                <Pencil size={16} />
+                Edit house description
+              </button>
+              <details>
+                <summary>Design adaptations & limits</summary>
+                <ul>
+                  {[
+                    ...model.design.adaptations,
+                    ...model.design.brief.uncertainties,
+                  ].map((note, i) => (
+                    <li key={i}>{note}</li>
+                  ))}
+                </ul>
+              </details>
+            </div>
+          ) : (
+            <ModelKindSelector
+              value={active.settings.modelKind ?? "house"}
+              onChange={(modelKind) =>
+                updateSettings({ ...active.settings, modelKind })
+              }
+            />
+          )}
           <DetailSelector
             settings={active.settings}
             compact
@@ -106,9 +183,20 @@ export default function ReviewPage() {
             </span>
             <span>
               <Blocks size={17} />
-              {model.steps.length} demo steps · {model.bags.length} sorting bags
+              {model.steps.length} {model.design ? "building" : "demo"} steps ·{" "}
+              {model.bags.length} sorting bags
             </span>
           </div>
+          {checking && (
+            <p className="field-description" role="status">
+              Checking the new version before saving…
+            </p>
+          )}
+          {designError && (
+            <p className="form-error" role="alert">
+              {designError}
+            </p>
+          )}
           <BuildDifficultySelector
             compact
             settings={active.settings}
@@ -129,11 +217,43 @@ export default function ReviewPage() {
           </Link>
           <p className="review-disclaimer">
             <Info size={15} />
-            Demo design. Colors have recorded source evidence. Physical fit,
-            strength and current availability remain untested.
+            {model.design ? "Generated prototype" : "Demo design"}. Colors have
+            recorded source evidence. Physical fit, strength and current
+            availability remain untested.
           </p>
         </div>
       </div>
+      {draft && (
+        <Sheet
+          title="Shape your house"
+          onClose={() => {
+            request.current++;
+            setChecking(false);
+            setDraft(null);
+          }}
+        >
+          <HouseBriefEditor
+            brief={draft}
+            onChange={setDraft}
+            showPresets={false}
+          />
+          {designError && (
+            <p role="alert" className="form-error">
+              {designError}
+            </p>
+          )}
+          <button
+            className="button button-primary full-width"
+            disabled={checking}
+            onClick={() =>
+              updateSettings({ ...active.settings, houseBrief: draft })
+            }
+          >
+            {checking ? "Checking this design…" : "Check & apply description"}
+            <Check size={16} />
+          </button>
+        </Sheet>
+      )}
       {pendingSettings && (
         <Sheet
           title="Try a different version?"

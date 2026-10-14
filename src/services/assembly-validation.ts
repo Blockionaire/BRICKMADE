@@ -88,5 +88,6 @@ export function reviewAssembly(model: HouseModel): Promise<ValidationReport> {
       throw e;
     });
   reviews.set(signature, request);
+  if (reviews.size > 48) reviews.delete(reviews.keys().next().value!);
   return request;
 }

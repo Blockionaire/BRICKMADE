@@ -1,3 +1,4 @@
+import type { HouseBrief } from "../../shared/house-brief";
 export type DetailLevel = "easy" | "normal" | "hard";
 export type BuildDifficulty = "easy" | "medium" | "hard";
 export type CameraView =
@@ -34,6 +35,8 @@ export interface GenerationSettings {
   size: BuildSize;
   buildDifficulty?: BuildDifficulty;
   modelKind?: ModelKind;
+  houseBrief?: HouseBrief;
+  designSource?: "manual" | "openai";
 }
 
 export interface CatalogPart {
@@ -102,6 +105,11 @@ export interface SortingGroup {
 export interface HouseModel {
   kind?: ModelKind;
   revision?: string;
+  design?: {
+    source: "manual" | "openai";
+    brief: HouseBrief;
+    adaptations: string[];
+  };
   settings: GenerationSettings;
   placements: Placement[];
   steps: BuildStep[];
@@ -123,9 +131,10 @@ export interface Project {
   settings: GenerationSettings;
   currentStep: number;
   completed: boolean;
+  modelRevision?: string;
   /** Retain the exact completed pieces when regrouping instructions mid-build. */
   completedPlacementIds?: string[];
-  migrationNotice?: "structure-updated";
+  migrationNotice?: "structure-updated" | "house-generator-updated";
 }
 
 export interface AssistantContext {

@@ -13,6 +13,7 @@ import {
 import Link from "next/link";
 import { PageHeading, Sheet } from "@/components/ui";
 import { projectRepository, useProjects } from "@/services/project-repository";
+import { AiConnectionPanel } from "@/components/ai-connection";
 
 export default function AccountPage() {
   const { projects } = useProjects();
@@ -36,9 +37,9 @@ export default function AccountPage() {
           <h2>Guest maker</h2>
           <span className="tag">Private prototype</span>
           <p>
-            Everything you make here
+            Your saved designs
             <br />
-            stays in this browser.
+            stay in this browser.
           </p>
           <div>
             <FolderHeart size={18} />
@@ -57,15 +58,21 @@ export default function AccountPage() {
             </div>
             <p>
               Photos you select stay in memory for the current browser session.
-              They are never uploaded, stored with projects, or sent to an AI
-              service.
+              Demo generation keeps them local. Optional photo interpretation
+              sends up to three resized photos to your connected private service
+              and OpenAI only after you confirm sharing. BrickMade does not
+              store those images; OpenAI’s applicable data retention policy
+              still applies.
             </p>
             <p>
-              Build names, selected house variants, and building progress are
+              Build names, edited house descriptions, and building progress are
               saved locally in this browser. They do not sync across devices. If
               browser storage is unavailable, progress lasts for this session
               only.
             </p>
+          </section>
+          <section className="panel account-section">
+            <AiConnectionPanel />
           </section>
           <section className="panel account-section">
             <div className="account-section-heading">
@@ -113,9 +120,11 @@ export default function AccountPage() {
           <div className="account-note">
             <Info size={17} />
             <p>
-              This is a private product prototype. Generation and assistant
-              responses are demonstrations. BrickMade is independent and is not
-              affiliated with LEGO.
+              This is a private product prototype. House generation uses real
+              part placements and independent digital checks. Photo
+              interpretation needs a connected private service. Assistant
+              responses remain deterministic demonstrations. BrickMade is
+              independent and is not affiliated with LEGO.
             </p>
           </div>
         </div>

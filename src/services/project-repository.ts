@@ -3,6 +3,7 @@
 import { useSyncExternalStore } from "react";
 import { createModel } from "@/domain/models";
 import { DEFAULT_SETTINGS } from "@/domain/catalog";
+import { parseHouseBrief } from "../../shared/house-brief";
 import type { Project } from "@/domain/types";
 
 interface SavedState {
@@ -32,13 +33,28 @@ let memoryState: SavedState | null = null;
 function validProject(value: unknown): value is Project {
   if (!value || typeof value !== "object") return false;
   const p = value as Project;
+  if (p.settings?.houseBrief !== undefined) {
+    try {
+      if (
+        parseHouseBrief(p.settings.houseBrief).subject !== "house" ||
+        (p.settings.modelKind && p.settings.modelKind !== "house")
+      )
+        return false;
+    } catch {
+      return false;
+    }
+  }
   return (
     typeof p.id === "string" &&
     typeof p.name === "string" &&
     p.name.length > 0 &&
     p.name.length <= 60 &&
     typeof p.createdAt === "string" &&
+    (p.modelRevision === undefined ||
+      (typeof p.modelRevision === "string" && p.modelRevision.length <= 100)) &&
     !!p.settings &&
+    (p.settings.designSource === undefined ||
+      ["manual", "openai"].includes(p.settings.designSource)) &&
     ["easy", "normal", "hard", "standard", "high", "collector"].includes(
       p.settings.detail,
     ) &&
@@ -98,6 +114,20 @@ export function parseSavedState(raw: string | null): SavedState {
           completedPlacementIds: undefined,
           migrationNotice: "structure-updated",
         };
+      if (
+        settings.houseBrief &&
+        p.modelRevision &&
+        p.modelRevision !== model.revision
+      )
+        return {
+          ...p,
+          settings,
+          modelRevision: model.revision,
+          currentStep: 1,
+          completed: false,
+          completedPlacementIds: undefined,
+          migrationNotice: "house-generator-updated",
+        };
       const currentStep = p.completed
         ? model.steps.length
         : Math.min(p.currentStep, model.steps.length);
@@ -105,6 +135,7 @@ export function parseSavedState(raw: string | null): SavedState {
       return {
         ...p,
         settings,
+        ...(settings.houseBrief ? { modelRevision: model.revision } : {}),
         currentStep,
         completed: p.completed,
         completedPlacementIds: p.completedPlacementIds?.filter((id) =>
@@ -127,8 +158,15 @@ function getSnapshot() {
       cachedState = parseSavedState(raw);
       if (raw && cachedState.projects.some((p) => p.migrationNotice)) {
         const parsed = JSON.parse(raw);
-        if (parsed.version < 5) {
-          const backupKey = `${STORAGE_KEY}.before-structure-v2`;
+        const recompiled = parsed.projects.some(
+          (p: Project) =>
+            p.settings.houseBrief &&
+            p.modelRevision &&
+            cachedState.projects.find((next) => next.id === p.id)
+              ?.modelRevision !== p.modelRevision,
+        );
+        if (parsed.version < 5 || recompiled) {
+          const backupKey = `${STORAGE_KEY}.${parsed.version < 5 ? "before-structure-v2" : "before-house-generator-update"}`;
           if (!localStorage.getItem(backupKey))
             localStorage.setItem(backupKey, raw);
           cachedRaw = JSON.stringify(cachedState);
@@ -165,6 +203,11 @@ function write(state: SavedState) {
 
 export const projectRepository = {
   save(project: Project) {
+    if (project.settings.houseBrief)
+      project = {
+        ...project,
+        modelRevision: createModel(project.settings).revision,
+      };
     const current = getSnapshot();
     const others = current.projects.filter((p) => p.id !== project.id);
     write({

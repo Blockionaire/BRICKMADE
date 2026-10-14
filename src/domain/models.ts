@@ -1,4 +1,6 @@
-import { CATALOG } from "./catalog";
+import { CATALOG, COLORS } from "./catalog";
+import { parseHouseBrief } from "../../shared/house-brief";
+import { partCapabilities } from "./parts/selection";
 import { countParts } from "./inventory";
 import { planBuildSteps } from "./build-steps";
 import { BUILDER_BY_REBRICKABLE } from "./parts/profiles";
@@ -15,6 +17,7 @@ import type {
 import type { Vec3 } from "./parts/types";
 
 export const DESIGN_REVISION = "2026-10-14.structure-v2";
+export const HOUSE_COMPILER_REVISION = "2026-10-14.house-compiler-v1";
 export const MODEL_KINDS: {
   id: ModelKind;
   name: string;
@@ -64,13 +67,27 @@ export const MODEL_KINDS: {
 ];
 export const kindFor = (settings: GenerationSettings) =>
   settings.modelKind ?? "house";
-export const modelInfo = (settings: GenerationSettings) =>
-  MODEL_KINDS.find((k) => k.id === kindFor(settings))!;
+export const modelInfo = (settings: GenerationSettings) => {
+  const info = MODEL_KINDS.find((k) => k.id === kindFor(settings))!;
+  return settings.houseBrief
+    ? {
+        ...info,
+        name: settings.houseBrief.title,
+        description: "A generated house based on your editable description.",
+        details: [
+          "Larger wall blocks and a simplified roof.",
+          "Smaller brickwork and fitted windows where selected.",
+          "Fine brickwork, bonding courses and supported shutters.",
+        ],
+      }
+    : info;
+};
 const cache = new Map<string, HouseModel>();
 
 class Assembly {
   placements: Placement[] = [];
   phases: BuildPhase[] = [];
+  adaptations = new Set<string>();
   constructor(public settings: GenerationSettings) {}
   phase(
     title: string,
@@ -108,6 +125,34 @@ class Assembly {
   ): Placement {
     const part = CATALOG[partId];
     if (!part) throw Error(`No curated part ${partId}`);
+    if (this.settings.houseBrief) {
+      const profile = BUILDER_BY_REBRICKABLE.get(partId);
+      if (!profile || !partCapabilities(profile).supported)
+        throw Error(`Part ${partId} has no supported connection rules.`);
+      if (!profile.observedColorIds.includes(COLORS[color].rebrickableId)) {
+        const replacement = (
+          [
+            "sand",
+            "white",
+            "stone",
+            "wood",
+            "black",
+            "roof",
+            "leaf",
+            "grass",
+            "flower",
+          ] as ColorId[]
+        ).find((candidate) =>
+          profile.observedColorIds.includes(COLORS[candidate].rebrickableId),
+        );
+        if (!replacement)
+          throw Error(`No recorded color is available for part ${partId}.`);
+        this.adaptations.add(
+          `${part.name} (#${partId}) uses ${COLORS[replacement].name.toLowerCase()}; ${COLORS[color].name.toLowerCase()} has no recorded source evidence for this part.`,
+        );
+        color = replacement;
+      }
+    }
     const p: Placement = {
       id: `piece-${this.placements.length + 1}`,
       partId,
@@ -273,7 +318,18 @@ class Assembly {
       maxs = [0, 1, 2].map((i) => Math.max(...bounds.map((b) => b.max[i])));
     return {
       kind: kindFor(this.settings),
-      revision: DESIGN_REVISION,
+      revision: this.settings.houseBrief
+        ? HOUSE_COMPILER_REVISION
+        : DESIGN_REVISION,
+      ...(this.settings.houseBrief
+        ? {
+            design: {
+              source: this.settings.designSource ?? "manual",
+              brief: this.settings.houseBrief,
+              adaptations: [...this.adaptations],
+            },
+          }
+        : {}),
       settings: {
         ...this.settings,
         modelKind: kindFor(this.settings),
@@ -303,6 +359,7 @@ class Assembly {
 }
 
 function house(a: Assembly) {
+  const brief = a.settings.houseBrief;
   const level = a.settings.detail,
     easy = level === "easy",
     hard = level === "hard",
@@ -313,11 +370,39 @@ function house(a: Assembly) {
           ? 1
           : 2;
   const w = 8 + scale * 2,
-    d = 4 + scale * 2,
+    d = brief
+      ? Math.max(4, Math.min(8, Math.round(w / brief.aspectRatio / 2) * 2))
+      : 4 + scale * 2,
     hw = w / 2,
     hd = d / 2,
-    rows = easy ? 3 : hard ? 6 : 4,
-    maximum = easy ? 6 : hard ? 1 : 4;
+    rows = brief
+      ? (easy ? 3 : hard ? 6 : 4) +
+        (brief.height === "low" ? -1 : brief.height === "tall" ? 2 : 0)
+      : easy
+        ? 3
+        : hard
+          ? 6
+          : 4,
+    maximum = easy ? (brief ? 8 : 6) : hard ? 1 : 4;
+  const wallColor = brief?.wallColor ?? "sand",
+    roofColor = brief?.roofColor ?? "roof",
+    doorColor = brief?.doorColor ?? "wood";
+  if (brief) {
+    a.adaptations.add(
+      `Footprint is snapped to ${w} × ${d} studs; proportions are estimated, not measured.`,
+    );
+    if (brief.roof === "stepped")
+      a.adaptations.add(
+        "The pitched roof is represented by supported horizontal plate courses.",
+      );
+    a.adaptations.add(
+      "Doors are solid brick details. Side windows, interior rooms and irregular footprints are outside this first house compiler.",
+    );
+    if (easy && brief.frontWindows)
+      a.adaptations.add(
+        "Easy detail omits fitted windows and uses larger wall blocks.",
+      );
+  }
   a.foundation(12 + scale * 4);
   a.phase(
     "The path home",
@@ -333,12 +418,12 @@ function house(a: Assembly) {
   let bottom = 0.8;
   function band(y: number) {
     for (const x of [-hw + 1, hw - 1])
-      for (const z of [-hd + 1, hd - 1]) a.add("3022", "sand", x, y, z);
+      for (const z of [-hd + 1, hd - 1]) a.add("3022", wallColor, x, y, z);
     for (const z of [-hd + 0.5, hd - 0.5])
-      a.rect(-hw + 2, z - 0.5, w - 4, 1, y, "sand");
+      a.rect(-hw + 2, z - 0.5, w - 4, 1, y, wallColor);
     for (const x of [-hw + 0.5, hw - 0.5])
       for (let z = -hd + 2; z < hd - 2; z++)
-        a.add("3024", "sand", x, y, z + 0.5);
+        a.add("3024", wallColor, x, y, z + 0.5);
   }
   for (let row = 0; row < rows; row++) {
     const y = bottom;
@@ -351,13 +436,20 @@ function house(a: Assembly) {
           !easy &&
           (row === 1 || row === 2 || (hard && (row === 3 || row === 4)));
         const windowStart = !easy && (row === 1 || (hard && row === 3));
-        const windows = [-hw + 2, hw - 2];
+        const windows =
+          brief?.frontWindows === 0
+            ? []
+            : brief?.frontWindows === 1
+              ? [-hw + 2]
+              : [-hw + 2, hw - 2];
+        const onFace = (front: boolean) => front || !brief || brief.rearWindows;
         if (windowStart) {
           for (const front of [false, true])
             for (const x of windows) {
+              if (!onFace(front)) continue;
               const frame = a.add(
                 "60592",
-                "sand",
+                wallColor,
                 x,
                 y,
                 front ? hd - 0.5 : -hd + 0.5,
@@ -391,16 +483,27 @@ function house(a: Assembly) {
               same < maximum
             )
               same++;
-            const len = same >= 6 ? 6 : same >= 4 ? 4 : same >= 2 ? 2 : 1,
+            const len =
+                same >= 8
+                  ? 8
+                  : same >= 6
+                    ? 6
+                    : same >= 4
+                      ? 4
+                      : same >= 2
+                        ? 2
+                        : 1,
               id = cell.head
                 ? "4070"
-                : len === 6
-                  ? "3009"
-                  : len === 4
-                    ? "3010"
-                    : len === 2
-                      ? "3004"
-                      : "3005";
+                : len === 8
+                  ? "3008"
+                  : len === 6
+                    ? "3009"
+                    : len === 4
+                      ? "3010"
+                      : len === 2
+                        ? "3004"
+                        : "3005";
             const p = a.add(
               id,
               cell.color,
@@ -420,14 +523,16 @@ function house(a: Assembly) {
         for (const front of [false, true]) {
           const cells = [];
           for (let x = -hw + (odd ? 1 : 0); x < hw - (odd ? 1 : 0); x++) {
-            if (windowRow && windows.some((cx) => x >= cx - 1 && x < cx + 1))
+            if (
+              windowRow &&
+              onFace(front) &&
+              windows.some((cx) => x >= cx - 1 && x < cx + 1)
+            )
               continue;
             cells.push({
               at: x,
               color:
-                front && x >= -1 && x < 1 && row < 3
-                  ? ("wood" as ColorId)
-                  : ("sand" as ColorId),
+                front && x >= -1 && x < 1 && row < 3 ? doorColor : wallColor,
               head: hard && front && row === 2 && (x === -hw || x === hw - 1),
             });
           }
@@ -436,7 +541,7 @@ function house(a: Assembly) {
         for (const x of [-hw + 0.5, hw - 0.5]) {
           const cells = [];
           for (let z = -hd + (odd ? 0 : 1); z < hd - (odd ? 0 : 1); z++)
-            cells.push({ at: z, color: "sand" as ColorId });
+            cells.push({ at: z, color: wallColor as ColorId });
           horizontal(cells, x, true);
         }
       },
@@ -462,12 +567,21 @@ function house(a: Assembly) {
     3,
     () => {
       for (let x = -hw - 1; x < hw + 1; x += 2)
-        a.add("3034", "roof", x + 1, deck, 0, 1);
+        a.add("3034", roofColor, x + 1, deck, 0, 1);
     },
     "Roof deck",
   );
   let top = deck + 0.4;
-  const depths = easy ? [4, 2] : [6, 4, 2];
+  const depths = brief
+    ? brief.roof === "flat"
+      ? [d + 2]
+      : Array.from(
+          { length: d / 2 + (easy ? 0 : 1) },
+          (_, i) => d + (easy ? 0 : 2) - i * 2,
+        )
+    : easy
+      ? [4, 2]
+      : [6, 4, 2];
   for (const depth of depths) {
     for (let sub = 0; sub < (easy ? 1 : 2); sub++) {
       const y = top;
@@ -478,63 +592,71 @@ function house(a: Assembly) {
         "Center this course on the bonded roof below. Keep every underside aligned with the exposed stud grid.",
         3,
         () =>
-          a.rect(-hw - 1, -depth / 2, w + 2, depth, y, "roof", hard ? 2 : 4),
+          a.rect(-hw - 1, -depth / 2, w + 2, depth, y, roofColor, hard ? 2 : 4),
         "Roof",
       );
       top += 0.4;
     }
   }
-  a.phase(
-    "The little chimney",
-    easy
-      ? "Cap the ridge with a small roof accent."
-      : "The chimney attaches to the ridge studs and stays clear of all roof courses.",
-    4,
-    () => {
-      if (!easy) {
-        for (let r = 0; r < (hard ? 4 : 2); r++)
-          a.add("3003", "wood", -hw + 1, top + r * 1.2, 0);
-        a.add("3068b", "stone", -hw + 1, top + (hard ? 4 : 2) * 1.2, 0);
-      } else a.add("3022", "roof", 0, top, 0);
-    },
-    "Chimney",
-    "back",
-  );
-  a.phase(
-    "A garden of your own",
-    "Mount actual plant pieces on the base studs. Keep leaves clear of the walls and neighboring stems.",
-    4,
-    () => {
-      for (const side of [-1, 1]) {
-        const stem = a.add("3062b", "leaf", side * (hw + 1.5), 0.8, -hd + 0.5);
-        a.attach("24866", "flower", stem);
+  if (!brief || brief.chimney)
+    a.phase(
+      "The little chimney",
+      easy
+        ? "Cap the ridge with a small roof accent."
+        : "The chimney attaches to the ridge studs and stays clear of all roof courses.",
+      4,
+      () => {
         if (!easy) {
-          a.add(
-            "30176",
+          for (let r = 0; r < (hard ? 4 : 2); r++)
+            a.add("3003", "wood", -hw + 1, top + r * 1.2, 0);
+          a.add("3068b", "stone", -hw + 1, top + (hard ? 4 : 2) * 1.2, 0);
+        } else a.add("3022", roofColor, 0, top, 0);
+      },
+      "Chimney",
+      "back",
+    );
+  if (!brief || brief.garden)
+    a.phase(
+      "A garden of your own",
+      "Mount actual plant pieces on the base studs. Keep leaves clear of the walls and neighboring stems.",
+      4,
+      () => {
+        for (const side of [-1, 1]) {
+          const stem = a.add(
+            "3062b",
             "leaf",
             side * (hw + 1.5),
             0.8,
-            hd - 1.5,
-            side === 1 ? 0 : 2,
+            -hd + 0.5,
           );
+          a.attach("24866", "flower", stem);
+          if (!easy) {
+            a.add(
+              "30176",
+              "leaf",
+              side * (hw + 1.5),
+              0.8,
+              hd - 1.5,
+              side === 1 ? 0 : 2,
+            );
+          }
         }
-      }
-      if (hard) {
-        for (let x = -hw; x < hw; x += 2) {
-          const p = a.add(
-            "3004",
-            "wood",
-            x + 1,
-            0.8,
-            -(12 + scale * 4) / 2 + 0.5,
-          );
-          a.attach("6141", "flower", p, "stud", 0);
+        if (hard) {
+          for (let x = -hw; x < hw; x += 2) {
+            const p = a.add(
+              "3004",
+              "wood",
+              x + 1,
+              0.8,
+              -(12 + scale * 4) / 2 + 0.5,
+            );
+            a.attach("6141", "flower", p, "stud", 0);
+          }
         }
-      }
-    },
-    "Garden",
-    "side",
-  );
+      },
+      "Garden",
+      "side",
+    );
 }
 
 function rover(a: Assembly) {
@@ -778,17 +900,28 @@ function pavilion(a: Assembly) {
   );
 }
 export function createModel(settings: GenerationSettings): HouseModel {
+  const houseBrief = settings.houseBrief
+    ? parseHouseBrief(settings.houseBrief)
+    : undefined;
+  if (
+    houseBrief &&
+    (houseBrief.subject !== "house" ||
+      (settings.modelKind && settings.modelKind !== "house"))
+  )
+    throw Error("This generator currently supports simple houses only.");
   const normalized = {
     ...settings,
+    ...(houseBrief ? { houseBrief } : {}),
     modelKind: kindFor(settings),
     buildDifficulty: settings.buildDifficulty ?? "medium",
   };
-  const key = `${normalized.modelKind}:${normalized.detail}:${normalized.size}:${normalized.buildDifficulty}`;
+  const key = JSON.stringify(normalized);
   const old = cache.get(key);
   if (old) return old;
   const assembly = new Assembly(normalized);
   ({ house, rover, plant, pavilion })[normalized.modelKind](assembly);
   const model = assembly.finish();
   cache.set(key, model);
+  if (cache.size > 128) cache.delete(cache.keys().next().value!);
   return model;
 }

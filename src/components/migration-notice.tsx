@@ -8,10 +8,13 @@ export function MigrationNotice({ project }: { project: Project }) {
     <div className="migration-notice" role="status">
       <Info size={18} />
       <p>
-        <strong>Your design has been rebuilt.</strong> We corrected its
-        structure and instructions. Your name and settings are kept; building
-        progress starts fresh for the new assembly. The previous save was
-        retained locally where browser storage permits.
+        <strong>Your design has been rebuilt.</strong>{" "}
+        {project.migrationNotice === "house-generator-updated"
+          ? "The house generator changed, so we regenerated the saved description."
+          : "We corrected its structure and instructions."}{" "}
+        Your name and settings are kept; building progress starts fresh for the
+        new assembly. The previous save was retained locally where browser
+        storage permits.
       </p>
       <button
         aria-label="Dismiss design update"

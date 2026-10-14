@@ -12,7 +12,7 @@ npm ci --cache /tmp/brickmade-npm
 npm run dev
 ```
 
-No credentials, environment variables, database server, or external AI service are required. The imported catalog database and browser index are bundled. Fonts and illustrations are bundled locally. For a production build, use `npm run build` followed by `npm start`.
+Demo/manual generation needs no credentials, environment variables, database server, or external AI service. Optional photo interpretation uses a separate private Vercel backend; see [PHOTO_TO_BUILD.md](docs/PHOTO_TO_BUILD.md) for where to add the OpenAI key. The imported catalog database and browser index are bundled. Fonts and illustrations are bundled locally. For a production build, use `npm run build` followed by `npm start`.
 
 ## Try the prototype
 
@@ -23,7 +23,7 @@ No credentials, environment variables, database server, or external AI service a
 5. Switch saved builds using visual model cards in Builder or Parts. Follow your selected instruction pace, replay each group’s placement, and use automatic or manual camera guidance. Tap a brick or a current-step part card to spotlight it, highlight visible matches, or find its exact part/color in Parts. Ask the demo assistant about the current step.
 6. Finish the walkthrough, or resume later. Progress and build names are stored in this browser.
 
-Photo selection does not analyze images; choose one of four predefined demo families. Photos remain in memory for that browser session and are never uploaded or persisted. Assistant responses are deterministic demonstrations, not external AI calls. No payments, pricing, cost estimates, ordering, or unlock gates are included.
+Demo photo selection does not analyze images; choose one of four predefined demo families. **Create → Design a house** generates a new checked house from an editable description without an API key. Optional photo interpretation sends up to three resized real photos to your connected private service and OpenAI only after explicit sharing consent. Photos are never persisted in build data; OpenAI’s applicable retention policy applies to interpreted images. Assistant responses are deterministic demonstrations, not external AI calls. No payments, pricing, cost estimates, ordering, or unlock gates are included.
 
 The Normal compact house has 126 actual placements, small guided steps and 4 sorting bags. Statistics, parts, bags, and instructions are calculated from the same placement data. All 108 family/detail/size/pace combinations are digitally audited for recorded colors, reviewed connections, sampled material clearance, support, placement order and inventory. Physical fit/strength and current stock remain untested. See [ASSEMBLY_ENGINE.md](docs/ASSEMBLY_ENGINE.md).
 
@@ -70,7 +70,7 @@ This writes the deployable site to `out/`, including every page, bundled fonts, 
 
 `npm run test:pages` checks a running static site: images, all eight routes, the 3D model, parts, assistant, and progress after reload. Set `PAGES_SMOKE_URL` to its full project URL; the default is the internal test server at port 4173 under `/BRICKMADE`.
 
-The hosted prototype requires no backend server or API keys. The catalog is a versioned snapshot bundled with the app, with a downloadable SQLite file; it needs no database server. Each visitor's photos stay in that browser session; build names and progress stay in that browser's local storage. Pages hosting does not add authentication.
+Demo and manual house generation require no backend server or API keys. Optional photo interpretation requires the private Vercel service described in [PHOTO_TO_BUILD.md](docs/PHOTO_TO_BUILD.md). The catalog is a versioned snapshot bundled with the app, with a downloadable SQLite file; it needs no database server. Each visitor's photos stay local unless they explicitly confirm optional AI interpretation; build names, descriptions and progress stay in that browser's local storage. Pages hosting does not add authentication.
 
 ## Project structure
 

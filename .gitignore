@@ -1,6 +1,8 @@
 node_modules/
 .next/
 out/
+.api-public/
+.vercel/
 coverage/
 playwright-report/
 test-results/

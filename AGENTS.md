@@ -4,9 +4,9 @@ Read `docs/MASTER_PRODUCT_BRIEF.md` before making product changes. The agreed sc
 
 - Build the private-testing experience around Compact House. Porsche 911 is a later second showcase.
 - Exclude payments, prices, brick costs, ordering, and unlock gates.
-- Keep generation and assistant functionality clearly identified as demonstrations.
+- Keep demo generation and the deterministic assistant labeled as demonstrations. The description-driven house compiler and optional photo interpretation are private prototypes with explicit limits.
 - Keep the model, parts, steps, bags, and assistant context consistent through the domain data.
-- Preserve local-only photo handling; never upload user photos without an explicit product change.
+- Preserve local-only photo handling in demo/manual generation. The explicitly authorized photo-interpretation workflow may send up to three resized photos to the user's configured private API and OpenAI only after an explicit sharing checkbox. Never store photos in projects or expose the OpenAI key in the browser. See `docs/PHOTO_TO_BUILD.md`.
 - Use the existing isolated checkout. Do not create a Git worktree unless the user asks.
 - Validate meaningful changes with lint, typecheck, relevant tests, and the production build. For UI changes, inspect mobile behavior.
 
