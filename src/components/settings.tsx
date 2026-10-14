@@ -1,34 +1,48 @@
 "use client";
 
-import { Check, Blocks, Footprints, Layers, Zap } from "lucide-react";
+import {
+  Check,
+  Blocks,
+  Footprints,
+  Layers,
+  Zap,
+  House,
+  Car,
+  Flower2,
+  Building2,
+} from "lucide-react";
 import {
   BUILD_SIZES,
   DETAIL_LEVELS,
   BUILD_DIFFICULTIES,
 } from "@/domain/catalog";
-import { createHouse } from "@/domain/house";
+import { createModel } from "@/domain/models";
+import { MODEL_KINDS, modelInfo } from "@/domain/models";
 import type {
   BuildSize,
   DetailLevel,
   BuildDifficulty,
   GenerationSettings,
+  ModelKind,
 } from "@/domain/types";
 
 export function DetailSelector({
   value,
   onChange,
   compact = false,
+  settings,
 }: {
   value: DetailLevel;
   onChange: (value: DetailLevel) => void;
   compact?: boolean;
+  settings?: GenerationSettings;
 }) {
   return (
     <fieldset className={`detail-selector ${compact ? "compact" : ""}`}>
       <legend>Model detail</legend>
       {!compact && (
         <p className="field-description">
-          Three house designs, from simple shapes to rich architectural detail.
+          Choose the amount of detail in your selected design.
         </p>
       )}
       <div>
@@ -55,7 +69,13 @@ export function DetailSelector({
                   <small className="recommended">Recommended</small>
                 )}
               </strong>
-              {!compact && <span>{level.description}</span>}
+              {!compact && (
+                <span>
+                  {settings
+                    ? modelInfo(settings).details[index]
+                    : level.description}
+                </span>
+              )}
             </span>
             <span className="radio-mark">
               {value === level.id && <Check size={13} />}
@@ -65,9 +85,56 @@ export function DetailSelector({
       </div>
       {compact && (
         <p className="field-description">
-          {DETAIL_LEVELS.find((level) => level.id === value)?.description}
+          {settings
+            ? modelInfo(settings).details[
+                DETAIL_LEVELS.findIndex((l) => l.id === value)
+              ]
+            : DETAIL_LEVELS.find((level) => level.id === value)?.description}
         </p>
       )}
+    </fieldset>
+  );
+}
+
+export function ModelKindSelector({
+  value,
+  onChange,
+}: {
+  value: ModelKind;
+  onChange: (kind: ModelKind) => void;
+}) {
+  const icons = [House, Car, Flower2, Building2];
+  return (
+    <fieldset className="model-kind-selector">
+      <legend>Demo design</legend>
+      <p className="field-description">
+        Four real assemblies. Your photos stay local and are not analyzed yet.
+      </p>
+      <div>
+        {MODEL_KINDS.map((kind, index) => {
+          const Icon = icons[index];
+          return (
+            <label
+              key={kind.id}
+              className={value === kind.id ? "selected" : ""}
+            >
+              <input
+                type="radio"
+                name="model-kind"
+                value={kind.id}
+                checked={value === kind.id}
+                onChange={() => onChange(kind.id)}
+              />
+              <Icon size={24} />
+              <strong>{kind.name}</strong>
+              <span>{kind.description}</span>
+              <i className="radio-mark">
+                {value === kind.id && <Check size={12} />}
+              </i>
+            </label>
+          );
+        })}
+      </div>
     </fieldset>
   );
 }
@@ -94,7 +161,7 @@ export function BuildDifficultySelector({
       <div className="instruction-options">
         {BUILD_DIFFICULTIES.map((level, index) => {
           const Icon = icons[index];
-          const count = createHouse({ ...settings, buildDifficulty: level.id })
+          const count = createModel({ ...settings, buildDifficulty: level.id })
             .steps.length;
           return (
             <label

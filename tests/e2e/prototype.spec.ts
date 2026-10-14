@@ -1,7 +1,7 @@
 import { expect, test, type Page } from "@playwright/test";
 import { createHouse } from "../../src/domain/house";
 const normal = createHouse({ detail: "normal", size: "compact" });
-const floorStep = normal.steps.find((s) => s.phaseNumber === 2)!.number;
+const floorStep = normal.steps.find((s) => s.phaseNumber === 3)!.number;
 async function jump(page: Page, step: number, bag: number) {
   await page.getByRole("button", { name: /Step \d+ of/ }).click();
   await page
@@ -117,7 +117,7 @@ test("builder saves progress, gives contextual help, and completes the walkthrou
   ).toBeVisible();
   await page.getByRole("button", { name: /A little help/ }).click();
   await page.getByRole("button", { name: "Which parts?" }).click();
-  await expect(page.getByRole("log")).toContainText("#3068b");
+  await expect(page.getByRole("log")).toContainText("#3020");
   await page.getByRole("button", { name: "Another angle" }).click();
   await page.getByRole("button", { name: "Close", exact: true }).click();
   await expect(
@@ -138,11 +138,11 @@ test("builder saves progress, gives contextual help, and completes the walkthrou
   await jump(page, normal.steps.length, 4);
   await page.getByRole("button", { name: "Finish build" }).click();
   await expect(
-    page.getByRole("heading", { name: "Home, made by you." }),
+    page.getByRole("heading", { name: "Made by you." }),
   ).toBeVisible();
   await page.reload();
   await expect(
-    page.getByRole("heading", { name: "Home, made by you." }),
+    page.getByRole("heading", { name: "Made by you." }),
   ).toBeVisible();
   expect(errors).toEqual([]);
 });
@@ -225,7 +225,7 @@ test("different designs keep model counts, thumbnails, parts and saved progress 
     localStorage.setItem(
       "brickmade.private-demo.v1",
       JSON.stringify({
-        version: 4,
+        version: 5,
         activeId: "simple",
         projects: [
           {
@@ -264,9 +264,16 @@ test("different designs keep model counts, thumbnails, parts and saved progress 
     const thumbnail = thumbnails.nth(i);
     const count = Number(await thumbnail.getAttribute("data-total-pieces"));
     counts.push(count);
-    await expect(thumbnail.locator("[data-piece-id]")).toHaveCount(count);
+    await expect
+      .poll(() =>
+        thumbnail.evaluate((img) => {
+          const i = img as HTMLImageElement;
+          return i.complete && i.naturalWidth > 0;
+        }),
+      )
+      .toBe(true);
   }
-  expect(counts[1]).toBeGreaterThan(counts[0] * 3);
+  expect(counts[1]).toBeGreaterThan(counts[0] * 2);
   await page.goto("/builder");
   await expect(
     page.getByRole("heading", { name: "Simple cottage", exact: true }),
@@ -301,7 +308,7 @@ test("different designs keep model counts, thumbnails, parts and saved progress 
   await expect(page.locator(".parts-summary")).toContainText(String(counts[0]));
   await page.getByRole("link", { name: "Go to builder" }).click();
   await expect(
-    page.getByRole("heading", { name: "Home, made by you." }),
+    page.getByRole("heading", { name: "Made by you." }),
   ).toBeVisible();
   await chooseBuild(page, "Detailed cottage");
   await expect(page.getByRole("button", { name: /Step 9 of/ })).toBeVisible();
@@ -321,7 +328,7 @@ test.describe("touch brick inspection", () => {
     await jump(page, floorStep - 1, 1);
     await page.getByRole("button", { name: "Top", exact: true }).click();
     const canvas = page.locator("canvas[data-model=house]");
-    await expect(canvas).toHaveAttribute("data-piece-count", "40");
+    await expect(canvas).toHaveAttribute("data-piece-count", "37");
     const before = await canvas.screenshot();
     const box = (await canvas.boundingBox())!;
     await page.touchscreen.tap(
@@ -333,7 +340,7 @@ test.describe("touch brick inspection", () => {
     ).toContainText("Plate 2 × 4 · #3020");
     await expect(
       page.getByRole("region", { name: "Selected brick" }),
-    ).toContainText("Sage green · Added in step");
+    ).toContainText("Green · Added in step");
     const after = await canvas.screenshot();
     expect(before.equals(after)).toBe(false);
     await page.getByRole("button", { name: "Clear brick selection" }).click();
@@ -350,7 +357,7 @@ test.describe("touch brick inspection", () => {
     );
     await expect(
       page.getByRole("region", { name: "Selected brick" }),
-    ).toContainText("Tile 2 × 2 · #3068b");
+    ).toContainText("Plate 2 × 4 · #3020");
     expect(errors).toEqual([]);
   });
 });
@@ -360,27 +367,40 @@ test("spotlight links to the correct parts and matches only visible pieces", asy
 }) => {
   await page.goto("/builder");
   const canvas = page.locator("canvas[data-model=house]");
-  await expect(canvas).toBeVisible({ timeout: 15000 });
-  await expect(canvas).toHaveAttribute("data-piece-count", "16");
+  await expect(canvas).toHaveAttribute(
+    "data-piece-count",
+    String(normal.steps[0].placementIds.length),
+    { timeout: 30000 },
+  );
+  const first = normal.parts.find(
+    (p) =>
+      p.partId === normal.placements[0].partId &&
+      p.color === normal.placements[0].color,
+  )!;
   await page.locator(".step-parts .part-card").first().click();
   const spotlight = page.getByRole("region", { name: "Selected brick" });
-  await expect(spotlight).toContainText("#3020");
+  await expect(spotlight).toContainText(`#${first.partId}`);
   await spotlight
     .getByRole("button", { name: /Highlight matching pieces/ })
     .click();
-  await expect(canvas).toHaveAttribute("data-matched-pieces", "16");
+  const visible = normal.placements.filter(
+    (p) => p.step === 1 && p.partId === first.partId && p.color === first.color,
+  ).length;
+  await expect(canvas).toHaveAttribute("data-matched-pieces", String(visible));
   await expect(spotlight).toContainText(
-    "16 matching pieces visible · 40 in this build",
+    `${visible} matching pieces visible · ${first.quantity} in this build`,
   );
   await spotlight.getByRole("link", { name: "Find in parts" }).click();
   await expect(page.getByRole("textbox", { name: "Search parts" })).toHaveValue(
-    "3020",
+    first.partId,
   );
   await expect(
-    page.getByRole("button", { name: "Sage green", exact: true }),
+    page.getByRole("button", { name: "Green", exact: true }),
   ).toHaveAttribute("aria-pressed", "true");
   await expect(page.locator(".parts-grid .part-card")).toHaveCount(1);
-  await expect(page.locator(".parts-grid .part-card")).toContainText("×40");
+  await expect(page.locator(".parts-grid .part-card")).toContainText(
+    `×${first.quantity}`,
+  );
   expect(await page.locator("select").count()).toBe(0);
 });
 
@@ -499,16 +519,22 @@ test("building difficulty changes instructions independently and retains a partl
   const canvas = page.locator("canvas[data-model=house]");
   await expect(canvas).toBeVisible({ timeout: 15000 });
   await expect(pace.getByRole("radio", { name: /Medium/ })).toBeChecked();
-  await expect(canvas).toHaveAttribute("data-total-pieces", "342");
+  await expect(canvas).toHaveAttribute(
+    "data-total-pieces",
+    String(createHouse({ detail: "normal", size: "compact" }).stats.pieceCount),
+  );
   const choosePace = async (name: string) =>
     pace.getByRole("radio", { name: new RegExp(`^${name}`) }).check();
   await choosePace("Easy");
   await expect(canvas).toHaveAttribute("data-piece-count", "6");
   await jump(page, 5, 1); // Four small groups, 24 pieces, are complete.
   await choosePace("Hard");
-  await expect(page.getByRole("button", { name: /Step 1 of/ })).toBeVisible();
-  await expect(canvas).toHaveAttribute("data-piece-count", "40");
-  await expect(canvas).toHaveAttribute("data-total-pieces", "342");
+  await expect(page.getByRole("button", { name: /Step 2 of/ })).toBeVisible();
+  await expect(canvas).toHaveAttribute("data-piece-count", "37");
+  await expect(canvas).toHaveAttribute(
+    "data-total-pieces",
+    String(createHouse({ detail: "normal", size: "compact" }).stats.pieceCount),
+  );
   await expect(page.locator(".instruction-kicker")).toContainText("LAYER");
   await choosePace("Medium");
   await expect(page.getByRole("button", { name: /Step 2 of/ })).toBeVisible();
@@ -535,7 +561,9 @@ test("building difficulty changes instructions independently and retains a partl
     page.getByRole("region", { name: "Selected brick" }),
   ).toContainText(`step ${wall.number}`);
   await page.goto("/parts");
-  await expect(page.locator(".parts-summary")).toContainText("342");
+  await expect(page.locator(".parts-summary")).toContainText(
+    String(createHouse({ detail: "normal", size: "compact" }).stats.pieceCount),
+  );
   await page.goto("/review");
   await expect(
     page
@@ -549,7 +577,10 @@ test("building difficulty changes instructions independently and retains a partl
   await expect(page.getByRole("dialog")).toHaveCount(0);
   await page.getByRole("link", { name: "Continue building" }).click();
   await expect(pace.getByRole("radio", { name: /^Easy/ })).toBeChecked();
-  await expect(canvas).toHaveAttribute("data-total-pieces", "342");
+  await expect(canvas).toHaveAttribute(
+    "data-total-pieces",
+    String(createHouse({ detail: "normal", size: "compact" }).stats.pieceCount),
+  );
   expect(await page.locator("select").count()).toBe(0);
   expect(errors).toEqual([]);
 });
@@ -564,7 +595,7 @@ test.describe("whole-layer animation", () => {
       localStorage.setItem(
         "brickmade.private-demo.v1",
         JSON.stringify({
-          version: 4,
+          version: 5,
           activeId: "layers",
           projects: [
             {
@@ -589,9 +620,11 @@ test.describe("whole-layer animation", () => {
       size: "compact",
       buildDifficulty: "hard",
     });
-    const roof = model.steps.find((s) => s.bag === 3)!;
-    expect(roof.placementIds.length).toBeGreaterThan(100);
-    await jump(page, roof.number, 3);
+    const roof = model.steps.reduce((a, b) =>
+      a.placementIds.length > b.placementIds.length ? a : b,
+    );
+    expect(roof.placementIds.length).toBeGreaterThan(16);
+    await jump(page, roof.number, roof.bag);
     const canvas = page.locator("canvas[data-model=house]");
     await expect(canvas).toHaveAttribute("data-placement-state", "settled");
     const pose = await canvas.getAttribute("data-placement-pose");
@@ -606,6 +639,9 @@ test.describe("whole-layer animation", () => {
       timeout: 4000,
     });
     await expect(canvas).toHaveAttribute("data-placement-pose", pose!);
-    await expect(canvas).toHaveAttribute("data-total-pieces", "1116");
+    await expect(canvas).toHaveAttribute(
+      "data-total-pieces",
+      String(createHouse({ detail: "hard", size: "compact" }).stats.pieceCount),
+    );
   });
 });

@@ -11,20 +11,22 @@ import {
   ChevronRight,
   Play,
 } from "lucide-react";
+import { MigrationNotice } from "@/components/migration-notice";
 import { ModelThumbnail } from "@/components/model-thumbnail";
 import { ModelViewer } from "@/components/model-viewer";
-import { createHouse } from "@/domain/house";
+import { createModel } from "@/domain/models";
 import { ActionLink } from "@/components/ui";
 import { projectRepository, useProjects } from "@/services/project-repository";
 
 export default function HomePage() {
   const { projects, active } = useProjects();
-  const model = createHouse(active.settings);
+  const model = createModel(active.settings);
   const progress = active.completed
     ? 100
     : Math.round(((active.currentStep - 1) / model.steps.length) * 100);
   return (
     <div id="page-content" className="home-page">
+      <MigrationNotice project={active} />
       <section className="home-hero">
         <div className="hero-copy">
           <span className="eyebrow">
@@ -45,7 +47,8 @@ export default function HomePage() {
             Create new build <Plus size={18} />
           </ActionLink>
           <span className="hero-footnote">
-            <Sparkles size={14} /> Start with our house demo. Make it yours.
+            <Sparkles size={14} /> Four demo designs. Choose your next
+            adventure.
           </span>
         </div>
         <div className="hero-model-card">
@@ -58,7 +61,7 @@ export default function HomePage() {
           <ModelViewer model={model} controls={false} className="hero-viewer" />
           <span className="floating-note">
             <span className="note-line" />
-            Home, in a whole
+            Your world, in a whole
             <br />
             new light.
           </span>
@@ -113,6 +116,14 @@ export default function HomePage() {
           <span className="how-number">03</span>
         </div>
       </section>
+      <Link href="/models" className="collection-banner">
+        <span>
+          <small>THE DEMO COLLECTION</small>
+          <strong>Four designs. A hundred ways to build.</strong>
+          <em>House · rover · flowers · architecture</em>
+        </span>
+        <ArrowRight size={24} />
+      </Link>
       <section className="builds-section">
         <div className="section-heading">
           <div>
@@ -127,7 +138,7 @@ export default function HomePage() {
         </div>
         <div className="builds-grid">
           {projects.map((project) => {
-            const m = createHouse(project.settings);
+            const m = createModel(project.settings);
             const percent = project.completed
               ? 100
               : Math.round(((project.currentStep - 1) / m.steps.length) * 100);

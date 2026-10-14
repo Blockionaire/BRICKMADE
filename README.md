@@ -23,9 +23,9 @@ No credentials, environment variables, database server, or external AI service a
 5. Switch saved builds using visual model cards in Builder or Parts. Follow your selected instruction pace, replay each group’s placement, and use automatic or manual camera guidance. Tap a brick or a current-step part card to spotlight it, highlight visible matches, or find its exact part/color in Parts. Ask the demo assistant about the current step.
 6. Finish the walkthrough, or resume later. Progress and build names are stored in this browser.
 
-Every photo selection produces a predefined house variant. Photos remain in memory for that browser session and are never uploaded or persisted. Assistant responses are deterministic demonstrations, not external AI calls. No payments, pricing, cost estimates, ordering, or unlock gates are included.
+Photo selection does not analyze images; choose one of four predefined demo families. Photos remain in memory for that browser session and are never uploaded or persisted. Assistant responses are deterministic demonstrations, not external AI calls. No payments, pricing, cost estimates, ordering, or unlock gates are included.
 
-The Normal compact house has 342 modeled placements, 13 part/color combinations, small guided steps, and 4 sorting bags. Statistics, parts, bags, and instructions are calculated from the same placement data. These are digital sample instructions; physical connections, stability, stock, and part/color combinations have not been validated.
+The Normal compact house has 126 actual placements, small guided steps and 4 sorting bags. Statistics, parts, bags, and instructions are calculated from the same placement data. All 108 family/detail/size/pace combinations are digitally audited for recorded colors, reviewed connections, sampled material clearance, support, placement order and inventory. Physical fit/strength and current stock remain untested. See [ASSEMBLY_ENGINE.md](docs/ASSEMBLY_ENGINE.md).
 
 Easy uses larger wall bricks, broad roof plates, lower walls, and minimal landscaping. Normal adds a chimney and fuller windows and garden. Hard uses smaller pieces and taller windows with crossbars, shutters, a porch canopy, a ridge skylight, and a rear garden fence. The saved-build thumbnails project actual model placements rather than a generic illustration. Builder counts report the actual visible pieces at each step and the full design total.
 
@@ -41,7 +41,7 @@ The spotlight highlights one placement or all visible placements with the same p
 
 Version-2 saves map their old construction phases into the selected instructions. Version-3 saves migrate from the original 6/8/10-piece boundaries to version 4 using the exact completed placement IDs. Switching difficulty preserves those IDs and resumes at the first group containing unbuilt pieces; a partially completed larger group may repeat. Switching back without advancing returns to the original place. Completed builds remain complete, and each saved build retains its own pace.
 
-The house uses 12 curated shapes, now rendered from original LDraw surfaces at correct physical proportions. The connection workspace has 47 detailed shapes and 391 geometry-reviewed attachment points; open **Parts → Beyond the basic brick → Make the connection**. See [CONNECTIONS.md](docs/CONNECTIONS.md) for supported rules and limits. The separate library imports **64,895 Rebrickable part records**, **100,148 observed part/color pairs**, **114,656 element-ID records**, and **15,654 selected official LDraw geometry entries**. Open **Parts → Beyond the basic brick** to search the two source namespaces and inspect 47 real geometry previews. Rebrickable data is current to 2026-10-13; LDraw is official release 2026-09. The SQLite download retains provenance and reserved connection/vendor-mapping tables. Historical colors are not live stock, and new parts are not automatically enabled in generation. See [BRICK_CATALOG.md](docs/BRICK_CATALOG.md) for permissions and import commands, and [SOURCING_PLAN.md](docs/SOURCING_PLAN.md) for the complete-list buying architecture.
+The four demo families use reviewed shapes rendered from original LDraw surfaces at correct physical proportions. The connection workspace has 47 detailed shapes and 393 geometry-reviewed attachment points; open **Parts → Beyond the basic brick → Make the connection**. See [CONNECTIONS.md](docs/CONNECTIONS.md) for supported rules and limits. The separate library imports **64,895 Rebrickable part records**, **100,148 observed part/color pairs**, **114,656 element-ID records**, and **15,654 selected official LDraw geometry entries**. Open **Parts → Beyond the basic brick** to search the two source namespaces and inspect 47 real geometry previews. Rebrickable data is current to 2026-10-13; LDraw is official release 2026-09. The SQLite download retains provenance and reserved connection/vendor-mapping tables. Historical colors are not live stock, and new parts are not automatically enabled in generation. See [BRICK_CATALOG.md](docs/BRICK_CATALOG.md) for permissions and import commands, and [SOURCING_PLAN.md](docs/SOURCING_PLAN.md) for the complete-list buying architecture.
 
 
 ## Checks
@@ -74,9 +74,9 @@ The hosted prototype requires no backend server or API keys. The catalog is a ve
 
 ## Project structure
 
-- `src/app`: Home, Create, Review, Builder, Parts, Catalog, Connections, and Account routes.
+- `src/app`: Home, Models, Create, Review, Builder, Parts, Catalog, Connections, and Account routes.
 - `src/components`: Shared controls, model viewer, assistant, and mobile navigation.
-- `src/domain`: Strict types, catalog identities, and deterministic house variants.
+- `src/domain`: Strict types, catalog identities, and deterministic model families and assembly validation.
 - `src/services`: Replaceable generation/assistant providers and local project storage.
 - `tests`: Inventory/geometry consistency and browser workflow checks.
 

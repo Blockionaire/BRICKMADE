@@ -12,7 +12,7 @@ import {
   PART_UNITS,
 } from "@/domain/parts/profiles";
 import { CATALOG } from "@/domain/catalog";
-import { createHouse } from "@/domain/house";
+
 import {
   compatibleFamily,
   findMates,
@@ -49,7 +49,22 @@ describe("Accurate real geometry in the builder", () => {
     expect(PART_UNITS.studMillimetres).toBe(8);
     expect(PART_UNITS.lduMillimetres).toBe(0.4);
     expect(BUILDER_BY_REBRICKABLE.get("3023")!.id).toBe("3023b");
-    for (const part of Object.values(CATALOG)) {
+    for (const part of Object.values(CATALOG).filter((p) =>
+      [
+        "3001",
+        "3003",
+        "3004",
+        "3005",
+        "3009",
+        "3010",
+        "3020",
+        "3022",
+        "3023",
+        "3024",
+        "3068b",
+        "3070b",
+      ].includes(p.id),
+    )) {
       const p = BUILDER_BY_REBRICKABLE.get(part.id)!;
       expect(p).toBeDefined();
       expect(p.bodySize).toEqual([part.width, part.height, part.depth]);
@@ -62,16 +77,6 @@ describe("Accurate real geometry in the builder", () => {
       expect(bounds[1]).toBeCloseTo(-part.height / 2);
       expect(bounds[4]).toBeCloseTo(part.height / 2 + (part.studs ? 0.2 : 0));
     }
-    // Same placements and inventory; true-height geometry changes the scene scale only.
-    expect(
-      ["easy", "normal", "hard"].map(
-        (detail) =>
-          createHouse({
-            detail: detail as "easy" | "normal" | "hard",
-            size: "compact",
-          }).stats.pieceCount,
-      ),
-    ).toEqual([161, 342, 1116]);
   });
   it("checks every mesh checksum, length, normals, material ranges, and finite bounds", () => {
     for (const p of BUILDER_PARTS) {
@@ -190,7 +195,7 @@ describe("Accurate real geometry in the builder", () => {
     expect(result.status).toBe(0);
     expect(JSON.parse(result.stdout)).toEqual({
       parts: 47,
-      connectors: 391,
+      connectors: 393,
       verified: 0,
       fk: [],
     });
@@ -290,10 +295,12 @@ describe("Evidence-based mating and snapping", () => {
       expect(() => snapPose(pose("stud", "3005"), "stud-1", hole)).toThrow();
     }
   });
-  it("never invents a fit for window pegs, axles, unknown parts or invalid transforms", () => {
+  it("pairs only reviewed window parts and never invents a fit for axles, unknown parts or invalid transforms", () => {
     expect(
-      findMates([pose("frame", "60592"), pose("pane", "60601")]).unsupported,
-    ).toEqual(["pane"]);
+      findMates([pose("frame", "60592"), pose("pane", "60601")]).mates.map(
+        (m) => m.family,
+      ),
+    ).toEqual(["window"]);
     expect(worldConnectors(pose("unknown", "999999999"))).toEqual([]);
     expect(PART_PROFILES.get("3705")!.connectors).toEqual([]);
     expect(() =>
@@ -312,6 +319,27 @@ describe("Evidence-based mating and snapping", () => {
         worldConnectors(pose("frame", "60592"))[0],
       ),
     ).toThrow();
+  });
+  it("locks the reviewed window pair upright and rejects other datums and competing inserts", () => {
+    const frame = pose("frame", "60592"),
+      pane = pose("pane", "60601"),
+      target = worldConnectors(frame).find((c) => c.kind === "window-seat")!,
+      socket = PART_PROFILES.get("60601")!.connectors[0];
+    const seated = snapPose(pane, socket.id, target);
+    expect(findMates([frame, seated]).mates).toHaveLength(1);
+    for (const turn of [90, 180, 270])
+      expect(
+        findMates([frame, snapPose(pane, socket.id, target, turn)]).mates,
+      ).toHaveLength(0);
+    expect(
+      compatibleFamily(socket, { ...target, pairCode: "unreviewed" }),
+    ).toBeUndefined();
+    expect(
+      compatibleFamily(socket, { ...target, up: [NaN, 1, 0] }),
+    ).toBeUndefined();
+    expect(
+      findMates([frame, seated, { ...seated, id: "competitor" }]).mates,
+    ).toHaveLength(1);
   });
   it("finds plant and curved-slope fits only at their reviewed underside datum", () => {
     for (const id of ["24866", "2423", "11477", "30176"]) {

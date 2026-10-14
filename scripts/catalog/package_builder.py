@@ -137,10 +137,17 @@ def main():
                 # The inner HALF of the split collar seats in peghole's 2 LDU
                 # recess. Its centre, not its outer face, meets the brick face.
                 connector("pin",point([0,0,0],center),[sign,0,0],{"file":"parts/2780.dat","primitive":"p/confric5.dat","method":"split collar centre seats at exterior hole plane; inner half occupies 8 LDU radius / 2 LDU recess; 20 LDU insertion"},radius=0.3,depth=1.0,collarRadius=0.4,collarDepth=0.1)
+        if ident in ("60592","60601"):
+            mount=ident=="60592"
+            connector("window-seat" if mount else "window-insert",[0,0,0],[0,0,-1] if mount else [0,0,1],
+                {"file":"parts/"+ident+".dat","method":"explicit paired 1x2x2 frame/pane origins; 60592 hole references and 60601s01 end tabs; manual flex installation, not a generic clip rule"},
+                radius=0.1,depth=0.1,pairCode="window-60592-60601",up=[0,1,0],procedure="manual-flex",
+                allowedContactRegions=[[-0.15,0.9,0.1,0.15,1.15,0.4],[-0.15,-0.95,0.1,0.15,-0.65,0.4]])
         profile={"id":ident,"rebrickableId":rb,"name":part["name"],"rebrickableName":rb_name[0],"category":part["category"],"tags":part["tags"],"centerLdu":center,"bodySize":[grid[0],grid[2]/20,grid[1]] if grid else None,"connectors":connectors,"coverage":"partial" if not grid else "stud-system","unknownMechanisms":[] if grid else ["Unlisted mating features are unsupported; no fit is inferred from the shape."],"source":{"file":part["file"],"sha256":part["sha256"],"author":part["author"],"license":part["license"],"url":source["recordBaseUrl"]+ident+".dat"},"geometryFile":"/catalog/geometry/"+ident+".mpd","geometrySha256":hashlib.sha256(document.encode()).hexdigest(),"dependencyCount":len(deps)}
         profiles.append(profile)
+        profile["observedColorIds"]=[row[0] for row in rb_db.execute("SELECT color_id FROM rb_part_color_observations WHERE part_num=? ORDER BY color_id",(rb,))]
     rb_db.close()
-    manifest={"schemaVersion":1,"units":{"studMillimetres":8,"lduMillimetres":0.4,"lduPerStud":20,"brickHeightLdu":24,"plateHeightLdu":8,"coordinateSystem":"right-handed Y-up; LDraw rotated 180 degrees about X, uniformly scaled by 1/20, then offset by explicit body datum"},"source":source,"profileVersion":"2026-10-14.1","connectionStatus":"geometry-reviewed; not physically certified","parts":profiles}
+    manifest={"schemaVersion":1,"units":{"studMillimetres":8,"lduMillimetres":0.4,"lduPerStud":20,"brickHeightLdu":24,"plateHeightLdu":8,"coordinateSystem":"right-handed Y-up; LDraw rotated 180 degrees about X, uniformly scaled by 1/20, then offset by explicit body datum"},"source":source,"profileVersion":"2026-10-14.2","connectionStatus":"geometry-reviewed; not physically certified","parts":profiles}
     (output/"builder-parts.json").write_text(json.dumps(manifest,indent=2)+"\n")
     # Dedicated namespaced application tables, never upgrade upstream verified flags.
     with sqlite3.connect(output/"brickmade.sqlite") as db:

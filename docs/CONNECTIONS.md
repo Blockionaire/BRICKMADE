@@ -4,12 +4,14 @@ Updated 2026-10-14. Roadmap steps 1–2 introduce real surfaces and conservative
 
 ## What is implemented
 
-- All **12 current house shapes** use original LDraw mesh surfaces, including studs, underside details and tile grooves. Instancing keeps repeated pieces inexpensive. Selection, highlights, step grouping, animations and independent instruction difficulty remain supported.
+- All **admitted demo shapes** use original LDraw mesh surfaces, including studs, underside details and tile grooves. Instancing keeps repeated pieces inexpensive. Selection, highlights, step grouping, animations and independent instruction difficulty remain supported.
 - **47 packaged shapes** appear in the catalog and the **Connections** two-piece workspace. They include standard bricks/plates/tiles, curved and straight slopes, round pieces, arches, window frame/pane, flower/leaves/bamboo, a headlight brick, a clipped plate, Technic brick/pins/axle/gear and wheel rim.
-- **391 attachment points** have geometry-reviewed frames and evidence. They cover male studs and individually reviewed underside clutch footprints, sideways studs and the **2780 friction pin ↔ 3700 round hole** fit. Standard bricks, plates and tiles have full reviewed stud-system coverage; other parts explicitly have partial or zero coverage.
+- **393 attachment points** have geometry-reviewed frames and evidence. They cover male studs and individually reviewed underside clutch footprints, sideways studs and the **2780 friction pin ↔ 3700 round hole** fit. Standard bricks, plates and tiles have full reviewed stud-system coverage; other parts explicitly have partial or zero coverage.
 - Local mating checks require complementary types, nominal dimensions, sufficient insertion depth, opposing axes, coincident seating planes and an unused connector. The 2780 split collar centre meets the 3700 hole’s exterior plane: its inner collar half occupies the 8 LDU-radius, 2 LDU-deep counterbore. The 6 LDU-radius shaft inserts 20 LDU. Collar radius/depth are checked explicitly; holes without that reviewed recess are rejected. Full-depth Technic pin insertion conservatively reserves both faces of its through-hole channel. No connector can connect a piece to itself.
 - Snapping preserves a unit quaternion, supports arbitrary global rotations and translations, aligns seating frames, and allows rotation around the attachment axis. The interface offers quarter turns; this is not a collision-clearance guarantee.
 - A spatially bucketed deterministic mating graph reports aligned attachments and unconnected or unsupported pieces. The house spotlight reports actual alignment counts for the design. A disconnected result does not automatically establish an error: ground-level pieces, incomplete steps and a demo assembly require separate interpretation.
+
+The specific 60592 frame / 60601 pane fit adds two reviewed pairing datums. Upright orientation is locked, contact is restricted to the two tab regions, and manual flex fitting is explicit and physically untested. This is not a generic peg/clip rule.
 
 ## Units and coordinates
 
@@ -17,7 +19,7 @@ One scene unit is **8 mm**, the nominal stud pitch. One LDraw unit (LDU) is **0.
 
 LDraw uses downward Y; BrickMade uses right-handed upward Y. For each part, its declared `centerLdu = [cx, cy, cz]` transforms a native point `[x,y,z]` into `[(x-cx)/20, (cy-y)/20, (cz-z)/20]`. This is a 180° X rotation and **uniform** 1/20 scale followed by a datum translation. Normals receive the rotation only. Special shapes retain their original origin conventions; they are not silently recentered using a bounding box. The curved 11477 part has a negative native body datum and only its full-depth rear underside socket is reviewed.
 
-The old demo compressed vertical proportions. Correcting its body and layer heights preserves piece IDs, piece counts, inventory, groups and progress, while updating physical height and the viewer. No saved project is marked completed or reset by this correction.
+The earlier scale correction preserved progress. The subsequent structure revision changes actual placements and migrates pre-version-5 projects with a visible progress reset and a local raw-save backup where storage permits. See [ASSEMBLY_ENGINE.md](ASSEMBLY_ENGINE.md).
 
 The **0.002 scene unit / 0.016 mm** seating threshold and **1°** axis threshold are numerical matching limits. They are **not manufacturing tolerances** or measurements of acceptable physical play. Source meshes describe LDraw's nominal geometry, not metrology of real samples.
 
@@ -30,12 +32,12 @@ Each point records its source file, primitive where applicable, method and `geom
 Important boundaries:
 
 - A root or source catalog ID alone never generates a connector.
-- The window pane's peg seating, axle shapes/keying, wheel/gear mating, bar/clip clutch, hinges, flexible connections and articulation are **not implemented**. The corresponding geometry may be visible, while unsupported fits are disabled.
+- Generic window peg seating, axle shapes/keying, wheel/gear mating, bar/clip clutch, hinges, flexible connections and articulation are **not implemented**. The corresponding geometry may be visible, while unsupported fits are disabled.
 - Hollow studs do not automatically receive a bar connector. A visually cylindrical bore is not enough evidence for a supported joint.
 - Compatibility checks operate on reviewed attachment points, **not complete solid-body interference**. In particular, a legal local mate can still cause neighboring bodies or additional studs to collide after rotation.
 - Geometry alignment does not measure clutch force, solve static mechanics, certify model stability or validate assembly order.
-- The deterministic house remains a demonstration. Its existing layout can have unmatched supports or studs; step 3 must audit and fix whole-model collision, unsupported/floating pieces, seating and insertion before a physical kit claim.
-- Colors remain illustrative in the builder. Rebrickable observed pairs in the catalog remain historical evidence, not stock.
+- Roadmap steps 3–4 add complete assembly checks and four rebuilt demo families. The local workspace alone still checks only attachment alignment; complete models use the separate [assembly engine](ASSEMBLY_ENGINE.md). Physical kits remain unvalidated.
+- Models now use recorded Rebrickable part/color pairs. Workspace colors remain illustrative. Historical manufacturing evidence does not establish stock.
 
 ## Artifacts and refresh
 

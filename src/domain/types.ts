@@ -4,14 +4,34 @@ export type CameraView =
   "perspective" | "front" | "back" | "side" | "left" | "top";
 export type PlacementMode = "assembled" | "guide";
 export type BuildSize = "compact" | "standard" | "large";
+export type ModelKind = "house" | "rover" | "plant" | "pavilion";
 export type ColorId =
-  "sand" | "roof" | "glass" | "wood" | "grass" | "stone" | "leaf" | "flower";
-export type Category = "Brick" | "Plate" | "Tile";
+  | "sand"
+  | "roof"
+  | "glass"
+  | "wood"
+  | "grass"
+  | "stone"
+  | "leaf"
+  | "flower"
+  | "black"
+  | "white";
+export type Category =
+  | "Brick"
+  | "Plate"
+  | "Tile"
+  | "Slope"
+  | "Arch"
+  | "Plant"
+  | "Window"
+  | "Technic"
+  | "Other";
 
 export interface GenerationSettings {
   detail: DetailLevel;
   size: BuildSize;
   buildDifficulty?: BuildDifficulty;
+  modelKind?: ModelKind;
 }
 
 export interface CatalogPart {
@@ -22,6 +42,7 @@ export interface CatalogPart {
   depth: number;
   height: number;
   studs: boolean;
+  geometryId?: string;
 }
 
 export interface Placement {
@@ -30,6 +51,11 @@ export interface Placement {
   color: ColorId;
   position: [number, number, number];
   rotated: boolean;
+  rotation?: [number, number, number, number];
+  layer?: number;
+  approach?: [number, number, number];
+  dependsOn?: string[];
+  procedure?: "manual-flex";
   step: number;
 }
 
@@ -54,12 +80,14 @@ export interface BuildStep {
   area: string;
   suggestedView: CameraView;
   focus: [number, number, number];
+  insertionDirection?: [number, number, number];
+  procedures?: string[];
 }
 
 export type BuildPhase = Omit<
   BuildStep,
   "phaseNumber" | "cluster" | "clusters" | "area" | "suggestedView" | "focus"
->;
+> & { area?: string; suggestedView?: CameraView };
 
 export interface SortingGroup {
   number: number;
@@ -70,6 +98,8 @@ export interface SortingGroup {
 }
 
 export interface HouseModel {
+  kind?: ModelKind;
+  revision?: string;
   settings: GenerationSettings;
   placements: Placement[];
   steps: BuildStep[];
@@ -93,6 +123,7 @@ export interface Project {
   completed: boolean;
   /** Retain the exact completed pieces when regrouping instructions mid-build. */
   completedPlacementIds?: string[];
+  migrationNotice?: "structure-updated";
 }
 
 export interface AssistantContext {

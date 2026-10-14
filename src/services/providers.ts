@@ -1,15 +1,16 @@
 import { CATALOG, COLORS } from "@/domain/catalog";
-import { createHouse } from "@/domain/house";
+import { reviewAssembly } from "./assembly-validation";
+import { createModel } from "@/domain/models";
 import type {
   BuildAssistantProvider,
   GenerationProvider,
 } from "@/domain/types";
 
 export const GENERATION_STAGES = [
-  "Looking at your photos",
-  "Finding the familiar shapes",
-  "Creating your brick model",
-  "Adding the little details",
+  "Choosing your demo design",
+  "Checking the real parts",
+  "Connecting the assembly",
+  "Reviewing structure and access",
   "Preparing your building steps",
 ];
 
@@ -36,7 +37,12 @@ export const demoGeneration: GenerationProvider = {
       onStage(i);
       await delay(850, signal);
     }
-    return createHouse(settings);
+    const model = createModel(settings);
+    const report = await reviewAssembly(model);
+    if (signal.aborted) throw new DOMException("Cancelled", "AbortError");
+    if (report.status !== "passed")
+      throw Error("This demo did not pass its digital assembly review.");
+    return model;
   },
 };
 
@@ -57,11 +63,11 @@ export const demoAssistant: BuildAssistantProvider = {
       return {
         text: nextStep
           ? `Next is step ${nextStep.number}: ${nextStep.title}. ${nextStep.description}`
-          : "This is the final step. Your house is complete! You can finish the build and explore the full model.",
+          : "This is the final step. Your build is complete! You can finish the build and explore the full model.",
       };
     if (/fit|stuck|wrong/.test(q))
       return {
-        text: `${step.hint} Compare your work with the highlighted pieces before moving on. These are demo instructions; physical fit and stability have not been validated.`,
+        text: `${step.hint} Compare your work with the highlighted pieces before moving on. These instructions use reviewed digital attachments. Manual fitting, clutch strength and stability still need physical testing.`,
         action: "highlight",
       };
     if (/piece|part|need/.test(q)) {

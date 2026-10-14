@@ -34,17 +34,19 @@ export function planBuildSteps(
       .filter((p) => p.step === phase.number)
       .sort((a, b) => {
         const bottom = (p: Placement) =>
-          p.position[1] - CATALOG[p.partId].height / 2;
+          p.layer ?? p.position[1] - CATALOG[p.partId].height / 2;
         return (
           Math.round((bottom(a) - bottom(b)) * 100) ||
-          a.position[2] - b.position[2] ||
-          a.position[0] - b.position[0]
+          source.indexOf(a) - source.indexOf(b)
         );
       });
     for (const p of ordered) {
-      const bottom = (p.position[1] - CATALOG[p.partId].height / 2).toFixed(2);
+      const bottom = (
+        p.layer ?? p.position[1] - CATALOG[p.partId].height / 2
+      ).toFixed(2);
       const view: CameraView =
-        phase.bag === 1 || phase.bag === 3
+        phase.suggestedView ??
+        (phase.bag === 1 || phase.bag === 3
           ? "perspective"
           : phase.bag === 2
             ? p.rotated
@@ -60,9 +62,10 @@ export function planBuildSteps(
                 ? p.position[0] < 0
                   ? "left"
                   : "side"
-                : "perspective";
+                : "perspective");
       const area =
-        phase.bag === 1
+        (phase.area === "Walls" ? undefined : phase.area) ??
+        (phase.bag === 1
           ? phase.number === 1
             ? "Base"
             : "Floor & path"
@@ -80,15 +83,16 @@ export function planBuildSteps(
                       ? "Shutters & skylight"
                       : view === "left"
                         ? "Left garden"
-                        : "Right garden";
-      const key = layers ? bottom : `${bottom}:${view}`;
+                        : "Right garden");
+      const key = `${layers ? bottom : `${bottom}:${view}`}:${(p.approach ?? [0, 1, 0]).join(",")}:${p.procedure ?? "rigid"}`;
       if (!buckets.has(key))
         buckets.set(key, {
-          area: layers
-            ? phase.bag === 2
-              ? "Full wall layer"
-              : `${phase.bag === 3 ? "Roof" : phase.title === "A garden of your own" ? "Garden" : area} layer`
-            : area,
+          area:
+            layers && (!phase.area || phase.area === "Walls")
+              ? phase.bag === 2
+                ? "Full wall layer"
+                : `${phase.bag === 3 ? "Roof" : phase.title === "A garden of your own" ? "Garden" : area} layer`
+              : area,
           view: layers ? (phase.bag === 1 ? "top" : "perspective") : view,
           pieces: [],
         });
@@ -137,6 +141,12 @@ export function planBuildSteps(
         focus,
         description: `Place ${list} in the highlighted ${cluster.area.toLowerCase()} positions. This is ${layers ? "layer" : "group"} ${index + 1} of ${clusters.length} for this section.`,
         hint: `${phase.hint} Watch the placement replay to see the destinations.`,
+        insertionDirection: pieces[0].approach ?? [0, 1, 0],
+        procedures: pieces.some((p) => p.procedure === "manual-flex")
+          ? [
+              "Manual fit: align the pane upright inside its matching frame and seat the end tabs. Flex fitting must be verified physically; do not force the part.",
+            ]
+          : [],
       });
     });
   }

@@ -15,7 +15,7 @@ import Link from "next/link";
 import libraryManifest from "../../../public/catalog/rebrickable-manifest.json";
 import { ProjectSelector } from "@/components/project-selector";
 import { CATALOG, COLORS } from "@/domain/catalog";
-import { createHouse } from "@/domain/house";
+import { createModel } from "@/domain/models";
 import {
   PageHeading,
   PartCard,
@@ -41,7 +41,7 @@ function PartsContent() {
 }
 
 function BuildParts({ active }: { active: Project }) {
-  const model = createHouse(active.settings);
+  const model = createModel(active.settings);
   const params = useSearchParams();
   const [query, setQuery] = useState(params.get("part") ?? "");
   const [color, setColor] = useState(params.get("color") ?? "all");
@@ -74,7 +74,7 @@ function BuildParts({ active }: { active: Project }) {
       <PageHeading
         eyebrow="Every little piece has a place"
         title="Meet your building blocks."
-        description={`All the parts that make ${active.name} feel like home.`}
+        description={`Every piece of ${active.name}, in one place.`}
         back="/review"
       />
       <div className="parts-summary">
@@ -177,7 +177,12 @@ function BuildParts({ active }: { active: Project }) {
                 role="group"
                 aria-label="Filter by category"
               >
-                {["all", "Brick", "Plate", "Tile"].map((c) => (
+                {[
+                  "all",
+                  ...new Set(
+                    model.parts.map((p) => CATALOG[p.partId].category),
+                  ),
+                ].map((c) => (
                   <button
                     key={c}
                     aria-pressed={category === c}
@@ -261,7 +266,8 @@ function BuildParts({ active }: { active: Project }) {
               <span>Color</span>
               <strong>
                 <i style={{ background: COLORS[selected.color].hex }} />
-                {COLORS[selected.color].name}
+                {COLORS[selected.color].sourceName} · Rebrickable color #
+                {COLORS[selected.color].rebrickableId}
               </strong>
             </div>
             <div>

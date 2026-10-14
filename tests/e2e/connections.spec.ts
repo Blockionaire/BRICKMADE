@@ -1,3 +1,4 @@
+import { createHouse } from "../../src/domain/house";
 import { expect, test } from "@playwright/test";
 
 test("real shapes snap, rotate, support sideways studs and Technic pins, and report unknown fits", async ({
@@ -71,13 +72,14 @@ test("real shapes snap, rotate, support sideways studs and Technic pins, and rep
     fullPage: true,
   });
   await page.getByRole("button", { name: "Window pane", exact: true }).click();
-  await expect(feedback).toContainText("This fit needs a connection profile");
+  await page
+    .getByRole("button", { name: "Connect pieces", exact: true })
+    .click();
+  await expect(feedback).toHaveAttribute("data-mate-count", "1");
+  await expect(feedback).toContainText("manual flex fitting");
   await expect(
-    page.getByRole("button", { name: "Connect pieces", exact: true }),
+    page.getByRole("button", { name: "Rotate 90°", exact: true }),
   ).toBeDisabled();
-  await expect(page.locator(".connection-inspection")).toContainText(
-    "0 reviewed attachment points",
-  );
   expect(errors).toEqual([]);
   expect(failed).toEqual([]);
 });
@@ -134,9 +136,12 @@ test("the house builder uses real meshes and retains picking, counts and exact p
   await page.goto("/builder");
   const canvas = page.locator("canvas[data-model=house]");
   await expect(canvas).toHaveAttribute("data-geometry", "ldraw", {
-    timeout: 20000,
+    timeout: 30000,
   });
-  await expect(canvas).toHaveAttribute("data-total-pieces", "342");
+  await expect(canvas).toHaveAttribute(
+    "data-total-pieces",
+    String(createHouse({ detail: "normal", size: "compact" }).stats.pieceCount),
+  );
   await expect(canvas).toHaveAttribute("data-placement-state", "settled");
   const pose = await canvas.getAttribute("data-placement-pose");
   await page.locator(".step-parts .part-card").first().click();

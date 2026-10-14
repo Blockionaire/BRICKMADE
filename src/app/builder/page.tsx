@@ -24,7 +24,8 @@ import type { CameraView, PlacementMode, Project } from "@/domain/types";
 import { ModelViewer } from "@/components/model-viewer";
 import { PartCard, Sheet } from "@/components/ui";
 import { Assistant } from "@/components/assistant";
-import { createHouse } from "@/domain/house";
+import { AssemblyReview } from "@/components/assembly-review";
+import { createModel } from "@/domain/models";
 import { projectRepository, useProjects } from "@/services/project-repository";
 
 export default function BuilderPage() {
@@ -33,7 +34,7 @@ export default function BuilderPage() {
 }
 
 function BuilderContent({ active }: { active: Project }) {
-  const model = createHouse(active.settings);
+  const model = createModel(active.settings);
   const number = Math.min(active.currentStep, model.steps.length);
   const step = model.steps[number - 1];
   const bag = model.bags.find((b) => b.number === step.bag)!;
@@ -74,6 +75,7 @@ function BuilderContent({ active }: { active: Project }) {
     return (
       <div id="page-content" className="completion-page modern-completion">
         <ProjectSelector />
+        <AssemblyReview model={model} compact />
         <div className="completion-burst" aria-hidden="true">
           {Array.from({ length: 12 }, (_, i) => (
             <i
@@ -84,7 +86,7 @@ function BuilderContent({ active }: { active: Project }) {
           <CheckCircle2 size={40} />
         </div>
         <span className="tag">BUILD COMPLETE</span>
-        <h1>Home, made by you.</h1>
+        <h1>Made by you.</h1>
         <p>
           {model.stats.pieceCount.toLocaleString()} pieces. One little
           masterpiece.
@@ -148,6 +150,7 @@ function BuilderContent({ active }: { active: Project }) {
   return (
     <div id="page-content" className="builder-page build-studio">
       <ProjectSelector />
+      <AssemblyReview model={model} compact />
       <div className="studio-heading">
         <div>
           <Link href="/review" className="back-link">
@@ -350,6 +353,11 @@ function BuilderContent({ active }: { active: Project }) {
             </span>
             <h2>{step.title}</h2>
             <p className="step-description">{step.description}</p>
+            {step.procedures?.map((procedure) => (
+              <p className="manual-procedure" key={procedure}>
+                {procedure}
+              </p>
+            ))}
             <div className="step-parts-heading">
               <h3>
                 Your next pieces <span>{step.placementIds.length}</span>

@@ -54,6 +54,9 @@ try {
     page.getByRole("heading", { name: "Our home on Pages" }),
   ).toBeVisible();
   await expect(page.locator("canvas")).toBeVisible();
+  await expect(
+    page.getByRole("region", { name: "Assembly review" }),
+  ).toHaveAttribute("data-validation-status", "passed", { timeout: 20000 });
   await page.getByRole("link", { name: "Explore the parts" }).click();
   await expect
     .poll(() => new URL(page.url()).pathname)
@@ -68,17 +71,14 @@ try {
   ).toHaveAttribute("aria-current", "page");
   const pace = page.getByRole("group", { name: "Building difficulty" });
   await pace.getByRole("radio", { name: /^Hard/ }).check();
-  await expect(page.locator("canvas")).toHaveAttribute(
-    "data-piece-count",
-    "40",
-  );
+  await expect(page.locator("canvas")).toHaveAttribute("data-piece-count", "9");
   await page.reload();
   await expect(pace.getByRole("radio", { name: /^Hard/ })).toBeChecked();
   await pace.getByRole("radio", { name: /^Easy/ }).check();
   await expect(page.locator("canvas")).toHaveAttribute("data-piece-count", "6");
   await expect(page.locator("canvas")).toHaveAttribute(
     "data-total-pieces",
-    "342",
+    "126",
   );
   await expect(page.locator("canvas")).toHaveAttribute(
     "data-geometry",
@@ -96,7 +96,7 @@ try {
   ).toBeVisible();
   await page.getByRole("button", { name: /A little help/ }).click();
   await page.getByRole("button", { name: "Which parts?" }).click();
-  await expect(page.getByRole("log")).toContainText("#3068b");
+  await expect(page.getByRole("log")).toContainText("#3020");
   await page.getByRole("button", { name: "Close", exact: true }).click();
   await page.reload();
   await expect(
@@ -105,6 +105,7 @@ try {
   await page.goto(`${site}/catalog/`);
   await expect(page.locator(".library-result-count")).toContainText(
     "64,895 designs",
+    { timeout: 20000 },
   );
   await page
     .getByRole("textbox", { name: "Search the part library" })
@@ -148,6 +149,7 @@ try {
     "create",
     "catalog",
     "connections",
+    "models",
   ]) {
     const response = await page.goto(`${site}/${route ? `${route}/` : ""}`);
     assert.equal(response.status(), 200);
@@ -156,7 +158,7 @@ try {
   assert.deepEqual(errors, []);
   assert.deepEqual(failedRequests, []);
   console.log(
-    "Pages smoke check passed: eight routes, photos, real builder meshes, connection snapping and Technic fit, parts filter, independent instruction difficulty, broad part catalog, glass geometry, assistant, and saved progress. No browser errors or failed requests.",
+    "Pages smoke check passed: nine routes, photos, real builder meshes, connection snapping and Technic fit, parts filter, independent instruction difficulty, broad part catalog, glass geometry, assistant, and saved progress. No browser errors or failed requests.",
   );
 } finally {
   await browser.close();

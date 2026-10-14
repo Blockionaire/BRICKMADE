@@ -6,20 +6,39 @@ import type {
   BuildDifficulty,
 } from "./types";
 
-export const COLORS: Record<ColorId, { name: string; hex: string }> = {
-  sand: { name: "Warm sand", hex: "#dfcaa3" },
-  roof: { name: "Terracotta", hex: "#ad4935" },
-  glass: { name: "Smoke blue", hex: "#719ba3" },
-  wood: { name: "Dark brown", hex: "#6b4834" },
-  grass: { name: "Sage green", hex: "#a6ad83" },
-  stone: { name: "Light gray", hex: "#c8c4ba" },
-  leaf: { name: "Olive green", hex: "#627b51" },
-  flower: { name: "Soft gold", hex: "#e4b757" },
+import colorData from "../../data/catalog/model-colors.json" with { type: "json" };
+import { BUILDER_PARTS } from "./parts/profiles";
+const names: Record<ColorId, string> = {
+  sand: "Warm sand",
+  roof: "Terracotta",
+  glass: "Clear glass",
+  wood: "Dark brown",
+  grass: "Green",
+  stone: "Light gray",
+  leaf: "Leaf green",
+  flower: "Soft gold",
+  black: "Black",
+  white: "White",
 };
+export const COLORS = Object.fromEntries(
+  Object.entries(colorData.colors).map(([id, value]) => [
+    id,
+    { ...value, name: names[id as ColorId] },
+  ]),
+) as Record<
+  ColorId,
+  {
+    name: string;
+    hex: string;
+    sourceName: string;
+    rebrickableId: number;
+    alpha: number;
+  }
+>;
 
 // Curated Rebrickable shape identities; geometry/vendor mappings are separate.
 // One scene unit = one 8 mm stud pitch. Geometry uses uniform LDraw scaling.
-// Colors remain illustrative, not stock guarantees.
+// Models require recorded Rebrickable color pairs; current stock remains unchecked.
 export const CATALOG: Record<string, CatalogPart> = {
   "3005": {
     id: "3005",
@@ -130,6 +149,41 @@ export const CATALOG: Record<string, CatalogPart> = {
     studs: false,
   },
 };
+
+// Source geometry defines non-rectangular shapes. These dimensions are UI and
+// layer datums, not solid-body collision proxies. Admission is validated separately.
+for (const profile of BUILDER_PARTS) {
+  if (CATALOG[profile.rebrickableId]) {
+    CATALOG[profile.rebrickableId].geometryId = profile.id;
+    continue;
+  }
+  const size = profile.bodySize ?? [
+    profile.mesh.bounds[3] - profile.mesh.bounds[0],
+    Math.max(0.1, Math.abs(profile.centerLdu[1]) / 10),
+    profile.mesh.bounds[5] - profile.mesh.bounds[2],
+  ];
+  const category = profile.category.startsWith("Technic")
+    ? "Technic"
+    : profile.tags.includes("Plants & flowers")
+      ? "Plant"
+      : ["Brick", "Plate", "Tile", "Slope", "Arch", "Window"].includes(
+            profile.category,
+          )
+        ? profile.category
+        : profile.id === "60601"
+          ? "Window"
+          : "Other";
+  CATALOG[profile.rebrickableId] = {
+    id: profile.rebrickableId,
+    name: profile.rebrickableName.replaceAll(" x ", " × "),
+    category: category as CatalogPart["category"],
+    width: size[0],
+    height: size[1],
+    depth: size[2],
+    studs: profile.connectors.some((c) => c.kind === "stud"),
+    geometryId: profile.id,
+  };
+}
 
 export const DETAIL_LEVELS: {
   id: DetailLevel;

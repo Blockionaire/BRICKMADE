@@ -18,7 +18,8 @@ import {
 } from "lucide-react";
 import { CATALOG, COLORS } from "@/domain/catalog";
 import { BUILDER_BY_REBRICKABLE } from "@/domain/parts/profiles";
-import { findMates, quarterTurn } from "@/domain/parts/connections";
+import { placementPose } from "@/domain/model-pose";
+import { findMates } from "@/domain/parts/connections";
 import type { CameraView, HouseModel, PlacementMode } from "@/domain/types";
 import { PartIllustration, Sheet } from "./ui";
 const Canvas = dynamic(() => import("./model-canvas"), {
@@ -96,14 +97,7 @@ export function ModelViewer({
     : 0;
   const attachments = useMemo(() => {
     if (!selectable) return new Map<string, number>();
-    const result = findMates(
-      model.placements.map((p) => ({
-        id: p.id,
-        partId: BUILDER_BY_REBRICKABLE.get(p.partId)!.id,
-        position: p.position,
-        rotation: quarterTurn(p.rotated ? 1 : 0),
-      })),
-    );
+    const result = findMates(model.placements.map(placementPose));
     const counts = new Map<string, number>();
     for (const mate of result.mates)
       for (const c of [mate.a, mate.b])
@@ -251,8 +245,8 @@ export function ModelViewer({
               Explore connections <ArrowUpRight size={12} />
             </Link>
             <span>
-              Alignment is a geometry check; this demo still needs whole-model
-              validation.
+              Assembly checks are shown above. Physical fit and strength still
+              need testing.
             </span>
           </p>
           <div className="inspector-actions">

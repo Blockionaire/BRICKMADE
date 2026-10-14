@@ -1,13 +1,12 @@
 "use client";
 
 import { useSyncExternalStore } from "react";
-import { createHouse, createLegacyInstructionModel } from "@/domain/house";
-import { regroupProject } from "@/domain/instruction-progress";
+import { createModel } from "@/domain/models";
 import { DEFAULT_SETTINGS } from "@/domain/catalog";
 import type { Project } from "@/domain/types";
 
 interface SavedState {
-  version: 4;
+  version: 5;
   projects: Project[];
   activeId: string;
 }
@@ -20,7 +19,7 @@ export const DEMO_PROJECT: Project = {
   completed: false,
 };
 const INITIAL: SavedState = {
-  version: 4,
+  version: 5,
   projects: [DEMO_PROJECT],
   activeId: DEMO_PROJECT.id,
 };
@@ -44,6 +43,8 @@ function validProject(value: unknown): value is Project {
       p.settings.detail,
     ) &&
     ["compact", "standard", "large"].includes(p.settings.size) &&
+    (p.settings.modelKind === undefined ||
+      ["house", "rover", "plant", "pavilion"].includes(p.settings.modelKind)) &&
     (p.settings.buildDifficulty === undefined ||
       ["easy", "medium", "hard"].includes(p.settings.buildDifficulty)) &&
     (p.completedPlacementIds === undefined ||
@@ -62,11 +63,13 @@ export function parseSavedState(raw: string | null): SavedState {
   try {
     const state = JSON.parse(raw);
     if (
-      ![1, 2, 3, 4].includes(state.version) ||
+      ![1, 2, 3, 4, 5].includes(state.version) ||
       !Array.isArray(state.projects) ||
       !state.projects.length ||
       state.projects.length > 100 ||
       !state.projects.every(validProject) ||
+      new Set(state.projects.map((p: Project) => p.id)).size !==
+        state.projects.length ||
       !state.projects.some((p: Project) => p.id === state.activeId)
     )
       return INITIAL;
@@ -75,6 +78,7 @@ export function parseSavedState(raw: string | null): SavedState {
       const settings = {
         ...p.settings,
         buildDifficulty: p.settings.buildDifficulty ?? "medium",
+        modelKind: p.settings.modelKind ?? "house",
         detail:
           detail === "standard"
             ? "normal"
@@ -84,42 +88,31 @@ export function parseSavedState(raw: string | null): SavedState {
       } as Project["settings"];
       if (!["easy", "normal", "hard"].includes(settings.detail))
         throw new Error("Invalid detail");
-      const model = createHouse(settings);
-      if (state.version === 3) {
-        const previous = createLegacyInstructionModel(settings);
-        return regroupProject(
-          {
-            ...p,
-            settings,
-            currentStep: Math.min(p.currentStep, previous.steps.length),
-            completedPlacementIds: undefined,
-          },
-          settings.buildDifficulty!,
-          previous,
-        );
-      }
-      const currentStep =
-        state.version === 1
-          ? 1
-          : p.completed
-            ? model.steps.length
-            : state.version === 2
-              ? (model.steps.find((step) => step.phaseNumber >= p.currentStep)
-                  ?.number ?? model.steps.length)
-              : Math.min(p.currentStep, model.steps.length);
+      const model = createModel(settings);
+      if (state.version < 5)
+        return {
+          ...p,
+          settings,
+          currentStep: 1,
+          completed: false,
+          completedPlacementIds: undefined,
+          migrationNotice: "structure-updated",
+        };
+      const currentStep = p.completed
+        ? model.steps.length
+        : Math.min(p.currentStep, model.steps.length);
       const validIds = new Set(model.placements.map((piece) => piece.id));
       return {
         ...p,
         settings,
         currentStep,
-        completed: state.version === 1 ? false : p.completed,
-        completedPlacementIds:
-          state.version < 4
-            ? undefined
-            : p.completedPlacementIds?.filter((id) => validIds.has(id)),
+        completed: p.completed,
+        completedPlacementIds: p.completedPlacementIds?.filter((id) =>
+          validIds.has(id),
+        ),
       };
     });
-    return { version: 4, activeId: state.activeId, projects };
+    return { version: 5, activeId: state.activeId, projects };
   } catch {
     return INITIAL;
   }
@@ -132,6 +125,16 @@ function getSnapshot() {
     if (raw !== cachedRaw) {
       cachedRaw = raw;
       cachedState = parseSavedState(raw);
+      if (raw && cachedState.projects.some((p) => p.migrationNotice)) {
+        const parsed = JSON.parse(raw);
+        if (parsed.version < 5) {
+          const backupKey = `${STORAGE_KEY}.before-structure-v2`;
+          if (!localStorage.getItem(backupKey))
+            localStorage.setItem(backupKey, raw);
+          cachedRaw = JSON.stringify(cachedState);
+          localStorage.setItem(STORAGE_KEY, cachedRaw);
+        }
+      }
     }
     return cachedState;
   } catch {
@@ -165,7 +168,7 @@ export const projectRepository = {
     const current = getSnapshot();
     const others = current.projects.filter((p) => p.id !== project.id);
     write({
-      version: 4,
+      version: 5,
       projects: [project, ...others].slice(0, 100),
       activeId: project.id,
     });
@@ -181,7 +184,7 @@ export const projectRepository = {
     write(
       projects.length
         ? {
-            version: 4,
+            version: 5,
             projects,
             activeId: projects.some((p) => p.id === state.activeId)
               ? state.activeId

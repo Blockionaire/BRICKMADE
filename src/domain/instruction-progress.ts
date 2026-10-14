@@ -1,14 +1,14 @@
-import { createHouse } from "./house";
+import { createModel } from "./models";
 import type { BuildDifficulty, HouseModel, Project } from "./types";
 
 /** Never give credit for unbuilt pieces when the instruction boundaries change. */
 export function regroupProject(
   project: Project,
   buildDifficulty: BuildDifficulty,
-  previous: HouseModel = createHouse(project.settings),
+  previous: HouseModel = createModel(project.settings),
 ): Project {
   const settings = { ...project.settings, buildDifficulty };
-  const next = createHouse(settings);
+  const next = createModel(settings);
   if (project.completed)
     return {
       ...project,

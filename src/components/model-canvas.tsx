@@ -9,7 +9,9 @@ import {
   createPartGeometry,
   type DecodedMesh,
 } from "@/services/builder-geometry";
-import { CATALOG, COLORS } from "@/domain/catalog";
+import { placementPose, placementBounds } from "@/domain/model-pose";
+import { modelInfo } from "@/domain/models";
+import { COLORS } from "@/domain/catalog";
 import type {
   CameraView,
   HouseModel,
@@ -220,11 +222,12 @@ export default function ModelCanvas({
           if (!binding) return;
           const p = binding.piece;
           accentMatrix.position.set(
-            p.position[0],
-            p.position[1] + binding.offset,
-            p.position[2],
+            ...(p.position.map(
+              (n, i) => n + (p.approach ?? [0, 1, 0])[i] * binding.offset,
+            ) as [number, number, number]),
           );
-          accentMatrix.rotation.set(0, p.rotated ? Math.PI / 2 : 0, 0);
+          accentMatrix.quaternion.fromArray(placementPose(p).rotation);
+          accentMatrix.scale.setScalar(1.008);
           accentMatrix.updateMatrix();
           object.setMatrixAt(index, accentMatrix.matrix);
         });
@@ -390,6 +393,10 @@ export default function ModelCanvas({
           color.lerp(new THREE.Color("#ded9ce"), 0.45);
         material = new THREE.MeshStandardMaterial({
           color,
+          opacity: COLORS[first.color].alpha ?? 1,
+          transparent: (COLORS[first.color].alpha ?? 1) < 1,
+          depthWrite: (COLORS[first.color].alpha ?? 1) === 1,
+          side: THREE.DoubleSide,
           roughness: 0.32,
           metalness: 0.025,
           emissive: active && highlight ? "#8d4124" : "#000000",
@@ -418,7 +425,7 @@ export default function ModelCanvas({
         current.bindings.push(binding);
         current.bindingById.set(p.id, binding);
         matrix.position.set(...p.position);
-        matrix.rotation.set(0, p.rotated ? Math.PI / 2 : 0, 0);
+        matrix.quaternion.fromArray(placementPose(p).rotation);
         matrix.updateMatrix();
         body.setMatrixAt(index, matrix.matrix);
       });
@@ -428,12 +435,14 @@ export default function ModelCanvas({
     if (step && highlight) {
       const points: number[] = [];
       for (const p of model.placements.filter((p) => p.step === step)) {
-        const part = CATALOG[p.partId];
-        const box = new THREE.BoxGeometry(part.width, part.height, part.depth);
+        const box = createPartGeometry(
+          BUILDER_BY_REBRICKABLE.get(p.partId)!.id,
+          meshes.data.get(p.partId)!,
+        );
         const edges = new THREE.EdgesGeometry(box);
         box.dispose();
         matrix.position.set(...p.position);
-        matrix.rotation.set(0, p.rotated ? Math.PI / 2 : 0, 0);
+        matrix.quaternion.fromArray(placementPose(p).rotation);
         matrix.updateMatrix();
         const vertices = edges.getAttribute("position");
         for (let i = 0; i < vertices.count; i++) {
@@ -459,8 +468,17 @@ export default function ModelCanvas({
         ),
       );
     }
-    current.span = model.settings.size === "large" ? 17.5 : 15;
+    const boxes = model.placements.map(placementBounds);
+    const span = Math.max(
+      ...[0, 1, 2].map(
+        (i) =>
+          Math.max(...boxes.map((b) => b.max[i])) -
+          Math.min(...boxes.map((b) => b.min[i])),
+      ),
+    );
+    current.span = Math.max(5, span * 0.72);
     const canvas = current.renderer.domElement;
+    canvas.dataset.kind = model.kind ?? "house";
     canvas.dataset.geometry = "ldraw";
     canvas.setAttribute("aria-busy", "false");
     canvas.dataset.geometryParts = String(meshes.data.size);
@@ -469,8 +487,8 @@ export default function ModelCanvas({
     canvas.setAttribute(
       "aria-label",
       step
-        ? `House model at step ${step}. Tap a brick to identify it. Drag to rotate.`
-        : "Interactive brick house. Drag to rotate, pinch or scroll to zoom.",
+        ? `${modelInfo(model.settings).name} model at step ${step}. Tap a brick to identify it. Drag to rotate.`
+        : `Interactive ${modelInfo(model.settings).name}. Drag to rotate, pinch or scroll to zoom.`,
     );
     current.resize();
     return () => {
@@ -499,12 +517,10 @@ export default function ModelCanvas({
       shapes.get(binding.piece.partId)!.push(binding);
     });
     for (const [partId, bindings] of shapes) {
-      const part = CATALOG[partId];
       const mesh = new THREE.InstancedMesh(
-        new THREE.BoxGeometry(
-          part.width + 0.02,
-          part.height + 0.02,
-          part.depth + 0.02,
+        createPartGeometry(
+          BUILDER_BY_REBRICKABLE.get(partId)!.id,
+          meshes!.data.get(partId)!,
         ),
         new THREE.MeshStandardMaterial({
           color: matchingKey ? "#7ee5c5" : "#ffdd80",
@@ -547,8 +563,12 @@ export default function ModelCanvas({
     const update = (binding: Binding, offset: number) => {
       const p = binding.piece;
       binding.offset = offset;
-      matrix.position.set(p.position[0], p.position[1] + offset, p.position[2]);
-      matrix.rotation.set(0, p.rotated ? Math.PI / 2 : 0, 0);
+      matrix.position.set(
+        ...(p.position.map(
+          (n, i) => n + (p.approach ?? [0, 1, 0])[i] * offset,
+        ) as [number, number, number]),
+      );
+      matrix.quaternion.fromArray(placementPose(p).rotation);
       matrix.updateMatrix();
       binding.body.setMatrixAt(binding.index, matrix.matrix);
       binding.body.instanceMatrix.needsUpdate = true;
@@ -615,7 +635,7 @@ export default function ModelCanvas({
   }, [model, step, highlight, placementMode, replay, geometryReady, meshes]);
 
   const focusX = focus?.[0] ?? 0,
-    focusY = focus?.[1] ?? 3,
+    focusY = focus?.[1] ?? model.stats.dimensions[2] / 0.8 / 2,
     focusZ = focus?.[2] ?? 0;
   useEffect(() => {
     const current = studio.current;
@@ -633,7 +653,7 @@ export default function ModelCanvas({
     // A gentle bias toward the group keeps the whole model in frame.
     const target = new THREE.Vector3(
       focusX * 0.16,
-      Math.max(2, focusY * 0.6),
+      Math.max(1, focusY),
       focusZ * 0.16,
     );
     const end = target.clone().add(new THREE.Vector3(...directions[view]));

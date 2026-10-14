@@ -155,7 +155,7 @@ describe("Licensed broad part catalog", () => {
     } finally {
       unexpectedFetch.mockRestore();
     }
-  });
+  }, 15000);
 });
 
 const verified: SourcingLine = {
@@ -222,8 +222,10 @@ describe("Current Rebrickable catalog enrichment", () => {
       rbIndex.colors.filter((c) => !c.placeholder).map((c) => c.id),
     );
     expect(palette.size).toBe(rbManifest.colorCount);
-    for (const part of rbIndex.parts)
-      expect(part.observedColorIds.every((id) => palette.has(id))).toBe(true);
+    const invalid = rbIndex.parts
+      .filter((part) => part.observedColorIds.some((id) => !palette.has(id)))
+      .map((part) => part.id);
+    expect(invalid).toEqual([]);
     expect(rbIndex.parts.find((p) => p.id === "3009")?.name).toBe(
       "Brick 1 x 6",
     );

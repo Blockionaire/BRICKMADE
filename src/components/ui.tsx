@@ -11,6 +11,9 @@ import {
   Signal,
 } from "lucide-react";
 import Link from "next/link";
+import Image from "next/image";
+import { BUILDER_BY_REBRICKABLE } from "@/domain/parts/profiles";
+import { assetPath } from "@/lib/asset-path";
 import { CATALOG, COLORS } from "@/domain/catalog";
 import type { HouseModel, PartQuantity } from "@/domain/types";
 
@@ -99,6 +102,33 @@ export function PartIllustration({
   small?: boolean;
 }) {
   const part = CATALOG[partId];
+  const profile = BUILDER_BY_REBRICKABLE.get(partId);
+  const basic = [
+    "3001",
+    "3003",
+    "3004",
+    "3005",
+    "3009",
+    "3010",
+    "3020",
+    "3022",
+    "3023",
+    "3024",
+    "3068b",
+    "3070b",
+  ].includes(partId);
+  if (profile && !basic)
+    return (
+      <Image
+        width={100}
+        height={82}
+        unoptimized
+        className={`part-illustration ${small ? "small" : ""}`}
+        src={assetPath(`/catalog/previews/${profile.id}.svg`)}
+        alt={`${part.name}, source shape reference; selected color ${COLORS[color].name}`}
+        loading="lazy"
+      />
+    );
   const fill = COLORS[color].hex;
   const tall = part.category === "Brick" ? 22 : 9;
   const w = part.width >= 4 ? 66 : part.width === 2 ? 48 : 33;

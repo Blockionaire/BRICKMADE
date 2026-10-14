@@ -4,8 +4,9 @@ import { useState } from "react";
 import { ArrowUpRight, Check, Search, Plus, Layers } from "lucide-react";
 import Link from "next/link";
 import { BUILD_SIZES, DETAIL_LEVELS } from "@/domain/catalog";
-import { createHouse } from "@/domain/house";
+import { createModel } from "@/domain/models";
 import { projectRepository, useProjects } from "@/services/project-repository";
+import { MigrationNotice } from "./migration-notice";
 import { ModelThumbnail } from "./model-thumbnail";
 import { Sheet } from "./ui";
 
@@ -27,7 +28,7 @@ export function ProjectSelector() {
       >
         <span className="active-build-thumbnail">
           <ModelThumbnail
-            model={createHouse(active.settings)}
+            model={createModel(active.settings)}
             name={active.name}
           />
         </span>
@@ -39,6 +40,7 @@ export function ProjectSelector() {
           Switch build <ArrowUpRight size={15} />
         </span>
       </button>
+      <MigrationNotice project={active} />
       {open && (
         <Sheet
           title="Your builds"
@@ -64,7 +66,7 @@ export function ProjectSelector() {
           )}
           <div className="project-options">
             {filtered.slice(0, limit).map((project) => {
-              const model = createHouse(project.settings);
+              const model = createModel(project.settings);
               const mode = DETAIL_LEVELS.find(
                 (d) => d.id === project.settings.detail,
               )?.name;

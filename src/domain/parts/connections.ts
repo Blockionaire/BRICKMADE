@@ -48,12 +48,15 @@ export function worldConnectors(pose: PartPose): WorldConnector[] {
       .applyQuaternion(rotation)
       .normalize()
       .toArray() as Vec3,
+    up: c.up
+      ? (new Vector3(...c.up).applyQuaternion(rotation).toArray() as Vec3)
+      : undefined,
   }));
 }
 export function compatibleFamily(
   a: Connector,
   b: Connector,
-): "stud" | "pin" | undefined {
+): "stud" | "pin" | "window" | undefined {
   const valid = (c: Connector) =>
     c.status === "geometry-reviewed" &&
     c.position.length === 3 &&
@@ -74,11 +77,31 @@ export function compatibleFamily(
       ? "stud"
       : kinds.includes("pin") && kinds.includes("pin-hole")
         ? "pin"
-        : undefined;
+        : kinds.includes("window-seat") &&
+            kinds.includes("window-insert") &&
+            a.pairCode === "window-60592-60601" &&
+            b.pairCode === a.pairCode
+          ? "window"
+          : undefined;
   if (!family || Math.abs(a.radius - b.radius) > 1e-6) return;
-  const male = a.kind === "stud" || a.kind === "pin" ? a : b,
+  const male =
+      a.kind === "stud" || a.kind === "pin" || a.kind === "window-insert"
+        ? a
+        : b,
     female = male === a ? b : a;
   if (male.depth > female.depth + 1e-6) return;
+  if (
+    family === "window" &&
+    [a, b].some(
+      (c) =>
+        !c.up ||
+        c.up.length !== 3 ||
+        !c.up.every(Number.isFinite) ||
+        Math.abs(Math.hypot(...c.up) - 1) > 1e-5 ||
+        Math.abs(new Vector3(...c.up).dot(new Vector3(...c.normal))) > 1e-5,
+    )
+  )
+    return;
   if (family === "pin") {
     if (
       ![
@@ -125,6 +148,13 @@ export function inspectMate(
   const dot = new Vector3(...a.normal).dot(new Vector3(...b.normal));
   if (dot > angleLimit)
     return { reason: "The attachment axes must face each other." };
+  if (
+    family === "window" &&
+    (!a.up ||
+      !b.up ||
+      new Vector3(...a.up).dot(new Vector3(...b.up)) < -angleLimit)
+  )
+    return { reason: "This frame/pane fit locks the upright orientation." };
   const distance = new Vector3(...a.position).distanceTo(
     new Vector3(...b.position),
   );

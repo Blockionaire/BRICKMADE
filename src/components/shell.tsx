@@ -23,7 +23,8 @@ const links = [
 export function Shell({ children }: { children: React.ReactNode }) {
   const pathname = usePathname().replace(/\/$/, "") || "/";
   const isActive = (href: string) =>
-    pathname === href || (href === "/parts" && ["/catalog", "/connections"].includes(pathname));
+    pathname === href ||
+    (href === "/parts" && ["/catalog", "/connections"].includes(pathname));
   return (
     <>
       <header className="site-header">
@@ -62,7 +63,9 @@ export function Shell({ children }: { children: React.ReactNode }) {
         <BrandMark small />
         <span>Your world. Made personal.</span>
         <span className="footer-right">
-          Independent brick-building concept <ArrowUpRight size={13} />
+          <Link href="/catalog">
+            Geometry: LDraw contributors · CC BY <ArrowUpRight size={13} />
+          </Link>
         </span>
       </footer>
       <nav className="bottom-nav" aria-label="Mobile navigation">

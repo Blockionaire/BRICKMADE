@@ -5992,3 +5992,353 @@ button.part-card:active {
     transform: none;
   }
 }
+
+.model-kind-selector {
+  border: 0;
+  padding: 0;
+  margin: 0 0 28px;
+}
+.model-kind-selector legend {
+  font-weight: 700;
+  margin-bottom: 8px;
+}
+.model-kind-selector > div {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px;
+}
+.model-kind-selector label {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 18px;
+  border: 1px solid #dedbd2;
+  border-radius: 18px;
+  cursor: pointer;
+  transition:
+    transform 0.2s,
+    background 0.2s;
+}
+.model-kind-selector label:hover {
+  transform: translateY(-2px);
+}
+.model-kind-selector label.selected {
+  background: #faeae2;
+  border-color: #db7357;
+}
+.model-kind-selector input {
+  position: absolute;
+  opacity: 0;
+}
+.model-kind-selector label:focus-within {
+  outline: 2px solid #cb6249;
+  outline-offset: 3px;
+}
+.model-kind-selector label > span {
+  color: #706b61;
+  font-size: 12px;
+  line-height: 1.5;
+}
+.model-kind-selector .radio-mark {
+  position: absolute;
+  right: 12px;
+  top: 12px;
+}
+.assembly-review {
+  border: 1px solid #d5ddd3;
+  background: #edf2eb;
+  border-radius: 18px;
+  margin: 20px 0;
+  overflow: hidden;
+}
+.assembly-review[data-validation-status="failed"] {
+  background: #fff0e9;
+  border-color: #e6baaa;
+}
+.assembly-review-heading {
+  display: flex;
+  gap: 12px;
+  width: 100%;
+  align-items: center;
+  padding: 16px 18px 10px;
+  background: transparent;
+  border: 0;
+  text-align: left;
+  cursor: pointer;
+}
+.assembly-review-heading > span:nth-child(2) {
+  flex: 1;
+}
+.assembly-review-heading strong,
+.assembly-review-heading small {
+  display: block;
+}
+.assembly-review-heading small {
+  font-size: 11px;
+  color: #676d61;
+  margin-top: 5px;
+  line-height: 1.5;
+}
+.assembly-review-icon {
+  color: #4d7557;
+}
+.assembly-physical-note {
+  font-size: 11px;
+  color: #626a5e;
+  line-height: 1.6;
+  padding: 0 18px 14px;
+  margin: 0;
+}
+.assembly-review-details {
+  padding: 4px 18px 18px;
+  font-size: 12px;
+}
+.assembly-review-details > div:not(.assembly-issues) {
+  display: flex;
+  gap: 9px;
+  padding: 9px 0;
+  border-top: 1px solid #d6dfd2;
+  align-items: center;
+}
+.assembly-review-details > div > span {
+  flex: 1;
+}
+.assembly-review-details small {
+  color: #627358;
+  font-size: 10px;
+  text-transform: uppercase;
+}
+.assembly-review-details p {
+  line-height: 1.6;
+}
+.assembly-issues {
+  border-top: 1px solid #d6dfd2;
+  padding-top: 12px;
+  margin-top: 8px;
+}
+.migration-notice {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  border: 1px solid #e1c891;
+  background: #fcf2d9;
+  border-radius: 16px;
+  padding: 16px;
+  margin: 16px 0;
+  font-size: 12px;
+  line-height: 1.6;
+}
+.migration-notice > div {
+  flex: 1;
+}
+.migration-notice strong {
+  display: block;
+}
+.migration-notice p {
+  margin: 5px 0 0;
+}
+.migration-notice button {
+  background: none;
+  border: 0;
+  cursor: pointer;
+  padding: 4px;
+}
+.collection-banner {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 20px;
+  padding: 26px;
+  background: #263b33;
+  color: #fff9ee;
+  border-radius: 22px;
+  margin: 32px 0;
+  text-decoration: none;
+}
+.collection-banner strong,
+.collection-banner small,
+.collection-banner em {
+  display: block;
+}
+.collection-banner small {
+  font-size: 10px;
+  letter-spacing: 0.14em;
+  color: #d2e3d1;
+}
+.collection-banner strong {
+  font-size: 22px;
+  margin: 8px 0;
+}
+.collection-banner em {
+  font-style: normal;
+  font-size: 12px;
+  color: #d2e3d1;
+}
+.collection-controls {
+  display: flex;
+  gap: 24px;
+  align-items: flex-start;
+  margin: 26px 0;
+}
+.collection-controls > * {
+  flex: 1;
+  min-width: 0;
+}
+.collection-detail {
+  border: 0;
+  margin: 0;
+  padding: 0;
+}
+.collection-detail legend {
+  font-weight: 600;
+  margin-bottom: 14px;
+}
+.collection-detail > div {
+  display: flex;
+  gap: 6px;
+}
+.collection-detail button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  flex: 1;
+  padding: 15px 8px;
+  border: 1px solid #dedbd2;
+  background: #fffaf2;
+  border-radius: 16px;
+  cursor: pointer;
+}
+.collection-detail button[aria-pressed="true"] {
+  background: #faeae2;
+  border-color: #db7357;
+}
+.collection-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 22px;
+}
+.collection-card {
+  border: 1px solid #e5e0d5;
+  border-radius: 26px;
+  background: #fffbf4;
+  overflow: hidden;
+}
+.collection-art {
+  height: 300px;
+  background: #e9eddf;
+  position: relative;
+  padding: 20px;
+}
+.collection-rover .collection-art {
+  background: #e9e9ee;
+}
+.collection-plant .collection-art {
+  background: #e1ebde;
+}
+.collection-pavilion .collection-art {
+  background: #f1e5d4;
+}
+.collection-number {
+  position: absolute;
+  top: 20px;
+  left: 22px;
+  font-size: 12px;
+  color: #76776b;
+}
+.collection-detail-tag {
+  position: absolute;
+  bottom: 14px;
+  right: 18px;
+  background: #fffbf3cc;
+  padding: 7px 10px;
+  border-radius: 30px;
+  font-size: 10px;
+}
+.collection-card-body {
+  padding: 24px;
+}
+.collection-card-body h2 {
+  margin: 0 0 10px;
+  font-size: 26px;
+}
+.collection-card-body p {
+  color: #736d62;
+  font-size: 14px;
+  line-height: 1.6;
+  min-height: 45px;
+}
+.collection-card-body small {
+  display: block;
+  color: #7b756a;
+  font-size: 12px;
+  margin: 12px 0 22px;
+}
+.collection-card-body .button {
+  width: 100%;
+  justify-content: space-between;
+}
+.collection-note {
+  font-size: 12px;
+  line-height: 1.7;
+  color: #787264;
+  max-width: 780px;
+  margin: 28px 0;
+}
+.model-thumbnail {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+@media (max-width: 600px) {
+  .collection-grid {
+    grid-template-columns: 1fr;
+  }
+  .collection-controls {
+    flex-direction: column;
+  }
+  .collection-controls > * {
+    width: 100%;
+  }
+  .collection-art {
+    height: 270px;
+  }
+  .collection-banner {
+    padding: 22px;
+  }
+  .collection-banner strong {
+    font-size: 20px;
+  }
+  .assembly-review-heading {
+    padding: 14px 12px 8px;
+  }
+  .assembly-physical-note {
+    padding: 0 12px 12px;
+  }
+  .model-kind-selector label {
+    padding: 16px 12px;
+  }
+  .collection-card-body {
+    padding: 20px;
+  }
+}
+.manual-procedure {
+  border-left: 3px solid #c77745;
+  background: #fff1dc;
+  padding: 12px 16px;
+  border-radius: 0 12px 12px 0;
+  font-size: 12px;
+  line-height: 1.7;
+}
+.footer-right a {
+  color: inherit;
+  text-decoration: none;
+  display: inline-flex;
+  gap: 5px;
+  align-items: center;
+}
+.migration-notice > p {
+  flex: 1;
+  margin: 0;
+}

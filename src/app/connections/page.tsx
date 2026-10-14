@@ -69,7 +69,7 @@ const scenarios = [
     name: "Window pane",
     target: "60592",
     moving: "60601",
-    kind: "stud",
+    kind: "window-seat",
     index: 0,
   },
 ];
@@ -240,7 +240,11 @@ export default function ConnectionsPage() {
               {docked ? "Separate pieces" : "Connect pieces"}
             </button>
             <button
-              disabled={!docked}
+              disabled={
+                !docked ||
+                choices[pointIndex % Math.max(1, choices.length)]?.moving
+                  .pairCode !== undefined
+              }
               onClick={() => setTwist((twist + 90) % 360)}
             >
               <RotateCw size={17} /> Rotate 90°
@@ -270,7 +274,9 @@ export default function ConnectionsPage() {
                 {!choices.length
                   ? "These shapes are available to explore, but this mating mechanism has not been reviewed yet."
                   : docked
-                    ? "The attachment points match. Whole-model clearance and stability are a separate next step."
+                    ? movingId === "60601"
+                      ? "Matched frame and pane datum. Tabs require manual flex fitting; physical verification is pending."
+                      : "The attachment points match. Assembly review checks complete demo designs; physical strength remains untested."
                     : "Choose an attachment, then bring the pieces together."}
               </p>
             </div>
@@ -336,7 +342,14 @@ export default function ConnectionsPage() {
                 : "Partial coverage"}
             </p>
             <div className="connection-feature-list">
-              {["stud", "anti-stud", "pin", "pin-hole"].map((kind) => {
+              {[
+                "stud",
+                "anti-stud",
+                "pin",
+                "pin-hole",
+                "window-seat",
+                "window-insert",
+              ].map((kind) => {
                 const count = inspection.connectors.filter(
                   (c) => c.kind === kind,
                 ).length;

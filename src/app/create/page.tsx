@@ -21,10 +21,12 @@ import {
 import { PageHeading } from "@/components/ui";
 import {
   DetailSelector,
+  ModelKindSelector,
   SizeSelector,
   BuildDifficultySelector,
 } from "@/components/settings";
 import { DEFAULT_SETTINGS } from "@/domain/catalog";
+import { modelInfo, MODEL_KINDS } from "@/domain/models";
 import type { GenerationSettings } from "@/domain/types";
 import { demoGeneration, GENERATION_STAGES } from "@/services/providers";
 import { projectRepository } from "@/services/project-repository";
@@ -107,7 +109,7 @@ export default function CreatePage() {
       if (abort.signal.aborted) return;
       projectRepository.save({
         id: crypto.randomUUID(),
-        name: name.trim() || "Compact House",
+        name: name.trim() || modelInfo(settings).name,
         settings: { ...settings },
         createdAt: new Date().toISOString(),
         currentStep: 1,
@@ -135,11 +137,11 @@ export default function CreatePage() {
           <span />
         </div>
         <h1>
-          A little home.
+          A little world.
           <br />
           <span>A whole lot of heart.</span>
         </h1>
-        <p>Preparing your {name.trim() || "Compact House"} demo…</p>
+        <p>Preparing your {name.trim() || modelInfo(settings).name} demo…</p>
         <div className="generation-stages" role="status" aria-live="polite">
           {GENERATION_STAGES.map((label, index) => (
             <div
@@ -194,7 +196,7 @@ export default function CreatePage() {
         title={
           stage === "upload"
             ? "Every build starts\nwith a little inspiration."
-            : "Your house. Your kind of build."
+            : "Your world. Your kind of build."
         }
         description={
           stage === "upload"
@@ -363,8 +365,8 @@ export default function CreatePage() {
               </p>
             </div>
             <span className="demo-note">
-              This prototype always creates the house demo, including when you
-              choose your own photos.
+              Choose a demo assembly in the next step. Your own photos stay
+              local and are not analyzed yet.
             </span>
           </aside>
         </div>
@@ -382,7 +384,16 @@ export default function CreatePage() {
               onChange={(e) => setName(e.target.value)}
               placeholder="My favorite little place"
             />
+            <ModelKindSelector
+              value={settings.modelKind ?? "house"}
+              onChange={(modelKind) => {
+                if (name === modelInfo(settings).name)
+                  setName(MODEL_KINDS.find((k) => k.id === modelKind)!.name);
+                setSettings((s) => ({ ...s, modelKind }));
+              }}
+            />
             <DetailSelector
+              settings={settings}
               value={settings.detail}
               onChange={(detail) => setSettings((s) => ({ ...s, detail }))}
             />
@@ -399,8 +410,8 @@ export default function CreatePage() {
             <div className="settings-note">
               <Sparkles size={18} />
               <p>
-                Detail and size shape your house. Building difficulty only
-                changes the instructions. You can change your pace anytime.
+                Detail and size shape your selected model. Building difficulty
+                only changes the instructions. You can change your pace anytime.
               </p>
             </div>
             {error && (

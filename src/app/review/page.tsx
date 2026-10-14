@@ -7,17 +7,21 @@ import { ModelViewer } from "@/components/model-viewer";
 import { ModelStats, PageHeading, Sheet } from "@/components/ui";
 import {
   DetailSelector,
+  ModelKindSelector,
   SizeSelector,
   BuildDifficultySelector,
 } from "@/components/settings";
 import { regroupProject } from "@/domain/instruction-progress";
-import { createHouse } from "@/domain/house";
+import { AssemblyReview } from "@/components/assembly-review";
+import { MigrationNotice } from "@/components/migration-notice";
+import { modelInfo } from "@/domain/models";
+import { createModel } from "@/domain/models";
 import { projectRepository, useProjects } from "@/services/project-repository";
 import type { GenerationSettings } from "@/domain/types";
 
 export default function ReviewPage() {
   const { active } = useProjects();
-  const model = createHouse(active.settings);
+  const model = createModel(active.settings);
   const [pendingSettings, setPendingSettings] =
     useState<GenerationSettings | null>(null);
   const [renaming, setRenaming] = useState(false);
@@ -42,6 +46,7 @@ export default function ReviewPage() {
         description="A little piece of your world, reimagined in bricks."
         back="/"
       />
+      <MigrationNotice project={active} />
       <div className="review-layout">
         <div>
           <div className="review-model-wrap">
@@ -58,6 +63,7 @@ export default function ReviewPage() {
             <span>All sides. All the little details.</span>
           </div>
           <ModelStats model={model} />
+          <AssemblyReview model={model} />
         </div>
         <div className="review-details">
           <span className="eyebrow">Made for your shelf</span>
@@ -74,11 +80,15 @@ export default function ReviewPage() {
               <Pencil size={17} />
             </button>
           </div>
-          <p>
-            A terracotta roof, warm little windows, and a path to the front
-            door. Home has a new shape.
-          </p>
+          <p>{modelInfo(active.settings).description}</p>
+          <ModelKindSelector
+            value={active.settings.modelKind ?? "house"}
+            onChange={(modelKind) =>
+              updateSettings({ ...active.settings, modelKind })
+            }
+          />
           <DetailSelector
+            settings={active.settings}
             compact
             value={active.settings.detail}
             onChange={(detail) =>
@@ -119,8 +129,8 @@ export default function ReviewPage() {
           </Link>
           <p className="review-disclaimer">
             <Info size={15} />
-            Demo model and instructions. Physical connections, colors,
-            availability, and stability are not yet validated.
+            Demo design. Colors have recorded source evidence. Physical fit,
+            strength and current availability remain untested.
           </p>
         </div>
       </div>
@@ -131,7 +141,7 @@ export default function ReviewPage() {
         >
           <p className="sheet-copy">
             A different detail level or size changes the model and its steps.
-            Your building progress for this house will start again at step 1.
+            Your building progress for this design will start again at step 1.
           </p>
           <div className="sheet-actions">
             <button

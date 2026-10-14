@@ -1,4 +1,4 @@
-import data from "../../../public/catalog/builder-parts.json";
+import data from "../../../public/catalog/builder-parts.json" with { type: "json" };
 import type { BuilderPart } from "./types";
 
 // The small reviewed subset is separate from the 64,895-entry source catalog.
