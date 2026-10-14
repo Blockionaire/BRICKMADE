@@ -1,0 +1,244 @@
+0 FILE main.ldr
+0 BrickMade standalone preview; derived from The LDraw Parts Library
+1 16 0 0 0 1 0 0 0 1 0 0 0 1 parts/28192.dat
+0 NOFILE
+0 FILE p/box5-1.dat
+0 Box with 5 Faces without 1 Edge
+0 Name: box5-1.dat
+0 Author: J.C. Tchang [tchang]
+0 !LDRAW_ORG Primitive UPDATE 2014-01
+0 !LICENSE Licensed under CC BY 4.0 : see CAreadme.txt
+
+0 BFC CERTIFY CCW
+
+0 !HISTORY 2014-06-21 [PTadmin] Official Update 2014-01
+
+
+2 24 1 1 1 -1 1 1
+2 24 -1 1 1 -1 1 -1
+2 24 -1 1 -1 1 1 -1
+2 24 1 1 -1 1 1 1
+2 24 1 0 1 -1 0 1
+2 24 -1 0 1 -1 0 -1
+2 24 1 0 -1 1 0 1
+2 24 1 0 1 1 1 1
+2 24 -1 0 1 -1 1 1
+2 24 1 0 -1 1 1 -1
+2 24 -1 0 -1 -1 1 -1
+4 16 -1 1 1 1 1 1 1 1 -1 -1 1 -1
+4 16 -1 1 1 -1 0 1 1 0 1 1 1 1
+4 16 -1 1 -1 -1 0 -1 -1 0 1 -1 1 1
+4 16 1 1 -1 1 0 -1 -1 0 -1 -1 1 -1
+4 16 1 1 1 1 0 1 1 0 -1 1 1 -1
+0 NOFILE
+0 FILE p/box4-1.dat
+0 Box with 4 Faces without 1 Edge
+0 Name: box4-1.dat
+0 Author: Tore Eriksson [Tore_Eriksson]
+0 !LDRAW_ORG Primitive UPDATE 2012-01
+0 !LICENSE Licensed under CC BY 4.0 : see CAreadme.txt
+
+0 BFC CERTIFY CCW
+
+0 !HISTORY 1998-07-15 [PTadmin] Official Update 1998-07
+0 !HISTORY 2002-04-05 [hafhead] Made BFC compliant
+0 !HISTORY 2002-04-25 [PTadmin] Official Update 2002-02
+0 !HISTORY 2007-06-24 [PTadmin] Header formatted for Contributor Agreement
+0 !HISTORY 2008-07-01 [PTadmin] Official Update 2008-01
+0 !HISTORY 2012-02-16 [Philo] Changed to CCW
+0 !HISTORY 2012-03-30 [PTadmin] Official Update 2012-01
+
+
+2 24 1 1 1 -1 1 1
+2 24 -1 1 1 -1 1 -1
+2 24 -1 1 -1 1 1 -1
+2 24 1 1 -1 1 1 1
+2 24 1 0 1 -1 0 1
+2 24 -1 0 1 -1 0 -1
+2 24 1 0 -1 1 0 1
+2 24 1 0 1 1 1 1
+2 24 -1 0 1 -1 1 1
+2 24 1 0 -1 1 1 -1
+2 24 -1 0 -1 -1 1 -1
+4 16 -1 1 1 1 1 1 1 1 -1 -1 1 -1
+4 16 -1 1 1 -1 0 1 1 0 1 1 1 1
+4 16 -1 1 -1 -1 0 -1 -1 0 1 -1 1 1
+4 16 1 1 1 1 0 1 1 0 -1 1 1 -1
+0 NOFILE
+0 FILE p/box3u4a.dat
+0 Box with 3 Faces without 4 Adjacent Edges
+0 Name: box3u4a.dat
+0 Author: Niels Karsdorp [nielsk]
+0 !LDRAW_ORG Primitive UPDATE 2009-01
+0 !LICENSE Licensed under CC BY 4.0 : see CAreadme.txt
+
+0 BFC CERTIFY CCW
+
+0 !HISTORY 2009-05-02 [PTadmin] Official Update 2009-01
+
+
+2 24 1 1 1 -1 1 1
+2 24 -1 1 -1 1 1 -1
+2 24 1 1 1 1 1 -1
+2 24 -1 1 1 -1 1 -1
+2 24 1 1 1 1 0 1
+2 24 1 1 -1 1 0 -1
+2 24 -1 1 1 -1 0 1
+2 24 -1 1 -1 -1 0 -1
+4 16 -1 1 -1 -1 1 1 1 1 1 1 1 -1
+4 16 -1 1 1 -1 0 1 1 0 1 1 1 1
+4 16 1 1 -1 1 0 -1 -1 0 -1 -1 1 -1
+0
+0 NOFILE
+0 FILE p/recte3.dat
+0 Rectangle Empty with 3 Edges
+0 Name: recte3.dat
+0 Author: Steffen [Steffen]
+0 !LDRAW_ORG Primitive UPDATE 2011-01
+0 !LICENSE Licensed under CC BY 4.0 : see CAreadme.txt
+
+0 BFC CERTIFY CCW
+
+0 !HISTORY 2011-07-25 [PTadmin] Official Update 2011-01
+
+
+2 24 1 0 1 -1 0 1
+2 24 -1 0 1 -1 0 -1
+2 24 1 0 -1 1 0 1
+0 NOFILE
+0 FILE p/rect2p.dat
+0 Rectangle with 2 Parallel Edges
+0 Name: rect2p.dat
+0 Author: Donald Sutter [technog]
+0 !LDRAW_ORG Primitive UPDATE 2010-01
+0 !LICENSE Licensed under CC BY 4.0 : see CAreadme.txt
+
+0 BFC CERTIFY CCW
+
+0 !HISTORY 2003-08-01 [PTadmin] Official Update 2003-02
+0 !HISTORY 2007-06-24 [PTadmin] Header formatted for Contributor Agreement
+0 !HISTORY 2008-07-01 [PTadmin] Official Update 2008-01
+0 !HISTORY 2010-01-17 [mikeheide] changed winding to CCW
+0 !HISTORY 2010-04-05 [PTadmin] Official Update 2010-01
+
+
+2 24 1 0 1 -1 0 1
+2 24 -1 0 -1 1 0 -1
+4 16 -1 0 1 -1 0 -1 1 0 -1 1 0 1
+0
+0 NOFILE
+0 FILE p/box2-5.dat
+0 Box with 2 Faces without 5 Edges
+0 Name: box2-5.dat
+0 Author: Steffen [Steffen]
+0 !LDRAW_ORG Primitive UPDATE 2003-03
+0 !LICENSE Licensed under CC BY 4.0 : see CAreadme.txt
+
+0 BFC CERTIFY CCW
+
+0 !HISTORY 2003-12-19 [PTadmin] Official Update 2003-03
+0 !HISTORY 2007-06-24 [PTadmin] Header formatted for Contributor Agreement
+0 !HISTORY 2008-07-01 [PTadmin] Official Update 2008-01
+
+
+2 24 1 1 1 -1 1 1
+2 24 1 1 -1 -1 1 -1
+2 24 1 -1 1 -1 -1 1
+2 24 -1 -1 1 -1 1 1
+2 24 1 -1 1 1 1 1
+2 24 -1 1 -1 -1 1 1
+2 24 1 1 -1 1 1 1
+4 16 1 1 1 1 1 -1 -1 1 -1 -1 1 1
+4 16 1 1 1 -1 1 1 -1 -1 1 1 -1 1
+0
+0 NOFILE
+0 FILE p/rect.dat
+0 Rectangle
+0 Name: rect.dat
+0 Author: James Jessiman
+0 !LDRAW_ORG Primitive UPDATE 2010-01
+0 !LICENSE Licensed under CC BY 4.0 : see CAreadme.txt
+
+0 BFC CERTIFY CCW
+
+0 !HISTORY 2002-04-05 [hafhead] Added BFC statement
+0 !HISTORY 2002-04-25 [PTadmin] Official Update 2002-02
+0 !HISTORY 2007-06-24 [PTadmin] Header formatted for Contributor Agreement
+0 !HISTORY 2008-07-01 [PTadmin] Official Update 2008-01
+0 !HISTORY 2010-01-17 [mikeheide] changed winding to CCW
+0 !HISTORY 2010-04-05 [PTadmin] Official Update 2010-01
+
+
+2 24 1 0 1 -1 0 1
+2 24 -1 0 1 -1 0 -1
+2 24 -1 0 -1 1 0 -1
+2 24 1 0 -1 1 0 1
+4 16 -1 0 1 -1 0 -1 1 0 -1 1 0 1
+0
+0 NOFILE
+0 FILE parts/s/28192s01.dat
+0 ~Slope Brick 45  2 x  1 with Cutout and without Stud without Top Surface
+0 Name: s\28192s01.dat
+0 Author: Magnus Forsberg [MagFors]
+0 !LDRAW_ORG Subpart UPDATE 2020-01
+0 !LICENSE Licensed under CC BY 4.0 : see CAreadme.txt
+
+0 BFC CERTIFY CCW
+
+0 !HISTORY 2020-06-28 [PTadmin] Official Update 2020-01
+
+
+4 16 -6 8 6 -6 8 -10 -10 8 -10 -10 8 10
+4 16 6 8 6 -6 8 6 -10 8 10 10 8 10
+4 16 6 8 -10 6 8 6 10 8 10 10 8 -10
+0 BFC INVERTNEXT
+1 16 0 8 -2 -6 0 0 0 -4 0 0 0 8 p/box5-1.dat
+1 16 0 6 -10 -1.5 0 0 0 0 2 0 4 0 p/box4-1.dat
+1 16 0 4 -10 0 0 10 -4 0 0 0 20 0 p/box3u4a.dat
+2 24 -10 8 -10 -6 8 -10
+2 24 6 8 -10 10 8 -10
+3 16 -10 24 -10 -10 8 -10 -6 8 -10
+4 16 10 24 -10 -10 24 -10 -6 8 -10 6 8 -10
+3 16 6 8 -10 10 8 -10 10 24 -10
+2 24 10 8 -10 10 24 -10
+2 24 -10 8 -10 -10 24 -10
+
+1 16 0 24 -20 6 0 0 0 1 0 0 0 6 p/recte3.dat
+1 16 0 16 -14 0 0 -6 -8 0 0 0 1 0 p/rect2p.dat
+4 16 -6 8 -14 -6 20 -26 -6 24 -26 -6 24 -14
+4 16 6 8 -14 6 24 -14 6 24 -26 6 20 -26
+0 BFC INVERTNEXT
+1 16 0 16 -20 6 0 0 0 -2 6 0 0 -6 p/box2-5.dat
+
+4 16 -6 24 -14 -6 24 -26 -10 24 -30 -10 24 -10
+4 16 6 24 -14 -6 24 -14 -10 24 -10 10 24 -10
+4 16 6 24 -26 6 24 -14 10 24 -10 10 24 -30
+4 16 -6 24 -26 6 24 -26 10 24 -30 -10 24 -30
+1 16 0 24 -20 10 0 0 0 1 0 0 0 10 p/recte3.dat
+4 16 -10 24 -10 -10 24 -30 -10 20 -30 -10 8 -10
+3 16 -10 0 -10 -10 8 -10 -10 20 -30
+4 16 10 8 -10 10 20 -30 10 24 -30 10 24 -10
+3 16 10 20 -30 10 8 -10 10 0 -10
+
+1 16 0 10 -20 10 0 0 0 1 -10 0 0 10 p/recte3.dat
+1 16 0 22 -30 10 0 0 0 0 2 0 1 0 p/rect.dat
+0 NOFILE
+0 FILE parts/28192.dat
+0 Slope Brick 45  2 x  1 with Cutout and without Stud
+0 Name: 28192.dat
+0 Author: Owen Burgoyne [C3POwen]
+0 !LDRAW_ORG Part UPDATE 2020-01
+0 !LICENSE Licensed under CC BY 4.0 : see CAreadme.txt
+
+0 BFC CERTIFY CCW
+
+0 !HISTORY 2019-12-29 [GeraldLasser] Removed inner stud cutout. Simplified geometry
+0 !HISTORY 2020-01-09 [MagFors] Subfiled
+0 !HISTORY 2020-06-28 [PTadmin] Official Update 2020-01
+
+
+1 16 0 0 0 1 0 0 0 1 0 0 0 1 parts/s/28192s01.dat
+
+4 16 10 0 -10 10 0 10 -10 0 10 -10 0 -10
+4 16 10 0 -10 -10 0 -10 -10 20 -30 10 20 -30
+0 NOFILE

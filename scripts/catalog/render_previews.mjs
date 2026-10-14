@@ -15,6 +15,13 @@ const manifest = JSON.parse(
 const index = JSON.parse(
   await fs.readFile(path.join(directory, "index.json"), "utf8"),
 );
+const colorHeaders = index.colors
+  .filter((c) => ![16, 24, 10000].includes(c.id))
+  .map(
+    (c) =>
+      `0 !COLOUR LDraw_${c.id} CODE ${c.id} VALUE ${c.hex} EDGE ${c.edge} ALPHA ${c.alpha}`,
+  )
+  .join("\n");
 const xAxis = new THREE.Vector3(0.8, 0, -0.6);
 const yAxis = new THREE.Vector3(-0.3, 0.866, -0.4);
 const depthAxis = new THREE.Vector3(0.52, 0.5, 0.693);
@@ -29,7 +36,7 @@ for (const preview of manifest.previews) {
   const document = original
     .replace(
       "0 FILE main.ldr",
-      `0 FILE main.ldr\n0 !COLOUR BrickMade_Preview CODE 10000 VALUE ${palette.hex} EDGE ${palette.edge} ALPHA ${palette.alpha}`,
+      `0 FILE main.ldr\n${colorHeaders}\n0 !COLOUR BrickMade_Preview CODE 10000 VALUE ${palette.hex} EDGE ${palette.edge} ALPHA ${palette.alpha}`,
     )
     .replace(
       "1 16 0 0 0 1 0 0 0 1 0 0 0 1 parts/",

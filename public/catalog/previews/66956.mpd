@@ -1,0 +1,763 @@
+0 FILE main.ldr
+0 BrickMade standalone preview; derived from The LDraw Parts Library
+1 16 0 0 0 1 0 0 0 1 0 0 0 1 parts/66956.dat
+0 NOFILE
+0 FILE p/rect.dat
+0 Rectangle
+0 Name: rect.dat
+0 Author: James Jessiman
+0 !LDRAW_ORG Primitive UPDATE 2010-01
+0 !LICENSE Licensed under CC BY 4.0 : see CAreadme.txt
+
+0 BFC CERTIFY CCW
+
+0 !HISTORY 2002-04-05 [hafhead] Added BFC statement
+0 !HISTORY 2002-04-25 [PTadmin] Official Update 2002-02
+0 !HISTORY 2007-06-24 [PTadmin] Header formatted for Contributor Agreement
+0 !HISTORY 2008-07-01 [PTadmin] Official Update 2008-01
+0 !HISTORY 2010-01-17 [mikeheide] changed winding to CCW
+0 !HISTORY 2010-04-05 [PTadmin] Official Update 2010-01
+
+
+2 24 1 0 1 -1 0 1
+2 24 -1 0 1 -1 0 -1
+2 24 -1 0 -1 1 0 -1
+2 24 1 0 -1 1 0 1
+4 16 -1 0 1 -1 0 -1 1 0 -1 1 0 1
+0
+0 NOFILE
+0 FILE p/4-4edge.dat
+0 Circle 1.0
+0 Name: 4-4edge.dat
+0 Author: James Jessiman
+0 !LDRAW_ORG Primitive UPDATE 2017-01
+0 !LICENSE Licensed under CC BY 4.0 : see CAreadme.txt
+
+0 BFC CERTIFY CCW
+
+0 !HISTORY 1998-12-15 [PTadmin] Official Update 1998-10
+0 !HISTORY 2005-12-28 [PTadmin] Official Update 2005-01
+0 !HISTORY 2007-06-24 [PTadmin] Header formatted for Contributor Agreement
+0 !HISTORY 2008-07-01 [PTadmin] Official Update 2008-01
+0 !HISTORY 2017-01-15 [Steffen] BFCed
+0 !HISTORY 2017-12-30 [PTadmin] Official Update 2017-01
+
+
+2 24 1 0 0 0.9239 0 0.3827
+2 24 0.9239 0 0.3827 0.7071 0 0.7071
+2 24 0.7071 0 0.7071 0.3827 0 0.9239
+2 24 0.3827 0 0.9239 0 0 1
+2 24 0 0 1 -0.3827 0 0.9239
+2 24 -0.3827 0 0.9239 -0.7071 0 0.7071
+2 24 -0.7071 0 0.7071 -0.9239 0 0.3827
+2 24 -0.9239 0 0.3827 -1 0 -0
+2 24 -1 0 -0 -0.9239 0 -0.3827
+2 24 -0.9239 0 -0.3827 -0.7071 0 -0.7071
+2 24 -0.7071 0 -0.7071 -0.3827 0 -0.9239
+2 24 -0.3827 0 -0.9239 0 0 -1
+2 24 0 0 -1 0.3827 0 -0.9239
+2 24 0.3827 0 -0.9239 0.7071 0 -0.7071
+2 24 0.7071 0 -0.7071 0.9239 0 -0.3827
+2 24 0.9239 0 -0.3827 1 0 0
+0 NOFILE
+0 FILE p/4-4disc.dat
+0 Disc 1.0
+0 Name: 4-4disc.dat
+0 Author: James Jessiman
+0 !LDRAW_ORG Primitive UPDATE 2002-02
+0 !LICENSE Licensed under CC BY 4.0 : see CAreadme.txt
+
+0 BFC CERTIFY CCW
+
+0 !HISTORY 1998-12-15 [PTadmin] Official Update 1998-10
+0 !HISTORY 2002-03-23 [sbliss] Added BFC statement
+0 !HISTORY 2002-04-25 [PTadmin] Official Update 2002-02
+0 !HISTORY 2007-06-24 [PTadmin] Header formatted for Contributor Agreement
+0 !HISTORY 2008-07-01 [PTadmin] Official Update 2008-01
+
+
+3 16 0 0 0 1 0 0 0.9239 0 0.3827
+3 16 0 0 0 0.9239 0 0.3827 0.7071 0 0.7071
+3 16 0 0 0 0.7071 0 0.7071 0.3827 0 0.9239
+3 16 0 0 0 0.3827 0 0.9239 0 0 1
+3 16 0 0 0 0 0 1 -0.3827 0 0.9239
+3 16 0 0 0 -0.3827 0 0.9239 -0.7071 0 0.7071
+3 16 0 0 0 -0.7071 0 0.7071 -0.9239 0 0.3827
+3 16 0 0 0 -0.9239 0 0.3827 -1 0 -0
+3 16 0 0 0 -1 0 -0 -0.9239 0 -0.3827
+3 16 0 0 0 -0.9239 0 -0.3827 -0.7071 0 -0.7071
+3 16 0 0 0 -0.7071 0 -0.7071 -0.3827 0 -0.9239
+3 16 0 0 0 -0.3827 0 -0.9239 0 0 -1
+3 16 0 0 0 0 0 -1 0.3827 0 -0.9239
+3 16 0 0 0 0.3827 0 -0.9239 0.7071 0 -0.7071
+3 16 0 0 0 0.7071 0 -0.7071 0.9239 0 -0.3827
+3 16 0 0 0 0.9239 0 -0.3827 1 0 0
+0
+0 NOFILE
+0 FILE p/4-4cyli.dat
+0 Cylinder 1.0
+0 Name: 4-4cyli.dat
+0 Author: James Jessiman
+0 !LDRAW_ORG Primitive UPDATE 2005-01
+0 !LICENSE Licensed under CC BY 4.0 : see CAreadme.txt
+
+0 BFC CERTIFY CCW
+
+0 !HISTORY 1998-12-15 [PTadmin] Official Update 1998-10
+0 !HISTORY 2002-03-23 [sbliss] Added BFC statement; merged headers from files in distributions LDraw 0.27 and Complete.
+0 !HISTORY 2002-04-25 [PTadmin] Official Update 2002-02
+0 !HISTORY 2004-12-14 [guyvivan] BFC CCW
+0 !HISTORY 2005-12-28 [PTadmin] Official Update 2005-01
+0 !HISTORY 2007-06-24 [PTadmin] Header formatted for Contributor Agreement
+0 !HISTORY 2008-07-01 [PTadmin] Official Update 2008-01
+
+
+4 16 1 1 0 0.9239 1 0.3827 0.9239 0 0.3827 1 0 0
+5 24 1 0 0 1 1 0 0.9239 0 0.3827 0.9239 0 -0.3827
+4 16 0.9239 1 0.3827 0.7071 1 0.7071 0.7071 0 0.7071 0.9239 0 0.3827
+5 24 0.9239 0 0.3827 0.9239 1 0.3827 0.7071 0 0.7071 1 0 0
+4 16 0.7071 1 0.7071 0.3827 1 0.9239 0.3827 0 0.9239 0.7071 0 0.7071
+5 24 0.7071 0 0.7071 0.7071 1 0.7071 0.3827 0 0.9239 0.9239 0 0.3827
+4 16 0.3827 1 0.9239 0 1 1 0 0 1 0.3827 0 0.9239
+5 24 0.3827 0 0.9239 0.3827 1 0.9239 0 0 1 0.7071 0 0.7071
+4 16 0 1 1 -0.3827 1 0.9239 -0.3827 0 0.9239 0 0 1
+5 24 0 0 1 0 1 1 -0.3827 0 0.9239 0.3827 0 0.9239
+4 16 -0.3827 1 0.9239 -0.7071 1 0.7071 -0.7071 0 0.7071 -0.3827 0 0.9239
+5 24 -0.3827 0 0.9239 -0.3827 1 0.9239 -0.7071 0 0.7071 0 0 1
+4 16 -0.7071 1 0.7071 -0.9239 1 0.3827 -0.9239 0 0.3827 -0.7071 0 0.7071
+5 24 -0.7071 0 0.7071 -0.7071 1 0.7071 -0.9239 0 0.3827 -0.3827 0 0.9239
+4 16 -0.9239 1 0.3827 -1 1 0 -1 0 0 -0.9239 0 0.3827
+5 24 -0.9239 0 0.3827 -0.9239 1 0.3827 -1 0 0 -0.7071 0 0.7071
+4 16 -1 1 0 -0.9239 1 -0.3827 -0.9239 0 -0.3827 -1 0 0
+5 24 -1 0 0 -1 1 0 -0.9239 0 -0.3827 -0.9239 0 0.3827
+4 16 -0.9239 1 -0.3827 -0.7071 1 -0.7071 -0.7071 0 -0.7071 -0.9239 0 -0.3827
+5 24 -0.9239 0 -0.3827 -0.9239 1 -0.3827 -0.7071 0 -0.7071 -1 0 0
+4 16 -0.7071 1 -0.7071 -0.3827 1 -0.9239 -0.3827 0 -0.9239 -0.7071 0 -0.7071
+5 24 -0.7071 0 -0.7071 -0.7071 1 -0.7071 -0.3827 0 -0.9239 -0.9239 0 -0.3827
+4 16 -0.3827 1 -0.9239 0 1 -1 0 0 -1 -0.3827 0 -0.9239
+5 24 -0.3827 0 -0.9239 -0.3827 1 -0.9239 0 0 -1 -0.7071 0 -0.7071
+4 16 0 1 -1 0.3827 1 -0.9239 0.3827 0 -0.9239 0 0 -1
+5 24 0 0 -1 0 1 -1 0.3827 0 -0.9239 -0.3827 0 -0.9239
+4 16 0.3827 1 -0.9239 0.7071 1 -0.7071 0.7071 0 -0.7071 0.3827 0 -0.9239
+5 24 0.3827 0 -0.9239 0.3827 1 -0.9239 0.7071 0 -0.7071 0 0 -1
+4 16 0.7071 1 -0.7071 0.9239 1 -0.3827 0.9239 0 -0.3827 0.7071 0 -0.7071
+5 24 0.7071 0 -0.7071 0.7071 1 -0.7071 0.9239 0 -0.3827 0.3827 0 -0.9239
+4 16 0.9239 1 -0.3827 1 1 0 1 0 0 0.9239 0 -0.3827
+5 24 0.9239 0 -0.3827 0.9239 1 -0.3827 1 0 0 0.7071 0 -0.7071
+0
+0 NOFILE
+0 FILE p/stud3.dat
+0 Stud Tube Solid
+0 Name: stud3.dat
+0 Author: James Jessiman
+0 !LDRAW_ORG Primitive UPDATE 2012-01
+0 !LICENSE Licensed under CC BY 4.0 : see CAreadme.txt
+
+0 BFC CERTIFY CCW
+
+0 !HISTORY 2002-04-04 [sbliss] Modified for BFC compliance
+0 !HISTORY 2002-04-25 [PTadmin] Official Update 2002-02
+0 !HISTORY 2007-06-24 [PTadmin] Header formatted for Contributor Agreement
+0 !HISTORY 2008-07-01 [PTadmin] Official Update 2008-01
+0 !HISTORY 2012-02-16 [Philo] Changed to CCW
+0 !HISTORY 2012-03-30 [PTadmin] Official Update 2012-01
+
+
+1 16 0 -4 0 4 0 0 0 1 0 0 0 4 p/4-4edge.dat
+1 16 0 0 0 4 0 0 0 1 0 0 0 4 p/4-4edge.dat
+1 16 0 -4 0 4 0 0 0 1 0 0 0 4 p/4-4disc.dat
+1 16 0 -4 0 4 0 0 0 4 0 0 0 4 p/4-4cyli.dat
+0 NOFILE
+0 FILE p/box4-4a.dat
+0 Box with  4 Faces without  4 Adjacent Edges
+0 Name: box4-4a.dat
+0 Author: Willy Tschager [Holly-Wood]
+0 !LDRAW_ORG Primitive UPDATE 2024-01
+0 !LICENSE Licensed under CC BY 4.0 : see CAreadme.txt
+
+0 BFC CERTIFY CCW
+
+0 !HISTORY 1998-07-15 [PTadmin] Official Update 1998-07
+0 !HISTORY 2002-12-13 [hafhead] Made BFC compliant
+0 !HISTORY 2003-03-12 [PTadmin] Official Update 2003-01
+0 !HISTORY 2007-06-24 [PTadmin] Header formatted for Contributor Agreement
+0 !HISTORY 2008-07-01 [PTadmin] Official Update 2008-01
+0 !HISTORY 2012-02-16 [Philo] Changed to CCW
+0 !HISTORY 2012-03-30 [PTadmin] Official Update 2012-01
+0 !HISTORY 2024-01-03 [Holly-Wood] Complete re-write, original by Manfred Moolhuysen
+0 !HISTORY 2024-01-29 [OrionP] Official Update 2024-01
+
+2 24 -1 1 -1 -1 1 1
+2 24 1 1 1 1 1 -1
+2 24 -1 1 1 1 1 1
+4 16 1 1 1 1 1 -1 -1 1 -1 -1 1 1
+
+2 24 -1 0 -1 -1 0 1
+4 16 -1 1 1 -1 1 -1 -1 0 -1 -1 0 1
+
+2 24 1 0 1 1 0 -1
+4 16 1 1 -1 1 1 1 1 0 1 1 0 -1
+
+2 24 1 1 1 1 0 1
+2 24 -1 1 1 -1 0 1
+2 24 -1 0 1 1 0 1
+4 16 1 1 1 -1 1 1 -1 0 1 1 0 1
+0 NOFILE
+0 FILE p/3-16chrd.dat
+0 Chord 0.1875
+0 Name: 3-16chrd.dat
+0 Author: Niels Karsdorp [nielsk]
+0 !LDRAW_ORG Primitive UPDATE 2009-01
+0 !LICENSE Licensed under CC BY 4.0 : see CAreadme.txt
+
+0 BFC CERTIFY CCW
+
+0 !HISTORY 2009-05-02 [PTadmin] Official Update 2009-01
+
+
+4 16 1 0 0 0.9239 0 0.3827 0.7071 0 0.7071 0.3827 0 0.9239
+0
+
+0 NOFILE
+0 FILE p/3-16cys2.dat
+0 Cylinder Sloped 0.1875 Convex
+0 Name: 3-16cys2.dat
+0 Author: Donald Sutter [technog]
+0 !LDRAW_ORG Primitive UPDATE 2010-01
+0 !LICENSE Licensed under CC BY 4.0 : see CAreadme.txt
+
+0 BFC CERTIFY CCW
+
+0 !HISTORY 2010-04-05 [PTadmin] Official Update 2010-01
+
+
+3 16 -0.3827 0.3827 0.9239 -0.3827 0 0.9239 0 0 1
+4 16 -0.3827 0.3827 0.9239 -0.7071 0.7071 0.7071 -0.7071 0 0.7071 -0.3827 0 0.9239
+4 16 -0.7071 0.7071 0.7071 -0.9239 0.9239 0.3827 -0.9239 0 0.3827 -0.7071 0 0.7071
+5 24 -0.3827 0 0.9239 -0.3827 0.3827 0.9239 -0.7071 0 0.7071 0 0 1
+5 24 -0.7071 0 0.7071 -0.7071 0.7071 0.7071 -0.9239 0 0.3827 -0.3827 0 0.9239
+5 24 -0.9239 0 0.3827 -0.9239 0.9239 0.3827 -1 0 0 -0.7071 0 0.7071
+0 NOFILE
+0 FILE p/3-16ndis.dat
+0 Disc Negative 0.1875
+0 Name: 3-16ndis.dat
+0 Author: Magnus Forsberg [MagFors]
+0 !LDRAW_ORG Primitive UPDATE 2024-01
+0 !LICENSE Licensed under CC BY 4.0 : see CAreadme.txt
+
+0 BFC CERTIFY CCW
+
+0 !HISTORY 2009-05-02 [PTadmin] Official Update 2009-01
+0 !HISTORY 2024-01-03 [MagFors] Complete regeneration, original by guyvivan
+0 !HISTORY 2024-01-29 [OrionP] Official Update 2024-01
+
+3 16 1 0 1 0.9239 0 0.3827 1 0 0
+3 16 1 0 1 0.7071 0 0.7071 0.9239 0 0.3827
+3 16 1 0 1 0.3827 0 0.9239 0.7071 0 0.7071
+0 // Build by LDPartEditor (PrimGen 2.X)
+0 NOFILE
+0 FILE p/3-16edge.dat
+0 Circle 0.1875
+0 Name: 3-16edge.dat
+0 Author: Donald Sutter [technog]
+0 !LDRAW_ORG Primitive UPDATE 2017-01
+0 !LICENSE Licensed under CC BY 4.0 : see CAreadme.txt
+
+0 BFC CERTIFY CCW
+
+0 !HISTORY 2004-03-02 [PTadmin] Official Update 2004-01
+0 !HISTORY 2007-06-24 [PTadmin] Header formatted for Contributor Agreement
+0 !HISTORY 2008-07-01 [PTadmin] Official Update 2008-01
+0 !HISTORY 2017-01-15 [Steffen] BFCed
+0 !HISTORY 2017-12-30 [PTadmin] Official Update 2017-01
+
+
+2 24 1 0 0 0.9239 0 0.3827
+2 24 0.9239 0 0.3827 0.7071 0 0.7071
+2 24 0.7071 0 0.7071 0.3827 0 0.9239
+0 NOFILE
+0 FILE p/box2-11.dat
+0 Box with 2 Faces without 11 Edges
+0 Name: box2-11.dat
+0 Author: Steffen [Steffen]
+0 !LDRAW_ORG Primitive UPDATE 2005-01
+0 !LICENSE Licensed under CC BY 4.0 : see CAreadme.txt
+
+0 BFC CERTIFY CCW
+
+0 !HISTORY 2005-12-28 [PTadmin] Official Update 2005-01
+0 !HISTORY 2007-06-24 [PTadmin] Header formatted for Contributor Agreement
+0 !HISTORY 2008-07-01 [PTadmin] Official Update 2008-01
+
+
+2 24 1 1 1 -1 1 1
+4 16 1 1 1 1 1 -1 -1 1 -1 -1 1 1
+4 16 1 1 1 -1 1 1 -1 -1 1 1 -1 1
+0
+0 NOFILE
+0 FILE p/box2-5.dat
+0 Box with 2 Faces without 5 Edges
+0 Name: box2-5.dat
+0 Author: Steffen [Steffen]
+0 !LDRAW_ORG Primitive UPDATE 2003-03
+0 !LICENSE Licensed under CC BY 4.0 : see CAreadme.txt
+
+0 BFC CERTIFY CCW
+
+0 !HISTORY 2003-12-19 [PTadmin] Official Update 2003-03
+0 !HISTORY 2007-06-24 [PTadmin] Header formatted for Contributor Agreement
+0 !HISTORY 2008-07-01 [PTadmin] Official Update 2008-01
+
+
+2 24 1 1 1 -1 1 1
+2 24 1 1 -1 -1 1 -1
+2 24 1 -1 1 -1 -1 1
+2 24 -1 -1 1 -1 1 1
+2 24 1 -1 1 1 1 1
+2 24 -1 1 -1 -1 1 1
+2 24 1 1 -1 1 1 1
+4 16 1 1 1 1 1 -1 -1 1 -1 -1 1 1
+4 16 1 1 1 -1 1 1 -1 -1 1 1 -1 1
+0
+0 NOFILE
+0 FILE p/box4-2p.dat
+0 Box with  4 Faces without  2 Parallel Edges
+0 Name: box4-2p.dat
+0 Author: Willy Tschager [Holly-Wood]
+0 !LDRAW_ORG Primitive UPDATE 2024-01
+0 !LICENSE Licensed under CC BY 4.0 : see CAreadme.txt
+
+0 BFC CERTIFY CCW
+
+0 !HISTORY 2009-05-02 [PTadmin] Official Update 2009-01
+0 !HISTORY 2024-01-03 [Holly-Wood] Complete re-write, original by guyvivan
+0 !HISTORY 2024-01-29 [OrionP] Official Update 2024-01
+
+2 24 -1 1 -1 -1 1 1
+2 24 1 1 1 1 1 -1
+2 24 -1 1 1 1 1 1
+2 24 -1 1 -1 1 1 -1
+4 16 1 1 1 1 1 -1 -1 1 -1 -1 1 1
+
+2 24 -1 0 -1 -1 1 -1
+2 24 -1 0 -1 -1 0 1
+4 16 -1 1 1 -1 1 -1 -1 0 -1 -1 0 1
+
+2 24 1 0 -1 1 1 -1
+2 24 1 0 1 1 0 -1
+4 16 1 1 -1 1 1 1 1 0 1 1 0 -1
+
+2 24 1 1 1 1 0 1
+2 24 -1 1 1 -1 0 1
+4 16 1 1 1 -1 1 1 -1 0 1 1 0 1
+0 NOFILE
+0 FILE p/rect1.dat
+0 Rectangle with 1 Edge
+0 Name: rect1.dat
+0 Author: Chris Dee [cwdee]
+0 !LDRAW_ORG Primitive UPDATE 2010-01
+0 !LICENSE Licensed under CC BY 4.0 : see CAreadme.txt
+
+0 BFC CERTIFY CCW
+
+0 !HISTORY 2003-12-19 [PTadmin] Official Update 2003-03
+0 !HISTORY 2007-06-24 [PTadmin] Header formatted for Contributor Agreement
+0 !HISTORY 2008-07-01 [PTadmin] Official Update 2008-01
+0 !HISTORY 2010-01-17 [mikeheide] changed winding to CCW
+0 !HISTORY 2010-04-05 [PTadmin] Official Update 2010-01
+
+
+2 24 1 0 -1 1 0 1
+4 16 -1 0 1 -1 0 -1 1 0 -1 1 0 1
+0
+0 NOFILE
+0 FILE p/box2-7.dat
+0 Box with  2 Faces without  7 Edges
+0 Name: box2-7.dat
+0 Author: Willy Tschager [Holly-Wood]
+0 !LDRAW_ORG Primitive UPDATE 2024-01
+0 !LICENSE Licensed under CC BY 4.0 : see CAreadme.txt
+
+0 BFC CERTIFY CCW
+
+0 !HISTORY 2009-05-02 [PTadmin] Official Update 2009-01
+0 !HISTORY 2024-01-02 [Holly-Wood] Complete re-write, original by guyvivan
+0 !HISTORY 2024-01-29 [OrionP] Official Update 2024-01
+
+2 24 -1 1 -1 -1 1 1
+2 24 1 1 1 1 1 -1
+4 16 -1 1 1 1 1 1 1 1 -1 -1 1 -1
+
+2 24 -1 1 1 -1 -1 1
+2 24 1 1 1 1 -1 1
+4 16 1 -1 1 1 1 1 -1 1 1 -1 -1 1
+
+2 24 -1 1 1 1 1 1
+0 NOFILE
+0 FILE p/recte3.dat
+0 Rectangle Empty with 3 Edges
+0 Name: recte3.dat
+0 Author: Steffen [Steffen]
+0 !LDRAW_ORG Primitive UPDATE 2011-01
+0 !LICENSE Licensed under CC BY 4.0 : see CAreadme.txt
+
+0 BFC CERTIFY CCW
+
+0 !HISTORY 2011-07-25 [PTadmin] Official Update 2011-01
+
+
+2 24 1 0 1 -1 0 1
+2 24 -1 0 1 -1 0 -1
+2 24 1 0 -1 1 0 1
+0 NOFILE
+0 FILE p/rect2p.dat
+0 Rectangle with 2 Parallel Edges
+0 Name: rect2p.dat
+0 Author: Donald Sutter [technog]
+0 !LDRAW_ORG Primitive UPDATE 2010-01
+0 !LICENSE Licensed under CC BY 4.0 : see CAreadme.txt
+
+0 BFC CERTIFY CCW
+
+0 !HISTORY 2003-08-01 [PTadmin] Official Update 2003-02
+0 !HISTORY 2007-06-24 [PTadmin] Header formatted for Contributor Agreement
+0 !HISTORY 2008-07-01 [PTadmin] Official Update 2008-01
+0 !HISTORY 2010-01-17 [mikeheide] changed winding to CCW
+0 !HISTORY 2010-04-05 [PTadmin] Official Update 2010-01
+
+
+2 24 1 0 1 -1 0 1
+2 24 -1 0 -1 1 0 -1
+4 16 -1 0 1 -1 0 -1 1 0 -1 1 0 1
+0
+0 NOFILE
+0 FILE p/box3-5a.dat
+0 Box with 3 Adjacent Faces without 5 Adjacent Edges
+0 Name: box3-5a.dat
+0 Author: Philippe Hurbain [Philo]
+0 !LDRAW_ORG Primitive UPDATE 2013-02
+0 !LICENSE Licensed under CC BY 4.0 : see CAreadme.txt
+
+0 BFC CERTIFY CCW
+
+0 !HISTORY 2013-12-23 [PTadmin] Official Update 2013-02
+
+
+2 24 1 1 1 -1 1 1
+2 24 -1 1 1 -1 1 -1
+2 24 1 1 -1 1 1 1
+2 24 1 -1 1 -1 -1 1
+2 24 1 -1 -1 1 -1 1
+2 24 1 -1 1 1 1 1
+2 24 -1 -1 1 -1 1 1
+
+4 16 1 1 1 1 1 -1 -1 1 -1 -1 1 1
+4 16 1 1 1 1 -1 1 1 -1 -1 1 1 -1
+4 16 1 1 1 -1 1 1 -1 -1 1 1 -1 1
+0 NOFILE
+0 FILE p/box3u4p.dat
+0 Box with  3 Faces without  4 Parallel Edges
+0 Name: box3u4p.dat
+0 Author: Willy Tschager [Holly-Wood]
+0 !LDRAW_ORG Primitive UPDATE 2024-01
+0 !LICENSE Licensed under CC BY 4.0 : see CAreadme.txt
+
+0 BFC CERTIFY CCW
+
+0 !HISTORY 2009-12-29 [PTadmin] Official Update 2009-03
+0 !HISTORY 2024-01-03 [Holly-Wood] Complete re-write, original by LordAdmiral
+0 !HISTORY 2024-01-29 [OrionP] Official Update 2024-01
+
+2 24 -1 1 1 1 1 1
+2 24 1 1 -1 -1 1 -1
+4 16 1 1 1 1 1 -1 -1 1 -1 -1 1 1
+
+2 24 -1 0 1 1 0 1
+2 24 1 1 1 1 0 1
+2 24 -1 1 1 -1 0 1
+4 16 1 1 1 -1 1 1 -1 0 1 1 0 1
+
+2 24 1 0 -1 -1 0 -1
+2 24 1 1 -1 1 0 -1
+2 24 -1 1 -1 -1 0 -1
+4 16 -1 1 -1 1 1 -1 1 0 -1 -1 0 -1
+0 NOFILE
+0 FILE p/rect3.dat
+0 Rectangle with 3 Edges
+0 Name: rect3.dat
+0 Author: Mark Kennedy [mkennedy]
+0 !LDRAW_ORG Primitive UPDATE 2010-01
+0 !LICENSE Licensed under CC BY 4.0 : see CAreadme.txt
+
+0 BFC CERTIFY CCW
+
+0 !HISTORY 2003-08-01 [PTadmin] Official Update 2003-02
+0 !HISTORY 2007-06-24 [PTadmin] Header formatted for Contributor Agreement
+0 !HISTORY 2008-07-01 [PTadmin] Official Update 2008-01
+0 !HISTORY 2010-01-17 [mikeheide] Change winding to CCW
+0 !HISTORY 2010-04-05 [PTadmin] Official Update 2010-01
+
+
+2 24 1 0 1 -1 0 1
+2 24 1 0 1 1 0 -1
+2 24 -1 0 1 -1 0 -1
+4 16 -1 0 1 -1 0 -1 1 0 -1 1 0 1
+0 //
+0 NOFILE
+0 FILE p/box2-9.dat
+0 Box with 2 Faces without 9 Edges
+0 Name: box2-9.dat
+0 Author: Mark Kennedy [mkennedy]
+0 !LDRAW_ORG Primitive UPDATE 2010-01
+0 !LICENSE Licensed under CC BY 4.0 : see CAreadme.txt
+
+0 BFC CERTIFY CCW
+
+0 !HISTORY 2010-04-05 [PTadmin] Official Update 2010-01
+
+
+2 24 1 1 1 -1 1 1
+2 24 1 -1 1 1 1 1
+2 24 1 1 -1 1 1 1
+4 16 1 1 1 1 1 -1 -1 1 -1 -1 1 1
+4 16 1 1 1 -1 1 1 -1 -1 1 1 -1 1
+0
+0 NOFILE
+0 FILE parts/s/66956s01.dat
+0 ~Slope Brick Curved  2 x  2 with Double Cutout without Patternable Areas
+0 Name: s\66956s01.dat
+0 Author: Massimo Maso [Sirio]
+0 !LDRAW_ORG Subpart UPDATE 2023-04
+0 !LICENSE Licensed under CC BY 4.0 : see CAreadme.txt
+
+0 BFC CERTIFY CCW
+
+0 !HISTORY 2022-06-08 [Holly-Wood] Fixed width of stud cavity, fixed rounding error and T-Junk
+0 !HISTORY 2023-08-25 [OrionP] Official Update 2023-04
+
+
+0 // Primitives
+1 16 0 -12 20 20 0 0 0 0 4 0 -1 0 p/rect.dat
+1 16 0 -12 10 1 0 0 0 -1 0 0 0 -1 p/stud3.dat
+0 BFC INVERTNEXT
+1 16 0 -8 13 16 0 0 0 -4 0 0 0 3 p/box4-4a.dat
+1 16 -10 -12 10 -6 0 0 0 -1 0 0 0 -6 p/3-16chrd.dat
+1 16 10 -12 10 6 0 0 0 -1 0 0 0 -6 p/3-16chrd.dat
+0 BFC INVERTNEXT
+1 16 -10 -12 10 0 0 -6 0 2 0 6 0 0 p/3-16cys2.dat
+0 BFC INVERTNEXT
+1 16 10 -12 10 0 0 6 0 2 0 6 0 0 p/3-16cys2.dat
+1 16 -10 -12 10 -6 0 0 0 -1 2 0 0 -6 p/3-16ndis.dat
+1 16 10 -12 10 6 0 0 0 -1 2 0 0 -6 p/3-16ndis.dat
+1 16 -10 -12 10 -6 0 0 0 -1 0 0 0 -6 p/3-16edge.dat
+1 16 10 -12 10 6 0 0 0 -1 0 0 0 -6 p/3-16edge.dat
+1 16 -10 -12 10 -6 0 0 0 -1 2 0 0 -6 p/3-16edge.dat
+1 16 10 -12 10 6 0 0 0 -1 2 0 0 -6 p/3-16edge.dat
+1 16 -5 -11.5 2 3.5 0 0 0 .5 0 0 0 2 p/box2-11.dat
+1 16 5 -11.5 2 3.5 0 0 0 .5 0 0 0 2 p/box2-11.dat
+1 16 -10 -9.5 2 0 0 1.5 0 1.5 0 -2 0 0 p/box2-5.dat
+1 16 0 -11 2 1.5 0 0 0 3 0 0 0 2 p/box4-2p.dat
+1 16 10 -9.5 2 0 0 -1.5 0 1.5 0 -2 0 0 p/box2-5.dat
+1 16 -5 -9.5 0 0 0 3.5 -1.5 0 0 0 -1 0 p/rect1.dat
+1 16 5 -9.5 0 0 0 3.5 -1.5 0 0 0 -1 0 p/rect1.dat
+0 BFC INVERTNEXT
+1 16 -13.75 -9 2 2.25 0 0 0 -.333 .667 0 0 -2 p/box2-7.dat
+0 BFC INVERTNEXT
+1 16 13.75 -9 2 2.25 0 0 0 -.333 .667 0 0 -2 p/box2-7.dat
+1 16 -17 -4 -1 0 1 -1 -4 0 0 0 0 -1 p/rect.dat
+1 16 17 -4 -1 0 -1 1 -4 0 0 0 0 -1 p/rect.dat
+1 16 0 -8 10 20 0 0 0 1 0 0 0 10 p/recte3.dat
+1 16 0 0 -6.5 0 0 1 0 -1 0 -2.5 0 0 p/rect2p.dat
+1 16 -2.5 -2 -10 0 0 -1.5 0 2 0 -1 0 0 p/box3-5a.dat
+1 16 2.5 -2 -10 0 0 1.5 0 2 0 -1 0 0 p/box3-5a.dat
+1 16 0 -4 -11.5 0 0 1 0 4 0 -.5 0 0 p/box3u4p.dat
+1 16 -2.75 -2 -13.75 0 1 -1.75 2 0 0 0 0 -1.75 p/rect3.dat
+1 16 2.75 -2 -13.75 0 -1 1.75 2 0 0 0 0 -1.75 p/rect3.dat
+1 16 0 -2 -15.5 0 -2.25 2.25 2 0 0 0 -2.25 -2.25 p/box2-9.dat
+0 // Bottom faces
+3 16 -8.5 -12 4 -16 -12 10 -1.5 -12 4
+4 16 1.5 -12 4 -1.5 -12 4 -16 -12 10 16 -12 10
+3 16 1.5 -12 4 16 -12 10 8.5 -12 4
+4 16 12.2962 -12 4.4566 11.5 -12 4 8.5 -12 4 16 -12 10
+4 16 -8.5 -12 4 -11.5 -12 4 -12.2962 -12 4.4566 -16 -12 10
+4 16 -12.2962 -10.1522 4.4566 -12.2962 -12 4.4566 -11.5 -12 4 -11.5 -10 4
+4 16 -11.5 -12 4 -8.5 -12 4 -8.5 -11 4 -11.5 -10 4
+4 16 -1.5 -11 4 -1.5 -12 4 1.5 -12 4 1.5 -11 4
+4 16 11.5 -10 4 8.5 -11 4 8.5 -12 4 11.5 -12 4
+4 16 11.5 -10 4 11.5 -12 4 12.2962 -12 4.4566 12.2962 -10.1522 4.4566
+3 16 -11.5 -10 4 -16 -10 4 -12.2962 -10.1522 4.4566
+3 16 12.2962 -10.1522 4.4566 16 -10 4 11.5 -10 4
+4 16 -16 -12 10 -16 -10 4 -16 -8 0 -16 -8 10
+3 16 -16 -8 0 -16 -10 4 -16 -8.666 0
+4 16 -11.5 -8 4 -11.5 -8 0 -11.5 -8.666 0 -11.5 -10 4
+4 16 -8.5 -8 4 -11.5 -8 4 -11.5 -10 4 -8.5 -11 4
+4 16 8.5 -11 4 11.5 -10 4 11.5 -8 4 8.5 -8 4
+4 16 11.5 -10 4 11.5 -8.666 0 11.5 -8 0 11.5 -8 4
+4 16 16 -8 0 16 -10 4 16 -12 10 16 -8 10
+3 16 16 -10 4 16 -8 0 16 -8.666 0
+3 16 -11.5 -8 0 -16 0 0 -16 -8 0
+3 16 -8.5 -8 0 -16 0 0 -11.5 -8 0
+3 16 -16 0 0 -8.5 -8 0 -1.5 -8 0
+4 16 -16 0 0 -1.5 -8 0 1.5 -8 0 16 0 0
+3 16 16 0 0 1.5 -8 0 8.5 -8 0
+3 16 16 0 0 8.5 -8 0 11.5 -8 0
+3 16 16 0 0 11.5 -8 0 16 -8 0
+4 16 16 -8 16 -16 -8 16 -20 -8 20 20 -8 20
+4 16 -16 -8 16 -16 -8 10 -20 -8 0 -20 -8 20
+4 16 16 -8 0 16 -8 10 20 -8 20 20 -8 0
+3 16 16 -8 10 16 -8 16 20 -8 20
+4 16 -16 -8 10 -16 -8 0 -18 -8 -2 -20 -8 0
+3 16 18 -8 -2 16 -8 0 20 -8 0
+4 16 -16 0 0 -15.046 0 -4 -15.523 0 -4.477 -18 0 -2
+3 16 -16 0 0 -1 0 -4 -15.046 0 -4
+4 16 -16 0 0 16 0 0 1 0 -4 -1 0 -4
+3 16 16 0 0 15.046 0 -4 1 0 -4
+4 16 15.523 0 -4.477 15.046 0 -4 16 0 0 18 0 -2
+3 16 -15.046 0 -4 -9 -4 -4 -15.046 -4 -4
+4 16 -15.046 -4 -4 -15.523 -4 -4.477 -15.523 0 -4.477 -15.046 0 -4
+4 16 -15.046 0 -4 -1 0 -4 -1 -7 -4 -9 -4 -4
+3 16 -1 -7 -4 -9 -7 -4 -9 -4 -4
+3 16 1 -7 -4 9 -4 -4 9 -7 -4
+4 16 1 -7 -4 1 0 -4 15.046 0 -4 9 -4 -4
+3 16 15.046 -4 -4 9 -4 -4 15.046 0 -4
+4 16 15.046 -4 -4 15.046 0 -4 15.523 0 -4.477 15.523 -4 -4.477
+4 16 -4 -4 -11 -4.5 -4 -15.5 -15.523 -4 -4.477 -15.046 -4 -4
+4 16 -4 -4 -11 -1 -4 -11 -1 -4 -12 -4.5 -4 -15.5
+4 16 -4 -4 -11 -15.046 -4 -4 -9 -4 -4 -4 -4 -9
+4 16 4 -4 -11 4 -4 -9 9 -4 -4 15.046 -4 -4
+4 16 4 -4 -11 4.5 -4 -15.5 1 -4 -12 1 -4 -11
+4 16 4 -4 -11 15.046 -4 -4 15.523 -4 -4.477 4.5 -4 -15.5
+4 16 -9 -4 -4 -9 -7 -4 -4 -5 -9 -4 -4 -9
+4 16 9 -7 -4 9 -4 -4 4 -4 -9 4 -5 -9
+4 16 -1 -7 -4 -1 -5 -9 -4 -5 -9 -9 -7 -4
+4 16 -1 -7 -4 -1 0 -4 -1 0 -9 -1 -5 -9
+4 16 1 -7 -4 1 -5 -9 1 0 -9 1 0 -4
+4 16 1 -7 -4 9 -7 -4 4 -5 -9 1 -5 -9
+3 16 -1 -5 -9 -4 -4 -9 -4 -5 -9
+4 16 -1 -5 -9 -1 0 -9 -4 0 -9 -4 -4 -9
+4 16 1 -5 -9 4 -4 -9 4 0 -9 1 0 -9
+3 16 1 -5 -9 4 -5 -9 4 -4 -9
+4 16 -1 0 -9 1 0 -9 1 0 -11 -1 0 -11
+4 16 -4.5 0 -15.5 -1 0 -12 1 0 -12 4.5 0 -15.5
+3 16 -4.5 0 -15.5 4.5 0 -15.5 0 0 -20
+0 // Edges
+2 24 -16 -12 10 -16 -10 4
+2 24 16 -12 10 16 -10 4
+2 24 -16 -8 10 -16 -8 0
+2 24 16 -8 10 16 -8 0
+2 24 -20 -8 0 -18 -8 -2
+2 24 20 -8 0 18 -8 -2
+2 24 -12.2962 -12 4.4566 -11.5 -12 4
+2 24 -11.5 -12 4 11.5 -12 4
+2 24 12.2962 -12 4.4566 11.5 -12 4
+2 24 -11.5 -10 4 -11.5 -12 4
+2 24 11.5 -10 4 11.5 -12 4
+2 24 -12.2962 -10.1522 4.4566 -11.5 -10 4
+2 24 12.2962 -10.1522 4.4566 11.5 -10 4
+2 24 -11.5 -8 4 -11.5 -10 4
+2 24 11.5 -8 4 11.5 -10 4
+2 24 -16 0 0 16 0 0
+2 24 -1 -7 -4 -1 0 -4
+2 24 1 -7 -4 1 0 -4
+2 24 -1 -7 -4 -1 -5 -9
+2 24 1 -7 -4 1 -5 -9
+2 24 -1 -7 -4 -9 -7 -4
+2 24 1 -7 -4 9 -7 -4
+2 24 -9 -7 -4 -9 -4 -4
+2 24 9 -7 -4 9 -4 -4
+2 24 -9 -4 -4 -4 -4 -9
+2 24 -15.523 -4 -4.477 -15.046 -4 -4
+2 24 -15.046 -4 -4 -15.046 0 -4
+2 24 -15.046 0 -4 -15.523 0 -4.477
+2 24 -15.523 0 -4.477 -15.523 -4 -4.477
+2 24 -18 0 -2 -15.523 0 -4.477
+2 24 -15.046 0 -4 -1 0 -4
+2 24 -15.046 -4 -4 -9 -4 -4
+2 24 -4.5 -4 -15.5 -15.523 -4 -4.477
+2 24 9 -4 -4 4 -4 -9
+2 24 18 0 -2 15.523 0 -4.477
+2 24 1 0 -4 15.046 0 -4
+2 24 15.046 -4 -4 9 -4 -4
+2 24 4.5 -4 -15.5 15.523 -4 -4.477
+2 24 15.523 -4 -4.477 15.046 -4 -4
+2 24 15.046 -4 -4 15.046 0 -4
+2 24 15.046 0 -4 15.523 0 -4.477
+2 24 15.523 0 -4.477 15.523 -4 -4.477
+2 24 -4 -4 -9 -4 -5 -9
+2 24 4 -4 -9 4 -5 -9
+2 24 -4 -5 -9 -9 -7 -4
+2 24 4 -5 -9 9 -7 -4
+2 24 -4 -5 -9 -1 -5 -9
+2 24 4 -5 -9 1 -5 -9
+2 24 -1 -5 -9 -1 0 -9
+2 24 1 -5 -9 1 0 -9
+0 // Conditional lines
+5 24 -12.2962 -12 4.4566 -12.2962 -10.1522 4.4566 -11.5 -12 4 -14.2426 -12 5.7574
+5 24 12.2962 -12 4.4566 12.2962 -10.1522 4.4566 11.5 -12 4 14.2426 -12 5.7574
+0 // Left side faces
+4 16 -20 -16 20 -20 -8 20 -20 -14.6036 5.36 -20 -15.6524 12.616
+4 16 -20 -8 0 -20 -13.2852 0 -20 -14.6036 5.36 -20 -8 20
+4 16 -20 -13.2852 0 -20 -8 0 -18 -8 -2 -18.352 -12.8827 -1.648
+4 16 -18 -8 -2 -15.523 -4 -4.477 -11.716 -10.5099 -8.284 -18.352 -12.8827 -1.648
+4 16 -18 -8 -2 -18 0 -2 -15.523 0 -4.477 -15.523 -4 -4.477
+4 16 -5.564 -7.5316 -14.436 -11.716 -10.5099 -8.284 -15.523 -4 -4.477 -4.5 -4 -15.5
+3 16 -5.564 -7.5316 -14.436 -4.5 -4 -15.5 0 -4 -20
+0 // Right side faces
+4 16 20 -14.6036 5.36 20 -8 20 20 -16 20 20 -15.6524 12.616
+4 16 20 -14.6036 5.36 20 -13.2852 0 20 -8 0 20 -8 20
+4 16 18 -8 -2 20 -8 0 20 -13.2852 0 18.352 -12.8827 -1.648
+4 16 15.523 0 -4.477 18 0 -2 18 -8 -2 15.523 -4 -4.477
+4 16 11.716 -10.5099 -8.284 15.523 -4 -4.477 18 -8 -2 18.352 -12.8827 -1.648
+4 16 15.523 -4 -4.477 11.716 -10.5099 -8.284 5.564 -7.5316 -14.436 4.5 -4 -15.5
+3 16 4.5 -4 -15.5 5.564 -7.5316 -14.436 0 -4 -20
+0 // Edges
+2 24 -20 -13.2852 0 -20 -8 0
+2 24 20 -13.2852 0 20 -8 0
+0 // Edges of top surface
+2 24 -20 -16 20 20 -16 20
+2 24 -20 -15.6524 12.616 -20 -16 20
+2 24 20 -15.6524 12.616 20 -16 20
+2 24 -20 -14.6036 5.36 -20 -15.6524 12.616
+2 24 20 -14.6036 5.36 20 -15.6524 12.616
+2 24 -20 -13.2852 0 -20 -14.6036 5.36
+2 24 20 -13.2852 0 20 -14.6036 5.36
+2 24 -20 -13.2852 0 -18.352 -12.8827 -1.648
+2 24 20 -13.2852 0 18.352 -12.8827 -1.648
+2 24 -11.716 -10.5099 -8.284 -18.352 -12.8827 -1.648
+2 24 11.716 -10.5099 -8.284 18.352 -12.8827 -1.648
+2 24 -5.564 -7.5316 -14.436 -11.716 -10.5099 -8.284
+2 24 5.564 -7.5316 -14.436 11.716 -10.5099 -8.284
+2 24 0 -4 -20 -5.564 -7.5316 -14.436
+2 24 0 -4 -20 5.564 -7.5316 -14.436
+0 // Conditional lines of top surface
+5 24 -20 -15.6524 12.616 20 -15.6524 12.616 -20 -16 20 -20 -14.6036 5.36
+5 24 -20 -14.6036 5.36 20 -14.6036 5.36 -20 -15.6524 12.616 -18.352 -12.8827 -1.648
+5 24 -18.352 -12.8827 -1.648 18.352 -12.8827 -1.648 -20 -14.6036 5.36 -11.716 -10.5099 -8.284
+5 24 -11.716 -10.5099 -8.284 11.716 -10.5099 -8.284 -18.352 -12.8827 -1.648 -5.564 -7.5316 -14.436
+5 24 -5.564 -7.5316 -14.436 5.564 -7.5316 -14.436 -11.716 -10.5099 -8.284 0 -4 -20
+0 NOFILE
+0 FILE parts/66956.dat
+0 Slope Brick Curved  2 x  2 with Double Cutout
+0 Name: 66956.dat
+0 Author: Massimo Maso [Sirio]
+0 !LDRAW_ORG Part UPDATE 2023-04
+0 !LICENSE Licensed under CC BY 4.0 : see CAreadme.txt
+
+0 BFC CERTIFY CCW
+
+0 !HISTORY 2020-08-03 [Sirio] File preparation for LDraw
+0 !HISTORY 2023-08-25 [OrionP] Official Update 2023-04
+
+
+0 // Subpart
+1 16 0 0 0 1 0 0 0 1 0 0 0 1 parts/s/66956s01.dat
+0 // Patternable faces
+4 16 20 -16 20 -20 -16 20 -20 -15.6524 12.616 20 -15.6524 12.616
+4 16 20 -15.6524 12.616 -20 -15.6524 12.616 -20 -14.6036 5.36 20 -14.6036 5.36
+3 16 -20 -14.6036 5.36 -20 -13.2852 0 -18.352 -12.8827 -1.648
+4 16 20 -14.6036 5.36 -20 -14.6036 5.36 -18.352 -12.8827 -1.648 18.352 -12.8827 -1.648
+3 16 20 -13.2852 0 20 -14.6036 5.36 18.352 -12.8827 -1.648
+4 16 18.352 -12.8827 -1.648 -18.352 -12.8827 -1.648 -11.716 -10.5099 -8.284 11.716 -10.5099 -8.284
+4 16 11.716 -10.5099 -8.284 -11.716 -10.5099 -8.284 -5.564 -7.5316 -14.436 5.564 -7.5316 -14.436
+3 16 5.564 -7.5316 -14.436 -5.564 -7.5316 -14.436 0 -4 -20
+0 NOFILE

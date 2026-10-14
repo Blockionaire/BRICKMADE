@@ -7,6 +7,7 @@ import { BUILDER_BY_REBRICKABLE } from "@/domain/parts/profiles";
 import {
   loadBuilderMesh,
   createPartGeometry,
+  createPartMaterials,
   type DecodedMesh,
 } from "@/services/builder-geometry";
 import { placementPose, placementBounds } from "@/domain/model-pose";
@@ -89,7 +90,7 @@ export default function ModelCanvas({
   const container = useRef<HTMLDivElement>(null);
   const studio = useRef<Studio | null>(null);
   const pickCallback = useRef(onPick);
-  const materialCache = useRef(new Map<string, THREE.MeshStandardMaterial>());
+  const materialCache = useRef(new Map<string, THREE.MeshStandardMaterial[]>());
   const motionPreference = useRef(false);
   const [failed, setFailed] = useState(false);
   const meshKey = [...new Set(model.placements.map((p) => p.partId))]
@@ -352,7 +353,7 @@ export default function ModelCanvas({
       disposeGroup(group);
       disposeGroup(accents, true);
       disposeGroup(guides, true);
-      materials.forEach((m) => m.dispose());
+      materials.forEach((list) => list.forEach((m) => m.dispose()));
       materials.clear();
       ground.geometry.dispose();
       (ground.material as THREE.Material).dispose();
@@ -385,23 +386,20 @@ export default function ModelCanvas({
     for (const [key, pieces] of groups) {
       const first = pieces[0];
       const active = !!step && first.step === step;
-      const materialKey = `${first.color}:${active && highlight ? "active" : step && highlight ? "ghost" : "normal"}`;
+      const materialKey = `${first.partId}:${first.color}:${active && highlight ? "active" : step && highlight ? "ghost" : "normal"}`;
       let material = materialCache.current.get(materialKey);
       if (!material) {
-        const color = new THREE.Color(COLORS[first.color].hex);
-        if (step && highlight && !active)
-          color.lerp(new THREE.Color("#ded9ce"), 0.45);
-        material = new THREE.MeshStandardMaterial({
-          color,
-          opacity: COLORS[first.color].alpha ?? 1,
-          transparent: (COLORS[first.color].alpha ?? 1) < 1,
-          depthWrite: (COLORS[first.color].alpha ?? 1) === 1,
-          side: THREE.DoubleSide,
-          roughness: 0.32,
-          metalness: 0.025,
-          emissive: active && highlight ? "#8d4124" : "#000000",
-          emissiveIntensity: active && highlight ? 0.13 : 0,
-        });
+        material = createPartMaterials(
+          BUILDER_BY_REBRICKABLE.get(first.partId)!.id,
+          COLORS[first.color].hex,
+          COLORS[first.color].alpha,
+        );
+        for (const m of material) {
+          if (step && highlight && !active)
+            m.color.lerp(new THREE.Color("#ded9ce"), 0.45);
+          m.emissive.set(active && highlight ? "#8d4124" : "#000000");
+          m.emissiveIntensity = active && highlight ? 0.13 : 0;
+        }
         materialCache.current.set(materialKey, material);
       }
       const profile = BUILDER_BY_REBRICKABLE.get(first.partId)!;

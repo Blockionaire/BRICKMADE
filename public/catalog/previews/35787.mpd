@@ -1,0 +1,523 @@
+0 FILE main.ldr
+0 BrickMade standalone preview; derived from The LDraw Parts Library
+1 16 0 0 0 1 0 0 0 1 0 0 0 1 parts/35787.dat
+0 NOFILE
+0 FILE p/1-4edge.dat
+0 Circle 0.25
+0 Name: 1-4edge.dat
+0 Author: James Jessiman
+0 !LDRAW_ORG Primitive UPDATE 2017-01
+0 !LICENSE Licensed under CC BY 4.0 : see CAreadme.txt
+
+0 BFC CERTIFY CCW
+
+0 !HISTORY 2007-06-22 [PTadmin] Header formatted for Contributor Agreement
+0 !HISTORY 2008-07-01 [PTadmin] Official Update 2008-01
+0 !HISTORY 2017-01-15 [Steffen] BFCed
+0 !HISTORY 2017-12-30 [PTadmin] Official Update 2017-01
+
+
+2 24 1 0 0 0.9239 0 0.3827
+2 24 0.9239 0 0.3827 0.7071 0 0.7071
+2 24 0.7071 0 0.7071 0.3827 0 0.9239
+2 24 0.3827 0 0.9239 0 0 1
+0 NOFILE
+0 FILE p/1-4cyli.dat
+0 Cylinder 0.25
+0 Name: 1-4cyli.dat
+0 Author: James Jessiman
+0 !LDRAW_ORG Primitive UPDATE 2012-01
+0 !LICENSE Licensed under CC BY 4.0 : see CAreadme.txt
+
+0 BFC CERTIFY CCW
+
+0 !HISTORY 2002-03-23 [sbliss] Added BFC statement.
+0 !HISTORY 2002-04-25 [PTadmin] Official Update 2002-02
+0 !HISTORY 2007-06-22 [PTadmin] Header formatted for Contributor Agreement
+0 !HISTORY 2008-07-01 [PTadmin] Official Update 2008-01
+0 !HISTORY 2012-02-16 [Philo] Changed to CCW
+0 !HISTORY 2012-03-30 [PTadmin] Official Update 2012-01
+
+
+4 16 1 1 0 0.9239 1 0.3827 0.9239 0 0.3827 1 0 0
+5 24 1 0 0 1 1 0 0.9239 0 0.3827 1 0 -1
+4 16 0.9239 1 0.3827 0.7071 1 0.7071 0.7071 0 0.7071 0.9239 0 0.3827
+5 24 0.9239 0 0.3827 0.9239 1 0.3827 0.7071 0 0.7071 1 0 0
+4 16 0.7071 1 0.7071 0.3827 1 0.9239 0.3827 0 0.9239 0.7071 0 0.7071
+5 24 0.7071 0 0.7071 0.7071 1 0.7071 0.3827 0 0.9239 0.9239 0 0.3827
+4 16 0.3827 1 0.9239 0 1 1 0 0 1 0.3827 0 0.9239
+5 24 0.3827 0 0.9239 0.3827 1 0.9239 0 0 1 0.7071 0 0.7071
+5 24 0 0 1 0 1 1 0.3827 0 0.9239 -1 0 1
+0 NOFILE
+0 FILE p/1-4cylo.dat
+0 Cylinder Open 0.25
+0 Name: 1-4cylo.dat
+0 Author: Max Martin Richter [MMR1988]
+0 !LDRAW_ORG Primitive UPDATE 2010-03
+0 !LICENSE Licensed under CC BY 4.0 : see CAreadme.txt
+
+0 BFC CERTIFY CCW
+
+0 !HISTORY 2010-12-31 [PTadmin] Official Update 2010-03
+
+
+1 16 0 0 0 1 0 0 0 1 0 0 0 1 p/1-4edge.dat
+1 16 0 1 0 1 0 0 0 1 0 0 0 1 p/1-4edge.dat
+1 16 0 0 0 1 0 0 0 1 0 0 0 1 p/1-4cyli.dat
+0 NOFILE
+0 FILE p/1-4ring3.dat
+0 Ring  3 x 0.25
+0 Name: 1-4ring3.dat
+0 Author: Willy Tschager [Holly-Wood]
+0 !LDRAW_ORG Primitive UPDATE 2024-01
+0 !LICENSE Licensed under CC BY 4.0 : see CAreadme.txt
+
+0 BFC CERTIFY CCW
+
+0 !HISTORY 1999-07-05 [PTadmin] Official Update 1999-05
+0 !HISTORY 2003-01-21 [cavehop] Update Added BFC and 1 digit of significance
+0 !HISTORY 2003-05-21 [cavehop] Corrected values as indicated by pneaster
+0 !HISTORY 2003-06-12 [cavehop] Re-corrected values as indicated by pneaster
+0 !HISTORY 2003-08-01 [PTadmin] Official Update 2003-02
+0 !HISTORY 2007-06-22 [PTadmin] Header formatted for Contributor Agreement
+0 !HISTORY 2008-07-01 [PTadmin] Official Update 2008-01
+0 !HISTORY 2012-02-16 [Philo] Changed to CCW
+0 !HISTORY 2012-03-30 [PTadmin] Official Update 2012-01
+0 !HISTORY 2024-01-04 [Holly-Wood] Complete re-write, original by Karim Nassar
+0 !HISTORY 2024-01-29 [OrionP] Official Update 2024-01
+
+4 16 4 0 0 3.6956 0 1.5308 2.7717 0 1.1481 3 0 0
+4 16 3.6956 0 1.5308 2.8284 0 2.8284 2.1213 0 2.1213 2.7717 0 1.1481
+4 16 2.8284 0 2.8284 1.5308 0 3.6956 1.1481 0 2.7717 2.1213 0 2.1213
+4 16 1.5308 0 3.6956 0 0 4 0 0 3 1.1481 0 2.7717
+0 // Build by LDPartEditor (PrimGen 2.X)
+0 NOFILE
+0 FILE p/1-4stud4.dat
+0 Stud Tube Open 0.25
+0 Name: 1-4stud4.dat
+0 Author: Massimo Maso [Sirio]
+0 !LDRAW_ORG Primitive UPDATE 2019-01
+0 !LICENSE Licensed under CC BY 4.0 : see CAreadme.txt
+
+0 BFC CERTIFY CCW
+
+0 !HISTORY 2019-06-28 [PTadmin] Official Update 2019-01
+
+
+0 BFC INVERTNEXT
+1 16 0 -4 0 6 0 0 0 4 0 0 0 6 p/1-4cylo.dat
+1 16 0 -4 0 8 0 0 0 4 0 0 0 8 p/1-4cylo.dat
+1 16 0 -4 0 2 0 0 0 1 0 0 0 2 p/1-4ring3.dat
+0 NOFILE
+0 FILE p/1-16cyli.dat
+0 Cylinder 0.0625
+0 Name: 1-16cyli.dat
+0 Author: Marc Klein [marckl]
+0 !LDRAW_ORG Primitive UPDATE 2005-01
+0 !LICENSE Licensed under CC BY 4.0 : see CAreadme.txt
+
+0 BFC CERTIFY CCW
+
+0 !HISTORY 2004-03-02 [PTadmin] Official Update 2004-01
+0 !HISTORY 2004-12-11 [nielsk] Recreated using Primitive Generator, Edge lines fixed, BFC changed to CCW
+0 !HISTORY 2005-12-28 [PTadmin] Official Update 2005-01
+0 !HISTORY 2007-06-22 [PTadmin] Header formatted for Contributor Agreement
+0 !HISTORY 2008-07-01 [PTadmin] Official Update 2008-01
+
+
+4 16 .9239 1 .3827 .9239 0 .3827 1 0 0 1 1 0
+5 24 1 1 0 1 0 0 1 1 -.4142 .9239 1 .3827
+5 24 .9239 1 .3827 .9239 0 .3827 1 1 0 .7654 1 .7654
+0
+0 NOFILE
+0 FILE p/1-16edge.dat
+0 Circle 0.0625
+0 Name: 1-16edge.dat
+0 Author: Marc Klein [marckl]
+0 !LDRAW_ORG Primitive UPDATE 2017-01
+0 !LICENSE Licensed under CC BY 4.0 : see CAreadme.txt
+
+0 BFC CERTIFY CCW
+
+0 !HISTORY 2004-03-02 [PTadmin] Official Update 2004-01
+0 !HISTORY 2007-06-22 [PTadmin] Header formatted for Contributor Agreement
+0 !HISTORY 2008-07-01 [PTadmin] Official Update 2008-01
+0 !HISTORY 2017-01-15 [Steffen] BFCed
+0 !HISTORY 2017-12-30 [PTadmin] Official Update 2017-01
+
+
+2 24 1 0 0 0.9239 0 0.3827
+0 NOFILE
+0 FILE p/1-16cylo.dat
+0 Cylinder Open 0.0625
+0 Name: 1-16cylo.dat
+0 Author: Max Martin Richter [MMR1988]
+0 !LDRAW_ORG Primitive UPDATE 2014-01
+0 !LICENSE Licensed under CC BY 4.0 : see CAreadme.txt
+
+0 BFC CERTIFY CCW
+
+0 !HISTORY 2014-06-21 [PTadmin] Official Update 2014-01
+
+
+1 16 0 0 0 1 0 0 0 1 0 0 0 1 p/1-16cyli.dat
+1 16 0 0 0 1 0 0 0 1 0 0 0 1 p/1-16edge.dat
+1 16 0 1 0 1 0 0 0 1 0 0 0 1 p/1-16edge.dat
+0 NOFILE
+0 FILE p/empty.dat
+0 Empty
+0 Name: empty.dat
+0 Author: Steffen [Steffen]
+0 !LDRAW_ORG Primitive UPDATE 2025-08
+0 !LICENSE Licensed under CC BY 4.0 : see CAreadme.txt
+
+0 BFC CERTIFY CCW
+
+0 !HISTORY 2015-10-11 [PTadmin] Official Update 2015-01
+0 !HISTORY 2025-08-13 [OrionP] Fix comments
+0 !HISTORY 2025-08-31 [OrionP] Official Update 2025-08
+
+0 // Tool MLCad cannot handle really empty files. This file is used as a workaround.
+0 // It exceptionally contains forbidden non-LDRAW standard syntax to satisfy MLCad
+0 // until it is fixed OR a different editor has become the de-facto LDRAW standard.
+0 // The line being used here is an "impossible" conditional line which never should be visible,
+0 // additionally hidden by a syntax explicitly hiding it from displaying.
+
+0 MLCAD HIDE 5 24 0 0 0 0.0001 0 0 0.0001 -0.0001 0 0 0 0
+0 NOFILE
+0 FILE p/1-16chrd.dat
+0 Chord 0.0625
+0 Name: 1-16chrd.dat
+0 Author: Philippe Hurbain [Philo]
+0 !LDRAW_ORG Primitive UPDATE 2015-01
+0 !LICENSE Licensed under CC BY 4.0 : see CAreadme.txt
+
+0 BFC CERTIFY CCW
+
+0 !HISTORY 2015-10-11 [PTadmin] Official Update 2015-01
+
+
+0 // This file is intentionally empty because at the current \P resolution,
+0 // an 1-16chrd is actually empty. However, this file still is present
+0 // to allow tools to do primitives substition and fill in a real chrd here,
+0 // or, if desired, to substitute this with the hi-res 48\1-16chrd.
+
+0 // This file is based on an idea by Darats at http://forums.ldraw.org/read.php?19,14500,14500#msg-14500
+
+1 16 0 0 0 1 0 0 0 1 0 0 0 1 p/empty.dat
+0 NOFILE
+0 FILE p/rect3.dat
+0 Rectangle with 3 Edges
+0 Name: rect3.dat
+0 Author: Mark Kennedy [mkennedy]
+0 !LDRAW_ORG Primitive UPDATE 2010-01
+0 !LICENSE Licensed under CC BY 4.0 : see CAreadme.txt
+
+0 BFC CERTIFY CCW
+
+0 !HISTORY 2003-08-01 [PTadmin] Official Update 2003-02
+0 !HISTORY 2007-06-24 [PTadmin] Header formatted for Contributor Agreement
+0 !HISTORY 2008-07-01 [PTadmin] Official Update 2008-01
+0 !HISTORY 2010-01-17 [mikeheide] Change winding to CCW
+0 !HISTORY 2010-04-05 [PTadmin] Official Update 2010-01
+
+
+2 24 1 0 1 -1 0 1
+2 24 1 0 1 1 0 -1
+2 24 -1 0 1 -1 0 -1
+4 16 -1 0 1 -1 0 -1 1 0 -1 1 0 1
+0 //
+0 NOFILE
+0 FILE p/rect.dat
+0 Rectangle
+0 Name: rect.dat
+0 Author: James Jessiman
+0 !LDRAW_ORG Primitive UPDATE 2010-01
+0 !LICENSE Licensed under CC BY 4.0 : see CAreadme.txt
+
+0 BFC CERTIFY CCW
+
+0 !HISTORY 2002-04-05 [hafhead] Added BFC statement
+0 !HISTORY 2002-04-25 [PTadmin] Official Update 2002-02
+0 !HISTORY 2007-06-24 [PTadmin] Header formatted for Contributor Agreement
+0 !HISTORY 2008-07-01 [PTadmin] Official Update 2008-01
+0 !HISTORY 2010-01-17 [mikeheide] changed winding to CCW
+0 !HISTORY 2010-04-05 [PTadmin] Official Update 2010-01
+
+
+2 24 1 0 1 -1 0 1
+2 24 -1 0 1 -1 0 -1
+2 24 -1 0 -1 1 0 -1
+2 24 1 0 -1 1 0 1
+4 16 -1 0 1 -1 0 -1 1 0 -1 1 0 1
+0
+0 NOFILE
+0 FILE p/rect2p.dat
+0 Rectangle with 2 Parallel Edges
+0 Name: rect2p.dat
+0 Author: Donald Sutter [technog]
+0 !LDRAW_ORG Primitive UPDATE 2010-01
+0 !LICENSE Licensed under CC BY 4.0 : see CAreadme.txt
+
+0 BFC CERTIFY CCW
+
+0 !HISTORY 2003-08-01 [PTadmin] Official Update 2003-02
+0 !HISTORY 2007-06-24 [PTadmin] Header formatted for Contributor Agreement
+0 !HISTORY 2008-07-01 [PTadmin] Official Update 2008-01
+0 !HISTORY 2010-01-17 [mikeheide] changed winding to CCW
+0 !HISTORY 2010-04-05 [PTadmin] Official Update 2010-01
+
+
+2 24 1 0 1 -1 0 1
+2 24 -1 0 -1 1 0 -1
+4 16 -1 0 1 -1 0 -1 1 0 -1 1 0 1
+0
+0 NOFILE
+0 FILE p/2-4stud4t45.dat
+0 Stud Tube Open with Groove for 45 Degree Plate Edges
+0 Name: 2-4stud4t45.dat
+0 Author: Magnus Forsberg [MagFors]
+0 !LDRAW_ORG Primitive UPDATE 2026-01
+0 !LICENSE Licensed under CC BY 4.0 : see CAreadme.txt
+
+0 BFC CERTIFY CCW
+
+0 !HISTORY 2026-01-29 [OrionP] Official Update 2026-01
+
+1 16 0 0 0 1 0 0 0 1 0 0 0 1 p/1-4stud4.dat
+1 16 0 -4 0 8 0 0 0 4 0 0 0 -8 p/1-16cylo.dat
+1 16 0 -4 0 0 0 -8 0 4 0 8 0 0 p/1-16cylo.dat
+1 16 0 -4 0 8 0 0 0 1 0 0 0 -8 p/1-16chrd.dat
+1 16 0 -4 0 0 0 -8 0 1 0 8 0 0 p/1-16chrd.dat
+
+1 16 0 -1.5 0 5.6568 0 0 0 0 -1.5 -5.6568 1 0 p/rect3.dat
+1 16 .7071 -3.5 .7071 0 1 -5.5162 -.5 0 0 0 0 5.5162 p/rect.dat
+1 16 2.121 -2 2.121 -3.5874 0 0 0 0 -2 3.5874 -1 0 p/rect.dat
+1 16 5.8542 -2 -.7332 -.1458 1 0 0 0 -2 -.7332 0 0 p/rect2p.dat
+1 16 -.7332 -2 5.8542 .7332 0 0 0 0 -2 .1458 1 0 p/rect2p.dat
+5 24 0 0 6 0 -4 6 -1.4664 0 5.7084 2.2962 0 5.5434
+5 24 6 0 0 6 -4 0 5.7084 0 -1.4664 5.5434 0 2.2962
+
+4 16 6 -4 0 5.7084 -4 -1.4664 7.3912 -4 -3.0616 8 -4 0
+4 16 0 -4 6 0 -4 8 -3.0616 -4 7.3912 -1.4664 -4 5.7084
+2 24 -3.0616 -4 7.3912 -4.8091 -4 6.2233
+2 24 -3.0616 0 7.3912 -5.6568 0 5.6568
+2 24 -4.8091 -3 6.2233 -5.6568 -3 5.6568
+2 24 7.3912 -4 -3.0616 6.2233 -4 -4.8091
+2 24 7.3912 0 -3.0616 5.6568 0 -5.6568
+2 24 6.2233 -3 -4.8091 5.6568 -3 -5.6568
+3 16 -3.0616 -4 7.3912 -4.8091 -4 6.2233 -1.4664 -4 5.7084
+3 16 5.7084 -4 -1.4664 6.2233 -4 -4.8091 7.3912 -4 -3.0616
+4 16 6.2233 -4 -4.8091 5.7084 -4 -1.4664 -1.4664 -4 5.7084 -4.8091 -4 6.2233
+4 16 5.6568 -3 -5.6568 6.2233 -3 -4.8091 -4.8091 -3 6.2233 -5.6568 -3 5.6568
+4 16 -4.8091 -3 6.2233 -3.0616 0 7.3912 -5.6568 0 5.6568 -5.6568 -3 5.6568
+4 16 -3.0616 -4 7.3912 -3.0616 0 7.3912 -4.8091 -3 6.2233 -4.8091 -4 6.2233
+4 16 7.3912 -4 -3.0616 6.2233 -4 -4.8091 6.2233 -3 -4.8091 7.3912 0 -3.0616
+4 16 7.3912 0 -3.0616 6.2233 -3 -4.8091 5.6568 -3 -5.6568 5.6568 0 -5.6568
+5 24 7.3912 0 -3.0616 7.3912 -4 -3.0616 8 0 0 5.6568 0 -5.6568
+5 24 -3.0616 0 7.3912 -3.0616 -4 7.3912 0 0 8 -5.6568 0 5.6568
+0 NOFILE
+0 FILE p/8/2-4chrd.dat
+0 Chord 0.5
+0 Name: 8\2-4chrd.dat
+0 Author: Magnus Forsberg [MagFors]
+0 !LDRAW_ORG 8_Primitive UPDATE 2017-01
+0 !LICENSE Licensed under CC BY 4.0 : see CAreadme.txt
+
+0 BFC CERTIFY CCW
+
+0 !HISTORY 2017-12-30 [PTadmin] Official Update 2017-01
+
+
+3 16 .7071 0 .7071 0 0 1 -.7071 0 .7071
+4 16 .7071 0 .7071 -.7071 0 .7071 -1 0 0 1 0 0
+0 NOFILE
+0 FILE p/box2-7.dat
+0 Box with  2 Faces without  7 Edges
+0 Name: box2-7.dat
+0 Author: Willy Tschager [Holly-Wood]
+0 !LDRAW_ORG Primitive UPDATE 2024-01
+0 !LICENSE Licensed under CC BY 4.0 : see CAreadme.txt
+
+0 BFC CERTIFY CCW
+
+0 !HISTORY 2009-05-02 [PTadmin] Official Update 2009-01
+0 !HISTORY 2024-01-02 [Holly-Wood] Complete re-write, original by guyvivan
+0 !HISTORY 2024-01-29 [OrionP] Official Update 2024-01
+
+2 24 -1 1 -1 -1 1 1
+2 24 1 1 1 1 1 -1
+4 16 -1 1 1 1 1 1 1 1 -1 -1 1 -1
+
+2 24 -1 1 1 -1 -1 1
+2 24 1 1 1 1 -1 1
+4 16 1 -1 1 1 1 1 -1 1 1 -1 -1 1
+
+2 24 -1 1 1 1 1 1
+0 NOFILE
+0 FILE p/8/2-4edge.dat
+0 Circle 0.5
+0 Name: 8\2-4edge.dat
+0 Author: Philippe Hurbain [Philo]
+0 !LDRAW_ORG 8_Primitive UPDATE 2016-01
+0 !LICENSE Licensed under CC BY 4.0 : see CAreadme.txt
+
+0 BFC CERTIFY CCW
+
+0 !HISTORY 2016-12-31 [PTadmin] Official Update 2016-01
+
+
+2 24 1 0 0 0.7071 0 0.7071
+2 24 0.7071 0 0.7071 0 0 1
+2 24 0 0 1 -0.7071 0 0.7071
+2 24 -0.7071 0 0.7071 -1 0 0
+0 // Build by Primitive Generator 2
+0 NOFILE
+0 FILE p/8/2-4cyli.dat
+0 Cylinder 0.5
+0 Name: 8\2-4cyli.dat
+0 Author: Philippe Hurbain [Philo]
+0 !LDRAW_ORG 8_Primitive UPDATE 2016-01
+0 !LICENSE Licensed under CC BY 4.0 : see CAreadme.txt
+
+0 BFC CERTIFY CCW
+
+0 !HISTORY 2016-12-31 [PTadmin] Official Update 2016-01
+
+
+4 16 0.7071 0 0.7071 1 0 0 1 1 0 0.7071 1 0.7071
+4 16 0 0 1 0.7071 0 0.7071 0.7071 1 0.7071 0 1 1
+4 16 -0.7071 0 0.7071 0 0 1 0 1 1 -0.7071 1 0.7071
+4 16 -1 0 0 -0.7071 0 0.7071 -0.7071 1 0.7071 -1 1 0
+0 // conditional lines
+5 24 1 1 0 1 0 0 1 1 -1 0.7071 1 0.7071
+5 24 0.7071 1 0.7071 0.7071 0 0.7071 1 1 0 0 1 1
+5 24 0 1 1 0 0 1 0.7071 1 0.7071 -0.7071 1 0.7071
+5 24 -0.7071 1 0.7071 -0.7071 0 0.7071 0 1 1 -1 1 0
+5 24 -1 1 0 -1 0 0 -0.7071 1 0.7071 -1 1 -1
+0 // Build by Primitive Generator 2
+0 NOFILE
+0 FILE p/8/2-4cylo.dat
+0 Cylinder Open 0.5
+0 Name: 8\2-4cylo.dat
+0 Author: Magnus Forsberg [MagFors]
+0 !LDRAW_ORG 8_Primitive UPDATE 2017-01
+0 !LICENSE Licensed under CC BY 4.0 : see CAreadme.txt
+
+0 BFC CERTIFY CCW
+
+0 !HISTORY 2017-12-30 [PTadmin] Official Update 2017-01
+
+
+1 16 0 0 0 1 0 0 0 1 0 0 0 1 p/8/2-4edge.dat
+1 16 0 0 0 1 0 0 0 1 0 0 0 1 p/8/2-4cyli.dat
+1 16 0 1 0 1 0 0 0 1 0 0 0 1 p/8/2-4edge.dat
+0 NOFILE
+0 FILE p/box2-5.dat
+0 Box with 2 Faces without 5 Edges
+0 Name: box2-5.dat
+0 Author: Steffen [Steffen]
+0 !LDRAW_ORG Primitive UPDATE 2003-03
+0 !LICENSE Licensed under CC BY 4.0 : see CAreadme.txt
+
+0 BFC CERTIFY CCW
+
+0 !HISTORY 2003-12-19 [PTadmin] Official Update 2003-03
+0 !HISTORY 2007-06-24 [PTadmin] Header formatted for Contributor Agreement
+0 !HISTORY 2008-07-01 [PTadmin] Official Update 2008-01
+
+
+2 24 1 1 1 -1 1 1
+2 24 1 1 -1 -1 1 -1
+2 24 1 -1 1 -1 -1 1
+2 24 -1 -1 1 -1 1 1
+2 24 1 -1 1 1 1 1
+2 24 -1 1 -1 -1 1 1
+2 24 1 1 -1 1 1 1
+4 16 1 1 1 1 1 -1 -1 1 -1 -1 1 1
+4 16 1 1 1 -1 1 1 -1 -1 1 1 -1 1
+0
+0 NOFILE
+0 FILE parts/s/35787s01.dat
+0 ~Tile  2 x  2 Triangular without Top Surface
+0 Name: s\35787s01.dat
+0 Author: Gerald Lasser [GeraldLasser]
+0 !LDRAW_ORG Subpart UPDATE 2026-01
+0 !LICENSE Licensed under CC BY 4.0 : see CAreadme.txt
+
+0 BFC CERTIFY CCW
+
+0 !HISTORY 2018-12-08 [PTadmin] Official Update 2018-02
+0 !HISTORY 2025-12-29 [MagFors] used truncated stud
+0 !HISTORY 2026-01-29 [OrionP] Official Update 2026-01
+
+0 // Bottom Stud
+1 16 0 4 0 -1 0 0 0 -1 0 0 0 -1 p/2-4stud4t45.dat
+
+0 // Tile
+4 16 -19 8 -19 -16 8 -16 15 8 -16 15 8 -19
+1 16 15 8 -17.5 0 0 1.5 0 -1 0 -1.5 0 0 p/8/2-4chrd.dat
+1 16 -17.5 8 15 1.5 0 0 0 -1 0 0 0 1.5 p/8/2-4chrd.dat
+4 16 -19 8 -19 -19 8 15 -16 8 15 -16 8 -16
+
+1 16 -2 7.5 -2 0 0 -17 .5 0 0 0 -17 0 p/box2-7.dat
+1 16 15 8 -17.5 0 0 1.5 0 -1 0 -1.5 0 0 p/8/2-4cylo.dat
+1 16 -17.5 8 15 1.5 0 0 0 -1 0 0 0 1.5 p/8/2-4cylo.dat
+
+4 16 -20 7 -20 -20 7 17 -19 7 15 -19 7 -19
+3 16 -16 7 15 -19 7 15 -20 7 17
+4 16 -20 7 17 -17 7 17 -16 7 16 -16 7 15
+4 16 -20 7 -20 -19 7 -19 15 7 -19 17 7 -20
+4 16 17 7 -17 17 7 -20 15 7 -19 16 7 -16
+3 16 15 7 -16 16 7 -16 15 7 -19
+
+4 16 16 4 -16 16 7 -16 15 7 -16 -16 4 -16
+4 16 -16 8 -16 -16 4 -16 15 7 -16 15 8 -16
+4 16 -16 7 15 -16 7 16 -16 4 16 -16 4 -16
+4 16 -16 8 15 -16 7 15 -16 4 -16 -16 8 -16
+2 24 15 8 -16 -16 8 -16
+2 24 -16 8 -16 -16 4 -16
+2 24 -16 8 -16 -16 8 15
+2 24 -16 4 16 -16 7 16
+2 24 -16 7 16 -16 7 15
+2 24 -16 7 16 -17 7 17
+2 24 15 7 -16 16 7 -16
+2 24 16 4 -16 16 7 -16
+2 24 17 7 -17 16 7 -16
+
+1 16 -1.5 3.5 -1.5 0 0 -18.5 3.5 0 0 0 -18.5 0 p/box2-5.dat
+4 16 -16 4 16 -16 7 16 -17 7 17 -17 0 17
+4 16 17 7 -17 16 7 -16 16 4 -16 17 0 -17
+
+1 16 17 3.5 -18.5 0 -1 0 3.5 0 0 0 0 1.5 p/rect3.dat
+1 16 -18.5 3.5 17 0 0 1.5 -3.5 0 0 0 -1 0 p/rect3.dat
+2 24 -16 4 -16 16 4 -16
+2 24 -16 4 -16 -16 4 16
+2 24 5.6568 4 -5.6568 16 4 -16
+2 24 -16 4 16 -5.657 4 5.657
+
+3 16 1.4664 4 -5.7084 -16 4 -16 -5.7084 4 1.4664
+4 16 -16 4 -16 1.4664 4 -5.7084 5.6568 4 -5.6568 16 4 -16
+4 16 -5.657 4 5.657 -5.7084 4 1.4664 -16 4 -16 -16 4 16
+
+3 16 -16 4 16 -17 0 17 -5.657 4 5.657
+3 16 17 0 -17 16 4 -16 5.6568 4 -5.6568
+4 16 17 0 -17 5.6568 4 -5.6568 -5.657 4 5.657 -17 0 17
+2 24 17 0 -17 -17 0 17
+0 NOFILE
+0 FILE parts/35787.dat
+0 Tile  2 x  2 Triangular
+0 Name: 35787.dat
+0 Author: Gerald Lasser [GeraldLasser]
+0 !LDRAW_ORG Part UPDATE 2018-02
+0 !LICENSE Licensed under CC BY 4.0 : see CAreadme.txt
+
+0 BFC CERTIFY CCW
+
+0 !HISTORY 2018-12-08 [PTadmin] Official Update 2018-02
+
+
+1 16 0 0 0 1 0 0 0 1 0 0 0 1 parts/s/35787s01.dat
+3 16 -20 0 17 -20 0 -20 17 0 -20
+4 16 -17 0 17 -20 0 17 17 0 -20 17 0 -17
+0 NOFILE

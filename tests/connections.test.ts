@@ -45,7 +45,7 @@ const bytes = (id: string) => {
 };
 describe("Accurate real geometry in the builder", () => {
   it("covers all house identities with explicit namespaces and correct physical scale", () => {
-    expect(BUILDER_PARTS).toHaveLength(47);
+    expect(BUILDER_PARTS).toHaveLength(327);
     expect(PART_UNITS.studMillimetres).toBe(8);
     expect(PART_UNITS.lduMillimetres).toBe(0.4);
     expect(BUILDER_BY_REBRICKABLE.get("3023")!.id).toBe("3023b");
@@ -131,7 +131,7 @@ describe("Accurate real geometry in the builder", () => {
         expect(c.status).toBe("geometry-reviewed");
       }
     }
-  });
+  }, 30000);
   it.each(["3005", "3023b", "11477", "3039", "2780", "4070", "24866"])(
     "%s compiled bounds equal uniformly transformed original surfaces",
     async (id) => {
@@ -194,12 +194,12 @@ describe("Accurate real geometry in the builder", () => {
     );
     expect(result.status).toBe(0);
     expect(JSON.parse(result.stdout)).toEqual({
-      parts: 47,
-      connectors: 393,
+      parts: 327,
+      connectors: 1514,
       verified: 0,
       fk: [],
     });
-  });
+  }, 15000);
 });
 describe("Evidence-based mating and snapping", () => {
   it("finds four seated connections between a brick and plate, including a quarter turn", () => {

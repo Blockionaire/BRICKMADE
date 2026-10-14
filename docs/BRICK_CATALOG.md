@@ -5,7 +5,7 @@ Updated 2026-10-14. BrickMade now imports two real sources into a downloadable S
 | Source | Imported data | Snapshot |
 | --- | --- | --- |
 | [Rebrickable bulk catalog](https://rebrickable.com/downloads/) | **64,895 part records**, **76 categories**, **273 named colors**, **100,148 observed part/color pairs**, **114,656 element-ID records**, **37,533 part relationships** | 2026-10-13 |
-| [Official LDraw Parts Library](https://library.ldraw.org/updates?latest) | **15,654 selected geometry entries**, **85 categories**, **320 render palette definitions**, **47 self-contained interactive previews** | Release 2026-09, published 2026-09-30 |
+| [Official LDraw Parts Library](https://library.ldraw.org/updates?latest) | **15,654 selected geometry entries**, **85 categories**, **320 render palette definitions**, **327 self-contained interactive previews** | Release 2026-09, published 2026-09-30 |
 
 Part records include decorated variants; counts are not counts of unique molds. LDraw counts exclude aliases, assemblies, flexible sections, hidden helper shapes, unofficial files, and legacy entries without the required update header. Its upstream headline count therefore differs from our intentionally selected catalog count. Geometry dependency files are indexed separately.
 
@@ -13,13 +13,13 @@ The Rebrickable pair count combines positive-quantity official inventory rows an
 
 ## Implemented in the app
 
-Open **Parts → Beyond the basic brick**. Switch between **Parts & recorded colors** and **LDraw geometry**. Search names, IDs, categories, or shape features. Curated previews include curved slopes, round/hollow bricks, arches, window panes/frames, flowers, leaves, bamboo, Technic holes/gears, and wheel rims. All 47 previews contain their recursive primitives/subparts locally; no external geometry fetch is needed. Their SVG thumbnails project the same real triangle geometry.
+Open **Parts → Beyond the basic brick**. Switch between **Parts & recorded colors** and **LDraw geometry**. Search names, IDs, categories, or shape features. Curated previews include curved slopes, round/hollow bricks, arches, window panes/frames, flowers, leaves, bamboo, Technic holes/gears, and wheel rims. All 327 previews contain their recursive primitives/subparts locally; no external geometry fetch is needed. Their SVG thumbnails project the same real triangle geometry.
 
 Rebrickable entries with previews show only their recorded color choices. These are historical evidence, not a supplier availability claim. Geometry-only entries have an illustrative render palette. Explicit metadata-reviewed illustration links are in [render-links.json](../data/catalog/render-links.json); these are **not** purchase mappings or validated physical connection profiles.
 
 The house generator uses 12 curated shapes and its original illustrative color aliases. Every house placement now renders original LDraw surfaces, including actual studs, underside cavities and tile grooves. Body heights are corrected to a uniform 8 mm scene unit: bricks are 1.2 units (9.6 mm), plates/tiles 0.4 units (3.2 mm). IDs, inventory, instruction groups and saved progress remain consistent. Broad catalog entries are not automatically enabled in generation. Connection profiles now exist for a reviewed subset; whole-model collision/insertion/stability validation and supplier IDs remain pending. The shopping exporter still refuses unresolved inputs.
 
-Open **Beyond the basic brick → Make the connection** for a two-piece workspace with all 47 packaged shapes, 393 reviewed attachment points, snapping, arbitrary orientation support, quarter-turn controls and connector overlays. Supported rules cover male studs and reviewed underside clutch footprints, sideways headlight studs, curved slopes, plants, and the 2780 friction-pin/3700 hole pair. These are geometry-reviewed digital datums, not measured clutch-force or physical-build certifications. Generic window pegs, axle mechanisms, gear teeth and unlisted clips remain unsupported. The UI exposes partial coverage and refuses unsupported fits.
+Open **Beyond the basic brick → Make the connection** for a two-piece workspace with all 327 packaged shapes, 1,514 supported attachment points, snapping, arbitrary orientation support, quarter-turn controls and connector overlays. Supported rules cover male studs and reviewed underside clutch footprints, sideways headlight studs, curved slopes, plants, and the 2780 friction-pin/3700 hole pair. These are geometry-reviewed digital datums, not measured clutch-force or physical-build certifications. Generic window pegs, axle mechanisms, gear teeth and unlisted clips remain unsupported. The UI exposes partial coverage and refuses unsupported fits.
 
 Original MPDs retain author/license headers. Binary surface meshes are compiled without simplification or nonuniform stretching, loaded lazily and checked against SHA-256 before rendering. Source outlines and connection data are in [builder-parts.json](../public/catalog/builder-parts.json); [CONNECTIONS.md](CONNECTIONS.md) explains units, scope, evidence, tolerances and reproducibility. The selected-brick inspector reports reviewed attachment points and aligned mates in the current design, with completed model audits shown separately in Review and Builder. See [ASSEMBLY_ENGINE.md](ASSEMBLY_ENGINE.md) for sampled clearance, structure and instructions.
 
@@ -91,3 +91,5 @@ The generator uses `3005`, `3004`, `3010`, **`3009`**, `3003`, `3024`, `3023`, `
 4. Implement photo reconstruction and placement optimization for likeness, scale, supported parts, and stability. A large database is a prerequisite, not an exact-replica generator.
 5. Validate step order against actual placements and test representative physical builds.
 6. Resolve supplier identities and actual quantities/availability for a complete shopping handoff. See [SOURCING_PLAN.md](SOURCING_PLAN.md).
+
+The expanded library has 264 port-bearing parts and 63 geometry-only entries. New ports pass source-backed seating and approach witnesses; physical fit and strength remain untested. See [BUILDER_LIBRARY.md](BUILDER_LIBRARY.md).

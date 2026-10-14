@@ -22,6 +22,8 @@ export type Category =
   | "Tile"
   | "Slope"
   | "Arch"
+  | "Panel"
+  | "Wedge"
   | "Plant"
   | "Window"
   | "Technic"

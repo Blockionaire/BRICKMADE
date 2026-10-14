@@ -6342,3 +6342,51 @@ button.part-card:active {
   flex: 1;
   margin: 0;
 }
+.builder-library-filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin: 16px 0 10px;
+}
+.builder-library-filters button {
+  padding: 8px 12px;
+  border: 1px solid #ded9cc;
+  background: #fffaf3;
+  border-radius: 30px;
+  font-size: 11px;
+  cursor: pointer;
+}
+.builder-library-filters button[aria-pressed="true"] {
+  background: #2c4438;
+  color: #fff8ef;
+  border-color: #2c4438;
+}
+.builder-support-filter {
+  display: flex;
+  gap: 6px;
+  align-items: center;
+  border: 0;
+  background: #e7ede2;
+  color: #486343;
+  padding: 9px 13px;
+  border-radius: 30px;
+  cursor: pointer;
+  font-size: 12px;
+}
+.builder-support-filter[aria-pressed="true"] {
+  background: #cee1c8;
+}
+.connection-picker-grid small {
+  display: block;
+  font-size: 9px;
+  margin-top: 5px;
+  color: #7a786c;
+  line-height: 1.5;
+}
+.builder-admission-label {
+  border-radius: 12px;
+  padding: 10px 12px;
+  background: #edf0e5;
+  font-size: 11px !important;
+  line-height: 1.5;
+}

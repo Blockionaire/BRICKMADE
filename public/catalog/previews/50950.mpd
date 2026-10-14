@@ -1,0 +1,355 @@
+0 FILE main.ldr
+0 BrickMade standalone preview; derived from The LDraw Parts Library
+1 16 0 0 0 1 0 0 0 1 0 0 0 1 parts/50950.dat
+0 NOFILE
+0 FILE p/rect3.dat
+0 Rectangle with 3 Edges
+0 Name: rect3.dat
+0 Author: Mark Kennedy [mkennedy]
+0 !LDRAW_ORG Primitive UPDATE 2010-01
+0 !LICENSE Licensed under CC BY 4.0 : see CAreadme.txt
+
+0 BFC CERTIFY CCW
+
+0 !HISTORY 2003-08-01 [PTadmin] Official Update 2003-02
+0 !HISTORY 2007-06-24 [PTadmin] Header formatted for Contributor Agreement
+0 !HISTORY 2008-07-01 [PTadmin] Official Update 2008-01
+0 !HISTORY 2010-01-17 [mikeheide] Change winding to CCW
+0 !HISTORY 2010-04-05 [PTadmin] Official Update 2010-01
+
+
+2 24 1 0 1 -1 0 1
+2 24 1 0 1 1 0 -1
+2 24 -1 0 1 -1 0 -1
+4 16 -1 0 1 -1 0 -1 1 0 -1 1 0 1
+0 //
+0 NOFILE
+0 FILE p/recte3.dat
+0 Rectangle Empty with 3 Edges
+0 Name: recte3.dat
+0 Author: Steffen [Steffen]
+0 !LDRAW_ORG Primitive UPDATE 2011-01
+0 !LICENSE Licensed under CC BY 4.0 : see CAreadme.txt
+
+0 BFC CERTIFY CCW
+
+0 !HISTORY 2011-07-25 [PTadmin] Official Update 2011-01
+
+
+2 24 1 0 1 -1 0 1
+2 24 -1 0 1 -1 0 -1
+2 24 1 0 -1 1 0 1
+0 NOFILE
+0 FILE p/box2-5.dat
+0 Box with 2 Faces without 5 Edges
+0 Name: box2-5.dat
+0 Author: Steffen [Steffen]
+0 !LDRAW_ORG Primitive UPDATE 2003-03
+0 !LICENSE Licensed under CC BY 4.0 : see CAreadme.txt
+
+0 BFC CERTIFY CCW
+
+0 !HISTORY 2003-12-19 [PTadmin] Official Update 2003-03
+0 !HISTORY 2007-06-24 [PTadmin] Header formatted for Contributor Agreement
+0 !HISTORY 2008-07-01 [PTadmin] Official Update 2008-01
+
+
+2 24 1 1 1 -1 1 1
+2 24 1 1 -1 -1 1 -1
+2 24 1 -1 1 -1 -1 1
+2 24 -1 -1 1 -1 1 1
+2 24 1 -1 1 1 1 1
+2 24 -1 1 -1 -1 1 1
+2 24 1 1 -1 1 1 1
+4 16 1 1 1 1 1 -1 -1 1 -1 -1 1 1
+4 16 1 1 1 -1 1 1 -1 -1 1 1 -1 1
+0
+0 NOFILE
+0 FILE p/rect2p.dat
+0 Rectangle with 2 Parallel Edges
+0 Name: rect2p.dat
+0 Author: Donald Sutter [technog]
+0 !LDRAW_ORG Primitive UPDATE 2010-01
+0 !LICENSE Licensed under CC BY 4.0 : see CAreadme.txt
+
+0 BFC CERTIFY CCW
+
+0 !HISTORY 2003-08-01 [PTadmin] Official Update 2003-02
+0 !HISTORY 2007-06-24 [PTadmin] Header formatted for Contributor Agreement
+0 !HISTORY 2008-07-01 [PTadmin] Official Update 2008-01
+0 !HISTORY 2010-01-17 [mikeheide] changed winding to CCW
+0 !HISTORY 2010-04-05 [PTadmin] Official Update 2010-01
+
+
+2 24 1 0 1 -1 0 1
+2 24 -1 0 -1 1 0 -1
+4 16 -1 0 1 -1 0 -1 1 0 -1 1 0 1
+0
+0 NOFILE
+0 FILE p/48/1-8chrd.dat
+0 Hi-Res Chord 0.125
+0 Name: 48\1-8chrd.dat
+0 Author: Willy Tschager [Holly-Wood]
+0 !LDRAW_ORG 48_Primitive UPDATE 2024-01
+0 !LICENSE Licensed under CC BY 4.0 : see CAreadme.txt
+
+0 BFC CERTIFY CCW
+
+0 !HISTORY 2009-05-02 [PTadmin] Official Update 2009-01
+0 !HISTORY 2024-01-04 [Holly-Wood] Complete re-write, original by guyvivan
+0 !HISTORY 2024-01-29 [OrionP] Official Update 2024-01
+
+0 // Vertices calculated by LDPartEditor (PrimGen 2.X)
+
+4 16 .7071 0 .7071 1 0 0 .9914 0 .1305 .7934 0 .6088
+4 16 .7934 0 .6088 .9914 0 .1305 .9659 0 .2588 .866 0 .5
+3 16 .866 0 .5 .9659 0 .2588 .9239 0 .3827
+0 NOFILE
+0 FILE p/48/1-8edge.dat
+0 Hi-Res Circle 0.125
+0 Name: 48\1-8edge.dat
+0 Author: [PTadmin]
+0 !LDRAW_ORG 48_Primitive UPDATE 2017-01
+0 !LICENSE Licensed under CC BY 4.0 : see CAreadme.txt
+
+0 BFC CERTIFY CCW
+
+0 !HISTORY 2000-09-30 [PTadmin] Official Update 2000-02
+0 !HISTORY 2007-10-13 [PTadmin] Header formatted for Contributor Agreement
+0 !HISTORY 2008-07-01 [PTadmin] Official Update 2008-01
+0 !HISTORY 2017-01-17 [Steffen] added BFC CERTIFY statement
+0 !HISTORY 2017-12-30 [PTadmin] Official Update 2017-01
+
+
+2 24 1 0 0 0.9914 0 0.1305
+2 24 0.9914 0 0.1305 0.9659 0 0.2588
+2 24 0.9659 0 0.2588 0.9239 0 0.3827
+2 24 0.9239 0 0.3827 0.866 0 0.5
+2 24 0.866 0 0.5 0.7934 0 0.6088
+2 24 0.7934 0 0.6088 0.7071 0 0.7071
+0 NOFILE
+0 FILE p/box3u6a.dat
+0 Box with 3 Faces without 4 Adjacent and 2 Parallel Edges
+0 Name: box3u6a.dat
+0 Author: Massimo Maso [Sirio]
+0 !LDRAW_ORG Primitive UPDATE 2022-02
+0 !LICENSE Licensed under CC BY 4.0 : see CAreadme.txt
+
+0 BFC CERTIFY CCW
+
+0 !HISTORY 2022-03-06 [PTadmin] Official Update 2022-02
+
+
+2 24 1 1 1 -1 1 1
+2 24 -1 1 -1 1 1 -1
+2 24 1 0 -1 1 1 -1
+2 24 1 0 1 1 1 1
+2 24 -1 0 -1 -1 1 -1
+2 24 -1 0 1 -1 1 1
+4 16 1 1 -1 -1 1 -1 -1 1 1 1 1 1
+4 16 -1 1 1 -1 0 1 1 0 1 1 1 1
+4 16 1 1 -1 1 0 -1 -1 0 -1 -1 1 -1
+0 NOFILE
+0 FILE p/box2-9.dat
+0 Box with 2 Faces without 9 Edges
+0 Name: box2-9.dat
+0 Author: Mark Kennedy [mkennedy]
+0 !LDRAW_ORG Primitive UPDATE 2010-01
+0 !LICENSE Licensed under CC BY 4.0 : see CAreadme.txt
+
+0 BFC CERTIFY CCW
+
+0 !HISTORY 2010-04-05 [PTadmin] Official Update 2010-01
+
+
+2 24 1 1 1 -1 1 1
+2 24 1 -1 1 1 1 1
+2 24 1 1 -1 1 1 1
+4 16 1 1 1 1 1 -1 -1 1 -1 -1 1 1
+4 16 1 1 1 -1 1 1 -1 -1 1 1 -1 1
+0
+0 NOFILE
+0 FILE p/ridgea.dat
+0 Underside Stud Holder Ridge without Base Edges
+0 Name: ridgea.dat
+0 Author: Philippe Hurbain [Philo]
+0 !LDRAW_ORG Primitive UPDATE 2023-03
+0 !LICENSE Licensed under CC BY 4.0 : see CAreadme.txt
+
+0 BFC CERTIFY CCW
+
+0 !HISTORY 2023-06-24 [OrionP] Official Update 2023-03
+
+
+1 16 0 -1 .5 0 0 1.5 0 1 0 -.5 0 0 p/box3u6a.dat
+3 16 -1.5 0 1 0 0 2.5 1.5 0 1
+1 16 0 -.5 1 0 -.75 .75 .5 0 0 0 .75 .75 p/box2-9.dat
+2 24 1.5 0 0 -1.5 0 0
+0 NOFILE
+0 FILE p/ridges.dat
+0 Underside Stud Holder Ridge Slope
+0 Name: ridges.dat
+0 Author: Vincent Messenet [Cheenzo]
+0 !LDRAW_ORG Primitive UPDATE 2023-06
+0 !LICENSE Licensed under CC BY 4.0 : see CAreadme.txt
+
+0 BFC CERTIFY CCW
+
+0 !HISTORY 2023-11-19 [OrionP] Official Update 2023-06
+
+4 16 1.5 0 1 1.5 -1 1 1.5 -1 0 1.5 0 0
+4 16 0 -.5 2.5 1.5 -1 1 1.5 0 1 0 0 2.5
+3 16 0 -.5 2.5 0 0 2.5 -1.5 0 1
+2 24 1.5 -1 0 1.5 -1 1
+2 24 1.5 -1 1 0 -.5 2.5
+2 24 0 -.5 2.5 -1.5 0 1
+2 24 -1.5 0 1 -1.5 0 0
+2 24 1.5 0 1 1.5 -1 1
+2 24 1.5 0 0 1.5 -1 0
+2 24 0 -.5 2.5 0 0 2.5
+0 NOFILE
+0 FILE parts/s/50950s01.dat
+0 ~Slope Brick Curved  3 x  1 without Top Surface
+0 Name: s\50950s01.dat
+0 Author: Rene Rechthaler [Blechtaler]
+0 !LDRAW_ORG Subpart UPDATE 2026-06
+0 !LICENSE Licensed under CC BY 4.0 : see CAreadme.txt
+
+0 BFC CERTIFY CCW
+
+0 !HISTORY 2025-08-11 [Blechtaler] made from 24309s01, added ridges
+0 !HISTORY 2026-06-28 [OrionP] Official Update 2026-06
+
+1 16 0 8 30 10 0 0 0 0 -8 0 -1 0 p/rect3.dat
+1 16 0 16 20 10 0 0 0 1 0 0 0 10 p/recte3.dat
+4 16 -6 16 10 -10 16 10 -10 16 30 -6 16 26
+4 16 10 16 30 6 16 26 -6 16 26 -10 16 30
+4 16 6 16 10 6 16 26 10 16 30 10 16 10
+1 16 0 10 26 6 0 0 0 0 -6 0 1 0 p/rect3.dat
+1 16 0 16 18 6 0 0 0 1 0 0 0 8 p/recte3.dat
+2 24 -10 16 10 -6 16 10
+2 24 10 16 10 6 16 10
+1 16 -3.75 11 10 -2.25 0 0 0 0 -5 0 -1 0 p/rect3.dat
+1 16 0 10.68 12 -1.5 0 0 0 0 5.32 0 2 0 p/box2-5.dat
+4 16 -1.5 5.36 14 -1.5 16 14 -1.5 16 10 -1.5 6 10
+2 24 -1.5 6 10 -1.5 5.36 14
+4 16 1.5 5.36 14 1.5 6 10 1.5 16 10 1.5 16 14
+2 24 1.5 6 10 1.5 5.36 14
+1 16 3.75 11 10 2.25 0 0 0 0 -5 0 -1 0 p/rect3.dat
+4 16 -6 16 26 -6 4 26 -6 4.4 20 -6 16 10
+3 16 -6 16 10 -6 4.4 20 -6 6 10
+4 16 6 16 10 6 4.4 20 6 4 26 6 16 26
+3 16 6 6 10 6 4.4 20 6 16 10
+4 16 -1.5 5.36 14 -1.5 6 10 -6 6 10 -6 4.4 20
+4 16 -1.5 5.36 14 -6 4.4 20 6 4.4 20 1.5 5.36 14
+4 16 6 6 10 1.5 6 10 1.5 5.36 14 6 4.4 20
+2 24 6 6 10 6 4.4 20
+2 24 -6 6 10 -6 4.4 20
+1 16 0 4.2 23 0 0 6 0.2 -1 0 -3 0 0 p/rect2p.dat
+1 16 0 20 10 10 0 0 0 0 4 0 -1 0 p/recte3.dat
+3 16 -10 24 10 -10 16 10 -6 16 10
+3 16 -10 24 10 -6 16 10 -1.5 16 10
+4 16 -10 24 10 -1.5 16 10 1.5 16 10 10 24 10
+3 16 1.5 16 10 6 16 10 10 24 10
+3 16 6 16 10 10 16 10 10 24 10
+1 16 0 24 -10 10 0 0 0 1 0 0 0 -20 p/recte3.dat
+1 16 0 24 -10 6 0 0 0 1 0 0 0 16 p/recte3.dat
+1 16 0 15.5 6 6 0 0 0 0 -8.5 0 1 0 p/rect3.dat
+0 BFC INVERTNEXT
+1 16 0 22 -24 6 0 0 0 -2 0 0 0 -2 p/box2-5.dat
+
+5 24 6 4.4 20 -6 4.4 20 6 4 26 6 6 10
+5 24 6 9.4 -2 -6 9.4 -2 6 7 6 6 12.8 -10
+5 24 6 12.8 -10 -6 12.8 -10 6 9.4 -2 6 17.3 -18
+5 24 6 17.3 -18 -6 17.3 -18 6 12.8 -10 6 20 -22
+
+4 16 -6 24 -26 -10 24 -30 -10 24 10 -6 24 6
+4 16 -6 24 6 -10 24 10 10 24 10 6 24 6
+4 16 6 24 -26 6 24 6 10 24 10 10 24 -30
+4 16 -6 24 -26 6 24 -26 10 24 -30 -10 24 -30
+4 16 -6 17.3 -18 -6 20 -22 -6 24 6 -6 12.8 -10
+4 16 -6 7 6 -6 9.4 -2 -6 12.8 -10 -6 24 6
+4 16 6 12.8 -10 6 24 6 6 20 -22 6 17.3 -18
+4 16 6 12.8 -10 6 9.4 -2 6 7 6 6 24 6
+4 16 -6 20 -26 -6 24 -26 -6 24 6 -6 20 -22
+4 16 6 24 -26 6 20 -26 6 20 -22 6 24 6
+
+1 16 0 8.2 2 0 0 6 -1.2 -1 0 4 0 0 p/rect2p.dat
+1 16 0 11.1 -6 0 0 6 -1.7 -1 0 4 0 0 p/rect2p.dat
+1 16 0 15.05 -14 0 0 6 -2.25 -1 0 4 0 0 p/rect2p.dat
+1 16 0 18.65 -20 0 0 6 -1.35 -1 0 2 0 0 p/rect2p.dat
+
+3 16 -10 0 30 -10 16 30 -10 16 10
+4 16 -10 24 10 -10 24 -30 -10 20 -30 -10 16 10
+3 16 -10 0 30 -10 16 10 -10 20 -30
+1 16 -10 68.2828 30 0 1 0 -68.2828 0 0 0 0 -84.8536 p/48/1-8chrd.dat
+1 16 -10 68.2828 30 0 1 0 -68.2828 0 0 0 0 -84.8536 p/48/1-8edge.dat
+3 16 10 16 10 10 16 30 10 0 30
+4 16 10 16 10 10 20 -30 10 24 -30 10 24 10
+3 16 10 20 -30 10 16 10 10 0 30
+1 16 10 68.2828 30 0 -1 0 -68.2828 0 0 0 0 -84.8536 p/48/1-8chrd.dat
+1 16 10 68.2828 30 0 1 0 -68.2828 0 0 0 0 -84.8536 p/48/1-8edge.dat
+1 16 0 22 -30 10 0 0 0 0 -2 0 1 0 p/rect3.dat
+
+0 // ridges
+1 16 6 23 -5 0 0 -1 0 11.687 0 1 0 0 p/ridgea.dat
+1 16 6 23 -15 0 0 -1 0 6.544 0 1 0 0 p/ridgea.dat
+1 16 -6 23 -5 0 0 1 0 11.687 0 1 0 0 p/ridgea.dat
+1 16 -6 23 -15 0 0 1 0 6.544 0 1 0 0 p/ridgea.dat
+1 16 6 11.313 -5 0 0 -1 0 1.275 0 1 0 0 p/ridges.dat
+1 16 6 16.456 -15 0 0 -1 0 1.687 0 1 0 0 p/ridges.dat
+1 16 -6 11.313 -5 0 0 1 0 1.275 0 1 0 0 p/ridges.dat
+1 16 -6 16.456 -15 0 0 1 0 1.687 0 1 0 0 p/ridges.dat
+0 NOFILE
+0 FILE p/48/1-8cyli.dat
+0 Hi-Res Cylinder 0.125
+0 Name: 48\1-8cyli.dat
+0 Author: Steve Bliss [sbliss]
+0 !LDRAW_ORG 48_Primitive UPDATE 2004-04
+0 !LICENSE Licensed under CC BY 4.0 : see CAreadme.txt
+
+0 BFC CERTIFY CCW
+
+0 !HISTORY 2000-05-07 [PTadmin] Official Update 2000-01
+0 !HISTORY 2004-10-12 [sbliss] fixed title, BFC'ed
+0 !HISTORY 2004-11-06 [PTadmin] Official Update 2004-04
+0 !HISTORY 2007-06-24 [PTadmin] Header formatted for Contributor Agreement
+0 !HISTORY 2008-07-01 [PTadmin] Official Update 2008-01
+
+
+5 24 1 0 0 1 1 0 0.9914 0 0.1305 1 0 -1
+5 24 0.9914 0 0.1305 0.9914 1 0.1305 0.9659 0 0.2588 1 0 0
+5 24 0.9659 0 0.2588 0.9659 1 0.2588 0.9239 0 0.3827 0.9914 0 0.1305
+5 24 0.9239 0 0.3827 0.9239 1 0.3827 0.8660 0 0.5000 0.9659 0 0.2588
+5 24 0.8660 0 0.5000 0.8660 1 0.5000 0.7934 0 0.6088 0.9239 0 0.3827
+5 24 0.7934 0 0.6088 0.7934 1 0.6088 0.7071 0 0.7071 0.8660 0 0.5000
+5 24 0.7071 0 0.7071 0.7071 1 0.7071 0.6088 0 0.7934 0.7934 0 0.6088
+
+4 16 0.9914 1 0.1305 0.9914 0 0.1305 1 0 0 1 1 0
+4 16 0.9659 1 0.2588 0.9659 0 0.2588 0.9914 0 0.1305 0.9914 1 0.1305
+4 16 0.9239 1 0.3827 0.9239 0 0.3827 0.9659 0 0.2588 0.9659 1 0.2588
+4 16 0.8660 1 0.5000 0.8660 0 0.5000 0.9239 0 0.3827 0.9239 1 0.3827
+4 16 0.7934 1 0.6088 0.7934 0 0.6088 0.8660 0 0.5000 0.8660 1 0.5000
+4 16 0.7071 1 0.7071 0.7071 0 0.7071 0.7934 0 0.6088 0.7934 1 0.6088
+0
+0 NOFILE
+0 FILE parts/50950.dat
+0 Slope Brick Curved  3 x  1
+0 Name: 50950.dat
+0 Author: Orion Pobursky [OrionP]
+0 !LDRAW_ORG Part UPDATE 2026-06
+0 !LICENSE Licensed under CC BY 4.0 : see CAreadme.txt
+
+0 BFC CERTIFY CCW
+
+0 !KEYWORDS Brickowl 727597
+
+0 !HISTORY 2005-12-28 [PTadmin] Official Update 2005-01
+0 !HISTORY 2007-07-09 [PTadmin] Header formatted for Contributor Agreement
+0 !HISTORY 2008-07-01 [PTadmin] Official Update 2008-01
+0 !HISTORY 2025-08-11 [Blechtaler] subfiled, corrected curvature
+0 !HISTORY 2026-06-28 [OrionP] Official Update 2026-06
+
+1 16 0 0 0 1 0 0 0 1 0 0 0 1 parts/s/50950s01.dat
+1 16 -10 68.2828 30 0 20 0 -68.2828 0 0 0 0 -84.8536 p/48/1-8cyli.dat
+0 NOFILE

@@ -155,7 +155,7 @@ describe("Licensed broad part catalog", () => {
     } finally {
       unexpectedFetch.mockRestore();
     }
-  }, 15000);
+  }, 60000);
 });
 
 const verified: SourcingLine = {

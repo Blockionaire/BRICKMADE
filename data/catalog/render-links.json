@@ -1,5 +1,5 @@
 {
-  "status": "geometry-reviewed illustration links; not provider buying mappings",
+  "status": "explicit source identity/footprint illustration links; ports qualified separately; not provider buying mappings",
   "links": [
     {
       "rebrickablePartId": "3005",
@@ -188,6 +188,1126 @@
     {
       "rebrickablePartId": "3678b",
       "ldrawPartId": "3678b"
+    },
+    {
+      "rebrickablePartId": "87087",
+      "ldrawPartId": "87087"
+    },
+    {
+      "rebrickablePartId": "3008",
+      "ldrawPartId": "3008"
+    },
+    {
+      "rebrickablePartId": "11211",
+      "ldrawPartId": "11211"
+    },
+    {
+      "rebrickablePartId": "2357",
+      "ldrawPartId": "2357"
+    },
+    {
+      "rebrickablePartId": "6091",
+      "ldrawPartId": "6091"
+    },
+    {
+      "rebrickablePartId": "30414",
+      "ldrawPartId": "30414"
+    },
+    {
+      "rebrickablePartId": "30136",
+      "ldrawPartId": "30136"
+    },
+    {
+      "rebrickablePartId": "22885",
+      "ldrawPartId": "22885"
+    },
+    {
+      "rebrickablePartId": "3007",
+      "ldrawPartId": "3007"
+    },
+    {
+      "rebrickablePartId": "96874",
+      "ldrawPartId": "96874"
+    },
+    {
+      "rebrickablePartId": "2877",
+      "ldrawPartId": "2877"
+    },
+    {
+      "rebrickablePartId": "32952",
+      "ldrawPartId": "32952"
+    },
+    {
+      "rebrickablePartId": "3245c",
+      "ldrawPartId": "3245c"
+    },
+    {
+      "rebrickablePartId": "3065",
+      "ldrawPartId": "3065"
+    },
+    {
+      "rebrickablePartId": "49307",
+      "ldrawPartId": "49307"
+    },
+    {
+      "rebrickablePartId": "4733",
+      "ldrawPartId": "4733"
+    },
+    {
+      "rebrickablePartId": "37352",
+      "ldrawPartId": "37352"
+    },
+    {
+      "rebrickablePartId": "6111",
+      "ldrawPartId": "6111"
+    },
+    {
+      "rebrickablePartId": "60475b",
+      "ldrawPartId": "60475b"
+    },
+    {
+      "rebrickablePartId": "98283",
+      "ldrawPartId": "98283"
+    },
+    {
+      "rebrickablePartId": "14716",
+      "ldrawPartId": "14716"
+    },
+    {
+      "rebrickablePartId": "47905",
+      "ldrawPartId": "47905"
+    },
+    {
+      "rebrickablePartId": "3006",
+      "ldrawPartId": "3006"
+    },
+    {
+      "rebrickablePartId": "26604",
+      "ldrawPartId": "26604"
+    },
+    {
+      "rebrickablePartId": "92947",
+      "ldrawPartId": "92947"
+    },
+    {
+      "rebrickablePartId": "52107",
+      "ldrawPartId": "52107"
+    },
+    {
+      "rebrickablePartId": "2458",
+      "ldrawPartId": "2458"
+    },
+    {
+      "rebrickablePartId": "2454b",
+      "ldrawPartId": "2454b"
+    },
+    {
+      "rebrickablePartId": "2453b",
+      "ldrawPartId": "2453b"
+    },
+    {
+      "rebrickablePartId": "85080",
+      "ldrawPartId": "85080"
+    },
+    {
+      "rebrickablePartId": "6232",
+      "ldrawPartId": "6232"
+    },
+    {
+      "rebrickablePartId": "2921",
+      "ldrawPartId": "2921"
+    },
+    {
+      "rebrickablePartId": "87620",
+      "ldrawPartId": "87620"
+    },
+    {
+      "rebrickablePartId": "6215",
+      "ldrawPartId": "6215"
+    },
+    {
+      "rebrickablePartId": "30236",
+      "ldrawPartId": "30236"
+    },
+    {
+      "rebrickablePartId": "67329",
+      "ldrawPartId": "67329"
+    },
+    {
+      "rebrickablePartId": "2454a",
+      "ldrawPartId": "2454a"
+    },
+    {
+      "rebrickablePartId": "30165",
+      "ldrawPartId": "30165"
+    },
+    {
+      "rebrickablePartId": "48092",
+      "ldrawPartId": "48092"
+    },
+    {
+      "rebrickablePartId": "87081",
+      "ldrawPartId": "87081"
+    },
+    {
+      "rebrickablePartId": "2653",
+      "ldrawPartId": "2653"
+    },
+    {
+      "rebrickablePartId": "86876",
+      "ldrawPartId": "86876"
+    },
+    {
+      "rebrickablePartId": "3062a",
+      "ldrawPartId": "3062a"
+    },
+    {
+      "rebrickablePartId": "30137",
+      "ldrawPartId": "30137"
+    },
+    {
+      "rebrickablePartId": "4595",
+      "ldrawPartId": "4595"
+    },
+    {
+      "rebrickablePartId": "3021",
+      "ldrawPartId": "3021"
+    },
+    {
+      "rebrickablePartId": "85861",
+      "ldrawPartId": "85861"
+    },
+    {
+      "rebrickablePartId": "15573",
+      "ldrawPartId": "15573"
+    },
+    {
+      "rebrickablePartId": "2420",
+      "ldrawPartId": "2420"
+    },
+    {
+      "rebrickablePartId": "87580",
+      "ldrawPartId": "87580"
+    },
+    {
+      "rebrickablePartId": "3032",
+      "ldrawPartId": "3032"
+    },
+    {
+      "rebrickablePartId": "35480",
+      "ldrawPartId": "35480"
+    },
+    {
+      "rebrickablePartId": "4477",
+      "ldrawPartId": "4477"
+    },
+    {
+      "rebrickablePartId": "3832",
+      "ldrawPartId": "3832"
+    },
+    {
+      "rebrickablePartId": "48336",
+      "ldrawPartId": "48336"
+    },
+    {
+      "rebrickablePartId": "2540",
+      "ldrawPartId": "2540"
+    },
+    {
+      "rebrickablePartId": "18674",
+      "ldrawPartId": "18674"
+    },
+    {
+      "rebrickablePartId": "32028",
+      "ldrawPartId": "32028"
+    },
+    {
+      "rebrickablePartId": "32828",
+      "ldrawPartId": "32828"
+    },
+    {
+      "rebrickablePartId": "33909",
+      "ldrawPartId": "33909"
+    },
+    {
+      "rebrickablePartId": "60478",
+      "ldrawPartId": "60478"
+    },
+    {
+      "rebrickablePartId": "60897",
+      "ldrawPartId": "60897"
+    },
+    {
+      "rebrickablePartId": "63868",
+      "ldrawPartId": "63868"
+    },
+    {
+      "rebrickablePartId": "4081b",
+      "ldrawPartId": "4081b"
+    },
+    {
+      "rebrickablePartId": "61252",
+      "ldrawPartId": "61252"
+    },
+    {
+      "rebrickablePartId": "3794a",
+      "ldrawPartId": "3794a"
+    },
+    {
+      "rebrickablePartId": "60474",
+      "ldrawPartId": "60474"
+    },
+    {
+      "rebrickablePartId": "41740",
+      "ldrawPartId": "41740"
+    },
+    {
+      "rebrickablePartId": "11476",
+      "ldrawPartId": "11476"
+    },
+    {
+      "rebrickablePartId": "26601",
+      "ldrawPartId": "26601"
+    },
+    {
+      "rebrickablePartId": "33291",
+      "ldrawPartId": "33291"
+    },
+    {
+      "rebrickablePartId": "3176",
+      "ldrawPartId": "3176"
+    },
+    {
+      "rebrickablePartId": "99206",
+      "ldrawPartId": "99206"
+    },
+    {
+      "rebrickablePartId": "26047",
+      "ldrawPartId": "26047"
+    },
+    {
+      "rebrickablePartId": "2450",
+      "ldrawPartId": "2450"
+    },
+    {
+      "rebrickablePartId": "11212",
+      "ldrawPartId": "11212"
+    },
+    {
+      "rebrickablePartId": "34103",
+      "ldrawPartId": "34103"
+    },
+    {
+      "rebrickablePartId": "30357",
+      "ldrawPartId": "30357"
+    },
+    {
+      "rebrickablePartId": "88072",
+      "ldrawPartId": "88072"
+    },
+    {
+      "rebrickablePartId": "44861",
+      "ldrawPartId": "44861"
+    },
+    {
+      "rebrickablePartId": "3794b",
+      "ldrawPartId": "3794b"
+    },
+    {
+      "rebrickablePartId": "11458",
+      "ldrawPartId": "11458"
+    },
+    {
+      "rebrickablePartId": "49668",
+      "ldrawPartId": "49668"
+    },
+    {
+      "rebrickablePartId": "65578",
+      "ldrawPartId": "65578"
+    },
+    {
+      "rebrickablePartId": "30565",
+      "ldrawPartId": "30565"
+    },
+    {
+      "rebrickablePartId": "4085c",
+      "ldrawPartId": "4085c"
+    },
+    {
+      "rebrickablePartId": "92280",
+      "ldrawPartId": "92280"
+    },
+    {
+      "rebrickablePartId": "2419",
+      "ldrawPartId": "2419"
+    },
+    {
+      "rebrickablePartId": "4304",
+      "ldrawPartId": "4304"
+    },
+    {
+      "rebrickablePartId": "88646",
+      "ldrawPartId": "88646"
+    },
+    {
+      "rebrickablePartId": "18980",
+      "ldrawPartId": "18980"
+    },
+    {
+      "rebrickablePartId": "92593",
+      "ldrawPartId": "92593"
+    },
+    {
+      "rebrickablePartId": "86996",
+      "ldrawPartId": "86996"
+    },
+    {
+      "rebrickablePartId": "78329",
+      "ldrawPartId": "78329"
+    },
+    {
+      "rebrickablePartId": "3839b",
+      "ldrawPartId": "3839b"
+    },
+    {
+      "rebrickablePartId": "6019",
+      "ldrawPartId": "6019"
+    },
+    {
+      "rebrickablePartId": "15470",
+      "ldrawPartId": "15470"
+    },
+    {
+      "rebrickablePartId": "18677",
+      "ldrawPartId": "18677"
+    },
+    {
+      "rebrickablePartId": "2817",
+      "ldrawPartId": "2817"
+    },
+    {
+      "rebrickablePartId": "6179",
+      "ldrawPartId": "6179"
+    },
+    {
+      "rebrickablePartId": "3069b",
+      "ldrawPartId": "3069b"
+    },
+    {
+      "rebrickablePartId": "98138",
+      "ldrawPartId": "98138"
+    },
+    {
+      "rebrickablePartId": "2431",
+      "ldrawPartId": "2431"
+    },
+    {
+      "rebrickablePartId": "25269",
+      "ldrawPartId": "25269"
+    },
+    {
+      "rebrickablePartId": "2412b",
+      "ldrawPartId": "2412b"
+    },
+    {
+      "rebrickablePartId": "87079",
+      "ldrawPartId": "87079"
+    },
+    {
+      "rebrickablePartId": "6636",
+      "ldrawPartId": "6636"
+    },
+    {
+      "rebrickablePartId": "20482",
+      "ldrawPartId": "20482"
+    },
+    {
+      "rebrickablePartId": "63864",
+      "ldrawPartId": "63864"
+    },
+    {
+      "rebrickablePartId": "4162",
+      "ldrawPartId": "4162"
+    },
+    {
+      "rebrickablePartId": "15712",
+      "ldrawPartId": "15712"
+    },
+    {
+      "rebrickablePartId": "24246",
+      "ldrawPartId": "24246"
+    },
+    {
+      "rebrickablePartId": "2432",
+      "ldrawPartId": "2432"
+    },
+    {
+      "rebrickablePartId": "14769",
+      "ldrawPartId": "14769"
+    },
+    {
+      "rebrickablePartId": "26603",
+      "ldrawPartId": "26603"
+    },
+    {
+      "rebrickablePartId": "27925",
+      "ldrawPartId": "27925"
+    },
+    {
+      "rebrickablePartId": "15535",
+      "ldrawPartId": "15535"
+    },
+    {
+      "rebrickablePartId": "14719",
+      "ldrawPartId": "14719"
+    },
+    {
+      "rebrickablePartId": "1748",
+      "ldrawPartId": "1748"
+    },
+    {
+      "rebrickablePartId": "35787",
+      "ldrawPartId": "35787"
+    },
+    {
+      "rebrickablePartId": "69729",
+      "ldrawPartId": "69729"
+    },
+    {
+      "rebrickablePartId": "2555",
+      "ldrawPartId": "2555"
+    },
+    {
+      "rebrickablePartId": "27263",
+      "ldrawPartId": "27263"
+    },
+    {
+      "rebrickablePartId": "22385",
+      "ldrawPartId": "22385"
+    },
+    {
+      "rebrickablePartId": "11203",
+      "ldrawPartId": "11203"
+    },
+    {
+      "rebrickablePartId": "2460",
+      "ldrawPartId": "2460"
+    },
+    {
+      "rebrickablePartId": "27507",
+      "ldrawPartId": "27507"
+    },
+    {
+      "rebrickablePartId": "4150",
+      "ldrawPartId": "4150"
+    },
+    {
+      "rebrickablePartId": "54200",
+      "ldrawPartId": "54200"
+    },
+    {
+      "rebrickablePartId": "85984",
+      "ldrawPartId": "85984"
+    },
+    {
+      "rebrickablePartId": "15068",
+      "ldrawPartId": "15068"
+    },
+    {
+      "rebrickablePartId": "4286",
+      "ldrawPartId": "4286"
+    },
+    {
+      "rebrickablePartId": "93273",
+      "ldrawPartId": "93273"
+    },
+    {
+      "rebrickablePartId": "50950",
+      "ldrawPartId": "50950"
+    },
+    {
+      "rebrickablePartId": "3298",
+      "ldrawPartId": "3298"
+    },
+    {
+      "rebrickablePartId": "15672",
+      "ldrawPartId": "15672"
+    },
+    {
+      "rebrickablePartId": "29120",
+      "ldrawPartId": "29120"
+    },
+    {
+      "rebrickablePartId": "29119",
+      "ldrawPartId": "29119"
+    },
+    {
+      "rebrickablePartId": "24201",
+      "ldrawPartId": "24201"
+    },
+    {
+      "rebrickablePartId": "3037",
+      "ldrawPartId": "3037"
+    },
+    {
+      "rebrickablePartId": "28192",
+      "ldrawPartId": "28192"
+    },
+    {
+      "rebrickablePartId": "3747b",
+      "ldrawPartId": "3747b"
+    },
+    {
+      "rebrickablePartId": "32803",
+      "ldrawPartId": "32803"
+    },
+    {
+      "rebrickablePartId": "47457",
+      "ldrawPartId": "47457"
+    },
+    {
+      "rebrickablePartId": "22388",
+      "ldrawPartId": "22388"
+    },
+    {
+      "rebrickablePartId": "4871",
+      "ldrawPartId": "4871"
+    },
+    {
+      "rebrickablePartId": "4460b",
+      "ldrawPartId": "4460b"
+    },
+    {
+      "rebrickablePartId": "93606",
+      "ldrawPartId": "93606"
+    },
+    {
+      "rebrickablePartId": "3045",
+      "ldrawPartId": "3045"
+    },
+    {
+      "rebrickablePartId": "15571",
+      "ldrawPartId": "15571"
+    },
+    {
+      "rebrickablePartId": "60477",
+      "ldrawPartId": "60477"
+    },
+    {
+      "rebrickablePartId": "2449",
+      "ldrawPartId": "2449"
+    },
+    {
+      "rebrickablePartId": "3297",
+      "ldrawPartId": "3297"
+    },
+    {
+      "rebrickablePartId": "88930",
+      "ldrawPartId": "88930"
+    },
+    {
+      "rebrickablePartId": "13547",
+      "ldrawPartId": "13547"
+    },
+    {
+      "rebrickablePartId": "30602",
+      "ldrawPartId": "30602"
+    },
+    {
+      "rebrickablePartId": "35464",
+      "ldrawPartId": "35464"
+    },
+    {
+      "rebrickablePartId": "30363",
+      "ldrawPartId": "30363"
+    },
+    {
+      "rebrickablePartId": "42022",
+      "ldrawPartId": "42022"
+    },
+    {
+      "rebrickablePartId": "4287b",
+      "ldrawPartId": "4287b"
+    },
+    {
+      "rebrickablePartId": "3747a",
+      "ldrawPartId": "3747a"
+    },
+    {
+      "rebrickablePartId": "3038",
+      "ldrawPartId": "3038"
+    },
+    {
+      "rebrickablePartId": "24309",
+      "ldrawPartId": "24309"
+    },
+    {
+      "rebrickablePartId": "13548",
+      "ldrawPartId": "13548"
+    },
+    {
+      "rebrickablePartId": "4287c",
+      "ldrawPartId": "4287c"
+    },
+    {
+      "rebrickablePartId": "52031",
+      "ldrawPartId": "52031"
+    },
+    {
+      "rebrickablePartId": "70681",
+      "ldrawPartId": "70681"
+    },
+    {
+      "rebrickablePartId": "52501",
+      "ldrawPartId": "52501"
+    },
+    {
+      "rebrickablePartId": "47456",
+      "ldrawPartId": "47456"
+    },
+    {
+      "rebrickablePartId": "42023",
+      "ldrawPartId": "42023"
+    },
+    {
+      "rebrickablePartId": "4287a",
+      "ldrawPartId": "4287a"
+    },
+    {
+      "rebrickablePartId": "4460a",
+      "ldrawPartId": "4460a"
+    },
+    {
+      "rebrickablePartId": "66956",
+      "ldrawPartId": "66956"
+    },
+    {
+      "rebrickablePartId": "47458",
+      "ldrawPartId": "47458"
+    },
+    {
+      "rebrickablePartId": "60219",
+      "ldrawPartId": "60219"
+    },
+    {
+      "rebrickablePartId": "3300",
+      "ldrawPartId": "3300"
+    },
+    {
+      "rebrickablePartId": "3676",
+      "ldrawPartId": "3676"
+    },
+    {
+      "rebrickablePartId": "2310",
+      "ldrawPartId": "2310"
+    },
+    {
+      "rebrickablePartId": "61678",
+      "ldrawPartId": "61678"
+    },
+    {
+      "rebrickablePartId": "3043",
+      "ldrawPartId": "3043"
+    },
+    {
+      "rebrickablePartId": "4854",
+      "ldrawPartId": "4854"
+    },
+    {
+      "rebrickablePartId": "72454",
+      "ldrawPartId": "72454"
+    },
+    {
+      "rebrickablePartId": "3040a",
+      "ldrawPartId": "3040a"
+    },
+    {
+      "rebrickablePartId": "5404",
+      "ldrawPartId": "5404"
+    },
+    {
+      "rebrickablePartId": "3299",
+      "ldrawPartId": "3299"
+    },
+    {
+      "rebrickablePartId": "22889",
+      "ldrawPartId": "22889"
+    },
+    {
+      "rebrickablePartId": "44126",
+      "ldrawPartId": "44126"
+    },
+    {
+      "rebrickablePartId": "32802",
+      "ldrawPartId": "32802"
+    },
+    {
+      "rebrickablePartId": "3049d",
+      "ldrawPartId": "3049d"
+    },
+    {
+      "rebrickablePartId": "4445",
+      "ldrawPartId": "4445"
+    },
+    {
+      "rebrickablePartId": "3044c",
+      "ldrawPartId": "3044c"
+    },
+    {
+      "rebrickablePartId": "80178",
+      "ldrawPartId": "80178"
+    },
+    {
+      "rebrickablePartId": "80177",
+      "ldrawPartId": "80177"
+    },
+    {
+      "rebrickablePartId": "92950",
+      "ldrawPartId": "92950"
+    },
+    {
+      "rebrickablePartId": "18653",
+      "ldrawPartId": "18653"
+    },
+    {
+      "rebrickablePartId": "6005",
+      "ldrawPartId": "6005"
+    },
+    {
+      "rebrickablePartId": "15254",
+      "ldrawPartId": "15254"
+    },
+    {
+      "rebrickablePartId": "13965",
+      "ldrawPartId": "13965"
+    },
+    {
+      "rebrickablePartId": "88292",
+      "ldrawPartId": "88292"
+    },
+    {
+      "rebrickablePartId": "78666",
+      "ldrawPartId": "78666"
+    },
+    {
+      "rebrickablePartId": "4490",
+      "ldrawPartId": "4490"
+    },
+    {
+      "rebrickablePartId": "6182",
+      "ldrawPartId": "6182"
+    },
+    {
+      "rebrickablePartId": "14395",
+      "ldrawPartId": "14395"
+    },
+    {
+      "rebrickablePartId": "16577",
+      "ldrawPartId": "16577"
+    },
+    {
+      "rebrickablePartId": "3455",
+      "ldrawPartId": "3455"
+    },
+    {
+      "rebrickablePartId": "3307",
+      "ldrawPartId": "3307"
+    },
+    {
+      "rebrickablePartId": "30099",
+      "ldrawPartId": "30099"
+    },
+    {
+      "rebrickablePartId": "2339",
+      "ldrawPartId": "2339"
+    },
+    {
+      "rebrickablePartId": "6060",
+      "ldrawPartId": "6060"
+    },
+    {
+      "rebrickablePartId": "6183",
+      "ldrawPartId": "6183"
+    },
+    {
+      "rebrickablePartId": "5843",
+      "ldrawPartId": "5843"
+    },
+    {
+      "rebrickablePartId": "60594",
+      "ldrawPartId": "60594"
+    },
+    {
+      "rebrickablePartId": "60593",
+      "ldrawPartId": "60593"
+    },
+    {
+      "rebrickablePartId": "30044",
+      "ldrawPartId": "30044"
+    },
+    {
+      "rebrickablePartId": "30046",
+      "ldrawPartId": "30046"
+    },
+    {
+      "rebrickablePartId": "3853",
+      "ldrawPartId": "3853"
+    },
+    {
+      "rebrickablePartId": "38320",
+      "ldrawPartId": "38320"
+    },
+    {
+      "rebrickablePartId": "3856",
+      "ldrawPartId": "3856"
+    },
+    {
+      "rebrickablePartId": "60032",
+      "ldrawPartId": "60032"
+    },
+    {
+      "rebrickablePartId": "3854",
+      "ldrawPartId": "3854"
+    },
+    {
+      "rebrickablePartId": "60608",
+      "ldrawPartId": "60608"
+    },
+    {
+      "rebrickablePartId": "4132",
+      "ldrawPartId": "4132"
+    },
+    {
+      "rebrickablePartId": "60607",
+      "ldrawPartId": "60607"
+    },
+    {
+      "rebrickablePartId": "4865b",
+      "ldrawPartId": "4865b"
+    },
+    {
+      "rebrickablePartId": "4865a",
+      "ldrawPartId": "4865a"
+    },
+    {
+      "rebrickablePartId": "6231",
+      "ldrawPartId": "6231"
+    },
+    {
+      "rebrickablePartId": "87552",
+      "ldrawPartId": "87552"
+    },
+    {
+      "rebrickablePartId": "15207",
+      "ldrawPartId": "15207"
+    },
+    {
+      "rebrickablePartId": "60581",
+      "ldrawPartId": "60581"
+    },
+    {
+      "rebrickablePartId": "23969",
+      "ldrawPartId": "23969"
+    },
+    {
+      "rebrickablePartId": "59349",
+      "ldrawPartId": "59349"
+    },
+    {
+      "rebrickablePartId": "87544",
+      "ldrawPartId": "87544"
+    },
+    {
+      "rebrickablePartId": "93095",
+      "ldrawPartId": "93095"
+    },
+    {
+      "rebrickablePartId": "14718",
+      "ldrawPartId": "14718"
+    },
+    {
+      "rebrickablePartId": "23950",
+      "ldrawPartId": "23950"
+    },
+    {
+      "rebrickablePartId": "4864b",
+      "ldrawPartId": "4864b"
+    },
+    {
+      "rebrickablePartId": "4215b",
+      "ldrawPartId": "4215b"
+    },
+    {
+      "rebrickablePartId": "47847",
+      "ldrawPartId": "47847"
+    },
+    {
+      "rebrickablePartId": "90195",
+      "ldrawPartId": "90195"
+    },
+    {
+      "rebrickablePartId": "30562",
+      "ldrawPartId": "30562"
+    },
+    {
+      "rebrickablePartId": "4864a",
+      "ldrawPartId": "4864a"
+    },
+    {
+      "rebrickablePartId": "32607",
+      "ldrawPartId": "32607"
+    },
+    {
+      "rebrickablePartId": "3742",
+      "ldrawPartId": "3742"
+    },
+    {
+      "rebrickablePartId": "37695",
+      "ldrawPartId": "37695"
+    },
+    {
+      "rebrickablePartId": "2417",
+      "ldrawPartId": "2417"
+    },
+    {
+      "rebrickablePartId": "24855",
+      "ldrawPartId": "24855"
+    },
+    {
+      "rebrickablePartId": "32606",
+      "ldrawPartId": "32606"
+    },
+    {
+      "rebrickablePartId": "18853",
+      "ldrawPartId": "18853"
+    },
+    {
+      "rebrickablePartId": "4728",
+      "ldrawPartId": "4728"
+    },
+    {
+      "rebrickablePartId": "4367",
+      "ldrawPartId": "4367"
+    },
+    {
+      "rebrickablePartId": "4727",
+      "ldrawPartId": "4727"
+    },
+    {
+      "rebrickablePartId": "10884",
+      "ldrawPartId": "10884"
+    },
+    {
+      "rebrickablePartId": "15279",
+      "ldrawPartId": "15279"
+    },
+    {
+      "rebrickablePartId": "19119",
+      "ldrawPartId": "19119"
+    },
+    {
+      "rebrickablePartId": "30093",
+      "ldrawPartId": "30093"
+    },
+    {
+      "rebrickablePartId": "41748",
+      "ldrawPartId": "41748"
+    },
+    {
+      "rebrickablePartId": "43711",
+      "ldrawPartId": "43711"
+    },
+    {
+      "rebrickablePartId": "43710",
+      "ldrawPartId": "43710"
+    },
+    {
+      "rebrickablePartId": "45677",
+      "ldrawPartId": "45677"
+    },
+    {
+      "rebrickablePartId": "41747",
+      "ldrawPartId": "41747"
+    },
+    {
+      "rebrickablePartId": "43713",
+      "ldrawPartId": "43713"
+    },
+    {
+      "rebrickablePartId": "6564",
+      "ldrawPartId": "6564"
+    },
+    {
+      "rebrickablePartId": "6565",
+      "ldrawPartId": "6565"
+    },
+    {
+      "rebrickablePartId": "64225",
+      "ldrawPartId": "64225"
+    },
+    {
+      "rebrickablePartId": "47753",
+      "ldrawPartId": "47753"
+    },
+    {
+      "rebrickablePartId": "43712",
+      "ldrawPartId": "43712"
+    },
+    {
+      "rebrickablePartId": "4855",
+      "ldrawPartId": "4855"
+    },
+    {
+      "rebrickablePartId": "11291",
+      "ldrawPartId": "11291"
+    },
+    {
+      "rebrickablePartId": "47755",
+      "ldrawPartId": "47755"
+    },
+    {
+      "rebrickablePartId": "41767",
+      "ldrawPartId": "41767"
+    },
+    {
+      "rebrickablePartId": "41768",
+      "ldrawPartId": "41768"
+    },
+    {
+      "rebrickablePartId": "47759",
+      "ldrawPartId": "47759"
+    },
+    {
+      "rebrickablePartId": "41764",
+      "ldrawPartId": "41764"
+    },
+    {
+      "rebrickablePartId": "41765",
+      "ldrawPartId": "41765"
+    },
+    {
+      "rebrickablePartId": "50956",
+      "ldrawPartId": "50956"
+    },
+    {
+      "rebrickablePartId": "50955",
+      "ldrawPartId": "50955"
+    },
+    {
+      "rebrickablePartId": "13349",
+      "ldrawPartId": "13349"
+    },
+    {
+      "rebrickablePartId": "48933",
+      "ldrawPartId": "48933"
+    },
+    {
+      "rebrickablePartId": "50373",
+      "ldrawPartId": "50373"
+    },
+    {
+      "rebrickablePartId": "43721",
+      "ldrawPartId": "43721"
     }
   ]
 }

@@ -26,6 +26,7 @@ import {
   worldConnectors,
 } from "@/domain/parts/connections";
 import type { BuilderPart, PartPose } from "@/domain/parts/types";
+import { partCapabilities } from "@/domain/parts/selection";
 import { assetPath } from "@/lib/asset-path";
 const Canvas = dynamic(() => import("@/components/connection-canvas"), {
   ssr: false,
@@ -36,6 +37,28 @@ const Canvas = dynamic(() => import("@/components/connection-canvas"), {
   ),
 });
 const scenarios = [
+  {
+    name: "Curved roof",
+    target: "3005",
+    moving: "47457",
+    kind: "stud",
+    index: 0,
+  },
+  { name: "Arch cap", target: "92950", moving: "3024", kind: "stud", index: 0 },
+  {
+    name: "Wide brick",
+    target: "3008",
+    moving: "2431",
+    kind: "stud",
+    index: 0,
+  },
+  {
+    name: "Leaf detail",
+    target: "4728",
+    moving: "3024",
+    kind: "stud",
+    index: 0,
+  },
   { name: "Stack it", target: "3020", moving: "3003", kind: "stud", index: 0 },
   {
     name: "Build sideways",
@@ -106,6 +129,12 @@ export default function ConnectionsPage() {
     [selected, setSelected] = useState("moving");
   const [picker, setPicker] = useState<"target" | "moving">(),
     [query, setQuery] = useState("");
+  const [category, setCategory] = useState("all"),
+    [supportedOnly, setSupportedOnly] = useState(false),
+    [limit, setLimit] = useState(48);
+  const supportedCount = BUILDER_PARTS.filter(
+    (p) => partCapabilities(p).supported,
+  ).length;
   const target = PART_PROFILES.get(targetId)!,
     moving = PART_PROFILES.get(movingId)!;
   const { choices, poses, analysis } = useMemo(() => {
@@ -170,10 +199,22 @@ export default function ConnectionsPage() {
     setPicker(undefined);
     reset();
   }
-  const filtered = BUILDER_PARTS.filter((p) =>
-    `${p.name} ${p.id} ${p.rebrickableId} ${p.category}`
-      .toLowerCase()
-      .includes(query.toLowerCase()),
+  const searchTerm = query.trim().toLowerCase(),
+    exactArticle = BUILDER_PARTS.some(
+      (p) =>
+        p.id.toLowerCase() === searchTerm ||
+        p.rebrickableId.toLowerCase() === searchTerm,
+    );
+  const filtered = BUILDER_PARTS.filter(
+    (p) =>
+      (category === "all" || p.category === category) &&
+      (!supportedOnly || partCapabilities(p).supported) &&
+      (exactArticle
+        ? p.id.toLowerCase() === searchTerm ||
+          p.rebrickableId.toLowerCase() === searchTerm
+        : `${p.name} ${p.id} ${p.rebrickableId} ${p.category}`
+            .toLowerCase()
+            .includes(searchTerm)),
   );
   return (
     <div id="page-content" className="connections-page">
@@ -334,6 +375,12 @@ export default function ConnectionsPage() {
                 Moving piece
               </button>
             </div>
+            <p className="builder-admission-label">
+              {partCapabilities(inspection).supported
+                ? "Supported connection points"
+                : "Geometry only · connection rules pending"}{" "}
+              · Physical test pending
+            </p>
             <h3>{inspection.name.replaceAll(" x ", " × ")}</h3>
             <p>
               {inspection.connectors.length} reviewed attachment points ·{" "}
@@ -392,8 +439,9 @@ export default function ConnectionsPage() {
         <div>
           <h2>{BUILDER_PARTS.length} shapes, ready to explore.</h2>
           <p>
-            Every piece in the house builder now uses real LDraw surfaces.
-            Connection profiles grow independently of the full catalog.
+            {supportedCount} shapes have supported connection points. Every
+            shape includes source geometry and recorded color evidence; unlisted
+            mechanisms remain unsupported.
           </p>
         </div>
         <Link href="/builder" className="button button-primary">
@@ -420,14 +468,48 @@ export default function ConnectionsPage() {
               aria-label="Search builder shapes"
               placeholder="Find a shape or part number…"
               value={query}
-              onChange={(e) => setQuery(e.target.value)}
+              onChange={(e) => {
+                setQuery(e.target.value);
+                setLimit(48);
+              }}
             />
           </div>
+          <div
+            className="builder-library-filters"
+            role="group"
+            aria-label="Builder categories"
+          >
+            {["all", ...new Set(BUILDER_PARTS.map((p) => p.category))].map(
+              (c) => (
+                <button
+                  key={c}
+                  aria-pressed={category === c}
+                  onClick={() => {
+                    setCategory(c);
+                    setLimit(48);
+                  }}
+                >
+                  {c === "all" ? "All shapes" : c}
+                </button>
+              ),
+            )}
+          </div>
+          <button
+            className="builder-support-filter"
+            aria-pressed={supportedOnly}
+            onClick={() => {
+              setSupportedOnly(!supportedOnly);
+              setLimit(48);
+            }}
+          >
+            <Check size={15} />
+            {supportedOnly ? "Showing supported ports" : "Show supported ports"}
+          </button>
           <p className="connection-picker-count">
             {filtered.length} packaged shapes · connection coverage varies
           </p>
           <div className="connection-picker-grid">
-            {filtered.map((p) => (
+            {filtered.slice(0, limit).map((p) => (
               <button key={p.id} onClick={() => pickPart(p)}>
                 <Image
                   unoptimized
@@ -439,10 +521,23 @@ export default function ConnectionsPage() {
                 <strong>{p.name.replaceAll(" x ", " × ")}</strong>
                 <span>
                   #{p.id} · {p.connectors.length} attachment points
+                  <small>
+                    {partCapabilities(p).supported
+                      ? "Supported ports · physical test pending"
+                      : "Geometry only · fits pending"}
+                  </small>
                 </span>
               </button>
             ))}
           </div>
+          {filtered.length > limit && (
+            <button
+              className="button button-secondary full-width"
+              onClick={() => setLimit((n) => n + 48)}
+            >
+              Show more shapes <Layers size={16} />
+            </button>
+          )}
         </Sheet>
       )}
     </div>

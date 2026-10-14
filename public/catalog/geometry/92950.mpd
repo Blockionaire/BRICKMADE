@@ -1,0 +1,473 @@
+0 FILE main.ldr
+0 BrickMade standalone preview; derived from The LDraw Parts Library
+1 16 0 0 0 1 0 0 0 1 0 0 0 1 parts/92950.dat
+0 NOFILE
+0 FILE p/box3u2p.dat
+0 Box with 3 Faces without 2 Parallel Edges
+0 Name: box3u2p.dat
+0 Author: Niels Karsdorp [nielsk]
+0 !LDRAW_ORG Primitive UPDATE 2012-01
+0 !LICENSE Licensed under CC BY 4.0 : see CAreadme.txt
+
+0 BFC CERTIFY CCW
+
+0 !HISTORY 2003-03-12 [PTadmin] Official Update 2003-01
+0 !HISTORY 2007-06-24 [PTadmin] Header formatted for Contributor Agreement
+0 !HISTORY 2008-07-01 [PTadmin] Official Update 2008-01
+0 !HISTORY 2012-02-16 [Philo] Changed to CCW
+0 !HISTORY 2012-03-30 [PTadmin] Official Update 2012-01
+
+
+2 24 1 1 1 -1 1 1
+2 24 -1 1 -1 1 1 -1
+2 24 1 0 1 -1 0 1
+2 24 -1 0 -1 1 0 -1
+2 24 1 1 1 1 1 -1
+2 24 -1 1 1 -1 1 -1
+2 24 1 1 1 1 0 1
+2 24 1 1 -1 1 0 -1
+2 24 -1 1 1 -1 0 1
+2 24 -1 1 -1 -1 0 -1
+4 16 -1 1 -1 -1 1 1 1 1 1 1 1 -1
+4 16 -1 1 1 -1 0 1 1 0 1 1 1 1
+4 16 1 1 -1 1 0 -1 -1 0 -1 -1 1 -1
+0 NOFILE
+0 FILE p/4-4edge.dat
+0 Circle 1.0
+0 Name: 4-4edge.dat
+0 Author: James Jessiman
+0 !LDRAW_ORG Primitive UPDATE 2017-01
+0 !LICENSE Licensed under CC BY 4.0 : see CAreadme.txt
+
+0 BFC CERTIFY CCW
+
+0 !HISTORY 1998-12-15 [PTadmin] Official Update 1998-10
+0 !HISTORY 2005-12-28 [PTadmin] Official Update 2005-01
+0 !HISTORY 2007-06-24 [PTadmin] Header formatted for Contributor Agreement
+0 !HISTORY 2008-07-01 [PTadmin] Official Update 2008-01
+0 !HISTORY 2017-01-15 [Steffen] BFCed
+0 !HISTORY 2017-12-30 [PTadmin] Official Update 2017-01
+
+
+2 24 1 0 0 0.9239 0 0.3827
+2 24 0.9239 0 0.3827 0.7071 0 0.7071
+2 24 0.7071 0 0.7071 0.3827 0 0.9239
+2 24 0.3827 0 0.9239 0 0 1
+2 24 0 0 1 -0.3827 0 0.9239
+2 24 -0.3827 0 0.9239 -0.7071 0 0.7071
+2 24 -0.7071 0 0.7071 -0.9239 0 0.3827
+2 24 -0.9239 0 0.3827 -1 0 -0
+2 24 -1 0 -0 -0.9239 0 -0.3827
+2 24 -0.9239 0 -0.3827 -0.7071 0 -0.7071
+2 24 -0.7071 0 -0.7071 -0.3827 0 -0.9239
+2 24 -0.3827 0 -0.9239 0 0 -1
+2 24 0 0 -1 0.3827 0 -0.9239
+2 24 0.3827 0 -0.9239 0.7071 0 -0.7071
+2 24 0.7071 0 -0.7071 0.9239 0 -0.3827
+2 24 0.9239 0 -0.3827 1 0 0
+0 NOFILE
+0 FILE p/4-4cyli.dat
+0 Cylinder 1.0
+0 Name: 4-4cyli.dat
+0 Author: James Jessiman
+0 !LDRAW_ORG Primitive UPDATE 2005-01
+0 !LICENSE Licensed under CC BY 4.0 : see CAreadme.txt
+
+0 BFC CERTIFY CCW
+
+0 !HISTORY 1998-12-15 [PTadmin] Official Update 1998-10
+0 !HISTORY 2002-03-23 [sbliss] Added BFC statement; merged headers from files in distributions LDraw 0.27 and Complete.
+0 !HISTORY 2002-04-25 [PTadmin] Official Update 2002-02
+0 !HISTORY 2004-12-14 [guyvivan] BFC CCW
+0 !HISTORY 2005-12-28 [PTadmin] Official Update 2005-01
+0 !HISTORY 2007-06-24 [PTadmin] Header formatted for Contributor Agreement
+0 !HISTORY 2008-07-01 [PTadmin] Official Update 2008-01
+
+
+4 16 1 1 0 0.9239 1 0.3827 0.9239 0 0.3827 1 0 0
+5 24 1 0 0 1 1 0 0.9239 0 0.3827 0.9239 0 -0.3827
+4 16 0.9239 1 0.3827 0.7071 1 0.7071 0.7071 0 0.7071 0.9239 0 0.3827
+5 24 0.9239 0 0.3827 0.9239 1 0.3827 0.7071 0 0.7071 1 0 0
+4 16 0.7071 1 0.7071 0.3827 1 0.9239 0.3827 0 0.9239 0.7071 0 0.7071
+5 24 0.7071 0 0.7071 0.7071 1 0.7071 0.3827 0 0.9239 0.9239 0 0.3827
+4 16 0.3827 1 0.9239 0 1 1 0 0 1 0.3827 0 0.9239
+5 24 0.3827 0 0.9239 0.3827 1 0.9239 0 0 1 0.7071 0 0.7071
+4 16 0 1 1 -0.3827 1 0.9239 -0.3827 0 0.9239 0 0 1
+5 24 0 0 1 0 1 1 -0.3827 0 0.9239 0.3827 0 0.9239
+4 16 -0.3827 1 0.9239 -0.7071 1 0.7071 -0.7071 0 0.7071 -0.3827 0 0.9239
+5 24 -0.3827 0 0.9239 -0.3827 1 0.9239 -0.7071 0 0.7071 0 0 1
+4 16 -0.7071 1 0.7071 -0.9239 1 0.3827 -0.9239 0 0.3827 -0.7071 0 0.7071
+5 24 -0.7071 0 0.7071 -0.7071 1 0.7071 -0.9239 0 0.3827 -0.3827 0 0.9239
+4 16 -0.9239 1 0.3827 -1 1 0 -1 0 0 -0.9239 0 0.3827
+5 24 -0.9239 0 0.3827 -0.9239 1 0.3827 -1 0 0 -0.7071 0 0.7071
+4 16 -1 1 0 -0.9239 1 -0.3827 -0.9239 0 -0.3827 -1 0 0
+5 24 -1 0 0 -1 1 0 -0.9239 0 -0.3827 -0.9239 0 0.3827
+4 16 -0.9239 1 -0.3827 -0.7071 1 -0.7071 -0.7071 0 -0.7071 -0.9239 0 -0.3827
+5 24 -0.9239 0 -0.3827 -0.9239 1 -0.3827 -0.7071 0 -0.7071 -1 0 0
+4 16 -0.7071 1 -0.7071 -0.3827 1 -0.9239 -0.3827 0 -0.9239 -0.7071 0 -0.7071
+5 24 -0.7071 0 -0.7071 -0.7071 1 -0.7071 -0.3827 0 -0.9239 -0.9239 0 -0.3827
+4 16 -0.3827 1 -0.9239 0 1 -1 0 0 -1 -0.3827 0 -0.9239
+5 24 -0.3827 0 -0.9239 -0.3827 1 -0.9239 0 0 -1 -0.7071 0 -0.7071
+4 16 0 1 -1 0.3827 1 -0.9239 0.3827 0 -0.9239 0 0 -1
+5 24 0 0 -1 0 1 -1 0.3827 0 -0.9239 -0.3827 0 -0.9239
+4 16 0.3827 1 -0.9239 0.7071 1 -0.7071 0.7071 0 -0.7071 0.3827 0 -0.9239
+5 24 0.3827 0 -0.9239 0.3827 1 -0.9239 0.7071 0 -0.7071 0 0 -1
+4 16 0.7071 1 -0.7071 0.9239 1 -0.3827 0.9239 0 -0.3827 0.7071 0 -0.7071
+5 24 0.7071 0 -0.7071 0.7071 1 -0.7071 0.9239 0 -0.3827 0.3827 0 -0.9239
+4 16 0.9239 1 -0.3827 1 1 0 1 0 0 0.9239 0 -0.3827
+5 24 0.9239 0 -0.3827 0.9239 1 -0.3827 1 0 0 0.7071 0 -0.7071
+0
+0 NOFILE
+0 FILE p/4-4disc.dat
+0 Disc 1.0
+0 Name: 4-4disc.dat
+0 Author: James Jessiman
+0 !LDRAW_ORG Primitive UPDATE 2002-02
+0 !LICENSE Licensed under CC BY 4.0 : see CAreadme.txt
+
+0 BFC CERTIFY CCW
+
+0 !HISTORY 1998-12-15 [PTadmin] Official Update 1998-10
+0 !HISTORY 2002-03-23 [sbliss] Added BFC statement
+0 !HISTORY 2002-04-25 [PTadmin] Official Update 2002-02
+0 !HISTORY 2007-06-24 [PTadmin] Header formatted for Contributor Agreement
+0 !HISTORY 2008-07-01 [PTadmin] Official Update 2008-01
+
+
+3 16 0 0 0 1 0 0 0.9239 0 0.3827
+3 16 0 0 0 0.9239 0 0.3827 0.7071 0 0.7071
+3 16 0 0 0 0.7071 0 0.7071 0.3827 0 0.9239
+3 16 0 0 0 0.3827 0 0.9239 0 0 1
+3 16 0 0 0 0 0 1 -0.3827 0 0.9239
+3 16 0 0 0 -0.3827 0 0.9239 -0.7071 0 0.7071
+3 16 0 0 0 -0.7071 0 0.7071 -0.9239 0 0.3827
+3 16 0 0 0 -0.9239 0 0.3827 -1 0 -0
+3 16 0 0 0 -1 0 -0 -0.9239 0 -0.3827
+3 16 0 0 0 -0.9239 0 -0.3827 -0.7071 0 -0.7071
+3 16 0 0 0 -0.7071 0 -0.7071 -0.3827 0 -0.9239
+3 16 0 0 0 -0.3827 0 -0.9239 0 0 -1
+3 16 0 0 0 0 0 -1 0.3827 0 -0.9239
+3 16 0 0 0 0.3827 0 -0.9239 0.7071 0 -0.7071
+3 16 0 0 0 0.7071 0 -0.7071 0.9239 0 -0.3827
+3 16 0 0 0 0.9239 0 -0.3827 1 0 0
+0
+0 NOFILE
+0 FILE p/stud.dat
+0 Stud
+0 Name: stud.dat
+0 Author: James Jessiman
+0 !LDRAW_ORG Primitive UPDATE 2012-01
+0 !LICENSE Licensed under CC BY 4.0 : see CAreadme.txt
+
+0 BFC CERTIFY CCW
+
+0 !HISTORY 2002-04-04 [sbliss] Modified for BFC compliance
+0 !HISTORY 2002-04-25 [PTadmin] Official Update 2002-02
+0 !HISTORY 2007-06-24 [PTadmin] Header formatted for Contributor Agreement
+0 !HISTORY 2008-07-01 [PTadmin] Official Update 2008-01
+0 !HISTORY 2012-02-16 [Philo] Changed to CCW
+0 !HISTORY 2012-03-30 [PTadmin] Official Update 2012-01
+
+
+1 16 0 0 0 6 0 0 0 1 0 0 0 6 p/4-4edge.dat
+1 16 0 -4 0 6 0 0 0 1 0 0 0 6 p/4-4edge.dat
+1 16 0 0 0 6 0 0 0 -4 0 0 0 6 p/4-4cyli.dat
+1 16 0 -4 0 6 0 0 0 1 0 0 0 6 p/4-4disc.dat
+0 NOFILE
+0 FILE p/stug-1x6.dat
+0 Stud Group  1 x  6
+0 Name: stug-1x6.dat
+0 Author: Steffen [Steffen]
+0 !LDRAW_ORG Primitive UPDATE 2011-01
+0 !LICENSE Licensed under CC BY 4.0 : see CAreadme.txt
+
+0 BFC CERTIFY CCW
+
+0 !HISTORY 2011-07-25 [PTadmin] Official Update 2011-01
+
+
+1 16 -50 0 0 1 0 0 0 1 0 0 0 1 p/stud.dat
+1 16 -30 0 0 1 0 0 0 1 0 0 0 1 p/stud.dat
+1 16 -10 0 0 1 0 0 0 1 0 0 0 1 p/stud.dat
+1 16 10 0 0 1 0 0 0 1 0 0 0 1 p/stud.dat
+1 16 30 0 0 1 0 0 0 1 0 0 0 1 p/stud.dat
+1 16 50 0 0 1 0 0 0 1 0 0 0 1 p/stud.dat
+0 NOFILE
+0 FILE p/48/1-4edge.dat
+0 Hi-Res Circle 0.25
+0 Name: 48\1-4edge.dat
+0 Author: Magnus Forsberg [MagFors]
+0 !LDRAW_ORG 48_Primitive UPDATE 2024-01
+0 !LICENSE Licensed under CC BY 4.0 : see CAreadme.txt
+
+0 BFC CERTIFY CCW
+
+0 !HISTORY 1999-07-05 [PTadmin] Official Update 1999-05
+0 !HISTORY 2007-06-24 [PTadmin] Header formatted for Contributor Agreement
+0 !HISTORY 2008-07-01 [PTadmin] Official Update 2008-01
+0 !HISTORY 2010-03-17 [MagFors] Updated description
+0 !HISTORY 2010-05-21 [mikeheide] BFC'ed and compacted numbers (saved 10% filesize)
+0 !HISTORY 2010-07-05 [PTadmin] Official Update 2010-02
+0 !HISTORY 2024-01-02 [MagFors] Complete regeneration, original by Manfred Moolhuysen
+0 !HISTORY 2024-01-29 [OrionP] Official Update 2024-01
+
+2 24 1 0 0 0.9914 0 0.1305
+2 24 0.9914 0 0.1305 0.9659 0 0.2588
+2 24 0.9659 0 0.2588 0.9239 0 0.3827
+2 24 0.9239 0 0.3827 0.866 0 0.5
+2 24 0.866 0 0.5 0.7934 0 0.6088
+2 24 0.7934 0 0.6088 0.7071 0 0.7071
+2 24 0.7071 0 0.7071 0.6088 0 0.7934
+2 24 0.6088 0 0.7934 0.5 0 0.866
+2 24 0.5 0 0.866 0.3827 0 0.9239
+2 24 0.3827 0 0.9239 0.2588 0 0.9659
+2 24 0.2588 0 0.9659 0.1305 0 0.9914
+2 24 0.1305 0 0.9914 0 0 1
+0 // Build by LDPartEditor (PrimGen 2.X)
+0 NOFILE
+0 FILE p/48/1-4cyli.dat
+0 Hi-Res Cylinder 0.25
+0 Name: 48\1-4cyli.dat
+0 Author: Magnus Forsberg [MagFors]
+0 !LDRAW_ORG 48_Primitive UPDATE 2024-01
+0 !LICENSE Licensed under CC BY 4.0 : see CAreadme.txt
+
+0 BFC CERTIFY CCW
+
+0 !HISTORY 1999-07-05 [PTadmin] Official Update 1999-05
+0 !HISTORY 2002-02-28 [hafhead] Added BFC statement
+0 !HISTORY 2002-04-25 [PTadmin] Official Update 2002-02
+0 !HISTORY 2007-06-24 [PTadmin] Header formatted for Contributor Agreement
+0 !HISTORY 2008-07-01 [PTadmin] Official Update 2008-01
+0 !HISTORY 2008-07-07 [guyvivan] Made BFC'ed CCW (2005-12-06)
+0 !HISTORY 2009-05-02 [PTadmin] Official Update 2009-01
+0 !HISTORY 2024-01-03 [MagFors] Complete regeneration, original by Manfred Moolhuysen
+0 !HISTORY 2024-01-29 [OrionP] Official Update 2024-01
+
+4 16 0.9914 0 0.1305 1 0 0 1 1 0 0.9914 1 0.1305
+4 16 0.9659 0 0.2588 0.9914 0 0.1305 0.9914 1 0.1305 0.9659 1 0.2588
+4 16 0.9239 0 0.3827 0.9659 0 0.2588 0.9659 1 0.2588 0.9239 1 0.3827
+4 16 0.866 0 0.5 0.9239 0 0.3827 0.9239 1 0.3827 0.866 1 0.5
+4 16 0.7934 0 0.6088 0.866 0 0.5 0.866 1 0.5 0.7934 1 0.6088
+4 16 0.7071 0 0.7071 0.7934 0 0.6088 0.7934 1 0.6088 0.7071 1 0.7071
+4 16 0.6088 0 0.7934 0.7071 0 0.7071 0.7071 1 0.7071 0.6088 1 0.7934
+4 16 0.5 0 0.866 0.6088 0 0.7934 0.6088 1 0.7934 0.5 1 0.866
+4 16 0.3827 0 0.9239 0.5 0 0.866 0.5 1 0.866 0.3827 1 0.9239
+4 16 0.2588 0 0.9659 0.3827 0 0.9239 0.3827 1 0.9239 0.2588 1 0.9659
+4 16 0.1305 0 0.9914 0.2588 0 0.9659 0.2588 1 0.9659 0.1305 1 0.9914
+4 16 0 0 1 0.1305 0 0.9914 0.1305 1 0.9914 0 1 1
+0 // conditional lines
+5 24 1 1 0 1 0 0 1 1 -0.1317 0.9914 1 0.1305
+5 24 0.9914 1 0.1305 0.9914 0 0.1305 1 1 0 0.9659 1 0.2588
+5 24 0.9659 1 0.2588 0.9659 0 0.2588 0.9914 1 0.1305 0.9239 1 0.3827
+5 24 0.9239 1 0.3827 0.9239 0 0.3827 0.9659 1 0.2588 0.866 1 0.5
+5 24 0.866 1 0.5 0.866 0 0.5 0.9239 1 0.3827 0.7934 1 0.6088
+5 24 0.7934 1 0.6088 0.7934 0 0.6088 0.866 1 0.5 0.7071 1 0.7071
+5 24 0.7071 1 0.7071 0.7071 0 0.7071 0.7934 1 0.6088 0.6088 1 0.7934
+5 24 0.6088 1 0.7934 0.6088 0 0.7934 0.7071 1 0.7071 0.5 1 0.866
+5 24 0.5 1 0.866 0.5 0 0.866 0.6088 1 0.7934 0.3827 1 0.9239
+5 24 0.3827 1 0.9239 0.3827 0 0.9239 0.5 1 0.866 0.2588 1 0.9659
+5 24 0.2588 1 0.9659 0.2588 0 0.9659 0.3827 1 0.9239 0.1305 1 0.9914
+5 24 0.1305 1 0.9914 0.1305 0 0.9914 0.2588 1 0.9659 0 1 1
+5 24 0 1 1 0 0 1 0.1305 1 0.9914 -0.1317 1 1
+0 // Build by LDPartEditor (PrimGen 2.X)
+0 NOFILE
+0 FILE p/48/1-4cylo.dat
+0 Hi-Res Cylinder Open 0.25
+0 Name: 48\1-4cylo.dat
+0 Author: Max Martin Richter [MMR1988]
+0 !LDRAW_ORG 48_Primitive UPDATE 2013-01
+0 !LICENSE Licensed under CC BY 4.0 : see CAreadme.txt
+
+0 BFC CERTIFY CCW
+
+0 !HISTORY 2013-07-21 [PTadmin] Official Update 2013-01
+
+
+1 16 0 0 0 1 0 0 0 1 0 0 0 1 p/48/1-4edge.dat
+1 16 0 1 0 1 0 0 0 1 0 0 0 1 p/48/1-4edge.dat
+1 16 0 0 0 1 0 0 0 1 0 0 0 1 p/48/1-4cyli.dat
+0 NOFILE
+0 FILE p/box5.dat
+0 Box with 5 Faces and All Edges
+0 Name: box5.dat
+0 Author: James Jessiman
+0 !LDRAW_ORG Primitive UPDATE 2012-01
+0 !LICENSE Licensed under CC BY 4.0 : see CAreadme.txt
+
+0 BFC CERTIFY CCW
+
+0 !HISTORY 2002-04-03 [sbliss] Modified for BFC compliance
+0 !HISTORY 2002-04-25 [PTadmin] Official Update 2002-02
+0 !HISTORY 2007-06-24 [PTadmin] Header formatted for Contributor Agreement
+0 !HISTORY 2008-07-01 [PTadmin] Official Update 2008-01
+0 !HISTORY 2012-02-16 [Philo] Changed to CCW
+0 !HISTORY 2012-03-30 [PTadmin] Official Update 2012-01
+
+
+2 24 1 1 1 -1 1 1
+2 24 -1 1 1 -1 1 -1
+2 24 -1 1 -1 1 1 -1
+2 24 1 1 -1 1 1 1
+2 24 1 0 1 -1 0 1
+2 24 -1 0 1 -1 0 -1
+2 24 -1 0 -1 1 0 -1
+2 24 1 0 -1 1 0 1
+2 24 1 0 1 1 1 1
+2 24 -1 0 1 -1 1 1
+2 24 1 0 -1 1 1 -1
+2 24 -1 0 -1 -1 1 -1
+4 16 -1 1 1 1 1 1 1 1 -1 -1 1 -1
+4 16 -1 1 1 -1 0 1 1 0 1 1 1 1
+4 16 -1 1 -1 -1 0 -1 -1 0 1 -1 1 1
+4 16 1 1 -1 1 0 -1 -1 0 -1 -1 1 -1
+4 16 1 1 1 1 0 1 1 0 -1 1 1 -1
+0 NOFILE
+0 FILE p/box3u4a.dat
+0 Box with 3 Faces without 4 Adjacent Edges
+0 Name: box3u4a.dat
+0 Author: Niels Karsdorp [nielsk]
+0 !LDRAW_ORG Primitive UPDATE 2009-01
+0 !LICENSE Licensed under CC BY 4.0 : see CAreadme.txt
+
+0 BFC CERTIFY CCW
+
+0 !HISTORY 2009-05-02 [PTadmin] Official Update 2009-01
+
+
+2 24 1 1 1 -1 1 1
+2 24 -1 1 -1 1 1 -1
+2 24 1 1 1 1 1 -1
+2 24 -1 1 1 -1 1 -1
+2 24 1 1 1 1 0 1
+2 24 1 1 -1 1 0 -1
+2 24 -1 1 1 -1 0 1
+2 24 -1 1 -1 -1 0 -1
+4 16 -1 1 -1 -1 1 1 1 1 1 1 1 -1
+4 16 -1 1 1 -1 0 1 1 0 1 1 1 1
+4 16 1 1 -1 1 0 -1 -1 0 -1 -1 1 -1
+0
+0 NOFILE
+0 FILE parts/s/92950s01.dat
+0 ~Arch  1 x  6 Raised without Front Face
+0 Name: s\92950s01.dat
+0 Author: Vincent Messenet [Cheenzo]
+0 !LDRAW_ORG Subpart UPDATE 2024-05
+0 !LICENSE Licensed under CC BY 4.0 : see CAreadme.txt
+
+0 BFC CERTIFY CCW
+
+0 !HISTORY 2024-06-30 [OrionP] Official Update 2024-05
+
+1 16 0 24 0 0 0 -60 0 -24 0 -10 0 0 p/box3u2p.dat
+1 16 0 0 0 1 0 0 0 1 0 0 0 1 p/stug-1x6.dat
+0 BFC INVERTNEXT
+1 16 0 48.972 -10 -40 0 40 -28.9719 0 -28.9719 0 4 0 p/48/1-4cylo.dat
+0 BFC INVERTNEXT
+1 16 0 48.972 10 -40 0 40 -28.9719 0 -28.9719 0 -4 0 p/48/1-4cylo.dat
+0 BFC INVERTNEXT
+1 16 50 24 0 6 0 0 0 -20 0 0 0 6 p/box5.dat
+0 BFC INVERTNEXT
+1 16 -50 24 0 6 0 0 0 -20 0 0 0 6 p/box5.dat
+0 BFC INVERTNEXT
+1 16 0 20 0 0 0 -40 0 -16 0 -6 0 0 p/box3u4a.dat
+
+3 16 -40 24 10 -40 20 10 -40 20 6
+3 16 40 20 6 40 20 10 40 24 10
+3 16 40 24 -10 40 20 -10 40 20 -6
+3 16 -40 20 -6 -40 20 -10 -40 24 -10
+3 16 40 20 -6 34.436 16.468 -6 40 4 -6
+3 16 28.284 13.49 -6 21.648 11.117 -6 40 4 -6
+3 16 34.436 16.468 -6 28.284 13.49 -6 40 4 -6
+3 16 14.64 9.396 -6 7.384 8.348 -6 40 4 -6
+3 16 21.648 11.117 -6 14.64 9.396 -6 40 4 -6
+4 16 -40 4 -6 40 4 -6 7.384 8.348 -6 0 8 -6
+3 16 -21.648 11.117 -6 -28.284 13.49 -6 -40 4 -6
+3 16 -14.64 9.396 -6 -21.648 11.117 -6 -40 4 -6
+3 16 -40 4 -6 -7.384 8.348 -6 -14.64 9.396 -6
+3 16 0 8 -6 -7.384 8.348 -6 -40 4 -6
+3 16 -40 20 6 -34.436 16.468 6 -40 4 6
+3 16 -28.284 13.49 6 -21.648 11.117 6 -40 4 6
+3 16 -34.436 16.468 6 -28.284 13.49 6 -40 4 6
+3 16 -14.64 9.396 6 -7.384 8.348 6 -40 4 6
+3 16 -21.648 11.117 6 -14.64 9.396 6 -40 4 6
+4 16 40 4 6 -40 4 6 -7.384 8.348 6 0 8 6
+3 16 40 4 6 34.436 16.468 6 40 20 6
+3 16 28.284 13.49 6 34.436 16.468 6 40 4 6
+3 16 21.648 11.117 6 28.284 13.49 6 40 4 6
+3 16 14.64 9.396 6 21.648 11.117 6 40 4 6
+3 16 7.384 8.348 6 14.64 9.396 6 40 4 6
+3 16 0 8 6 7.384 8.348 6 40 4 6
+3 16 40 20 10 34.436 16.468 10 60 0 10
+3 16 28.284 13.49 10 21.648 11.117 10 60 0 10
+3 16 34.436 16.468 10 28.284 13.49 10 60 0 10
+3 16 14.64 9.396 10 7.384 8.348 10 60 0 10
+3 16 21.648 11.117 10 14.64 9.396 10 60 0 10
+3 16 -34.436 16.468 10 -40 20 10 -60 0 10
+3 16 -60 0 10 -28.284 13.49 10 -34.436 16.468 10
+3 16 -21.648 11.117 10 -28.284 13.49 10 -60 0 10
+3 16 -14.64 9.396 10 -21.648 11.117 10 -60 0 10
+3 16 -7.384 8.348 10 -14.64 9.396 10 -60 0 10
+3 16 0 8 10 -7.384 8.348 10 -60 0 10
+4 16 7.384 8.348 10 0 8 10 -60 0 10 60 0 10
+3 16 -34.436 16.468 -6 -40 4 -6 -28.284 13.49 -6
+3 16 -40 4 -6 -34.436 16.468 -6 -40 20 -6
+4 16 60 24 10 56 24 6 44 24 6 40 24 10
+4 16 40 24 10 44 24 6 44 24 -6 40 24 -10
+4 16 40 24 -10 44 24 -6 56 24 -6 60 24 -10
+4 16 60 24 -10 56 24 -6 56 24 6 60 24 10
+4 16 -40 24 10 -44 24 6 -56 24 6 -60 24 10
+4 16 -60 24 10 -56 24 6 -56 24 -6 -60 24 -10
+4 16 -60 24 -10 -56 24 -6 -44 24 -6 -40 24 -10
+4 16 -40 24 -10 -44 24 -6 -44 24 6 -40 24 10
+4 16 -40 24 10 -40 20 6 -40 20 -6 -40 24 -10
+4 16 40 24 -10 40 20 -6 40 20 6 40 24 10
+4 16 60 24 10 40 24 10 40 20 10 60 0 10
+4 16 -60 0 10 -40 20 10 -40 24 10 -60 24 10
+
+2 24 40 24 -10 40 20 -10
+2 24 40 24 10 40 20 10
+2 24 -40 24 10 -40 20 10
+2 24 -40 24 -10 -40 20 -10
+2 24 -40 20 -6 -40 20 -10
+2 24 40 20 -6 40 20 -10
+2 24 40 20 6 40 20 10
+2 24 -40 20 6 -40 20 10
+2 24 40 24 10 60 24 10
+2 24 60 24 -10 40 24 -10
+2 24 -40 24 10 -60 24 10
+2 24 -60 24 -10 -40 24 -10
+2 24 40 24 10 40 24 -10
+2 24 -40 24 10 -40 24 -10
+0 NOFILE
+0 FILE parts/92950.dat
+0 Arch  1 x  6 Raised
+0 Name: 92950.dat
+0 Author: Alex Taylor [anathema]
+0 !LDRAW_ORG Part UPDATE 2024-05
+0 !LICENSE Licensed under CC BY 4.0 : see CAreadme.txt
+
+0 BFC CERTIFY CCW
+
+0 !HISTORY 2010-12-31 [PTadmin] Official Update 2010-03
+0 !HISTORY 2021-03-19 [UR] Corrected Elevation of the Inner Arch
+0 !HISTORY 2022-01-14 [PTadmin] Official Update 2022-01
+0 !HISTORY 2023-09-04 [Cheenzo] Subfiled for pattern
+0 !HISTORY 2024-06-30 [OrionP] Official Update 2024-05
+
+1 16 0 0 0 1 0 0 0 1 0 0 0 1 parts/s/92950s01.dat
+3 16 -34.436 16.468 -10 -28.284 13.49 -10 -60 0 -10
+3 16 -40 20 -10 -34.436 16.468 -10 -60 0 -10
+3 16 -21.648 11.117 -10 -14.64 9.396 -10 -60 0 -10
+3 16 -28.284 13.49 -10 -21.648 11.117 -10 -60 0 -10
+3 16 -14.64 9.396 -10 -7.384 8.348 -10 -60 0 -10
+3 16 60 0 -10 34.436 16.468 -10 40 20 -10
+3 16 28.284 13.49 -10 34.436 16.468 -10 60 0 -10
+3 16 21.648 11.117 -10 28.284 13.49 -10 60 0 -10
+3 16 14.64 9.396 -10 21.648 11.117 -10 60 0 -10
+3 16 7.384 8.348 -10 14.64 9.396 -10 60 0 -10
+3 16 7.384 8.348 -10 60 0 -10 0 8 -10
+4 16 -7.384 8.348 -10 0 8 -10 60 0 -10 -60 0 -10
+4 16 -60 24 -10 -40 24 -10 -40 20 -10 -60 0 -10
+4 16 60 0 -10 40 20 -10 40 24 -10 60 24 -10
+0 NOFILE

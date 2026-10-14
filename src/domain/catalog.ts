@@ -159,14 +159,16 @@ for (const profile of BUILDER_PARTS) {
   }
   const size = profile.bodySize ?? [
     profile.mesh.bounds[3] - profile.mesh.bounds[0],
-    Math.max(0.1, Math.abs(profile.centerLdu[1]) / 10),
+    profile.centerLdu[1]
+      ? Math.max(0.1, Math.abs(profile.centerLdu[1]) / 10)
+      : profile.mesh.bounds[4] - profile.mesh.bounds[1],
     profile.mesh.bounds[5] - profile.mesh.bounds[2],
   ];
   const category = profile.category.startsWith("Technic")
     ? "Technic"
     : profile.tags.includes("Plants & flowers")
       ? "Plant"
-      : ["Brick", "Plate", "Tile", "Slope", "Arch", "Window"].includes(
+      : ["Brick", "Plate", "Tile", "Slope", "Arch", "Window", "Panel", "Wedge"].includes(
             profile.category,
           )
         ? profile.category

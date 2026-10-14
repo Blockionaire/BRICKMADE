@@ -43,6 +43,26 @@ export interface BuilderPart {
     meshSha256: string;
     method: string;
   };
+  batch?: "core" | "expansion";
+  admission?: {
+    status:
+      "candidate" | "legacy-reviewed" | "connection-tested" | "geometry-only";
+    physicalStatus: "untested";
+    acceptedPorts?: number;
+    rejectedPorts?: number;
+    witnesses?: number;
+    resolutionMillimetres?: number;
+  };
+  rejectedPorts?: Connector[];
+  portAudit?: {
+    connectorId: string;
+    status: "passed" | "rejected";
+    reason: string;
+    witnesses: number;
+    resolutionMillimetres: number;
+    referenceParts: string[];
+    twists: number[];
+  }[];
   connectors: Connector[];
   coverage: "partial" | "stud-system";
   unknownMechanisms: string[];

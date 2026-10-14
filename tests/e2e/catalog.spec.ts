@@ -127,7 +127,7 @@ test("library filters, source attribution, non-preview records, and responsive l
     .click();
   await expect(
     page.locator(".library-results-grid .library-part-card"),
-  ).toHaveCount(manifest.previewCount);
+  ).toHaveCount(Math.min(48, manifest.previewCount));
   await expect(page.locator(".library-attribution")).toContainText("CC BY 4.0");
   await expect(
     page.getByRole("link", { name: "Catalog database" }),

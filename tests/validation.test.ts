@@ -215,7 +215,7 @@ from pathlib import Path
 parts={p['id']:p for p in json.loads(Path('public/catalog/builder-parts.json').read_text())['parts']}
 db=sqlite3.connect('public/catalog/brickmade.sqlite')
 rows=db.execute('SELECT ldraw_id,profile_json FROM builder_parts').fetchall()
-assert len(rows)==47
+assert len(rows)==327
 for ident,profile in rows:
  p=json.loads(profile)
  assert p==parts[ident],ident

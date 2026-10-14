@@ -1,0 +1,4714 @@
+{
+  "schemaVersion": 1,
+  "batch": "builder-expansion-2026-10-14",
+  "sourceRevision": "2026-09",
+  "status": "shortlist; ports require geometric witnesses before admission",
+  "entries": [
+    {
+      "rebrickableId": "87087",
+      "ldrawId": "87087",
+      "ldrawName": "Brick 1 x 1 with Stud on 1 Side",
+      "rebrickableName": "Brick Special 1 x 1 with Stud on 1 Side",
+      "category": "Brick",
+      "selectionEvidence": "matching source identity and footprint; undecorated official part; historical inventory frequency",
+      "inventoryLotCount": 4290,
+      "grid": null,
+      "centerLdu": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "rebrickableId": "3008",
+      "ldrawId": "3008",
+      "ldrawName": "Brick 1 x 8",
+      "rebrickableName": "Brick 1 x 8",
+      "category": "Brick",
+      "selectionEvidence": "matching source identity and footprint; undecorated official part; historical inventory frequency",
+      "inventoryLotCount": 3662,
+      "grid": [
+        8,
+        1,
+        24
+      ],
+      "centerLdu": [
+        0,
+        12.0,
+        0
+      ]
+    },
+    {
+      "rebrickableId": "11211",
+      "ldrawId": "11211",
+      "ldrawName": "Brick 1 x 2 with Two Studs on One Side",
+      "rebrickableName": "Brick Special 1 x 2 with 2 Studs on 1 Side",
+      "category": "Brick",
+      "selectionEvidence": "matching source identity and footprint; undecorated official part; historical inventory frequency",
+      "inventoryLotCount": 3655,
+      "grid": null,
+      "centerLdu": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "rebrickableId": "2357",
+      "ldrawId": "2357",
+      "ldrawName": "Brick 2 x 2 Corner",
+      "rebrickableName": "Brick 2 x 2 Corner",
+      "category": "Brick",
+      "selectionEvidence": "matching source identity and footprint; undecorated official part; historical inventory frequency",
+      "inventoryLotCount": 3623,
+      "grid": null,
+      "centerLdu": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "rebrickableId": "6091",
+      "ldrawId": "6091",
+      "ldrawName": "Brick 2 x 1 x 1.333 with Curved Top",
+      "rebrickableName": "Brick Curved 1 x 2 x 1 1/3 with Curved Top",
+      "category": "Brick",
+      "selectionEvidence": "matching source identity and footprint; undecorated official part; historical inventory frequency",
+      "inventoryLotCount": 3265,
+      "grid": null,
+      "centerLdu": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "rebrickableId": "30414",
+      "ldrawId": "30414",
+      "ldrawName": "Brick 1 x 4 with Studs on Side",
+      "rebrickableName": "Brick Special 1 x 4 with 4 Studs on One Side",
+      "category": "Brick",
+      "selectionEvidence": "matching source identity and footprint; undecorated official part; historical inventory frequency",
+      "inventoryLotCount": 2635,
+      "grid": null,
+      "centerLdu": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "rebrickableId": "30136",
+      "ldrawId": "30136",
+      "ldrawName": "Brick 1 x 2 Log",
+      "rebrickableName": "Brick Special 1 x 2 Palisade [aka Log]",
+      "category": "Brick",
+      "selectionEvidence": "matching source identity and footprint; undecorated official part; historical inventory frequency",
+      "inventoryLotCount": 2615,
+      "grid": null,
+      "centerLdu": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "rebrickableId": "22885",
+      "ldrawId": "22885",
+      "ldrawName": "Brick 1 x 2 x 1.667 with Studs on 1 Side",
+      "rebrickableName": "Brick Special 1 x 2 x 1 2/3 with 4 Studs on 1 Side",
+      "category": "Brick",
+      "selectionEvidence": "matching source identity and footprint; undecorated official part; historical inventory frequency",
+      "inventoryLotCount": 2050,
+      "grid": null,
+      "centerLdu": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "rebrickableId": "3007",
+      "ldrawId": "3007",
+      "ldrawName": "Brick 2 x 8",
+      "rebrickableName": "Brick 2 x 8",
+      "category": "Brick",
+      "selectionEvidence": "matching source identity and footprint; undecorated official part; historical inventory frequency",
+      "inventoryLotCount": 1983,
+      "grid": [
+        8,
+        2,
+        24
+      ],
+      "centerLdu": [
+        0,
+        12.0,
+        0
+      ]
+    },
+    {
+      "rebrickableId": "96874",
+      "ldrawId": "96874",
+      "ldrawName": "Brick Separator with Top Axle",
+      "rebrickableName": "Brick and Axle Separator v2.0",
+      "category": "Brick",
+      "selectionEvidence": "matching source identity and footprint; undecorated official part; historical inventory frequency",
+      "inventoryLotCount": 1918,
+      "grid": null,
+      "centerLdu": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "rebrickableId": "2877",
+      "ldrawId": "2877",
+      "ldrawName": "Brick 1 x 2 with Grille",
+      "rebrickableName": "Brick Special 1 x 2 with Grille",
+      "category": "Brick",
+      "selectionEvidence": "matching source identity and footprint; undecorated official part; historical inventory frequency",
+      "inventoryLotCount": 1855,
+      "grid": null,
+      "centerLdu": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "rebrickableId": "32952",
+      "ldrawId": "32952",
+      "ldrawName": "Brick 1 x 1 x 1.667 with Studs on 1 Side",
+      "rebrickableName": "Brick Special 1 x 1 x 1 2/3 with Studs on 1 Side",
+      "category": "Brick",
+      "selectionEvidence": "matching source identity and footprint; undecorated official part; historical inventory frequency",
+      "inventoryLotCount": 1828,
+      "grid": null,
+      "centerLdu": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "rebrickableId": "3245c",
+      "ldrawId": "3245c",
+      "ldrawName": "Brick 1 x 2 x 2 without Understud",
+      "rebrickableName": "Brick 1 x 2 x 2 with Inside Stud Holder",
+      "category": "Brick",
+      "selectionEvidence": "matching source identity and footprint; undecorated official part; historical inventory frequency",
+      "inventoryLotCount": 1808,
+      "grid": null,
+      "centerLdu": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "rebrickableId": "3065",
+      "ldrawId": "3065",
+      "ldrawName": "Brick 1 x 2 without Centre Stud",
+      "rebrickableName": "Brick 1 x 2 without Bottom Tube",
+      "category": "Brick",
+      "selectionEvidence": "matching source identity and footprint; undecorated official part; historical inventory frequency",
+      "inventoryLotCount": 1522,
+      "grid": null,
+      "centerLdu": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "rebrickableId": "49307",
+      "ldrawId": "49307",
+      "ldrawName": "Brick 1 x 1 x 0.667 with Curved Top",
+      "rebrickableName": "Brick Curved 1 x 1 x 2/3 Double Curved Top, No Studs",
+      "category": "Brick",
+      "selectionEvidence": "matching source identity and footprint; undecorated official part; historical inventory frequency",
+      "inventoryLotCount": 1435,
+      "grid": null,
+      "centerLdu": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "rebrickableId": "4733",
+      "ldrawId": "4733",
+      "ldrawName": "Brick 1 x 1 with Studs on Four Sides",
+      "rebrickableName": "Brick Special 1 x 1 Studs on 4 Sides",
+      "category": "Brick",
+      "selectionEvidence": "matching source identity and footprint; undecorated official part; historical inventory frequency",
+      "inventoryLotCount": 1417,
+      "grid": null,
+      "centerLdu": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "rebrickableId": "37352",
+      "ldrawId": "37352",
+      "ldrawName": "Brick 1 x 2 with Curved Top",
+      "rebrickableName": "Brick Curved 1 x 2 x 1 No Studs",
+      "category": "Brick",
+      "selectionEvidence": "matching source identity and footprint; undecorated official part; historical inventory frequency",
+      "inventoryLotCount": 1354,
+      "grid": null,
+      "centerLdu": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "rebrickableId": "6111",
+      "ldrawId": "6111",
+      "ldrawName": "Brick 1 x 10",
+      "rebrickableName": "Brick 1 x 10",
+      "category": "Brick",
+      "selectionEvidence": "matching source identity and footprint; undecorated official part; historical inventory frequency",
+      "inventoryLotCount": 1213,
+      "grid": [
+        10,
+        1,
+        24
+      ],
+      "centerLdu": [
+        0,
+        12.0,
+        0
+      ]
+    },
+    {
+      "rebrickableId": "60475b",
+      "ldrawId": "60475b",
+      "ldrawName": "Brick 1 x 1 with Clip Vertical (Thick C-Clip) and Hollow Stud",
+      "rebrickableName": "Brick Special 1 x 1 with Clip Vertical [Open O Clip, Hollow Stud]",
+      "category": "Brick",
+      "selectionEvidence": "matching source identity and footprint; undecorated official part; historical inventory frequency",
+      "inventoryLotCount": 1180,
+      "grid": null,
+      "centerLdu": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "rebrickableId": "98283",
+      "ldrawId": "98283",
+      "ldrawName": "Brick 1 x 2 with Embossed Bricks",
+      "rebrickableName": "Brick Special 1 x 2 with Masonry Brick Profile",
+      "category": "Brick",
+      "selectionEvidence": "matching source identity and footprint; undecorated official part; historical inventory frequency",
+      "inventoryLotCount": 1145,
+      "grid": null,
+      "centerLdu": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "rebrickableId": "14716",
+      "ldrawId": "14716",
+      "ldrawName": "Brick 1 x 1 x 3",
+      "rebrickableName": "Brick 1 x 1 x 3",
+      "category": "Brick",
+      "selectionEvidence": "matching source identity and footprint; undecorated official part; historical inventory frequency",
+      "inventoryLotCount": 1072,
+      "grid": [
+        1,
+        1,
+        72
+      ],
+      "centerLdu": [
+        0,
+        36.0,
+        0
+      ]
+    },
+    {
+      "rebrickableId": "47905",
+      "ldrawId": "47905",
+      "ldrawName": "Brick 1 x 1 with Studs on Two Opposite Sides",
+      "rebrickableName": "Brick Special 1 x 1 with Studs on 2 Sides",
+      "category": "Brick",
+      "selectionEvidence": "matching source identity and footprint; undecorated official part; historical inventory frequency",
+      "inventoryLotCount": 993,
+      "grid": null,
+      "centerLdu": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "rebrickableId": "3006",
+      "ldrawId": "3006",
+      "ldrawName": "Brick 2 x 10",
+      "rebrickableName": "Brick 2 x 10",
+      "category": "Brick",
+      "selectionEvidence": "matching source identity and footprint; undecorated official part; historical inventory frequency",
+      "inventoryLotCount": 942,
+      "grid": [
+        10,
+        2,
+        24
+      ],
+      "centerLdu": [
+        0,
+        12.0,
+        0
+      ]
+    },
+    {
+      "rebrickableId": "26604",
+      "ldrawId": "26604",
+      "ldrawName": "Brick 1 x 1 with Studs on Two Adjacent Sides",
+      "rebrickableName": "Brick Special 1 x 1 with Studs on 2 Adjacent Sides",
+      "category": "Brick",
+      "selectionEvidence": "matching source identity and footprint; undecorated official part; historical inventory frequency",
+      "inventoryLotCount": 893,
+      "grid": null,
+      "centerLdu": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "rebrickableId": "92947",
+      "ldrawId": "92947",
+      "ldrawName": "Brick 2 x 2 Round with Grille",
+      "rebrickableName": "Brick Round 2 x 2 [Grill]",
+      "category": "Brick",
+      "selectionEvidence": "matching source identity and footprint; undecorated official part; historical inventory frequency",
+      "inventoryLotCount": 890,
+      "grid": null,
+      "centerLdu": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "rebrickableId": "52107",
+      "ldrawId": "52107",
+      "ldrawName": "Brick 1 x 2 with Studs on Sides",
+      "rebrickableName": "Brick Special 1 x 2 with Studs on 2 Sides",
+      "category": "Brick",
+      "selectionEvidence": "matching source identity and footprint; undecorated official part; historical inventory frequency",
+      "inventoryLotCount": 855,
+      "grid": null,
+      "centerLdu": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "rebrickableId": "2458",
+      "ldrawId": "2458",
+      "ldrawName": "Brick 1 x 2 with Pin",
+      "rebrickableName": "Brick Special 1 x 2 with Pin",
+      "category": "Brick",
+      "selectionEvidence": "matching source identity and footprint; undecorated official part; historical inventory frequency",
+      "inventoryLotCount": 841,
+      "grid": null,
+      "centerLdu": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "rebrickableId": "2454b",
+      "ldrawId": "2454b",
+      "ldrawName": "Brick 1 x 2 x 5 with Blocked Open Studs and Symmetric Inner Ridges",
+      "rebrickableName": "Brick 1 x 2 x 5 with Hollow Studs",
+      "category": "Brick",
+      "selectionEvidence": "matching source identity and footprint; undecorated official part; historical inventory frequency",
+      "inventoryLotCount": 828,
+      "grid": null,
+      "centerLdu": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "rebrickableId": "2453b",
+      "ldrawId": "2453b",
+      "ldrawName": "Brick 1 x 1 x 5 with Solid Stud",
+      "rebrickableName": "Brick 1 x 1 x 5 with Solid Stud",
+      "category": "Brick",
+      "selectionEvidence": "matching source identity and footprint; undecorated official part; historical inventory frequency",
+      "inventoryLotCount": 827,
+      "grid": null,
+      "centerLdu": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "rebrickableId": "85080",
+      "ldrawId": "85080",
+      "ldrawName": "Brick 2 x 2 Corner Round with Stud Notch and Reinforced Underside",
+      "rebrickableName": "Brick Round Corner 2 x 2 Macaroni with Stud Notch and Reinforced Underside [New Style]",
+      "category": "Brick",
+      "selectionEvidence": "matching source identity and footprint; undecorated official part; historical inventory frequency",
+      "inventoryLotCount": 809,
+      "grid": null,
+      "centerLdu": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "rebrickableId": "6232",
+      "ldrawId": "6232",
+      "ldrawName": "Brick 2 x 2 with Pin and Axlehole",
+      "rebrickableName": "Brick Special 2 x 2 with Pin and Axle Hole",
+      "category": "Brick",
+      "selectionEvidence": "matching source identity and footprint; undecorated official part; historical inventory frequency",
+      "inventoryLotCount": 737,
+      "grid": null,
+      "centerLdu": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "rebrickableId": "2921",
+      "ldrawId": "2921",
+      "ldrawName": "Brick 1 x 1 with Handle",
+      "rebrickableName": "Brick Special 1 x 1 with Handle",
+      "category": "Brick",
+      "selectionEvidence": "matching source identity and footprint; undecorated official part; historical inventory frequency",
+      "inventoryLotCount": 708,
+      "grid": null,
+      "centerLdu": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "rebrickableId": "87620",
+      "ldrawId": "87620",
+      "ldrawName": "Brick 2 x 2 Facet",
+      "rebrickableName": "Brick Wedged 2 x 2 Facet",
+      "category": "Brick",
+      "selectionEvidence": "matching source identity and footprint; undecorated official part; historical inventory frequency",
+      "inventoryLotCount": 658,
+      "grid": null,
+      "centerLdu": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "rebrickableId": "6215",
+      "ldrawId": "6215",
+      "ldrawName": "Brick 2 x 3 with Curved Top",
+      "rebrickableName": "Brick Curved 2 x 3",
+      "category": "Brick",
+      "selectionEvidence": "matching source identity and footprint; undecorated official part; historical inventory frequency",
+      "inventoryLotCount": 606,
+      "grid": null,
+      "centerLdu": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "rebrickableId": "30236",
+      "ldrawId": "30236",
+      "ldrawName": "Brick 1 x 2 with Handle",
+      "rebrickableName": "Brick Special 1 x 2 with Handle",
+      "category": "Brick",
+      "selectionEvidence": "matching source identity and footprint; undecorated official part; historical inventory frequency",
+      "inventoryLotCount": 591,
+      "grid": null,
+      "centerLdu": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "rebrickableId": "67329",
+      "ldrawId": "67329",
+      "ldrawName": "Brick 1 x 2 x 1.667 with 8 Studs on 3 Sides",
+      "rebrickableName": "Brick Special 1 x 2 x 1 2/3 with 8 Studs on 3 Sides",
+      "category": "Brick",
+      "selectionEvidence": "matching source identity and footprint; undecorated official part; historical inventory frequency",
+      "inventoryLotCount": 576,
+      "grid": null,
+      "centerLdu": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "rebrickableId": "2454a",
+      "ldrawId": "2454a",
+      "ldrawName": "Brick 1 x 2 x 5 with Hollow Studs and Asymmetric Inner Ridges",
+      "rebrickableName": "Brick 1 x 2 x 5 with Blocked Open Studs and Bottom Stud Holder with Asymmetric Ridges",
+      "category": "Brick",
+      "selectionEvidence": "matching source identity and footprint; undecorated official part; historical inventory frequency",
+      "inventoryLotCount": 568,
+      "grid": null,
+      "centerLdu": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "rebrickableId": "30165",
+      "ldrawId": "30165",
+      "ldrawName": "Brick 2 x 2 with Curved Top and 2 Studs on Top",
+      "rebrickableName": "Brick Curved 2 x 2, Two Top Studs",
+      "category": "Brick",
+      "selectionEvidence": "matching source identity and footprint; undecorated official part; historical inventory frequency",
+      "inventoryLotCount": 560,
+      "grid": null,
+      "centerLdu": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "rebrickableId": "48092",
+      "ldrawId": "48092",
+      "ldrawName": "Brick 4 x 4 Corner Round",
+      "rebrickableName": "Brick Round Corner 4 x 4 Macaroni Wide with 3 Studs",
+      "category": "Brick",
+      "selectionEvidence": "matching source identity and footprint; undecorated official part; historical inventory frequency",
+      "inventoryLotCount": 551,
+      "grid": null,
+      "centerLdu": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "rebrickableId": "87081",
+      "ldrawId": "87081",
+      "ldrawName": "Brick 4 x 4 Round with Pinhole and Snapstud",
+      "rebrickableName": "Brick Round 4 x 4 Centre Hole",
+      "category": "Brick",
+      "selectionEvidence": "matching source identity and footprint; undecorated official part; historical inventory frequency",
+      "inventoryLotCount": 542,
+      "grid": null,
+      "centerLdu": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "rebrickableId": "2653",
+      "ldrawId": "2653",
+      "ldrawName": "Brick 1 x 4 with Groove",
+      "rebrickableName": "Brick Special 1 x 4 with Groove",
+      "category": "Brick",
+      "selectionEvidence": "matching source identity and footprint; undecorated official part; historical inventory frequency",
+      "inventoryLotCount": 506,
+      "grid": [
+        4,
+        1,
+        24
+      ],
+      "centerLdu": [
+        0,
+        12.0,
+        0
+      ]
+    },
+    {
+      "rebrickableId": "86876",
+      "ldrawId": "86876",
+      "ldrawName": "Brick 1 x 2 with Centred Stud on Long Side",
+      "rebrickableName": "Brick Special 1 x 2 with 1 Center Stud on 1 Side, Bottom Stud Holder",
+      "category": "Brick",
+      "selectionEvidence": "matching source identity and footprint; undecorated official part; historical inventory frequency",
+      "inventoryLotCount": 500,
+      "grid": null,
+      "centerLdu": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "rebrickableId": "3062a",
+      "ldrawId": "3062a",
+      "ldrawName": "Brick 1 x 1 Round with Solid Stud",
+      "rebrickableName": "Brick Round 1 x 1 Solid Stud",
+      "category": "Brick",
+      "selectionEvidence": "matching source identity and footprint; undecorated official part; historical inventory frequency",
+      "inventoryLotCount": 499,
+      "grid": null,
+      "centerLdu": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "rebrickableId": "30137",
+      "ldrawId": "30137",
+      "ldrawName": "Brick 1 x 4 Log",
+      "rebrickableName": "Brick Special 1 x 4 Palisade [aka Log]",
+      "category": "Brick",
+      "selectionEvidence": "matching source identity and footprint; undecorated official part; historical inventory frequency",
+      "inventoryLotCount": 454,
+      "grid": null,
+      "centerLdu": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "rebrickableId": "4595",
+      "ldrawId": "4595",
+      "ldrawName": "Brick 1 x 2 x 0.667 with Studs on Sides",
+      "rebrickableName": "Brick Special 1 x 2 x 2/3 with Studs on Sides",
+      "category": "Brick",
+      "selectionEvidence": "matching source identity and footprint; undecorated official part; historical inventory frequency",
+      "inventoryLotCount": 453,
+      "grid": null,
+      "centerLdu": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "rebrickableId": "3021",
+      "ldrawId": "3021",
+      "ldrawName": "Plate 2 x 3",
+      "rebrickableName": "Plate 2 x 3",
+      "category": "Plate",
+      "selectionEvidence": "matching source identity and footprint; undecorated official part; historical inventory frequency",
+      "inventoryLotCount": 13200,
+      "grid": [
+        3,
+        2,
+        8
+      ],
+      "centerLdu": [
+        0,
+        4.0,
+        0
+      ]
+    },
+    {
+      "rebrickableId": "85861",
+      "ldrawId": "85861",
+      "ldrawName": "Plate 1 x 1 Round with Open Stud",
+      "rebrickableName": "Plate Round 1 x 1 with Open Stud",
+      "category": "Plate",
+      "selectionEvidence": "matching source identity and footprint; undecorated official part; historical inventory frequency",
+      "inventoryLotCount": 8239,
+      "grid": null,
+      "centerLdu": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "rebrickableId": "15573",
+      "ldrawId": "15573",
+      "ldrawName": "Plate 1 x 2 with Groove with 1 Centre Stud, without Understud",
+      "rebrickableName": "Plate Special 1 x 2 with 1 Stud with Groove and Inside Stud Holder (Jumper)",
+      "category": "Plate",
+      "selectionEvidence": "matching source identity and footprint; undecorated official part; historical inventory frequency",
+      "inventoryLotCount": 8173,
+      "grid": null,
+      "centerLdu": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "rebrickableId": "2420",
+      "ldrawId": "2420",
+      "ldrawName": "Plate 2 x 2 Corner",
+      "rebrickableName": "Plate 2 x 2 Corner",
+      "category": "Plate",
+      "selectionEvidence": "matching source identity and footprint; undecorated official part; historical inventory frequency",
+      "inventoryLotCount": 7126,
+      "grid": null,
+      "centerLdu": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "rebrickableId": "87580",
+      "ldrawId": "87580",
+      "ldrawName": "Plate 2 x 2 with Groove with 1 Centre Stud",
+      "rebrickableName": "Plate Special 2 x 2 with Groove and Center Stud (Jumper)",
+      "category": "Plate",
+      "selectionEvidence": "matching source identity and footprint; undecorated official part; historical inventory frequency",
+      "inventoryLotCount": 5685,
+      "grid": null,
+      "centerLdu": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "rebrickableId": "3032",
+      "ldrawId": "3032",
+      "ldrawName": "Plate 4 x 6",
+      "rebrickableName": "Plate 4 x 6",
+      "category": "Plate",
+      "selectionEvidence": "matching source identity and footprint; undecorated official part; historical inventory frequency",
+      "inventoryLotCount": 4718,
+      "grid": [
+        6,
+        4,
+        8
+      ],
+      "centerLdu": [
+        0,
+        4.0,
+        0
+      ]
+    },
+    {
+      "rebrickableId": "35480",
+      "ldrawId": "35480",
+      "ldrawName": "Plate 1 x 2 with Round Ends and 2 Open Studs",
+      "rebrickableName": "Plate Special 1 x 2 Rounded with 2 Open Studs",
+      "category": "Plate",
+      "selectionEvidence": "matching source identity and footprint; undecorated official part; historical inventory frequency",
+      "inventoryLotCount": 3893,
+      "grid": null,
+      "centerLdu": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "rebrickableId": "4477",
+      "ldrawId": "4477",
+      "ldrawName": "Plate 1 x 10",
+      "rebrickableName": "Plate 1 x 10",
+      "category": "Plate",
+      "selectionEvidence": "matching source identity and footprint; undecorated official part; historical inventory frequency",
+      "inventoryLotCount": 3541,
+      "grid": [
+        10,
+        1,
+        8
+      ],
+      "centerLdu": [
+        0,
+        4.0,
+        0
+      ]
+    },
+    {
+      "rebrickableId": "3832",
+      "ldrawId": "3832",
+      "ldrawName": "Plate 2 x 10",
+      "rebrickableName": "Plate 2 x 10",
+      "category": "Plate",
+      "selectionEvidence": "matching source identity and footprint; undecorated official part; historical inventory frequency",
+      "inventoryLotCount": 3540,
+      "grid": [
+        10,
+        2,
+        8
+      ],
+      "centerLdu": [
+        0,
+        4.0,
+        0
+      ]
+    },
+    {
+      "rebrickableId": "48336",
+      "ldrawId": "48336",
+      "ldrawName": "Plate 1 x 2 with Handle Type 2",
+      "rebrickableName": "Plate Special 1 x 2 [Side Handle Closed Ends]",
+      "category": "Plate",
+      "selectionEvidence": "matching source identity and footprint; undecorated official part; historical inventory frequency",
+      "inventoryLotCount": 3343,
+      "grid": null,
+      "centerLdu": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "rebrickableId": "2540",
+      "ldrawId": "2540",
+      "ldrawName": "Plate 1 x 2 with Handle",
+      "rebrickableName": "Plate Special 1 x 2 Side Handle [Free Ends]",
+      "category": "Plate",
+      "selectionEvidence": "matching source identity and footprint; undecorated official part; historical inventory frequency",
+      "inventoryLotCount": 3289,
+      "grid": null,
+      "centerLdu": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "rebrickableId": "18674",
+      "ldrawId": "18674",
+      "ldrawName": "Plate 2 x 2 Round with 1 Centre Stud",
+      "rebrickableName": "Plate Special Round 2 x 2 with Center Stud (Jumper Plate)",
+      "category": "Plate",
+      "selectionEvidence": "matching source identity and footprint; undecorated official part; historical inventory frequency",
+      "inventoryLotCount": 3044,
+      "grid": null,
+      "centerLdu": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "rebrickableId": "32028",
+      "ldrawId": "32028",
+      "ldrawName": "Plate 1 x 2 with Door Rail",
+      "rebrickableName": "Plate Special 1 x 2 with Door Rail",
+      "category": "Plate",
+      "selectionEvidence": "matching source identity and footprint; undecorated official part; historical inventory frequency",
+      "inventoryLotCount": 2971,
+      "grid": null,
+      "centerLdu": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "rebrickableId": "32828",
+      "ldrawId": "32828",
+      "ldrawName": "Plate 1 x 1 Round with Bar",
+      "rebrickableName": "Plate Special Round 1 x 1 with Hollow Stud and Horizontal Bar 1L",
+      "category": "Plate",
+      "selectionEvidence": "matching source identity and footprint; undecorated official part; historical inventory frequency",
+      "inventoryLotCount": 2826,
+      "grid": null,
+      "centerLdu": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "rebrickableId": "33909",
+      "ldrawId": "33909",
+      "ldrawName": "Plate 2 x 2 with 2 Studs on One Edge",
+      "rebrickableName": "Plate Special 2 x 2 with Only 2 studs",
+      "category": "Plate",
+      "selectionEvidence": "matching source identity and footprint; undecorated official part; historical inventory frequency",
+      "inventoryLotCount": 2825,
+      "grid": null,
+      "centerLdu": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "rebrickableId": "60478",
+      "ldrawId": "60478",
+      "ldrawName": "Plate 1 x 2 with Handle on End",
+      "rebrickableName": "Plate Special 1 x 2 with Handle on End [Closed Ends]",
+      "category": "Plate",
+      "selectionEvidence": "matching source identity and footprint; undecorated official part; historical inventory frequency",
+      "inventoryLotCount": 2819,
+      "grid": null,
+      "centerLdu": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "rebrickableId": "60897",
+      "ldrawId": "60897",
+      "ldrawName": "Plate 1 x 1 with Clip Vertical (Thick C-Clip)",
+      "rebrickableName": "Plate Special 1 x 1 with Clip Vertical [Thick Open O Clip]",
+      "category": "Plate",
+      "selectionEvidence": "matching source identity and footprint; undecorated official part; historical inventory frequency",
+      "inventoryLotCount": 2780,
+      "grid": null,
+      "centerLdu": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "rebrickableId": "63868",
+      "ldrawId": "63868",
+      "ldrawName": "Plate 1 x 2 with Clip Horizontal on End (Thick C-Clip)",
+      "rebrickableName": "Plate Special 1 x 2 with Clip Horizontal on End",
+      "category": "Plate",
+      "selectionEvidence": "matching source identity and footprint; undecorated official part; historical inventory frequency",
+      "inventoryLotCount": 2367,
+      "grid": null,
+      "centerLdu": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "rebrickableId": "4081b",
+      "ldrawId": "4081b",
+      "ldrawName": "Plate 1 x 1 with Clip Light Type 2",
+      "rebrickableName": "Plate Special 1 x 1 with Clip Light, Bar Hole [Thick Ring]",
+      "category": "Plate",
+      "selectionEvidence": "matching source identity and footprint; undecorated official part; historical inventory frequency",
+      "inventoryLotCount": 2326,
+      "grid": null,
+      "centerLdu": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "rebrickableId": "61252",
+      "ldrawId": "61252",
+      "ldrawName": "Plate 1 x 1 with Clip Horizontal (Thick C-Clip)",
+      "rebrickableName": "Plate Special 1 x 1 with Clip Horizontal [Thick Open O Clip]",
+      "category": "Plate",
+      "selectionEvidence": "matching source identity and footprint; undecorated official part; historical inventory frequency",
+      "inventoryLotCount": 2252,
+      "grid": null,
+      "centerLdu": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "rebrickableId": "3794a",
+      "ldrawId": "3794a",
+      "ldrawName": "Plate 1 x 2 without Groove with 1 Centre Stud",
+      "rebrickableName": "Plate Special 1 x 2 with 1 Stud without Groove (Jumper)",
+      "category": "Plate",
+      "selectionEvidence": "matching source identity and footprint; undecorated official part; historical inventory frequency",
+      "inventoryLotCount": 2238,
+      "grid": null,
+      "centerLdu": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "rebrickableId": "60474",
+      "ldrawId": "60474",
+      "ldrawName": "Plate 4 x 4 Round with Hole and Snapstud",
+      "rebrickableName": "Plate Round 4 x 4 with Pin Hole",
+      "category": "Plate",
+      "selectionEvidence": "matching source identity and footprint; undecorated official part; historical inventory frequency",
+      "inventoryLotCount": 2229,
+      "grid": null,
+      "centerLdu": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "rebrickableId": "41740",
+      "ldrawId": "41740",
+      "ldrawName": "Plate 1 x 4 with Two Studs and Groove",
+      "rebrickableName": "Plate Special 1 x 4 with 2 Studs with Groove [New Underside]",
+      "category": "Plate",
+      "selectionEvidence": "matching source identity and footprint; undecorated official part; historical inventory frequency",
+      "inventoryLotCount": 2205,
+      "grid": null,
+      "centerLdu": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "rebrickableId": "11476",
+      "ldrawId": "11476",
+      "ldrawName": "Plate 1 x 2 with Clip Horizontal on Side (Thick C-Clip)",
+      "rebrickableName": "Plate Special 1 x 2 with Clip Horizontal on Side",
+      "category": "Plate",
+      "selectionEvidence": "matching source identity and footprint; undecorated official part; historical inventory frequency",
+      "inventoryLotCount": 2047,
+      "grid": null,
+      "centerLdu": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "rebrickableId": "26601",
+      "ldrawId": "26601",
+      "ldrawName": "Plate 2 x 2 without Corner",
+      "rebrickableName": "Wedge Plate 2 x 2 Cut Corner",
+      "category": "Plate",
+      "selectionEvidence": "matching source identity and footprint; undecorated official part; historical inventory frequency",
+      "inventoryLotCount": 1867,
+      "grid": null,
+      "centerLdu": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "rebrickableId": "33291",
+      "ldrawId": "33291",
+      "ldrawName": "Plate 1 x 1 Round with Tabs",
+      "rebrickableName": "Plant, Flower, Plate Round 1 x 1 with 4 Petals",
+      "category": "Plate",
+      "selectionEvidence": "matching source identity and footprint; undecorated official part; historical inventory frequency",
+      "inventoryLotCount": 1679,
+      "grid": null,
+      "centerLdu": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "rebrickableId": "3176",
+      "ldrawId": "3176",
+      "ldrawName": "Plate 3 x 2 with Hole",
+      "rebrickableName": "Plate Special 3 x 2 with Rounded End, Hole",
+      "category": "Plate",
+      "selectionEvidence": "matching source identity and footprint; undecorated official part; historical inventory frequency",
+      "inventoryLotCount": 1667,
+      "grid": null,
+      "centerLdu": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "rebrickableId": "99206",
+      "ldrawId": "99206",
+      "ldrawName": "Plate 2 x 2 x 0.667 with Two Studs On Side and Two Raised with Closed Understud",
+      "rebrickableName": "Plate Special 2 x 2 x 2/3 with Two Studs On Side and Two Raised [Solid Anti-stud]",
+      "category": "Plate",
+      "selectionEvidence": "matching source identity and footprint; undecorated official part; historical inventory frequency",
+      "inventoryLotCount": 1654,
+      "grid": null,
+      "centerLdu": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "rebrickableId": "26047",
+      "ldrawId": "26047",
+      "ldrawName": "Plate 1 x 1 Round with Horizontal Handle on Side",
+      "rebrickableName": "Plate Special 1 x 1 Rounded with Handle",
+      "category": "Plate",
+      "selectionEvidence": "matching source identity and footprint; undecorated official part; historical inventory frequency",
+      "inventoryLotCount": 1639,
+      "grid": null,
+      "centerLdu": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "rebrickableId": "2450",
+      "ldrawId": "2450",
+      "ldrawName": "Plate 3 x 3 without Corner",
+      "rebrickableName": "Wedge Plate 3 x 3 Cut Corner",
+      "category": "Plate",
+      "selectionEvidence": "matching source identity and footprint; undecorated official part; historical inventory frequency",
+      "inventoryLotCount": 1518,
+      "grid": null,
+      "centerLdu": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "rebrickableId": "11212",
+      "ldrawId": "11212",
+      "ldrawName": "Plate 3 x 3",
+      "rebrickableName": "Plate 3 x 3",
+      "category": "Plate",
+      "selectionEvidence": "matching source identity and footprint; undecorated official part; historical inventory frequency",
+      "inventoryLotCount": 1516,
+      "grid": [
+        3,
+        3,
+        8
+      ],
+      "centerLdu": [
+        0,
+        4.0,
+        0
+      ]
+    },
+    {
+      "rebrickableId": "34103",
+      "ldrawId": "34103",
+      "ldrawName": "Plate 1 x 3 with 2 Studs Offset",
+      "rebrickableName": "Plate Special 1 x 3 with 2 Studs with Groove and Inside Stud Holder (Jumper)",
+      "category": "Plate",
+      "selectionEvidence": "matching source identity and footprint; undecorated official part; historical inventory frequency",
+      "inventoryLotCount": 1508,
+      "grid": null,
+      "centerLdu": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "rebrickableId": "30357",
+      "ldrawId": "30357",
+      "ldrawName": "Plate 3 x 3 with 2 x 2 Corner Round",
+      "rebrickableName": "Plate Round Corner 3 x 3",
+      "category": "Plate",
+      "selectionEvidence": "matching source identity and footprint; undecorated official part; historical inventory frequency",
+      "inventoryLotCount": 1359,
+      "grid": null,
+      "centerLdu": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "rebrickableId": "88072",
+      "ldrawId": "88072",
+      "ldrawName": "Plate 1 x 2 with Vertical Bar on Long Side and Short Arm",
+      "rebrickableName": "Plate Special 1 x 2 with Bar Up [Horizontal Arm 5mm]",
+      "category": "Plate",
+      "selectionEvidence": "matching source identity and footprint; undecorated official part; historical inventory frequency",
+      "inventoryLotCount": 1344,
+      "grid": null,
+      "centerLdu": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "rebrickableId": "44861",
+      "ldrawId": "44861",
+      "ldrawName": "Plate 1 x 2 with Single Clip on Top (Thick C-Clip)",
+      "rebrickableName": "Plate Special 1 x 2, Top Clip [Open O]",
+      "category": "Plate",
+      "selectionEvidence": "matching source identity and footprint; undecorated official part; historical inventory frequency",
+      "inventoryLotCount": 1294,
+      "grid": null,
+      "centerLdu": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "rebrickableId": "3794b",
+      "ldrawId": "3794b",
+      "ldrawName": "Plate 1 x 2 with Groove with 1 Centre Stud",
+      "rebrickableName": "Plate Special 1 x 2 with 1 Stud with Groove (Jumper)",
+      "category": "Plate",
+      "selectionEvidence": "matching source identity and footprint; undecorated official part; historical inventory frequency",
+      "inventoryLotCount": 1272,
+      "grid": null,
+      "centerLdu": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "rebrickableId": "11458",
+      "ldrawId": "11458",
+      "ldrawName": "Plate 1 x 2 with Offset Peghole",
+      "rebrickableName": "Plate Special 1 x 2 with Pin Hole on Top",
+      "category": "Plate",
+      "selectionEvidence": "matching source identity and footprint; undecorated official part; historical inventory frequency",
+      "inventoryLotCount": 1268,
+      "grid": null,
+      "centerLdu": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "rebrickableId": "49668",
+      "ldrawId": "49668",
+      "ldrawName": "Plate 1 x 1 with Tooth In-line",
+      "rebrickableName": "Plate Special 1 x 1 with Tooth",
+      "category": "Plate",
+      "selectionEvidence": "matching source identity and footprint; undecorated official part; historical inventory frequency",
+      "inventoryLotCount": 1245,
+      "grid": null,
+      "centerLdu": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "rebrickableId": "65578",
+      "ldrawId": "65578",
+      "ldrawName": "Plate 1 x 1 Round with Angled Bar",
+      "rebrickableName": "Bar, Angled with 1 x 1 Round Plate / Stud on End",
+      "category": "Plate",
+      "selectionEvidence": "matching source identity and footprint; undecorated official part; historical inventory frequency",
+      "inventoryLotCount": 1229,
+      "grid": null,
+      "centerLdu": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "rebrickableId": "30565",
+      "ldrawId": "30565",
+      "ldrawName": "Plate 4 x 4 with Corner Round",
+      "rebrickableName": "Plate Round Corner 4 x 4",
+      "category": "Plate",
+      "selectionEvidence": "matching source identity and footprint; undecorated official part; historical inventory frequency",
+      "inventoryLotCount": 1202,
+      "grid": null,
+      "centerLdu": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "rebrickableId": "4085c",
+      "ldrawId": "4085c",
+      "ldrawName": "Plate 1 x 1 with Clip Vertical (Thick U-Clip)",
+      "rebrickableName": "Plate Special 1 x 1 with Clip Vertical [Thick U Clip]",
+      "category": "Plate",
+      "selectionEvidence": "matching source identity and footprint; undecorated official part; historical inventory frequency",
+      "inventoryLotCount": 1180,
+      "grid": null,
+      "centerLdu": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "rebrickableId": "92280",
+      "ldrawId": "92280",
+      "ldrawName": "Plate 1 x 2 with Single Clip on Top",
+      "rebrickableName": "Plate Special 1 x 2, Top Clip [Split]",
+      "category": "Plate",
+      "selectionEvidence": "matching source identity and footprint; undecorated official part; historical inventory frequency",
+      "inventoryLotCount": 1173,
+      "grid": null,
+      "centerLdu": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "rebrickableId": "2419",
+      "ldrawId": "2419",
+      "ldrawName": "Plate 3 x 6 without Corners",
+      "rebrickableName": "Wedge Plate 3 x 6 Cut Corners",
+      "category": "Plate",
+      "selectionEvidence": "matching source identity and footprint; undecorated official part; historical inventory frequency",
+      "inventoryLotCount": 1159,
+      "grid": null,
+      "centerLdu": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "rebrickableId": "4304",
+      "ldrawId": "4304",
+      "ldrawName": "Plate 2 x 2 x 0.667 with Two Studs On Side and Two Raised with Partial Closed Understud",
+      "rebrickableName": "Plate Special 2 x 2 x 2/3 with Two Studs On Side and Two Raised [Half Hollow Anti-stud] - Updated Version",
+      "category": "Plate",
+      "selectionEvidence": "matching source identity and footprint; undecorated official part; historical inventory frequency",
+      "inventoryLotCount": 1132,
+      "grid": null,
+      "centerLdu": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "rebrickableId": "88646",
+      "ldrawId": "88646",
+      "ldrawName": "Plate 3 x 4 with 4 Studs in Centre",
+      "rebrickableName": "Plate Special 3 x 4 with 1 x 4 Center Studs [Plain]",
+      "category": "Plate",
+      "selectionEvidence": "matching source identity and footprint; undecorated official part; historical inventory frequency",
+      "inventoryLotCount": 1102,
+      "grid": null,
+      "centerLdu": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "rebrickableId": "18980",
+      "ldrawId": "18980",
+      "ldrawName": "Plate 2 x 6 with Two Rounded Corners",
+      "rebrickableName": "Plate Round Corners 2 x 6 Double",
+      "category": "Plate",
+      "selectionEvidence": "matching source identity and footprint; undecorated official part; historical inventory frequency",
+      "inventoryLotCount": 1089,
+      "grid": null,
+      "centerLdu": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "rebrickableId": "92593",
+      "ldrawId": "92593",
+      "ldrawName": "Plate 1 x 4 with Two Studs",
+      "rebrickableName": "Plate Special 1 x 4 with 2 Studs, 3 Bottom Tubes",
+      "category": "Plate",
+      "selectionEvidence": "matching source identity and footprint; undecorated official part; historical inventory frequency",
+      "inventoryLotCount": 1066,
+      "grid": null,
+      "centerLdu": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "rebrickableId": "86996",
+      "ldrawId": "86996",
+      "ldrawName": "Plate 1 x 1 x 0.667",
+      "rebrickableName": "Plate 1 x 1 x 2/3 with Open Stud",
+      "category": "Plate",
+      "selectionEvidence": "matching source identity and footprint; undecorated official part; historical inventory frequency",
+      "inventoryLotCount": 1050,
+      "grid": [
+        1,
+        1,
+        8
+      ],
+      "centerLdu": [
+        0,
+        4.0,
+        0
+      ]
+    },
+    {
+      "rebrickableId": "78329",
+      "ldrawId": "78329",
+      "ldrawName": "Plate 1 x 5",
+      "rebrickableName": "Plate 1 x 5",
+      "category": "Plate",
+      "selectionEvidence": "matching source identity and footprint; undecorated official part; historical inventory frequency",
+      "inventoryLotCount": 1047,
+      "grid": [
+        5,
+        1,
+        8
+      ],
+      "centerLdu": [
+        0,
+        4.0,
+        0
+      ]
+    },
+    {
+      "rebrickableId": "3839b",
+      "ldrawId": "3839b",
+      "ldrawName": "Plate 1 x 2 with Handles Type 2",
+      "rebrickableName": "Plate Special 1 x 2 with Handles [Flat Ends / Low Attachment]",
+      "category": "Plate",
+      "selectionEvidence": "matching source identity and footprint; undecorated official part; historical inventory frequency",
+      "inventoryLotCount": 1030,
+      "grid": null,
+      "centerLdu": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "rebrickableId": "6019",
+      "ldrawId": "6019",
+      "ldrawName": "Plate 1 x 1 with Clip Horizontal (Thick U-Clip)",
+      "rebrickableName": "Plate Special 1 x 1 with Clip Horizontal [Thick U Clip]",
+      "category": "Plate",
+      "selectionEvidence": "matching source identity and footprint; undecorated official part; historical inventory frequency",
+      "inventoryLotCount": 957,
+      "grid": null,
+      "centerLdu": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "rebrickableId": "15470",
+      "ldrawId": "15470",
+      "ldrawName": "Plate 1 x 1 Round with Swirled Top",
+      "rebrickableName": "Plate Round 1 x 1 Swirled Top",
+      "category": "Plate",
+      "selectionEvidence": "matching source identity and footprint; undecorated official part; historical inventory frequency",
+      "inventoryLotCount": 914,
+      "grid": null,
+      "centerLdu": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "rebrickableId": "18677",
+      "ldrawId": "18677",
+      "ldrawName": "Plate 1 x 2 with Offset Peghole on Underside",
+      "rebrickableName": "Plate Special 1 x 2 with Pin Hole Underneath",
+      "category": "Plate",
+      "selectionEvidence": "matching source identity and footprint; undecorated official part; historical inventory frequency",
+      "inventoryLotCount": 896,
+      "grid": null,
+      "centerLdu": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "rebrickableId": "2817",
+      "ldrawId": "2817",
+      "ldrawName": "Plate 2 x 2 with Holes",
+      "rebrickableName": "Plate Special 2 x 2 with 2 Pin Holes",
+      "category": "Plate",
+      "selectionEvidence": "matching source identity and footprint; undecorated official part; historical inventory frequency",
+      "inventoryLotCount": 895,
+      "grid": null,
+      "centerLdu": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "rebrickableId": "6179",
+      "ldrawId": "6179",
+      "ldrawName": "Plate 4 x 4 with 4 Studs on One Edge",
+      "rebrickableName": "Plate Special 4 x 4, Studs on One Edge Plain]",
+      "category": "Plate",
+      "selectionEvidence": "matching source identity and footprint; undecorated official part; historical inventory frequency",
+      "inventoryLotCount": 889,
+      "grid": null,
+      "centerLdu": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "rebrickableId": "3069b",
+      "ldrawId": "3069b",
+      "ldrawName": "Tile 1 x 2 with Groove",
+      "rebrickableName": "Tile 1 x 2 with Groove",
+      "category": "Tile",
+      "selectionEvidence": "matching source identity and footprint; undecorated official part; historical inventory frequency",
+      "inventoryLotCount": 15282,
+      "grid": [
+        2,
+        1,
+        8
+      ],
+      "centerLdu": [
+        0,
+        4.0,
+        0
+      ]
+    },
+    {
+      "rebrickableId": "98138",
+      "ldrawId": "98138",
+      "ldrawName": "Tile 1 x 1 Round with Groove",
+      "rebrickableName": "Tile Round 1 x 1",
+      "category": "Tile",
+      "selectionEvidence": "matching source identity and footprint; undecorated official part; historical inventory frequency",
+      "inventoryLotCount": 13981,
+      "grid": null,
+      "centerLdu": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "rebrickableId": "2431",
+      "ldrawId": "2431",
+      "ldrawName": "Tile 1 x 4 with Groove",
+      "rebrickableName": "Tile 1 x 4 with Groove",
+      "category": "Tile",
+      "selectionEvidence": "matching source identity and footprint; undecorated official part; historical inventory frequency",
+      "inventoryLotCount": 9517,
+      "grid": [
+        4,
+        1,
+        8
+      ],
+      "centerLdu": [
+        0,
+        4.0,
+        0
+      ]
+    },
+    {
+      "rebrickableId": "25269",
+      "ldrawId": "25269",
+      "ldrawName": "Tile 1 x 1 Corner Round",
+      "rebrickableName": "Tile Round 1 x 1 Quarter",
+      "category": "Tile",
+      "selectionEvidence": "matching source identity and footprint; undecorated official part; historical inventory frequency",
+      "inventoryLotCount": 8662,
+      "grid": null,
+      "centerLdu": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "rebrickableId": "2412b",
+      "ldrawId": "2412b",
+      "ldrawName": "Tile 1 x 2 Grille with Groove",
+      "rebrickableName": "Tile Special 1 x 2 Grille with Bottom Groove",
+      "category": "Tile",
+      "selectionEvidence": "matching source identity and footprint; undecorated official part; historical inventory frequency",
+      "inventoryLotCount": 7299,
+      "grid": null,
+      "centerLdu": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "rebrickableId": "87079",
+      "ldrawId": "87079",
+      "ldrawName": "Tile 2 x 4",
+      "rebrickableName": "Tile 2 x 4 with Groove",
+      "category": "Tile",
+      "selectionEvidence": "matching source identity and footprint; undecorated official part; historical inventory frequency",
+      "inventoryLotCount": 5834,
+      "grid": [
+        4,
+        2,
+        8
+      ],
+      "centerLdu": [
+        0,
+        4.0,
+        0
+      ]
+    },
+    {
+      "rebrickableId": "6636",
+      "ldrawId": "6636",
+      "ldrawName": "Tile 1 x 6",
+      "rebrickableName": "Tile 1 x 6 with Groove",
+      "category": "Tile",
+      "selectionEvidence": "matching source identity and footprint; undecorated official part; historical inventory frequency",
+      "inventoryLotCount": 5679,
+      "grid": [
+        6,
+        1,
+        8
+      ],
+      "centerLdu": [
+        0,
+        4.0,
+        0
+      ]
+    },
+    {
+      "rebrickableId": "20482",
+      "ldrawId": "20482",
+      "ldrawName": "Tile 1 x 1 Round with Pin and Pin Hole",
+      "rebrickableName": "Tile Special Round 1 x 1 with Hollow Bar",
+      "category": "Tile",
+      "selectionEvidence": "matching source identity and footprint; undecorated official part; historical inventory frequency",
+      "inventoryLotCount": 5619,
+      "grid": null,
+      "centerLdu": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "rebrickableId": "63864",
+      "ldrawId": "63864",
+      "ldrawName": "Tile 1 x 3",
+      "rebrickableName": "Tile 1 x 3",
+      "category": "Tile",
+      "selectionEvidence": "matching source identity and footprint; undecorated official part; historical inventory frequency",
+      "inventoryLotCount": 4343,
+      "grid": [
+        3,
+        1,
+        8
+      ],
+      "centerLdu": [
+        0,
+        4.0,
+        0
+      ]
+    },
+    {
+      "rebrickableId": "4162",
+      "ldrawId": "4162",
+      "ldrawName": "Tile 1 x 8",
+      "rebrickableName": "Tile 1 x 8 with Groove",
+      "category": "Tile",
+      "selectionEvidence": "matching source identity and footprint; undecorated official part; historical inventory frequency",
+      "inventoryLotCount": 3869,
+      "grid": [
+        8,
+        1,
+        8
+      ],
+      "centerLdu": [
+        0,
+        4.0,
+        0
+      ]
+    },
+    {
+      "rebrickableId": "15712",
+      "ldrawId": "15712",
+      "ldrawName": "Tile 1 x 1 with Clip (Thick C-Clip)",
+      "rebrickableName": "Tile Special 1 x 1 with Clip with Rounded Edges",
+      "category": "Tile",
+      "selectionEvidence": "matching source identity and footprint; undecorated official part; historical inventory frequency",
+      "inventoryLotCount": 3862,
+      "grid": null,
+      "centerLdu": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "rebrickableId": "24246",
+      "ldrawId": "24246",
+      "ldrawName": "Tile 1 x 1 with Rounded End",
+      "rebrickableName": "Tile Round 1 x 1 Half Circle",
+      "category": "Tile",
+      "selectionEvidence": "matching source identity and footprint; undecorated official part; historical inventory frequency",
+      "inventoryLotCount": 3391,
+      "grid": null,
+      "centerLdu": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "rebrickableId": "2432",
+      "ldrawId": "2432",
+      "ldrawName": "Tile 1 x 2 with Handle",
+      "rebrickableName": "Tile Special 1 x 2 with Handle",
+      "category": "Tile",
+      "selectionEvidence": "matching source identity and footprint; undecorated official part; historical inventory frequency",
+      "inventoryLotCount": 2601,
+      "grid": null,
+      "centerLdu": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "rebrickableId": "14769",
+      "ldrawId": "14769",
+      "ldrawName": "Tile 2 x 2 Round with Round Underside Stud",
+      "rebrickableName": "Tile Round 2 x 2 with Bottom Stud Holder",
+      "category": "Tile",
+      "selectionEvidence": "matching source identity and footprint; undecorated official part; historical inventory frequency",
+      "inventoryLotCount": 2586,
+      "grid": null,
+      "centerLdu": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "rebrickableId": "26603",
+      "ldrawId": "26603",
+      "ldrawName": "Tile 2 x 3",
+      "rebrickableName": "Tile 2 x 3",
+      "category": "Tile",
+      "selectionEvidence": "matching source identity and footprint; undecorated official part; historical inventory frequency",
+      "inventoryLotCount": 2324,
+      "grid": [
+        3,
+        2,
+        8
+      ],
+      "centerLdu": [
+        0,
+        4.0,
+        0
+      ]
+    },
+    {
+      "rebrickableId": "27925",
+      "ldrawId": "27925",
+      "ldrawName": "Tile 2 x 2 Corner Round",
+      "rebrickableName": "Tile 2 x 2 Curved, Macaroni",
+      "category": "Tile",
+      "selectionEvidence": "matching source identity and footprint; undecorated official part; historical inventory frequency",
+      "inventoryLotCount": 1862,
+      "grid": null,
+      "centerLdu": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "rebrickableId": "15535",
+      "ldrawId": "15535",
+      "ldrawName": "Tile 2 x 2 Round with Hole",
+      "rebrickableName": "Tile Special Round 2 x 2 with Hole",
+      "category": "Tile",
+      "selectionEvidence": "matching source identity and footprint; undecorated official part; historical inventory frequency",
+      "inventoryLotCount": 1624,
+      "grid": null,
+      "centerLdu": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "rebrickableId": "14719",
+      "ldrawId": "14719",
+      "ldrawName": "Tile 2 x 2 Corner",
+      "rebrickableName": "Tile 2 x 2 Corner",
+      "category": "Tile",
+      "selectionEvidence": "matching source identity and footprint; undecorated official part; historical inventory frequency",
+      "inventoryLotCount": 1504,
+      "grid": null,
+      "centerLdu": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "rebrickableId": "1748",
+      "ldrawId": "1748",
+      "ldrawName": "Tile 1 x 2 Half Round",
+      "rebrickableName": "Tile Round 1 x 2 Half Circle",
+      "category": "Tile",
+      "selectionEvidence": "matching source identity and footprint; undecorated official part; historical inventory frequency",
+      "inventoryLotCount": 1331,
+      "grid": null,
+      "centerLdu": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "rebrickableId": "35787",
+      "ldrawId": "35787",
+      "ldrawName": "Tile 2 x 2 Triangular",
+      "rebrickableName": "Tile 45\u00b0 Cut 2 x 2 (Triangle)",
+      "category": "Tile",
+      "selectionEvidence": "matching source identity and footprint; undecorated official part; historical inventory frequency",
+      "inventoryLotCount": 1153,
+      "grid": null,
+      "centerLdu": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "rebrickableId": "69729",
+      "ldrawId": "69729",
+      "ldrawName": "Tile 2 x 6",
+      "rebrickableName": "Tile 2 x 6",
+      "category": "Tile",
+      "selectionEvidence": "matching source identity and footprint; undecorated official part; historical inventory frequency",
+      "inventoryLotCount": 1147,
+      "grid": [
+        6,
+        2,
+        8
+      ],
+      "centerLdu": [
+        0,
+        4.0,
+        0
+      ]
+    },
+    {
+      "rebrickableId": "2555",
+      "ldrawId": "2555",
+      "ldrawName": "Tile 1 x 1 with Clip",
+      "rebrickableName": "Tile Special 1 x 1 with Clip and Straight Tips",
+      "category": "Tile",
+      "selectionEvidence": "matching source identity and footprint; undecorated official part; historical inventory frequency",
+      "inventoryLotCount": 1084,
+      "grid": null,
+      "centerLdu": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "rebrickableId": "27263",
+      "ldrawId": "27263",
+      "ldrawName": "Tile 2 x 2 Corner without Corner",
+      "rebrickableName": "Tile Special 2 x 2 Corner with Cut Corner - Facet",
+      "category": "Tile",
+      "selectionEvidence": "matching source identity and footprint; undecorated official part; historical inventory frequency",
+      "inventoryLotCount": 1021,
+      "grid": null,
+      "centerLdu": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "rebrickableId": "22385",
+      "ldrawId": "22385",
+      "ldrawName": "Tile 3 x 2 with Angled End",
+      "rebrickableName": "Tile Special 2 x 3 Pentagonal",
+      "category": "Tile",
+      "selectionEvidence": "matching source identity and footprint; undecorated official part; historical inventory frequency",
+      "inventoryLotCount": 937,
+      "grid": null,
+      "centerLdu": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "rebrickableId": "11203",
+      "ldrawId": "11203",
+      "ldrawName": "Tile 2 x 2 Inverted",
+      "rebrickableName": "Tile Special 2 x 2 Inverted",
+      "category": "Tile",
+      "selectionEvidence": "matching source identity and footprint; undecorated official part; historical inventory frequency",
+      "inventoryLotCount": 920,
+      "grid": null,
+      "centerLdu": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "rebrickableId": "2460",
+      "ldrawId": "2460",
+      "ldrawName": "Tile 2 x 2 with Pin",
+      "rebrickableName": "Tile Special 2 x 2 with Top Pin",
+      "category": "Tile",
+      "selectionEvidence": "matching source identity and footprint; undecorated official part; historical inventory frequency",
+      "inventoryLotCount": 847,
+      "grid": null,
+      "centerLdu": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "rebrickableId": "27507",
+      "ldrawId": "27507",
+      "ldrawName": "Tile 4 x 4 Corner Round",
+      "rebrickableName": "Tile 4 x 4 Curved, Macaroni",
+      "category": "Tile",
+      "selectionEvidence": "matching source identity and footprint; undecorated official part; historical inventory frequency",
+      "inventoryLotCount": 731,
+      "grid": null,
+      "centerLdu": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "rebrickableId": "4150",
+      "ldrawId": "4150",
+      "ldrawName": "Tile 2 x 2 Round with Cross Underside Stud",
+      "rebrickableName": "Tile Round 2 x 2 with Bottom Cross",
+      "category": "Tile",
+      "selectionEvidence": "matching source identity and footprint; undecorated official part; historical inventory frequency",
+      "inventoryLotCount": 666,
+      "grid": null,
+      "centerLdu": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "rebrickableId": "54200",
+      "ldrawId": "54200",
+      "ldrawName": "Slope Brick 31 1 x 1 x 0.667",
+      "rebrickableName": "Brick Sloped 30\u00b0 1 x 1 x 2/3 (Cheese Slope)",
+      "category": "Slope",
+      "selectionEvidence": "matching source identity and footprint; undecorated official part; historical inventory frequency",
+      "inventoryLotCount": 20804,
+      "grid": null,
+      "centerLdu": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "rebrickableId": "85984",
+      "ldrawId": "85984",
+      "ldrawName": "Slope Brick 31 1 x 2 x 0.667",
+      "rebrickableName": "Brick Sloped 30\u00b0 1 x 2 x 2/3",
+      "category": "Slope",
+      "selectionEvidence": "matching source identity and footprint; undecorated official part; historical inventory frequency",
+      "inventoryLotCount": 6591,
+      "grid": null,
+      "centerLdu": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "rebrickableId": "15068",
+      "ldrawId": "15068",
+      "ldrawName": "Slope Brick Curved 2 x 2 x 0.667",
+      "rebrickableName": "Brick Curved 2 x 2 x 2/3",
+      "category": "Slope",
+      "selectionEvidence": "matching source identity and footprint; undecorated official part; historical inventory frequency",
+      "inventoryLotCount": 5279,
+      "grid": null,
+      "centerLdu": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "rebrickableId": "4286",
+      "ldrawId": "4286",
+      "ldrawName": "Slope Brick 33 3 x 1",
+      "rebrickableName": "Brick Sloped 33\u00b0 3 x 1",
+      "category": "Slope",
+      "selectionEvidence": "matching source identity and footprint; undecorated official part; historical inventory frequency",
+      "inventoryLotCount": 2737,
+      "grid": null,
+      "centerLdu": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "rebrickableId": "93273",
+      "ldrawId": "93273",
+      "ldrawName": "Slope Brick Curved 4 x 1 Double",
+      "rebrickableName": "Brick Curved 4 x 1 Double, No Studs",
+      "category": "Slope",
+      "selectionEvidence": "matching source identity and footprint; undecorated official part; historical inventory frequency",
+      "inventoryLotCount": 2703,
+      "grid": null,
+      "centerLdu": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "rebrickableId": "50950",
+      "ldrawId": "50950",
+      "ldrawName": "Slope Brick Curved 3 x 1",
+      "rebrickableName": "Brick Curved 3 x 1 No Studs",
+      "category": "Slope",
+      "selectionEvidence": "matching source identity and footprint; undecorated official part; historical inventory frequency",
+      "inventoryLotCount": 2425,
+      "grid": null,
+      "centerLdu": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "rebrickableId": "3298",
+      "ldrawId": "3298",
+      "ldrawName": "Slope Brick 33 3 x 2",
+      "rebrickableName": "Brick Sloped 33\u00b0 3 x 2",
+      "category": "Slope",
+      "selectionEvidence": "matching source identity and footprint; undecorated official part; historical inventory frequency",
+      "inventoryLotCount": 2108,
+      "grid": null,
+      "centerLdu": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "rebrickableId": "15672",
+      "ldrawId": "15672",
+      "ldrawName": "Slope Plate 45 2 x 1",
+      "rebrickableName": "Brick Sloped 45\u00b0 2 x 1 with 2/3 Cutout [New Version]",
+      "category": "Slope",
+      "selectionEvidence": "matching source identity and footprint; undecorated official part; historical inventory frequency",
+      "inventoryLotCount": 1944,
+      "grid": null,
+      "centerLdu": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "rebrickableId": "29120",
+      "ldrawId": "29120",
+      "ldrawName": "Slope Brick Curved 2 x 1 with Cutout Left",
+      "rebrickableName": "Brick Wedged, Curved 2 x 1 with Stud Notch Left",
+      "category": "Slope",
+      "selectionEvidence": "matching source identity and footprint; undecorated official part; historical inventory frequency",
+      "inventoryLotCount": 1861,
+      "grid": null,
+      "centerLdu": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "rebrickableId": "29119",
+      "ldrawId": "29119",
+      "ldrawName": "Slope Brick Curved 2 x 1 with Cutout Right",
+      "rebrickableName": "Brick Wedged, Curved 2 x 1 with Stud Notch Right",
+      "category": "Slope",
+      "selectionEvidence": "matching source identity and footprint; undecorated official part; historical inventory frequency",
+      "inventoryLotCount": 1836,
+      "grid": null,
+      "centerLdu": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "rebrickableId": "24201",
+      "ldrawId": "24201",
+      "ldrawName": "Slope Brick Curved 2 x 1 Inverted",
+      "rebrickableName": "Brick Curved Inverted 2 x 1",
+      "category": "Slope",
+      "selectionEvidence": "matching source identity and footprint; undecorated official part; historical inventory frequency",
+      "inventoryLotCount": 1690,
+      "grid": null,
+      "centerLdu": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "rebrickableId": "3037",
+      "ldrawId": "3037",
+      "ldrawName": "Slope Brick 45 2 x 4",
+      "rebrickableName": "Brick Sloped 45\u00b0 2 x 4",
+      "category": "Slope",
+      "selectionEvidence": "matching source identity and footprint; undecorated official part; historical inventory frequency",
+      "inventoryLotCount": 1690,
+      "grid": null,
+      "centerLdu": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "rebrickableId": "28192",
+      "ldrawId": "28192",
+      "ldrawName": "Slope Brick 45 2 x 1 with Cutout and without Stud",
+      "rebrickableName": "Brick Sloped 45\u00b0 2 x 1 with 2/3 Inverted Cutout and no stud",
+      "category": "Slope",
+      "selectionEvidence": "matching source identity and footprint; undecorated official part; historical inventory frequency",
+      "inventoryLotCount": 1526,
+      "grid": null,
+      "centerLdu": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "rebrickableId": "3747b",
+      "ldrawId": "3747b",
+      "ldrawName": "Slope Brick 33 3 x 2 Inverted with Ribs between Studs",
+      "rebrickableName": "Brick Sloped Inverted 33\u00b0 3 x 2, Connections between Studs, Ovoid Bottom Pin",
+      "category": "Slope",
+      "selectionEvidence": "matching source identity and footprint; undecorated official part; historical inventory frequency",
+      "inventoryLotCount": 1412,
+      "grid": null,
+      "centerLdu": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "rebrickableId": "32803",
+      "ldrawId": "32803",
+      "ldrawName": "Slope Brick Curved 2 x 2 Inverted",
+      "rebrickableName": "Brick Curved Inverted 2 x 2 x 2/3",
+      "category": "Slope",
+      "selectionEvidence": "matching source identity and footprint; undecorated official part; historical inventory frequency",
+      "inventoryLotCount": 1379,
+      "grid": null,
+      "centerLdu": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "rebrickableId": "47457",
+      "ldrawId": "47457",
+      "ldrawName": "Slope Brick Curved 2 x 2 x 2/3 Triple with Two Top Studs",
+      "rebrickableName": "Brick Curved 2 x 2 x 2/3 Two Studs and Curved Slope End",
+      "category": "Slope",
+      "selectionEvidence": "matching source identity and footprint; undecorated official part; historical inventory frequency",
+      "inventoryLotCount": 1332,
+      "grid": null,
+      "centerLdu": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "rebrickableId": "22388",
+      "ldrawId": "22388",
+      "ldrawName": "Slope Brick 50 1 x 1 x 0.667 Quadruple",
+      "rebrickableName": "Brick Sloped 45\u00b0 1 x 1 x 2/3 Quadruple Convex [Pyramid]",
+      "category": "Slope",
+      "selectionEvidence": "matching source identity and footprint; undecorated official part; historical inventory frequency",
+      "inventoryLotCount": 1122,
+      "grid": null,
+      "centerLdu": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "rebrickableId": "4871",
+      "ldrawId": "4871",
+      "ldrawName": "Slope Brick 45 4 x 2 Double Inverted with Open Centre",
+      "rebrickableName": "Brick Sloped Inverted 45\u00b0 4 x 2 Double with 2 x 2 Recessed",
+      "category": "Slope",
+      "selectionEvidence": "matching source identity and footprint; undecorated official part; historical inventory frequency",
+      "inventoryLotCount": 1035,
+      "grid": null,
+      "centerLdu": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "rebrickableId": "4460b",
+      "ldrawId": "4460b",
+      "ldrawName": "Slope Brick 75 2 x 1 x 3 with Hollow Stud",
+      "rebrickableName": "Brick Sloped 75\u00b0 2 x 1 x 3 with Hollow Stud",
+      "category": "Slope",
+      "selectionEvidence": "matching source identity and footprint; undecorated official part; historical inventory frequency",
+      "inventoryLotCount": 984,
+      "grid": null,
+      "centerLdu": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "rebrickableId": "93606",
+      "ldrawId": "93606",
+      "ldrawName": "Slope Brick Curved 4 x 2",
+      "rebrickableName": "Brick Curved 4 x 2 No Studs",
+      "category": "Slope",
+      "selectionEvidence": "matching source identity and footprint; undecorated official part; historical inventory frequency",
+      "inventoryLotCount": 823,
+      "grid": null,
+      "centerLdu": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "rebrickableId": "3045",
+      "ldrawId": "3045",
+      "ldrawName": "Slope Brick 45 2 x 2 Double Convex",
+      "rebrickableName": "Brick Sloped 45\u00b0 2 x 2 Double Convex",
+      "category": "Slope",
+      "selectionEvidence": "matching source identity and footprint; undecorated official part; historical inventory frequency",
+      "inventoryLotCount": 780,
+      "grid": null,
+      "centerLdu": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "rebrickableId": "15571",
+      "ldrawId": "15571",
+      "ldrawName": "Slope Brick 45 1 x 2 Triple with Bottom Stud Holder",
+      "rebrickableName": "Brick Sloped 45\u00b0 2 x 1 Triple with Inside Stud Holder",
+      "category": "Slope",
+      "selectionEvidence": "matching source identity and footprint; undecorated official part; historical inventory frequency",
+      "inventoryLotCount": 741,
+      "grid": null,
+      "centerLdu": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "rebrickableId": "60477",
+      "ldrawId": "60477",
+      "ldrawName": "Slope Brick 18 4 x 1",
+      "rebrickableName": "Brick Sloped 18\u00b0 4 x 1",
+      "category": "Slope",
+      "selectionEvidence": "matching source identity and footprint; undecorated official part; historical inventory frequency",
+      "inventoryLotCount": 730,
+      "grid": null,
+      "centerLdu": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "rebrickableId": "2449",
+      "ldrawId": "2449",
+      "ldrawName": "Slope Brick 75 2 x 1 x 3 Inverted",
+      "rebrickableName": "Brick Sloped Inverted 75\u00b0 2 x 1 x 3",
+      "category": "Slope",
+      "selectionEvidence": "matching source identity and footprint; undecorated official part; historical inventory frequency",
+      "inventoryLotCount": 695,
+      "grid": null,
+      "centerLdu": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "rebrickableId": "3297",
+      "ldrawId": "3297",
+      "ldrawName": "Slope Brick 33 3 x 4",
+      "rebrickableName": "Brick Sloped 33\u00b0 3 x 4",
+      "category": "Slope",
+      "selectionEvidence": "matching source identity and footprint; undecorated official part; historical inventory frequency",
+      "inventoryLotCount": 695,
+      "grid": null,
+      "centerLdu": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "rebrickableId": "88930",
+      "ldrawId": "88930",
+      "ldrawName": "Slope Brick Curved 2 x 4 with Underside Studs",
+      "rebrickableName": "Brick Curved 2 x 4 x 2/3 No Studs, with Bottom Tubes",
+      "category": "Slope",
+      "selectionEvidence": "matching source identity and footprint; undecorated official part; historical inventory frequency",
+      "inventoryLotCount": 690,
+      "grid": null,
+      "centerLdu": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "rebrickableId": "13547",
+      "ldrawId": "13547",
+      "ldrawName": "Slope Brick Curved 4 x 1 Inverted",
+      "rebrickableName": "Brick Curved Inverted 4 x 1",
+      "category": "Slope",
+      "selectionEvidence": "matching source identity and footprint; undecorated official part; historical inventory frequency",
+      "inventoryLotCount": 689,
+      "grid": null,
+      "centerLdu": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "rebrickableId": "30602",
+      "ldrawId": "30602",
+      "ldrawName": "Slope Brick Curved Top 2 x 2 x 1",
+      "rebrickableName": "Brick Curved 2 x 2 with Lip, No Studs",
+      "category": "Slope",
+      "selectionEvidence": "matching source identity and footprint; undecorated official part; historical inventory frequency",
+      "inventoryLotCount": 687,
+      "grid": null,
+      "centerLdu": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "rebrickableId": "35464",
+      "ldrawId": "35464",
+      "ldrawName": "Slope Brick 45 1 x 1 Double",
+      "rebrickableName": "Brick Sloped Double 45\u00b0 1 x 1",
+      "category": "Slope",
+      "selectionEvidence": "matching source identity and footprint; undecorated official part; historical inventory frequency",
+      "inventoryLotCount": 673,
+      "grid": null,
+      "centerLdu": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "rebrickableId": "30363",
+      "ldrawId": "30363",
+      "ldrawName": "Slope Brick 18 4 x 2",
+      "rebrickableName": "Brick Sloped 18\u00b0 4 x 2",
+      "category": "Slope",
+      "selectionEvidence": "matching source identity and footprint; undecorated official part; historical inventory frequency",
+      "inventoryLotCount": 660,
+      "grid": null,
+      "centerLdu": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "rebrickableId": "42022",
+      "ldrawId": "42022",
+      "ldrawName": "Slope Brick Curved 6 x 1",
+      "rebrickableName": "Brick Curved 6 x 1",
+      "category": "Slope",
+      "selectionEvidence": "matching source identity and footprint; undecorated official part; historical inventory frequency",
+      "inventoryLotCount": 560,
+      "grid": null,
+      "centerLdu": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "rebrickableId": "4287b",
+      "ldrawId": "4287b",
+      "ldrawName": "Slope Brick 33 3 x 1 Inverted with Notch, Stud Blocker and Thick Front",
+      "rebrickableName": "Brick Sloped Inverted 34\u00b0 3 x 1 with Internal Stopper",
+      "category": "Slope",
+      "selectionEvidence": "matching source identity and footprint; undecorated official part; historical inventory frequency",
+      "inventoryLotCount": 560,
+      "grid": null,
+      "centerLdu": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "rebrickableId": "3747a",
+      "ldrawId": "3747a",
+      "ldrawName": "Slope Brick 33 3 x 2 Inverted without Ribs between Studs",
+      "rebrickableName": "Brick Sloped Inverted 33\u00b0 3 x 2, No Connections between Studs, Ovoid Bottom Pin",
+      "category": "Slope",
+      "selectionEvidence": "matching source identity and footprint; undecorated official part; historical inventory frequency",
+      "inventoryLotCount": 548,
+      "grid": null,
+      "centerLdu": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "rebrickableId": "3038",
+      "ldrawId": "3038",
+      "ldrawName": "Slope Brick 45 2 x 3",
+      "rebrickableName": "Brick Sloped 45\u00b0 2 x 3",
+      "category": "Slope",
+      "selectionEvidence": "matching source identity and footprint; undecorated official part; historical inventory frequency",
+      "inventoryLotCount": 543,
+      "grid": null,
+      "centerLdu": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "rebrickableId": "24309",
+      "ldrawId": "24309",
+      "ldrawName": "Slope Brick Curved 3 x 2",
+      "rebrickableName": "Brick Curved 3 x 2 No Studs",
+      "category": "Slope",
+      "selectionEvidence": "matching source identity and footprint; undecorated official part; historical inventory frequency",
+      "inventoryLotCount": 528,
+      "grid": null,
+      "centerLdu": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "rebrickableId": "13548",
+      "ldrawId": "13548",
+      "ldrawName": "Slope Brick 45 2 x 2 Double Convex with 45 Corner",
+      "rebrickableName": "Brick Wedged, Sloped 45\u00b0 2 x 2 Corner",
+      "category": "Slope",
+      "selectionEvidence": "matching source identity and footprint; undecorated official part; historical inventory frequency",
+      "inventoryLotCount": 506,
+      "grid": null,
+      "centerLdu": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "rebrickableId": "4287c",
+      "ldrawId": "4287c",
+      "ldrawName": "Slope Brick 33 3 x 1 Inverted with Notch, Stud Blocker and Thin Front",
+      "rebrickableName": "Brick Sloped Inverted 33\u00b0 3 x 1 with Internal Stopper and No Front Stud Connection",
+      "category": "Slope",
+      "selectionEvidence": "matching source identity and footprint; undecorated official part; historical inventory frequency",
+      "inventoryLotCount": 506,
+      "grid": null,
+      "centerLdu": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "rebrickableId": "52031",
+      "ldrawId": "52031",
+      "ldrawName": "Slope Brick 45 4 x 6 x 0.667 Double Curved",
+      "rebrickableName": "Brick Wedged, Curved Triple 4 x 6 x 2/3 with 4 Studs",
+      "category": "Slope",
+      "selectionEvidence": "matching source identity and footprint; undecorated official part; historical inventory frequency",
+      "inventoryLotCount": 488,
+      "grid": null,
+      "centerLdu": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "rebrickableId": "70681",
+      "ldrawId": "70681",
+      "ldrawName": "Slope Brick Curved 1 x 3 with 1 x 2 Inverted Cutout",
+      "rebrickableName": "Brick Curved, 3 x 1 with 1/3 Inverted Cutout",
+      "category": "Slope",
+      "selectionEvidence": "matching source identity and footprint; undecorated official part; historical inventory frequency",
+      "inventoryLotCount": 478,
+      "grid": null,
+      "centerLdu": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "rebrickableId": "52501",
+      "ldrawId": "52501",
+      "ldrawName": "Slope Brick 45 6 x 1 Double Inverted with Open Centre",
+      "rebrickableName": "Brick Sloped Inverted 45\u00b0 6 x 1 Double with 1 x 4 Recessed",
+      "category": "Slope",
+      "selectionEvidence": "matching source identity and footprint; undecorated official part; historical inventory frequency",
+      "inventoryLotCount": 467,
+      "grid": null,
+      "centerLdu": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "rebrickableId": "47456",
+      "ldrawId": "47456",
+      "ldrawName": "Slope Brick Curved 2 x 3 x 0.667 with Fin and 2 Top Studs",
+      "rebrickableName": "Brick Wedged, Curved 2 x 3 x 2/3 Two Studs, Wing End",
+      "category": "Slope",
+      "selectionEvidence": "matching source identity and footprint; undecorated official part; historical inventory frequency",
+      "inventoryLotCount": 464,
+      "grid": null,
+      "centerLdu": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "rebrickableId": "42023",
+      "ldrawId": "42023",
+      "ldrawName": "Slope Brick Curved 6 x 1 Inverted",
+      "rebrickableName": "Brick Curved Inverted 6 x 1",
+      "category": "Slope",
+      "selectionEvidence": "matching source identity and footprint; undecorated official part; historical inventory frequency",
+      "inventoryLotCount": 424,
+      "grid": null,
+      "centerLdu": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "rebrickableId": "4287a",
+      "ldrawId": "4287a",
+      "ldrawName": "Slope Brick 33 3 x 1 Inverted with Notch and Thick Front",
+      "rebrickableName": "Brick Sloped Inverted 34\u00b0 3 x 1 without Internal Stopper",
+      "category": "Slope",
+      "selectionEvidence": "matching source identity and footprint; undecorated official part; historical inventory frequency",
+      "inventoryLotCount": 416,
+      "grid": null,
+      "centerLdu": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "rebrickableId": "4460a",
+      "ldrawId": "4460a",
+      "ldrawName": "Slope Brick 75 2 x 1 x 3 with Open Stud",
+      "rebrickableName": "Brick Sloped 75\u00b0 2 x 1 x 3 with Open Stud",
+      "category": "Slope",
+      "selectionEvidence": "matching source identity and footprint; undecorated official part; historical inventory frequency",
+      "inventoryLotCount": 349,
+      "grid": null,
+      "centerLdu": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "rebrickableId": "66956",
+      "ldrawId": "66956",
+      "ldrawName": "Slope Brick Curved 2 x 2 with Double Cutout",
+      "rebrickableName": "Brick Wedged, Curved 2 x 2 with Stud Notches",
+      "category": "Slope",
+      "selectionEvidence": "matching source identity and footprint; undecorated official part; historical inventory frequency",
+      "inventoryLotCount": 333,
+      "grid": null,
+      "centerLdu": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "rebrickableId": "47458",
+      "ldrawId": "47458",
+      "ldrawName": "Slope Brick Curved 1 x 2 x 2/3 with Fin without Studs",
+      "rebrickableName": "Brick Wedged, Curved 1 x 2 x 2/3 No Studs, Wing End",
+      "category": "Slope",
+      "selectionEvidence": "matching source identity and footprint; undecorated official part; historical inventory frequency",
+      "inventoryLotCount": 331,
+      "grid": null,
+      "centerLdu": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "rebrickableId": "60219",
+      "ldrawId": "60219",
+      "ldrawName": "Slope Brick 45 6 x 4 Double Inverted with Centre Holes",
+      "rebrickableName": "Brick Sloped Inverted 45\u00b0 6 x 4 Double with 4 x 4 Recessed and 3 Holes",
+      "category": "Slope",
+      "selectionEvidence": "matching source identity and footprint; undecorated official part; historical inventory frequency",
+      "inventoryLotCount": 311,
+      "grid": null,
+      "centerLdu": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "rebrickableId": "3300",
+      "ldrawId": "3300",
+      "ldrawName": "Slope Brick 33 2 x 2 Double",
+      "rebrickableName": "Brick Sloped 33\u00b0 2 x 2 Double",
+      "category": "Slope",
+      "selectionEvidence": "matching source identity and footprint; undecorated official part; historical inventory frequency",
+      "inventoryLotCount": 300,
+      "grid": null,
+      "centerLdu": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "rebrickableId": "3676",
+      "ldrawId": "3676",
+      "ldrawName": "Slope Brick 45 2 x 2 Inverted Double Convex",
+      "rebrickableName": "Brick Sloped Inverted 45\u00b0 2 x 2 Double Convex",
+      "category": "Slope",
+      "selectionEvidence": "matching source identity and footprint; undecorated official part; historical inventory frequency",
+      "inventoryLotCount": 298,
+      "grid": null,
+      "centerLdu": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "rebrickableId": "2310",
+      "ldrawId": "2310",
+      "ldrawName": "Slope Brick 45 2 x 1 Inverted with 0.667 Cutout",
+      "rebrickableName": "Brick Sloped Inverted 45\u00b0 2 x 1 with 2/3 Cutout",
+      "category": "Slope",
+      "selectionEvidence": "matching source identity and footprint; undecorated official part; historical inventory frequency",
+      "inventoryLotCount": 295,
+      "grid": null,
+      "centerLdu": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "rebrickableId": "61678",
+      "ldrawId": "61678",
+      "ldrawName": "Slope Brick Curved 4 x 1",
+      "rebrickableName": "Brick Curved 4 x 1 No Studs [Stud Holder with Asymmetric Ridges]",
+      "category": "Slope",
+      "selectionEvidence": "matching source identity and footprint; undecorated official part; historical inventory frequency",
+      "inventoryLotCount": 286,
+      "grid": null,
+      "centerLdu": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "rebrickableId": "3043",
+      "ldrawId": "3043",
+      "ldrawName": "Slope Brick 45 2 x 2 Double",
+      "rebrickableName": "Brick Sloped 45\u00b0 2 x 2 Double",
+      "category": "Slope",
+      "selectionEvidence": "matching source identity and footprint; undecorated official part; historical inventory frequency",
+      "inventoryLotCount": 284,
+      "grid": null,
+      "centerLdu": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "rebrickableId": "4854",
+      "ldrawId": "4854",
+      "ldrawName": "Slope Brick 45 4 x 4 Double Inverted with Open Centre",
+      "rebrickableName": "Brick Sloped Inverted 45\u00b0 4 x 4 Double with 4 x 2 Recessed",
+      "category": "Slope",
+      "selectionEvidence": "matching source identity and footprint; undecorated official part; historical inventory frequency",
+      "inventoryLotCount": 269,
+      "grid": null,
+      "centerLdu": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "rebrickableId": "72454",
+      "ldrawId": "72454",
+      "ldrawName": "Slope Brick 45 4 x 4 Double Inverted with Open Centre and 2 Holes",
+      "rebrickableName": "Brick Sloped Inverted 45\u00b0 4 x 4 Double with 4 x 2 Recessed, 2 Holes",
+      "category": "Slope",
+      "selectionEvidence": "matching source identity and footprint; undecorated official part; historical inventory frequency",
+      "inventoryLotCount": 261,
+      "grid": null,
+      "centerLdu": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "rebrickableId": "3040a",
+      "ldrawId": "3040a",
+      "ldrawName": "Slope Brick 45 2 x 1 without Centre Stud",
+      "rebrickableName": "Brick Sloped 45\u00b0 2 x 1 without Bottom Pin",
+      "category": "Slope",
+      "selectionEvidence": "matching source identity and footprint; undecorated official part; historical inventory frequency",
+      "inventoryLotCount": 252,
+      "grid": null,
+      "centerLdu": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "rebrickableId": "5404",
+      "ldrawId": "5404",
+      "ldrawName": "Slope Brick 18 2 x 1 x 0.667",
+      "rebrickableName": "Brick Sloped 18\u00b0 2 x 1 x 2/3",
+      "category": "Slope",
+      "selectionEvidence": "matching source identity and footprint; undecorated official part; historical inventory frequency",
+      "inventoryLotCount": 251,
+      "grid": null,
+      "centerLdu": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "rebrickableId": "3299",
+      "ldrawId": "3299",
+      "ldrawName": "Slope Brick 33 2 x 4 Double",
+      "rebrickableName": "Brick Sloped 33\u00b0 2 x 4 Double",
+      "category": "Slope",
+      "selectionEvidence": "matching source identity and footprint; undecorated official part; historical inventory frequency",
+      "inventoryLotCount": 247,
+      "grid": null,
+      "centerLdu": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "rebrickableId": "22889",
+      "ldrawId": "22889",
+      "ldrawName": "Slope Brick 45 6 x 2 Double Inverted with Open Centre",
+      "rebrickableName": "Brick Sloped Inverted 45\u00b0 6 x 2 Double with 2 x 4 Recessed",
+      "category": "Slope",
+      "selectionEvidence": "matching source identity and footprint; undecorated official part; historical inventory frequency",
+      "inventoryLotCount": 246,
+      "grid": null,
+      "centerLdu": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "rebrickableId": "44126",
+      "ldrawId": "44126",
+      "ldrawName": "Slope Brick Curved 6 x 2",
+      "rebrickableName": "Brick Curved 6 x 2",
+      "category": "Slope",
+      "selectionEvidence": "matching source identity and footprint; undecorated official part; historical inventory frequency",
+      "inventoryLotCount": 240,
+      "grid": null,
+      "centerLdu": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "rebrickableId": "32802",
+      "ldrawId": "32802",
+      "ldrawName": "Slope Brick 45 4 x 1 Double Inverted with Open Centre",
+      "rebrickableName": "Brick Sloped Inverted 45\u00b0 4 x 1 Double with 1 x 2 Recessed",
+      "category": "Slope",
+      "selectionEvidence": "matching source identity and footprint; undecorated official part; historical inventory frequency",
+      "inventoryLotCount": 231,
+      "grid": null,
+      "centerLdu": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "rebrickableId": "3049d",
+      "ldrawId": "3049d",
+      "ldrawName": "Slope Brick 45 1 x 2 Double / Inverted with Bottom Stud Holder",
+      "rebrickableName": "Brick Sloped 45\u00b0 2 x 1 Double / Inverted with Bottom Stud Holder",
+      "category": "Slope",
+      "selectionEvidence": "matching source identity and footprint; undecorated official part; historical inventory frequency",
+      "inventoryLotCount": 229,
+      "grid": null,
+      "centerLdu": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "rebrickableId": "4445",
+      "ldrawId": "4445",
+      "ldrawName": "Slope Brick 45 2 x 8",
+      "rebrickableName": "Brick Sloped 45\u00b0 2 x 8",
+      "category": "Slope",
+      "selectionEvidence": "matching source identity and footprint; undecorated official part; historical inventory frequency",
+      "inventoryLotCount": 220,
+      "grid": null,
+      "centerLdu": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "rebrickableId": "3044c",
+      "ldrawId": "3044c",
+      "ldrawName": "Slope Brick 45 2 x 1 Double with Bottom Stud Holder",
+      "rebrickableName": "Brick Sloped 45\u00b0 2 x 1 Double with Inside Stud Holder",
+      "category": "Slope",
+      "selectionEvidence": "matching source identity and footprint; undecorated official part; historical inventory frequency",
+      "inventoryLotCount": 209,
+      "grid": null,
+      "centerLdu": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "rebrickableId": "80178",
+      "ldrawId": "80178",
+      "ldrawName": "Slope Brick Curved 3 x 2 with Cutout Right",
+      "rebrickableName": "Brick Wedged, Curved 3 x 2 with Stud Notch Right",
+      "category": "Slope",
+      "selectionEvidence": "matching source identity and footprint; undecorated official part; historical inventory frequency",
+      "inventoryLotCount": 205,
+      "grid": null,
+      "centerLdu": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "rebrickableId": "80177",
+      "ldrawId": "80177",
+      "ldrawName": "Slope Brick Curved 3 x 2 with Cutout Left",
+      "rebrickableName": "Brick Wedged, Curved 3 x 2 with Stud Notch Left",
+      "category": "Slope",
+      "selectionEvidence": "matching source identity and footprint; undecorated official part; historical inventory frequency",
+      "inventoryLotCount": 203,
+      "grid": null,
+      "centerLdu": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "rebrickableId": "92950",
+      "ldrawId": "92950",
+      "ldrawName": "Arch 1 x 6 Raised",
+      "rebrickableName": "Brick Arch 1 x 6 Raised Arch",
+      "category": "Arch",
+      "selectionEvidence": "matching source identity and footprint; undecorated official part; historical inventory frequency",
+      "inventoryLotCount": 833,
+      "grid": null,
+      "centerLdu": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "rebrickableId": "18653",
+      "ldrawId": "18653",
+      "ldrawName": "Arch 1 x 3 x 2 Inverted",
+      "rebrickableName": "Brick Curved 1 x 3 x 2 Inverted [Inside Bow]",
+      "category": "Arch",
+      "selectionEvidence": "matching source identity and footprint; undecorated official part; historical inventory frequency",
+      "inventoryLotCount": 599,
+      "grid": null,
+      "centerLdu": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "rebrickableId": "6005",
+      "ldrawId": "6005",
+      "ldrawName": "Arch 1 x 3 x 2 with Curved Top",
+      "rebrickableName": "Brick Arch 1 x 3 x 2 Curved Top",
+      "category": "Arch",
+      "selectionEvidence": "matching source identity and footprint; undecorated official part; historical inventory frequency",
+      "inventoryLotCount": 589,
+      "grid": null,
+      "centerLdu": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "rebrickableId": "15254",
+      "ldrawId": "15254",
+      "ldrawName": "Arch 1 x 6 x 2 with Thin Top",
+      "rebrickableName": "Brick Arch 1 x 6 x 2 - Thin Top without Reinforced Underside [New Version]",
+      "category": "Arch",
+      "selectionEvidence": "matching source identity and footprint; undecorated official part; historical inventory frequency",
+      "inventoryLotCount": 526,
+      "grid": null,
+      "centerLdu": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "rebrickableId": "13965",
+      "ldrawId": "13965",
+      "ldrawName": "Arch 1 x 3 x 3 Pointed",
+      "rebrickableName": "Brick Arch 1 x 3 x 3 [Gothic]",
+      "category": "Arch",
+      "selectionEvidence": "matching source identity and footprint; undecorated official part; historical inventory frequency",
+      "inventoryLotCount": 523,
+      "grid": null,
+      "centerLdu": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "rebrickableId": "88292",
+      "ldrawId": "88292",
+      "ldrawName": "Arch 1 x 3 x 2 Ogee",
+      "rebrickableName": "Brick Arch 1 x 3 x 2",
+      "category": "Arch",
+      "selectionEvidence": "matching source identity and footprint; undecorated official part; historical inventory frequency",
+      "inventoryLotCount": 519,
+      "grid": null,
+      "centerLdu": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "rebrickableId": "78666",
+      "ldrawId": "78666",
+      "ldrawName": "Arch 1 x 2 x 1 Inverted",
+      "rebrickableName": "Brick Curved 2 x 1 with Inverted Cutout",
+      "category": "Arch",
+      "selectionEvidence": "matching source identity and footprint; undecorated official part; historical inventory frequency",
+      "inventoryLotCount": 490,
+      "grid": null,
+      "centerLdu": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "rebrickableId": "4490",
+      "ldrawId": "4490",
+      "ldrawName": "Arch 1 x 3",
+      "rebrickableName": "Brick Arch 1 x 3",
+      "category": "Arch",
+      "selectionEvidence": "matching source identity and footprint; undecorated official part; historical inventory frequency",
+      "inventoryLotCount": 461,
+      "grid": null,
+      "centerLdu": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "rebrickableId": "6182",
+      "ldrawId": "6182",
+      "ldrawName": "Arch 1 x 4 x 2",
+      "rebrickableName": "Brick Arch 1 x 4 x 2",
+      "category": "Arch",
+      "selectionEvidence": "matching source identity and footprint; undecorated official part; historical inventory frequency",
+      "inventoryLotCount": 435,
+      "grid": null,
+      "centerLdu": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "rebrickableId": "14395",
+      "ldrawId": "14395",
+      "ldrawName": "Arch 1 x 5 x 4 with Thin Walls",
+      "rebrickableName": "Brick Arch 1 x 5 x 4 [Continuous Bow, Raised Underside Cross Supports]",
+      "category": "Arch",
+      "selectionEvidence": "matching source identity and footprint; undecorated official part; historical inventory frequency",
+      "inventoryLotCount": 377,
+      "grid": null,
+      "centerLdu": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "rebrickableId": "16577",
+      "ldrawId": "16577",
+      "ldrawName": "Arch 1 x 8 x 2 Raised",
+      "rebrickableName": "Brick Arch 1 x 8 x 2 Raised",
+      "category": "Arch",
+      "selectionEvidence": "matching source identity and footprint; undecorated official part; historical inventory frequency",
+      "inventoryLotCount": 344,
+      "grid": null,
+      "centerLdu": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "rebrickableId": "3455",
+      "ldrawId": "3455",
+      "ldrawName": "Arch 1 x 6",
+      "rebrickableName": "Brick Arch 1 x 6",
+      "category": "Arch",
+      "selectionEvidence": "matching source identity and footprint; undecorated official part; historical inventory frequency",
+      "inventoryLotCount": 325,
+      "grid": null,
+      "centerLdu": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "rebrickableId": "3307",
+      "ldrawId": "3307",
+      "ldrawName": "Arch 1 x 6 x 2 with Thick Top and Reinforced Underside",
+      "rebrickableName": "Brick Arch 1 x 6 x 2 - Thick Top with Reinforced Underside",
+      "category": "Arch",
+      "selectionEvidence": "matching source identity and footprint; undecorated official part; historical inventory frequency",
+      "inventoryLotCount": 291,
+      "grid": null,
+      "centerLdu": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "rebrickableId": "30099",
+      "ldrawId": "30099",
+      "ldrawName": "Arch 1 x 5 x 4 Inverted",
+      "rebrickableName": "Brick Curved 1 x 5 x 4 Inverted",
+      "category": "Arch",
+      "selectionEvidence": "matching source identity and footprint; undecorated official part; historical inventory frequency",
+      "inventoryLotCount": 247,
+      "grid": null,
+      "centerLdu": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "rebrickableId": "2339",
+      "ldrawId": "2339",
+      "ldrawName": "Arch 1 x 5 x 4",
+      "rebrickableName": "Brick Arch 1 x 5 x 4 [Continuous Bow]",
+      "category": "Arch",
+      "selectionEvidence": "matching source identity and footprint; undecorated official part; historical inventory frequency",
+      "inventoryLotCount": 210,
+      "grid": null,
+      "centerLdu": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "rebrickableId": "6060",
+      "ldrawId": "6060",
+      "ldrawName": "Arch 1 x 6 x 3.333 with Curved Top and Two Studs",
+      "rebrickableName": "Brick Arch 1 x 6 x 3 1/3 Curved Top",
+      "category": "Arch",
+      "selectionEvidence": "matching source identity and footprint; undecorated official part; historical inventory frequency",
+      "inventoryLotCount": 176,
+      "grid": null,
+      "centerLdu": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "rebrickableId": "6183",
+      "ldrawId": "6183",
+      "ldrawName": "Arch 1 x 6 x 2 with Curved Top",
+      "rebrickableName": "Brick Arch 1 x 6 x 2 Curved Top",
+      "category": "Arch",
+      "selectionEvidence": "matching source identity and footprint; undecorated official part; historical inventory frequency",
+      "inventoryLotCount": 166,
+      "grid": null,
+      "centerLdu": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "rebrickableId": "5843",
+      "ldrawId": "5843",
+      "ldrawName": "Arch 1 x 3 x 1.667 with Curved Top",
+      "rebrickableName": "Brick Arch 1 x 3 x 1 2/3 Curved Top",
+      "category": "Arch",
+      "selectionEvidence": "matching source identity and footprint; undecorated official part; historical inventory frequency",
+      "inventoryLotCount": 85,
+      "grid": null,
+      "centerLdu": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "rebrickableId": "60594",
+      "ldrawId": "60594",
+      "ldrawName": "Window 1 x 4 x 3 without Shutter Tabs",
+      "rebrickableName": "Window 1 x 4 x 3 without Shutter Tabs",
+      "category": "Window",
+      "selectionEvidence": "matching source identity and footprint; undecorated official part; historical inventory frequency",
+      "inventoryLotCount": 693,
+      "grid": null,
+      "centerLdu": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "rebrickableId": "60593",
+      "ldrawId": "60593",
+      "ldrawName": "Window 1 x 2 x 3 without Sill",
+      "rebrickableName": "Window 1 x 2 x 3 Flat Front",
+      "category": "Window",
+      "selectionEvidence": "matching source identity and footprint; undecorated official part; historical inventory frequency",
+      "inventoryLotCount": 459,
+      "grid": null,
+      "centerLdu": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "rebrickableId": "30044",
+      "ldrawId": "30044",
+      "ldrawName": "Window 1 x 2 x 2.667 with Rounded Top",
+      "rebrickableName": "Window 1 x 2 x 2 2/3 with Rounded Top",
+      "category": "Window",
+      "selectionEvidence": "matching source identity and footprint; undecorated official part; historical inventory frequency",
+      "inventoryLotCount": 353,
+      "grid": null,
+      "centerLdu": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "rebrickableId": "30046",
+      "ldrawId": "30046",
+      "ldrawName": "Window 1 x 2 x 2.667 Pane Lattice Diamond with Rounded Top",
+      "rebrickableName": "Window 1 x 2 x 2 2/3 Pane Lattice Diamond with Rounded Top",
+      "category": "Window",
+      "selectionEvidence": "matching source identity and footprint; undecorated official part; historical inventory frequency",
+      "inventoryLotCount": 240,
+      "grid": null,
+      "centerLdu": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "rebrickableId": "3853",
+      "ldrawId": "3853",
+      "ldrawName": "Window 1 x 4 x 3",
+      "rebrickableName": "Window 1 x 4 x 3",
+      "category": "Window",
+      "selectionEvidence": "matching source identity and footprint; undecorated official part; historical inventory frequency",
+      "inventoryLotCount": 240,
+      "grid": null,
+      "centerLdu": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "rebrickableId": "38320",
+      "ldrawId": "38320",
+      "ldrawName": "Window 1 x 2 x 2 Pane Lattice Diamond",
+      "rebrickableName": "Window Pane Latticed 1 x 2 x 2",
+      "category": "Window",
+      "selectionEvidence": "matching source identity and footprint; undecorated official part; historical inventory frequency",
+      "inventoryLotCount": 229,
+      "grid": null,
+      "centerLdu": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "rebrickableId": "3856",
+      "ldrawId": "3856",
+      "ldrawName": "Window 1 x 2 x 3 Shutter",
+      "rebrickableName": "Window 1 x 2 x 3 Shutter",
+      "category": "Window",
+      "selectionEvidence": "matching source identity and footprint; undecorated official part; historical inventory frequency",
+      "inventoryLotCount": 163,
+      "grid": null,
+      "centerLdu": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "rebrickableId": "60032",
+      "ldrawId": "60032",
+      "ldrawName": "Window 1 x 2 x 2 Plane with Single Hole Top and Bottom for Glass",
+      "rebrickableName": "Window 1 x 2 x 2 Plane, Hollow Studs, Single Hole Top and Bottom for Glass",
+      "category": "Window",
+      "selectionEvidence": "matching source identity and footprint; undecorated official part; historical inventory frequency",
+      "inventoryLotCount": 163,
+      "grid": null,
+      "centerLdu": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "rebrickableId": "3854",
+      "ldrawId": "3854",
+      "ldrawName": "Window 1 x 2 x 3 Pane",
+      "rebrickableName": "Window 1 x 2 x 3 Pane",
+      "category": "Window",
+      "selectionEvidence": "matching source identity and footprint; undecorated official part; historical inventory frequency",
+      "inventoryLotCount": 160,
+      "grid": null,
+      "centerLdu": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "rebrickableId": "60608",
+      "ldrawId": "60608",
+      "ldrawName": "Window 1 x 2 x 3 Pane with Thick Corner Tabs",
+      "rebrickableName": "Window 1 x 2 x 3 Pane with Thick Corner Tabs",
+      "category": "Window",
+      "selectionEvidence": "matching source identity and footprint; undecorated official part; historical inventory frequency",
+      "inventoryLotCount": 153,
+      "grid": null,
+      "centerLdu": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "rebrickableId": "4132",
+      "ldrawId": "4132",
+      "ldrawName": "Window 2 x 4 x 3",
+      "rebrickableName": "Window 2 x 4 x 3 Frame with Solid Studs",
+      "category": "Window",
+      "selectionEvidence": "matching source identity and footprint; undecorated official part; historical inventory frequency",
+      "inventoryLotCount": 132,
+      "grid": null,
+      "centerLdu": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "rebrickableId": "60607",
+      "ldrawId": "60607",
+      "ldrawName": "Window 1 x 2 x 3 Pane Latticed with Reinforced Joints",
+      "rebrickableName": "Window 1 x 2 x 3 Pane Latticed with Thick Corner Tabs",
+      "category": "Window",
+      "selectionEvidence": "matching source identity and footprint; undecorated official part; historical inventory frequency",
+      "inventoryLotCount": 124,
+      "grid": null,
+      "centerLdu": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "rebrickableId": "4865b",
+      "ldrawId": "4865b",
+      "ldrawName": "Panel 1 x 2 x 1 with Rounded Corners",
+      "rebrickableName": "Panel 1 x 2 x 1 [Rounded Corners]",
+      "category": "Panel",
+      "selectionEvidence": "matching source identity and footprint; undecorated official part; historical inventory frequency",
+      "inventoryLotCount": 1852,
+      "grid": null,
+      "centerLdu": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "rebrickableId": "4865a",
+      "ldrawId": "4865a",
+      "ldrawName": "Panel 1 x 2 x 1 with Square Corners",
+      "rebrickableName": "Panel 1 x 2 x 1 [Square Corners]",
+      "category": "Panel",
+      "selectionEvidence": "matching source identity and footprint; undecorated official part; historical inventory frequency",
+      "inventoryLotCount": 1282,
+      "grid": null,
+      "centerLdu": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "rebrickableId": "6231",
+      "ldrawId": "6231",
+      "ldrawName": "Panel 1 x 1 x 1 Corner with Rounded Corners",
+      "rebrickableName": "Panel 1 x 1 x 1 Corner",
+      "category": "Panel",
+      "selectionEvidence": "matching source identity and footprint; undecorated official part; historical inventory frequency",
+      "inventoryLotCount": 1086,
+      "grid": null,
+      "centerLdu": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "rebrickableId": "87552",
+      "ldrawId": "87552",
+      "ldrawName": "Panel 1 x 2 x 2 Reinforced",
+      "rebrickableName": "Panel 1 x 2 x 2 [Side Supports / Hollow Studs]",
+      "category": "Panel",
+      "selectionEvidence": "matching source identity and footprint; undecorated official part; historical inventory frequency",
+      "inventoryLotCount": 1002,
+      "grid": null,
+      "centerLdu": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "rebrickableId": "15207",
+      "ldrawId": "15207",
+      "ldrawName": "Panel 1 x 4 x 1 with Rounded Corners, Thin Wall",
+      "rebrickableName": "Panel 1 x 4 x 1 with Rounded Corners [Thin Wall]",
+      "category": "Panel",
+      "selectionEvidence": "matching source identity and footprint; undecorated official part; historical inventory frequency",
+      "inventoryLotCount": 934,
+      "grid": null,
+      "centerLdu": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "rebrickableId": "60581",
+      "ldrawId": "60581",
+      "ldrawName": "Panel 1 x 4 x 3 Reinforced",
+      "rebrickableName": "Panel 1 x 4 x 3 [Side Supports / Hollow Studs]",
+      "category": "Panel",
+      "selectionEvidence": "matching source identity and footprint; undecorated official part; historical inventory frequency",
+      "inventoryLotCount": 826,
+      "grid": null,
+      "centerLdu": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "rebrickableId": "23969",
+      "ldrawId": "23969",
+      "ldrawName": "Panel 1 x 2 x 1 Double Corner with Rounded Corners",
+      "rebrickableName": "Panel 1 x 2 x 1 with Rounded Corners and 2 Sides",
+      "category": "Panel",
+      "selectionEvidence": "matching source identity and footprint; undecorated official part; historical inventory frequency",
+      "inventoryLotCount": 802,
+      "grid": null,
+      "centerLdu": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "rebrickableId": "59349",
+      "ldrawId": "59349",
+      "ldrawName": "Panel 1 x 6 x 5",
+      "rebrickableName": "Panel 1 x 6 x 5",
+      "category": "Panel",
+      "selectionEvidence": "matching source identity and footprint; undecorated official part; historical inventory frequency",
+      "inventoryLotCount": 752,
+      "grid": null,
+      "centerLdu": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "rebrickableId": "87544",
+      "ldrawId": "87544",
+      "ldrawName": "Panel 1 x 2 x 3 Reinforced",
+      "rebrickableName": "Panel 1 x 2 x 3 [Side Supports / Hollow Studs]",
+      "category": "Panel",
+      "selectionEvidence": "matching source identity and footprint; undecorated official part; historical inventory frequency",
+      "inventoryLotCount": 719,
+      "grid": null,
+      "centerLdu": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "rebrickableId": "93095",
+      "ldrawId": "93095",
+      "ldrawName": "Panel 1 x 2 x 1 with Thin Central Divider and Rounded Corners",
+      "rebrickableName": "Panel 1 x 2 x 1 with Rounded Corners and Central Divider",
+      "category": "Panel",
+      "selectionEvidence": "matching source identity and footprint; undecorated official part; historical inventory frequency",
+      "inventoryLotCount": 531,
+      "grid": null,
+      "centerLdu": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "rebrickableId": "14718",
+      "ldrawId": "14718",
+      "ldrawName": "Panel 1 x 4 x 2 with Hollow Studs",
+      "rebrickableName": "Panel 1 x 4 x 2 with Side Supports - Hollow Studs",
+      "category": "Panel",
+      "selectionEvidence": "matching source identity and footprint; undecorated official part; historical inventory frequency",
+      "inventoryLotCount": 350,
+      "grid": null,
+      "centerLdu": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "rebrickableId": "23950",
+      "ldrawId": "23950",
+      "ldrawName": "Panel 1 x 3 x 1 with Rounded Corners",
+      "rebrickableName": "Panel 1 x 3 x 1",
+      "category": "Panel",
+      "selectionEvidence": "matching source identity and footprint; undecorated official part; historical inventory frequency",
+      "inventoryLotCount": 265,
+      "grid": null,
+      "centerLdu": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "rebrickableId": "4864b",
+      "ldrawId": "4864b",
+      "ldrawName": "Panel 1 x 2 x 2 with Hollow Studs",
+      "rebrickableName": "Panel 1 x 2 x 2 [Hollow Studs]",
+      "category": "Panel",
+      "selectionEvidence": "matching source identity and footprint; undecorated official part; historical inventory frequency",
+      "inventoryLotCount": 219,
+      "grid": null,
+      "centerLdu": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "rebrickableId": "4215b",
+      "ldrawId": "4215b",
+      "ldrawName": "Panel 1 x 4 x 3 with Hollow Studs",
+      "rebrickableName": "Panel 1 x 4 x 3 [Hollow Studs]",
+      "category": "Panel",
+      "selectionEvidence": "matching source identity and footprint; undecorated official part; historical inventory frequency",
+      "inventoryLotCount": 210,
+      "grid": null,
+      "centerLdu": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "rebrickableId": "47847",
+      "ldrawId": "47847",
+      "ldrawName": "Panel 2 x 4 x 6 Rock",
+      "rebrickableName": "Rock Panel 2 x 4 x 6",
+      "category": "Panel",
+      "selectionEvidence": "matching source identity and footprint; undecorated official part; historical inventory frequency",
+      "inventoryLotCount": 208,
+      "grid": null,
+      "centerLdu": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "rebrickableId": "90195",
+      "ldrawId": "90195",
+      "ldrawName": "Panel 1 x 2 x 2 Hollow Stud with Arched Window Opening",
+      "rebrickableName": "Window 1 x 2 x 2 Castle",
+      "category": "Panel",
+      "selectionEvidence": "matching source identity and footprint; undecorated official part; historical inventory frequency",
+      "inventoryLotCount": 205,
+      "grid": null,
+      "centerLdu": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "rebrickableId": "30562",
+      "ldrawId": "30562",
+      "ldrawName": "Panel 4 x 4 x 6 Corner Round",
+      "rebrickableName": "Panel 4 x 4 x 6 Quarter Cylinder",
+      "category": "Panel",
+      "selectionEvidence": "matching source identity and footprint; undecorated official part; historical inventory frequency",
+      "inventoryLotCount": 197,
+      "grid": null,
+      "centerLdu": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "rebrickableId": "4864a",
+      "ldrawId": "4864a",
+      "ldrawName": "Panel 1 x 2 x 2 with Solid Studs",
+      "rebrickableName": "Panel 1 x 2 x 2 [Solid Studs]",
+      "category": "Panel",
+      "selectionEvidence": "matching source identity and footprint; undecorated official part; historical inventory frequency",
+      "inventoryLotCount": 167,
+      "grid": null,
+      "centerLdu": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "rebrickableId": "32607",
+      "ldrawId": "32607",
+      "ldrawName": "Plate 1 x 1 Round with 3 Leaves",
+      "rebrickableName": "Plant, Plate 1 x 1 Round with 3 Leaves",
+      "category": "Plant",
+      "selectionEvidence": "matching source identity and footprint; undecorated official part; historical inventory frequency",
+      "inventoryLotCount": 1848,
+      "grid": null,
+      "centerLdu": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "rebrickableId": "3742",
+      "ldrawId": "3742",
+      "ldrawName": "Plant Flower",
+      "rebrickableName": "Plant, Flower - Small",
+      "category": "Plant",
+      "selectionEvidence": "matching source identity and footprint; undecorated official part; historical inventory frequency",
+      "inventoryLotCount": 1154,
+      "grid": null,
+      "centerLdu": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "rebrickableId": "37695",
+      "ldrawId": "37695",
+      "ldrawName": "Plant Stem with 3 Leaves with Bar and Pin Holes",
+      "rebrickableName": "Plant, Stem with 3 Leaves and Bottom Pin",
+      "category": "Plant",
+      "selectionEvidence": "matching source identity and footprint; undecorated official part; historical inventory frequency",
+      "inventoryLotCount": 541,
+      "grid": null,
+      "centerLdu": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "rebrickableId": "2417",
+      "ldrawId": "2417",
+      "ldrawName": "Plant Leaves 6 x 5",
+      "rebrickableName": "Plant, Leaves 6 x 5",
+      "category": "Plant",
+      "selectionEvidence": "matching source identity and footprint; undecorated official part; historical inventory frequency",
+      "inventoryLotCount": 530,
+      "grid": null,
+      "centerLdu": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "rebrickableId": "24855",
+      "ldrawId": "24855",
+      "ldrawName": "Plant Flower Stem with Bar and Hole",
+      "rebrickableName": "Plant, Flower Stem with Bottom Bar",
+      "category": "Plant",
+      "selectionEvidence": "matching source identity and footprint; undecorated official part; historical inventory frequency",
+      "inventoryLotCount": 519,
+      "grid": null,
+      "centerLdu": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "rebrickableId": "32606",
+      "ldrawId": "32606",
+      "ldrawName": "Plant Flower with 7 Alternate Petals with Bar and Pin Hole",
+      "rebrickableName": "Plant, Flower, Minifig Accessory with 7 Thick Petals and Pin",
+      "category": "Plant",
+      "selectionEvidence": "matching source identity and footprint; undecorated official part; historical inventory frequency",
+      "inventoryLotCount": 483,
+      "grid": null,
+      "centerLdu": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "rebrickableId": "18853",
+      "ldrawId": "18853",
+      "ldrawName": "Plant Flower with 5 Pointed Petals with Pin",
+      "rebrickableName": "Plant, Flower with 5 Pointed Petals and Pin",
+      "category": "Plant",
+      "selectionEvidence": "matching source identity and footprint; undecorated official part; historical inventory frequency",
+      "inventoryLotCount": 466,
+      "grid": null,
+      "centerLdu": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "rebrickableId": "4728",
+      "ldrawId": "4728",
+      "ldrawName": "Plant Flower 2 x 2 with Hollow Stud",
+      "rebrickableName": "Plant, Flower 2 x 2 - Round [Open Stud]",
+      "category": "Plant",
+      "selectionEvidence": "matching source identity and footprint; undecorated official part; historical inventory frequency",
+      "inventoryLotCount": 388,
+      "grid": null,
+      "centerLdu": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "rebrickableId": "4367",
+      "ldrawId": "4367",
+      "ldrawName": "Plant Flower with 7 Alternate Petals with Centre Ring with Bar and Pin Hole",
+      "rebrickableName": "Plant, Flower, Minifig Accessory with 7 Thick Petals and Pin, Center Ring",
+      "category": "Plant",
+      "selectionEvidence": "matching source identity and footprint; undecorated official part; historical inventory frequency",
+      "inventoryLotCount": 304,
+      "grid": null,
+      "centerLdu": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "rebrickableId": "4727",
+      "ldrawId": "4727",
+      "ldrawName": "Plant Flower 2 x 2 Leaves",
+      "rebrickableName": "Plant, Flower 2 x 2 Leaves - Angular",
+      "category": "Plant",
+      "selectionEvidence": "matching source identity and footprint; undecorated official part; historical inventory frequency",
+      "inventoryLotCount": 298,
+      "grid": null,
+      "centerLdu": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "rebrickableId": "10884",
+      "ldrawId": "10884",
+      "ldrawName": "Plant Leaves 6 x 5 Swordleaf with C-Clip",
+      "rebrickableName": "Plant, Leaves 6 x 5 Swordleaf with Clip [Thick Open O Clip]",
+      "category": "Plant",
+      "selectionEvidence": "matching source identity and footprint; undecorated official part; historical inventory frequency",
+      "inventoryLotCount": 213,
+      "grid": null,
+      "centerLdu": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "rebrickableId": "15279",
+      "ldrawId": "15279",
+      "ldrawName": "Plant Grass Stem",
+      "rebrickableName": "Plant, Grass Stem with Bar Hole [3.2mm]",
+      "category": "Plant",
+      "selectionEvidence": "matching source identity and footprint; undecorated official part; historical inventory frequency",
+      "inventoryLotCount": 203,
+      "grid": null,
+      "centerLdu": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "rebrickableId": "19119",
+      "ldrawId": "19119",
+      "ldrawName": "Plant Flower Stem with Bar and 6 Stems",
+      "rebrickableName": "Plant, Flower Stem with Bar and 6 Stems",
+      "category": "Plant",
+      "selectionEvidence": "matching source identity and footprint; undecorated official part; historical inventory frequency",
+      "inventoryLotCount": 189,
+      "grid": null,
+      "centerLdu": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "rebrickableId": "30093",
+      "ldrawId": "30093",
+      "ldrawName": "Plant Sea Grass",
+      "rebrickableName": "Plant, Sea Grass",
+      "category": "Plant",
+      "selectionEvidence": "matching source identity and footprint; undecorated official part; historical inventory frequency",
+      "inventoryLotCount": 173,
+      "grid": null,
+      "centerLdu": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "rebrickableId": "41748",
+      "ldrawId": "41748",
+      "ldrawName": "Wedge 2 x 6 Double Left",
+      "rebrickableName": "Brick Wedged, Curved 6 x 2 Left, Inner Ridges",
+      "category": "Wedge",
+      "selectionEvidence": "matching source identity and footprint; undecorated official part; historical inventory frequency",
+      "inventoryLotCount": 476,
+      "grid": null,
+      "centerLdu": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "rebrickableId": "43711",
+      "ldrawId": "43711",
+      "ldrawName": "Wedge 4 x 2 Double Right",
+      "rebrickableName": "Brick Wedged, Sloped 4 x 2 Triple Right",
+      "category": "Wedge",
+      "selectionEvidence": "matching source identity and footprint; undecorated official part; historical inventory frequency",
+      "inventoryLotCount": 451,
+      "grid": null,
+      "centerLdu": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "rebrickableId": "43710",
+      "ldrawId": "43710",
+      "ldrawName": "Wedge 4 x 2 Double Left",
+      "rebrickableName": "Brick Wedged, Sloped 4 x 2 Triple Left",
+      "category": "Wedge",
+      "selectionEvidence": "matching source identity and footprint; undecorated official part; historical inventory frequency",
+      "inventoryLotCount": 448,
+      "grid": null,
+      "centerLdu": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "rebrickableId": "45677",
+      "ldrawId": "45677",
+      "ldrawName": "Wedge 4 x 4 x 0.667 Curved",
+      "rebrickableName": "Brick Wedged, Curved Triple 4 x 4 x 2/3, 2 Studs",
+      "category": "Wedge",
+      "selectionEvidence": "matching source identity and footprint; undecorated official part; historical inventory frequency",
+      "inventoryLotCount": 441,
+      "grid": null,
+      "centerLdu": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "rebrickableId": "41747",
+      "ldrawId": "41747",
+      "ldrawName": "Wedge 2 x 6 Double Right",
+      "rebrickableName": "Brick Wedged, Curved 6 x 2 Right, Inner Ridges",
+      "category": "Wedge",
+      "selectionEvidence": "matching source identity and footprint; undecorated official part; historical inventory frequency",
+      "inventoryLotCount": 433,
+      "grid": null,
+      "centerLdu": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "rebrickableId": "43713",
+      "ldrawId": "43713",
+      "ldrawName": "Wedge 6 x 4 Triple Curved Inverted",
+      "rebrickableName": "Brick Wedged, Curved Inverted 6 x 4",
+      "category": "Wedge",
+      "selectionEvidence": "matching source identity and footprint; undecorated official part; historical inventory frequency",
+      "inventoryLotCount": 351,
+      "grid": null,
+      "centerLdu": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "rebrickableId": "6564",
+      "ldrawId": "6564",
+      "ldrawName": "Wedge 3 x 2 Right",
+      "rebrickableName": "Brick Wedged, Angled 3 x 2 Right",
+      "category": "Wedge",
+      "selectionEvidence": "matching source identity and footprint; undecorated official part; historical inventory frequency",
+      "inventoryLotCount": 341,
+      "grid": null,
+      "centerLdu": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "rebrickableId": "6565",
+      "ldrawId": "6565",
+      "ldrawName": "Wedge 3 x 2 Left",
+      "rebrickableName": "Brick Wedged, Angled 3 x 2 Left",
+      "category": "Wedge",
+      "selectionEvidence": "matching source identity and footprint; undecorated official part; historical inventory frequency",
+      "inventoryLotCount": 327,
+      "grid": null,
+      "centerLdu": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "rebrickableId": "64225",
+      "ldrawId": "64225",
+      "ldrawName": "Wedge 4 x 3 Triple Curved without Studs",
+      "rebrickableName": "Brick Wedged, Curved 4 x 3 No Studs [Plain]",
+      "category": "Wedge",
+      "selectionEvidence": "matching source identity and footprint; undecorated official part; historical inventory frequency",
+      "inventoryLotCount": 313,
+      "grid": null,
+      "centerLdu": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "rebrickableId": "47753",
+      "ldrawId": "47753",
+      "ldrawName": "Wedge 4 x 4 Triple Curved without Studs",
+      "rebrickableName": "Brick Wedged, Curved 4 x 4 No Top Studs",
+      "category": "Wedge",
+      "selectionEvidence": "matching source identity and footprint; undecorated official part; historical inventory frequency",
+      "inventoryLotCount": 295,
+      "grid": null,
+      "centerLdu": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "rebrickableId": "43712",
+      "ldrawId": "43712",
+      "ldrawName": "Wedge 6 x 4 Triple Curved",
+      "rebrickableName": "Brick Wedged, Curved 6 x 4 Triple",
+      "category": "Wedge",
+      "selectionEvidence": "matching source identity and footprint; undecorated official part; historical inventory frequency",
+      "inventoryLotCount": 230,
+      "grid": null,
+      "centerLdu": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "rebrickableId": "4855",
+      "ldrawId": "4855",
+      "ldrawName": "Wedge 4 x 4 Triple Inverted without Ribs between Studs",
+      "rebrickableName": "Brick Wedged, Sloped Inverted 4 x 4 Triple [2 Connections between Front Studs]",
+      "category": "Wedge",
+      "selectionEvidence": "matching source identity and footprint; undecorated official part; historical inventory frequency",
+      "inventoryLotCount": 228,
+      "grid": null,
+      "centerLdu": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "rebrickableId": "11291",
+      "ldrawId": "11291",
+      "ldrawName": "Wedge 3 x 4 x 0.667 Cutout",
+      "rebrickableName": "Brick Wedged, Curved 3 x 4 x 2/3 Cutout",
+      "category": "Wedge",
+      "selectionEvidence": "matching source identity and footprint; undecorated official part; historical inventory frequency",
+      "inventoryLotCount": 222,
+      "grid": null,
+      "centerLdu": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "rebrickableId": "47755",
+      "ldrawId": "47755",
+      "ldrawName": "Wedge 4 x 3 Curved with 2 x 2 Cutout",
+      "rebrickableName": "Wheel Arch, Curved Wedge 4 x 3 with 2 x 2 Opening and 4 Studs",
+      "category": "Wedge",
+      "selectionEvidence": "matching source identity and footprint; undecorated official part; historical inventory frequency",
+      "inventoryLotCount": 194,
+      "grid": null,
+      "centerLdu": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "rebrickableId": "41767",
+      "ldrawId": "41767",
+      "ldrawName": "Wedge 4 x 2 Right",
+      "rebrickableName": "Brick Wedged, Angled 4 x 2 Right",
+      "category": "Wedge",
+      "selectionEvidence": "matching source identity and footprint; undecorated official part; historical inventory frequency",
+      "inventoryLotCount": 188,
+      "grid": null,
+      "centerLdu": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "rebrickableId": "41768",
+      "ldrawId": "41768",
+      "ldrawName": "Wedge 4 x 2 Left",
+      "rebrickableName": "Brick Wedged, Angled 4 x 2 Left",
+      "category": "Wedge",
+      "selectionEvidence": "matching source identity and footprint; undecorated official part; historical inventory frequency",
+      "inventoryLotCount": 186,
+      "grid": null,
+      "centerLdu": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "rebrickableId": "47759",
+      "ldrawId": "47759",
+      "ldrawName": "Wedge 2 x 4 Triple",
+      "rebrickableName": "Brick Wedged, Sloped 45\u00b0 2 x 4 Triple",
+      "category": "Wedge",
+      "selectionEvidence": "matching source identity and footprint; undecorated official part; historical inventory frequency",
+      "inventoryLotCount": 168,
+      "grid": null,
+      "centerLdu": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "rebrickableId": "41764",
+      "ldrawId": "41764",
+      "ldrawName": "Wedge 2 x 6 Double Inverted Right",
+      "rebrickableName": "Brick Wedged, Curved Inverted 6 x 2 Right",
+      "category": "Wedge",
+      "selectionEvidence": "matching source identity and footprint; undecorated official part; historical inventory frequency",
+      "inventoryLotCount": 159,
+      "grid": null,
+      "centerLdu": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "rebrickableId": "41765",
+      "ldrawId": "41765",
+      "ldrawName": "Wedge 2 x 6 Double Inverted Left",
+      "rebrickableName": "Brick Wedged, Curved Inverted 6 x 2 Left",
+      "category": "Wedge",
+      "selectionEvidence": "matching source identity and footprint; undecorated official part; historical inventory frequency",
+      "inventoryLotCount": 159,
+      "grid": null,
+      "centerLdu": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "rebrickableId": "50956",
+      "ldrawId": "50956",
+      "ldrawName": "Wedge 10 x 3 x 1 Double Rounded Right",
+      "rebrickableName": "Brick Wedged, Curved 10 x 3 Right",
+      "category": "Wedge",
+      "selectionEvidence": "matching source identity and footprint; undecorated official part; historical inventory frequency",
+      "inventoryLotCount": 157,
+      "grid": null,
+      "centerLdu": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "rebrickableId": "50955",
+      "ldrawId": "50955",
+      "ldrawName": "Wedge 10 x 3 x 1 Double Rounded Left",
+      "rebrickableName": "Brick Wedged, Curved 10 x 3 Left",
+      "category": "Wedge",
+      "selectionEvidence": "matching source identity and footprint; undecorated official part; historical inventory frequency",
+      "inventoryLotCount": 156,
+      "grid": null,
+      "centerLdu": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "rebrickableId": "13349",
+      "ldrawId": "13349",
+      "ldrawName": "Wedge 4 x 4 Triple Inverted with Ribs between Studs",
+      "rebrickableName": "Brick Wedged, Sloped Inverted 4 x 4 Triple [4 Connections between Front Studs]",
+      "category": "Wedge",
+      "selectionEvidence": "matching source identity and footprint; undecorated official part; historical inventory frequency",
+      "inventoryLotCount": 154,
+      "grid": null,
+      "centerLdu": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "rebrickableId": "48933",
+      "ldrawId": "48933",
+      "ldrawName": "Wedge 4 x 4 Triple with Stud Notches",
+      "rebrickableName": "Brick Wedged, Sloped 4 x 4 Triple, Stud Notches",
+      "category": "Wedge",
+      "selectionEvidence": "matching source identity and footprint; undecorated official part; historical inventory frequency",
+      "inventoryLotCount": 150,
+      "grid": null,
+      "centerLdu": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "rebrickableId": "50373",
+      "ldrawId": "50373",
+      "ldrawName": "Wedge 3 x 4 with Stud Notches",
+      "rebrickableName": "Brick Wedged 3 x 4 [Stud Notches]",
+      "category": "Wedge",
+      "selectionEvidence": "matching source identity and footprint; undecorated official part; historical inventory frequency",
+      "inventoryLotCount": 135,
+      "grid": null,
+      "centerLdu": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "rebrickableId": "43721",
+      "ldrawId": "43721",
+      "ldrawName": "Wedge 4 x 2 Sloped Left",
+      "rebrickableName": "Brick Wedged, Sloped 45\u00b0 4 x 2 Left",
+      "category": "Wedge",
+      "selectionEvidence": "matching source identity and footprint; undecorated official part; historical inventory frequency",
+      "inventoryLotCount": 116,
+      "grid": null,
+      "centerLdu": [
+        0,
+        0,
+        0
+      ]
+    }
+  ],
+  "excludedIdentityLinks": [
+    {
+      "id": "38583",
+      "reason": "source identity footprint mismatch",
+      "ldrawName": "Brick 1 x 1 with Half Arch on Opposite Sides",
+      "rebrickableName": "Brick Arch 1 x 2 Jumper"
+    },
+    {
+      "id": "38585",
+      "reason": "source identity footprint mismatch",
+      "ldrawName": "Brick 1 x 1 with Half Arch on Two Adjacent Sides",
+      "rebrickableName": "Brick Arch 1 1/2 x 1 1/2 Corner"
+    },
+    {
+      "id": "4735",
+      "reason": "source identity footprint mismatch",
+      "ldrawName": "Brick 1 x 1 x 0.667 Round with Bar and Clip Vertical",
+      "rebrickableName": "Bar 1 x 3 [Clip / Anti-Stud]"
+    },
+    {
+      "id": "43373",
+      "reason": "source identity footprint mismatch",
+      "ldrawName": "Brick 1 x 2 with Hoop and Axle",
+      "rebrickableName": "Sports Hoop with 2 Studs and Axle"
+    },
+    {
+      "id": "3963",
+      "reason": "source identity footprint mismatch",
+      "ldrawName": "Brick 2 x 1 with Positioning Rockets",
+      "rebrickableName": "Brick Special 1 x 1 with 3 Speakers / Loudspeakers / Space Positioning Rockets"
+    },
+    {
+      "id": "67361",
+      "reason": "source identity footprint mismatch",
+      "ldrawName": "Brick 2 x 2 Round with Tail/Neck Curved Extension with Tip Pin Hole",
+      "rebrickableName": "Animal / Creature Body Part, Tail / Claw / Horn / Branch / Tentacle, End Section, Large"
+    },
+    {
+      "id": "30592",
+      "reason": "source identity footprint mismatch",
+      "ldrawName": "Brick 2 x 2 with Vertical Pin and 1 x 2 Side Plates",
+      "rebrickableName": "Brick Special 2 x 4, with 2 x 2 Brick with Top Pin and 1 x 2 Side Plates"
+    },
+    {
+      "id": "4616a",
+      "reason": "source identity footprint mismatch",
+      "ldrawName": "Brick 2 x 4 x 2 with Engine Cowling and Freestyle Pinhole",
+      "rebrickableName": "Fabuland, Motor / Engine Block, Airplane"
+    },
+    {
+      "id": "4616b",
+      "reason": "source identity footprint mismatch",
+      "ldrawName": "Brick 2 x 4 x 2 with Engine Cowling and Hole for Technic Pin",
+      "rebrickableName": "Fabuland Airplane Engine Block with Technic Pin Hole"
+    },
+    {
+      "id": "4612",
+      "reason": "source identity footprint mismatch",
+      "ldrawName": "Brick 2 x 4 x 2 with Tail",
+      "rebrickableName": "Fabuland Airplane Tail"
+    },
+    {
+      "id": "3863",
+      "reason": "source identity footprint mismatch",
+      "ldrawName": "Brick 2 x 4 x 5 with Platform and Hole for Worm Screw",
+      "rebrickableName": "Brick Special 6 x 6 x 5 with Gear Hole, 3 x 4 Plate [Plain]"
+    },
+    {
+      "id": "30621",
+      "reason": "source identity footprint mismatch",
+      "ldrawName": "Brick 4 x 12 with 4 Pins and Technic Holes",
+      "rebrickableName": "Technic Brick Special 12 x 2 with 2 Side and 2 End Pins, Technic Holes, and 4W Flared End"
+    },
+    {
+      "id": "47990",
+      "reason": "source identity footprint mismatch",
+      "ldrawName": "Brick 4 x 3 x 1 with Skull Relief and Two Pins",
+      "rebrickableName": "Skull 1 x 4 x 3 Relief with Two Pins"
+    },
+    {
+      "id": "20952",
+      "reason": "source identity footprint mismatch",
+      "ldrawName": "Brick Round 1.4 x 1.4 x 0.667 Dome Top",
+      "rebrickableName": "Brick Round 1.5 x 1.5 Dome Top [Plain]"
+    },
+    {
+      "id": "11609",
+      "reason": "source identity footprint mismatch",
+      "ldrawName": "Plate 1 x 1 Round with Five-Pointed Star Top and Pin Hole",
+      "rebrickableName": "Tile, Star with Stud Holder, Pin Hole"
+    },
+    {
+      "id": "6682",
+      "reason": "source identity footprint mismatch",
+      "ldrawName": "Plate 1 x 1 with 1.5 x 4 Front Spoiler",
+      "rebrickableName": "Vehicle Body, Front Fender 1 x 4, Formula 1"
+    },
+    {
+      "id": "5904",
+      "reason": "source identity footprint mismatch",
+      "ldrawName": "Plate 1 x 1 with 12 Petals",
+      "rebrickableName": "Plant, Flower, Peony Rose with 2 Layers"
+    },
+    {
+      "id": "52494",
+      "reason": "source identity footprint mismatch",
+      "ldrawName": "Plate 1 x 1 x 0.667 with Binoculars",
+      "rebrickableName": "Equipment Binoculars with Stud on Top"
+    },
+    {
+      "id": "4590",
+      "reason": "source identity footprint mismatch",
+      "ldrawName": "Plate 1 x 2 with 2 Offset Hollow Studs",
+      "rebrickableName": "Plate Special 1 x 4 Offset with Bar Holes"
+    },
+    {
+      "id": "27261",
+      "reason": "source identity footprint mismatch",
+      "ldrawName": "Plate 1 x 2 with 3 Rocky Claws",
+      "rebrickableName": "Plate Special 2 x 3 with Rocks"
+    },
+    {
+      "id": "19727",
+      "reason": "source identity footprint mismatch",
+      "ldrawName": "Plate 1 x 2 with Cube",
+      "rebrickableName": "Minifig Head Special, Cube with Rear Ledge [Plain]"
+    },
+    {
+      "id": "61072",
+      "reason": "source identity footprint mismatch",
+      "ldrawName": "Plate 1 x 2 with Exhaust Ports",
+      "rebrickableName": "Plate Special 1 x 4 with Angled Tubes"
+    },
+    {
+      "id": "7727",
+      "reason": "source identity footprint mismatch",
+      "ldrawName": "Plate 1 x 2 with Handle and Stylized Flames",
+      "rebrickableName": "Flames 5 x 7 x 1 x 1/3 with Studs, Handle"
+    },
+    {
+      "id": "88289",
+      "reason": "source identity footprint mismatch",
+      "ldrawName": "Plate 1 x 2 with Hole and Bucket",
+      "rebrickableName": "Launcher, 1 x 4 with 1 x 2 Plate with Pin Hole and Bucket (Catapult)"
+    },
+    {
+      "id": "3172",
+      "reason": "source identity footprint mismatch",
+      "ldrawName": "Plate 1 x 3 with Offset Peghole on Underside",
+      "rebrickableName": "Plate Special 1 x 2 with Pin Hole On Side"
+    },
+    {
+      "id": "15706",
+      "reason": "source identity footprint mismatch",
+      "ldrawName": "Plate 1 x 4 with Plate 1 x 4 at 45 Degrees",
+      "rebrickableName": "Wedge Plate 4 Stud 45\u00b0 Angle Plate"
+    },
+    {
+      "id": "91049",
+      "reason": "source identity footprint mismatch",
+      "ldrawName": "Plate 1.5 x 1.5 x 0.667 Round",
+      "rebrickableName": "Sports Barbell Weight"
+    },
+    {
+      "id": "44666",
+      "reason": "source identity footprint mismatch",
+      "ldrawName": "Plate 14 x 18 x 1 Hexagonal with Three Pinholes at Centre",
+      "rebrickableName": "Plate Angles Hexagonal 14 X 18"
+    },
+    {
+      "id": "27934",
+      "reason": "source identity footprint mismatch",
+      "ldrawName": "Plate 2 x 12 Modified with Hexagonal Textured Extension",
+      "rebrickableName": "Large Figure Weapon, Sword 1 x 13 with 1x2 Plate, Angled Side Extensions, Textured Panel Inset with Hexagons"
+    },
+    {
+      "id": "2397",
+      "reason": "source identity footprint mismatch",
+      "ldrawName": "Plate 2 x 2 with Angled Bars and Attached 1 x 2 Plate",
+      "rebrickableName": "Animal / Creature Accessory, Horse Hitching, 1 x 2 Plate and 2 x 2 Plate [Studded]"
+    },
+    {
+      "id": "6040",
+      "reason": "source identity footprint mismatch",
+      "ldrawName": "Plate 2 x 2 x 0.667 with Axleholes and Octagonal Ring with Wings",
+      "rebrickableName": "Propeller Housing"
+    },
+    {
+      "id": "79846",
+      "reason": "source identity footprint mismatch",
+      "ldrawName": "Plate 2 x 6 Angled 135 Degrees with Centre Hole",
+      "rebrickableName": "Plate Angled 2 x 2 with Step and Hole in Center"
+    },
+    {
+      "id": "5518",
+      "reason": "source identity footprint mismatch",
+      "ldrawName": "Plate 2.5 x 2 with 2 Studs on One Edge and Rounded Edges",
+      "rebrickableName": "Plate Special 2 x 3 with Cloud Edge"
+    },
+    {
+      "id": "30042",
+      "reason": "source identity footprint mismatch",
+      "ldrawName": "Plate 4 x 5 Trap Door",
+      "rebrickableName": "Plate Special 4 x 6 x 2/3 with Trap Door Hinge"
+    },
+    {
+      "id": "64566",
+      "reason": "source identity footprint mismatch",
+      "ldrawName": "Plate 6 x 6 Hexagonal with Six Spokes and Clips (Hollow Studs)",
+      "rebrickableName": "Technic Plate Rotor 6 Blade with Clip Ends Connected [aka Water Wheel] - Hollow Studs"
+    },
+    {
+      "id": "69984",
+      "reason": "source identity footprint mismatch",
+      "ldrawName": "Plate 6 x 6 Hexagonal with Six Spokes and Clips (Solid Studs)",
+      "rebrickableName": "Technic Plate Rotor 6 Blade with Clip Ends Connected [aka Water Wheel] - Solid Studs"
+    },
+    {
+      "id": "67929",
+      "reason": "source identity footprint mismatch",
+      "ldrawName": "Plate 6 x 6 Octagon with Rim",
+      "rebrickableName": "Plate Special 8 x 8 x 2/3 Octagon with Rim"
+    },
+    {
+      "id": "7808",
+      "reason": "source identity footprint mismatch",
+      "ldrawName": "Plate 6 x 6 with 2 Raised Plate 3 x 2",
+      "rebrickableName": "Vehicle Base 6 x 10 x 2/3"
+    },
+    {
+      "id": "18922",
+      "reason": "source identity footprint mismatch",
+      "ldrawName": "Plate 8 x 16 x 0.667",
+      "rebrickableName": "Plate Special 9 x 16 x 2/3 with 1 x 4 Recessed"
+    },
+    {
+      "id": "15624",
+      "reason": "source identity footprint mismatch",
+      "ldrawName": "Plate 8 x 8 x 0.667",
+      "rebrickableName": "Plate Special 8 x 9 x 2/3 with 1 x 4 Recessed"
+    },
+    {
+      "id": "65700",
+      "reason": "source identity footprint mismatch",
+      "ldrawName": "Plate Round 2.5 x 2.5 with Melting Drops on Sides",
+      "rebrickableName": "Plate Special Round 2 x 2 with Melting Drops/Icing on Sides"
+    },
+    {
+      "id": "2342",
+      "reason": "source identity footprint mismatch",
+      "ldrawName": "Tile 1 x 2 with Console",
+      "rebrickableName": "Equipment Control Panel"
+    },
+    {
+      "id": "80677",
+      "reason": "source identity footprint mismatch",
+      "ldrawName": "Tile 2 x 2 Round Splat",
+      "rebrickableName": "Tile Special, Splat with Rounded Sides"
+    },
+    {
+      "id": "74169",
+      "reason": "source identity footprint mismatch",
+      "ldrawName": "Tile 2 x 2 x 0.667 with Two Offset Round Extensions",
+      "rebrickableName": "Tile Special Round 3 x 4 x 2/3 Mickey Mouse"
+    },
+    {
+      "id": "5118",
+      "reason": "source identity footprint mismatch",
+      "ldrawName": "Slope Brick 45 6 x 8 Double Inverted with 1 x 6 Extension and 4 Holes",
+      "rebrickableName": "Aircraft Fuselage 8 x 8 Bottom with 4 Pin Holes"
+    },
+    {
+      "id": "85970",
+      "reason": "source identity footprint mismatch",
+      "ldrawName": "Slope Brick Curved 1 x 8 with Plate 1 x 2",
+      "rebrickableName": "Brick Curved 10 x 1 [Asymmetric Inside Ridges]"
+    },
+    {
+      "id": "79897",
+      "reason": "source identity footprint mismatch",
+      "ldrawName": "Slope Brick Curved 2 x 4 x 0.667 with Fin and 4 Studs and 2 Hollow Studs on Sides",
+      "rebrickableName": "Brick Special 2 x 5 with Slope, Studs on Side"
+    },
+    {
+      "id": "7249",
+      "reason": "source identity footprint mismatch",
+      "ldrawName": "Slope Brick Curved 4 x 1 x 1.667",
+      "rebrickableName": "Brick Curved 4 x 4 x 1 2 / 3"
+    },
+    {
+      "id": "66955",
+      "reason": "source identity footprint mismatch",
+      "ldrawName": "Slope Brick Curved 4 x 3.5 x 1 with 3 Steps",
+      "rebrickableName": "Brick Curved 4 x 3 with 3 Layers, 1 x 3 Cutout on Underside"
+    },
+    {
+      "id": "77822",
+      "reason": "source identity footprint mismatch",
+      "ldrawName": "Sports Stuntz Loop Ramp Base",
+      "rebrickableName": "Stunt Ramp 8 x 15 x 6"
+    },
+    {
+      "id": "5260",
+      "reason": "source identity footprint mismatch",
+      "ldrawName": "Window 1 x 4 x 3 Curved Top with 4 Panes and Sill",
+      "rebrickableName": "Window 4 x 3 Lattice with Rounded Top"
+    },
+    {
+      "id": "5259",
+      "reason": "source identity footprint mismatch",
+      "ldrawName": "Window 1 x 4 x 3 Square Top with 4 Panes and Sill",
+      "rebrickableName": "Window 4 x 3 Lattice"
+    },
+    {
+      "id": "60800a",
+      "reason": "source identity footprint mismatch",
+      "ldrawName": "Window Shutter 1 x 2.667 x 3 with Handle",
+      "rebrickableName": "Window 1 x 2 x 3 Shutter with Hinges and Handle"
+    },
+    {
+      "id": "60800b",
+      "reason": "source identity footprint mismatch",
+      "ldrawName": "Window Shutter 1 x 2.667 x 3 without Handle",
+      "rebrickableName": "Window 1 x 2 x 3 Shutter with Hinges and No Handle"
+    },
+    {
+      "id": "65783",
+      "reason": "source identity footprint mismatch",
+      "ldrawName": "Panel 10 x 4 x 13 Curved Tapered with Handle at Each End and 4 Studs On Side",
+      "rebrickableName": "Panel Curved Tapered with Bars at Each End"
+    },
+    {
+      "id": "76798",
+      "reason": "source identity footprint mismatch",
+      "ldrawName": "Panel 5 x 8 x 3.667 Curved with Two Axleholes",
+      "rebrickableName": "Panel 4 x 8 x 4 Quarter Circle with Axle Holes"
+    },
+    {
+      "id": "66606",
+      "reason": "source identity footprint mismatch",
+      "ldrawName": "Panel Cone 4 x 6 x 10 Elliptic Parabolic",
+      "rebrickableName": "Windscreen 6 x 3 x 10 with 4 Studs on Top"
+    },
+    {
+      "id": "43085",
+      "reason": "source identity footprint mismatch",
+      "ldrawName": "Panel Ramp Curved 8 x 12 x 6",
+      "rebrickableName": "Sports Arena Section / Skateboard Ramp"
+    },
+    {
+      "id": "43086",
+      "reason": "source identity footprint mismatch",
+      "ldrawName": "Panel Ramp Curved Turn 16 x 16 x 6",
+      "rebrickableName": "Sports Arena Section / Snowboard Ramp Corner"
+    },
+    {
+      "id": "6065",
+      "reason": "source identity footprint mismatch",
+      "ldrawName": "Plant Bush Base",
+      "rebrickableName": "Plant, Prickly Bush 2 x 2 x 3 Extension with 2 x 2 center"
+    },
+    {
+      "id": "6017",
+      "reason": "source identity footprint mismatch",
+      "ldrawName": "Plant Flower Bell Shaped 1 x 1 x 1.333",
+      "rebrickableName": "Mini Ghost / Bell-Shaped Flower"
+    },
+    {
+      "id": "3778",
+      "reason": "source identity footprint mismatch",
+      "ldrawName": "Plant Tree Columnar 4 x 4 x 11.5",
+      "rebrickableName": "Plant, Tree Cypress"
+    },
+    {
+      "id": "3470",
+      "reason": "source identity footprint mismatch",
+      "ldrawName": "Plant Tree Oval 4 x 4 x 6",
+      "rebrickableName": "Plant, Fruit Tree"
+    },
+    {
+      "id": "2518",
+      "reason": "source identity footprint mismatch",
+      "ldrawName": "Plant Tree Palm Leaf Large",
+      "rebrickableName": "Plant, Palm Leaf Large 10 x 5"
+    },
+    {
+      "id": "2435",
+      "reason": "source identity footprint mismatch",
+      "ldrawName": "Plant Tree Pyramidal 3 x 3 x 4",
+      "rebrickableName": "Plant, Pine Tree - Small 2 x 2 x 4"
+    },
+    {
+      "id": "30382",
+      "reason": "source identity footprint mismatch",
+      "ldrawName": "Wedge 2 x 12 Triple",
+      "rebrickableName": "Brick Wedged, Sloped 2 x 16 Triple"
+    },
+    {
+      "id": "2336",
+      "reason": "source identity footprint mismatch",
+      "ldrawName": "Wedge 2 x 3 with Brick 2 x 4 Side Studs and Plate 2 x 2",
+      "rebrickableName": "Brick Special, Cockpit Space Nose"
+    },
+    {
+      "id": "45407",
+      "reason": "source identity footprint mismatch",
+      "ldrawName": "Wedge 4 x 4 with 1 x 4 Side Plates",
+      "rebrickableName": "Engine Block 4 x 6 x 2 with Wedged Center, Recessed Edges and Pin Holes"
+    },
+    {
+      "id": "87619",
+      "reason": "source identity footprint mismatch",
+      "ldrawName": "Wedge 4 x 6 x 1.667 Inverted with Studs on Front Side",
+      "rebrickableName": "Brick Special, Train Front Sloping Base Wedged with 4 Studs on Front and 2 x 4 Cutout"
+    },
+    {
+      "id": "2916",
+      "reason": "source identity footprint mismatch",
+      "ldrawName": "Wedge 4 x 6 x 2.333",
+      "rebrickableName": "Train Front Sloping Base"
+    }
+  ]
+}

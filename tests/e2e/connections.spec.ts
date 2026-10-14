@@ -93,7 +93,7 @@ test("the shape chooser and connection studio fit small screens", async ({
     .click();
   const dialog = page.getByRole("dialog");
   await expect(dialog.locator(".connection-picker-grid button")).toHaveCount(
-    47,
+    48,
   );
   await dialog
     .getByRole("textbox", { name: "Search builder shapes" })

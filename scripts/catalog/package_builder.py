@@ -46,7 +46,7 @@ SPECIAL = {
     "60470b": [0,4,0], "4032a": [0,4,0], "3941": [0,12,0],
     "3942c": [0,24,0], "4589": [0,12,0], "3678b": [0,24,0],
 }
-STUDS = {"stud.dat", "stud2.dat", "stud2a.dat", "stud10.dat"}
+STUDS = {"stud.dat", "stud2.dat", "stud2a.dat", "stud10.dat", "studa.dat", "stud26.dat"}
 
 def matmul(a,b):
     return [[sum(a[r][k]*b[k][c] for k in range(3)) for c in range(3)] for r in range(3)]
@@ -56,7 +56,7 @@ def add(a,b): return [x+y for x,y in zip(a,b)]
 def point(v,center): return [round((v[0]-center[0])/20,6),round((center[1]-v[1])/20,6),round((center[2]-v[2])/20,6)]
 def axis(v): return [round(v[0],6),round(-v[1],6),round(-v[2],6)]
 
-def extract_studs(part_id,files,center):
+def extract_features(part_id,files,center):
     found=[]
     def visit(path,m,t,trail):
         if path in trail: raise ValueError("Cyclic connector dependency")
@@ -71,11 +71,19 @@ def extract_studs(part_id,files,center):
             translation=list(map(float,tokens[2:5]))
             a=list(map(float,tokens[5:14])); local=[a[:3],a[3:6],a[6:]]
             combined=matmul(m,local); offset=add(vec(m,translation),t)
-            if Path(target).name in STUDS:
+            primitive=Path(target).name
+            if primitive in STUDS or primitive in {"stud4.dat","stud4a.dat"}:
                 # Reject scaled/deformed studs rather than manufacture a fit assumption.
-                if any(abs(sum(combined[r][c]**2 for r in range(3))-1)>1e-5 for c in range(3)): continue
+                columns=(0,1,2) if primitive in STUDS else (0,2)
+                if any(abs(sum(combined[r][c]**2 for r in range(3))-1)>1e-5 for c in columns): continue
                 if any(abs(sum(combined[r][a]*combined[r][b] for r in range(3)))>1e-5 for a,b in ((0,1),(0,2),(1,2))): continue
-                found.append({"position":point(offset,center),"normal":axis(vec(combined,[0,-1,0])),"evidenceFile":path,"primitive":target})
+                tube=primitive not in STUDS
+                direction=axis(vec(combined,[0,-1,0]));length=sum(v*v for v in direction)**.5
+                if tube and length<1:continue
+                direction=[round(v/length,6) for v in direction]
+                pos=add(offset,vec(combined,[0,-4,0])) if tube else offset
+                if any(abs(v-round(v))>1e-5 for v in direction):continue
+                found.append({"kind":"anti-stud" if tube else "stud","position":point(pos,center),"normal":direction,"evidenceFile":path,"primitive":target,"method":"explicit open 6 LDU-radius stud4 bore; transformed mouth at primitive y=-4" if tube else "explicit unit-scale LDraw stud reference"})
             else: visit(target,combined,offset,trail+[path])
     visit("parts/"+part_id+".dat",[[1,0,0],[0,1,0],[0,0,1]],[0,0,0],[])
     # A repeated primitive reference is not a second physical connector.
@@ -96,6 +104,10 @@ def main():
     profiles=[]
     selections=[(rb,ld,[0,h/2,0],(w,d,h)) for rb,ld,w,d,h in STANDARD]
     selections += [(ident,ident,center,None) for ident,center in SPECIAL.items()]
+    expansion=json.loads((ROOT/"data/catalog/builder-expansion.json").read_text())
+    extras={p['ldrawId']:p for p in expansion['entries']}
+    selections += [(p['rebrickableId'],p['ldrawId'],p['centerLdu'],tuple(p['grid']) if p['grid'] else None) for p in extras.values()]
+    previous_profiles={p['id']:p for p in json.loads((output/"builder-parts.json").read_text())['parts']}
     rb_db=sqlite3.connect(output/"brickmade.sqlite")
     for rb,ident,center,grid in selections:
         part=ldraw.parse_part("parts/"+ident+".dat",files["parts/"+ident+".dat"][1])
@@ -109,8 +121,10 @@ def main():
         connectors=[]
         def connector(kind,pos,normal,evidence,**extra):
             connectors.append({"id":f"{kind}-{len(connectors)+1}","kind":kind,"position":pos,"normal":normal,"status":"geometry-reviewed","evidence":evidence,**extra})
-        for stud in extract_studs(ident,files,center):
-            connector("stud",stud["position"],stud["normal"],{"file":stud["evidenceFile"],"primitive":stud["primitive"],"method":"explicit unit-scale LDraw stud reference"},radius=0.3,depth=0.2)
+        for stud in extract_features(ident,files,center):
+            if ident not in extras and stud['kind']!='stud':continue
+            if grid and stud['kind']!='stud':continue # rectangular footprints use established grid seats
+            connector(stud['kind'],stud["position"],stud["normal"],{"file":stud["evidenceFile"],"primitive":stud["primitive"],"method":stud['method']},radius=0.3,depth=0.2)
         sockets=[]
         if grid:
             w,d,h=grid
@@ -144,10 +158,16 @@ def main():
                 radius=0.1,depth=0.1,pairCode="window-60592-60601",up=[0,1,0],procedure="manual-flex",
                 allowedContactRegions=[[-0.15,0.9,0.1,0.15,1.15,0.4],[-0.15,-0.95,0.1,0.15,-0.65,0.4]])
         profile={"id":ident,"rebrickableId":rb,"name":part["name"],"rebrickableName":rb_name[0],"category":part["category"],"tags":part["tags"],"centerLdu":center,"bodySize":[grid[0],grid[2]/20,grid[1]] if grid else None,"connectors":connectors,"coverage":"partial" if not grid else "stud-system","unknownMechanisms":[] if grid else ["Unlisted mating features are unsupported; no fit is inferred from the shape."],"source":{"file":part["file"],"sha256":part["sha256"],"author":part["author"],"license":part["license"],"url":source["recordBaseUrl"]+ident+".dat"},"geometryFile":"/catalog/geometry/"+ident+".mpd","geometrySha256":hashlib.sha256(document.encode()).hexdigest(),"dependencyCount":len(deps)}
+        profile['batch']='expansion' if ident in extras else 'core'
+        profile['admission']={'status':'candidate' if ident in extras else 'legacy-reviewed','physicalStatus':'untested','sourceIdentityEvidence':extras[ident]['selectionEvidence'] if ident in extras else 'explicit original curated namespace link'}
+        old=previous_profiles.get(ident)
+        if old and old.get('geometrySha256')==profile['geometrySha256']:
+            for key in ('mesh','collision'):
+                if key in old:profile[key]=old[key]
         profiles.append(profile)
         profile["observedColorIds"]=[row[0] for row in rb_db.execute("SELECT color_id FROM rb_part_color_observations WHERE part_num=? ORDER BY color_id",(rb,))]
     rb_db.close()
-    manifest={"schemaVersion":1,"units":{"studMillimetres":8,"lduMillimetres":0.4,"lduPerStud":20,"brickHeightLdu":24,"plateHeightLdu":8,"coordinateSystem":"right-handed Y-up; LDraw rotated 180 degrees about X, uniformly scaled by 1/20, then offset by explicit body datum"},"source":source,"profileVersion":"2026-10-14.2","connectionStatus":"geometry-reviewed; not physically certified","parts":profiles}
+    manifest={"schemaVersion":1,"units":{"studMillimetres":8,"lduMillimetres":0.4,"lduPerStud":20,"brickHeightLdu":24,"plateHeightLdu":8,"coordinateSystem":"right-handed Y-up; LDraw rotated 180 degrees about X, uniformly scaled by 1/20, then offset by explicit body datum"},"source":source,"profileVersion":"2026-10-14.3","connectionStatus":"geometry-reviewed; not physically certified","parts":profiles}
     (output/"builder-parts.json").write_text(json.dumps(manifest,indent=2)+"\n")
     # Dedicated namespaced application tables, never upgrade upstream verified flags.
     with sqlite3.connect(output/"brickmade.sqlite") as db:
@@ -165,7 +185,7 @@ def main():
     catalog_manifest["reviewedBuilderPartCount"]=len(profiles)
     catalog_manifest["reviewedConnectorCount"]=sum(len(p["connectors"]) for p in profiles)
     (output/"manifest.json").write_text(json.dumps(catalog_manifest,indent=2)+"\n")
-    links={"status":"geometry-reviewed illustration links; not provider buying mappings","links":[{"rebrickablePartId":p["rebrickableId"],"ldrawPartId":p["id"]} for p in profiles]}
+    links={"status":"explicit source identity/footprint illustration links; ports qualified separately; not provider buying mappings","links":[{"rebrickablePartId":p["rebrickableId"],"ldrawPartId":p["id"]} for p in profiles]}
     (ROOT/"data/catalog/render-links.json").write_text(json.dumps(links,indent=2)+"\n")
     print(json.dumps({"builderParts":len(profiles),"connectors":sum(len(p["connectors"]) for p in profiles)},indent=2))
 

@@ -24,6 +24,22 @@ for (const part of manifest.parts) {
   );
   if (createHash("sha256").update(raw).digest("hex") !== part.mesh.sha256)
     throw Error("Mesh checksum mismatch");
+  if (
+    part.collision?.meshSha256 === part.mesh.sha256 &&
+    part.collision?.resolution === resolution
+  ) {
+    const cached = await fs
+      .readFile(new URL(part.collision.file.split("/catalog/")[1], directory))
+      .catch(() => null);
+    if (
+      cached &&
+      createHash("sha256").update(cached).digest("hex") ===
+        part.collision.sha256
+    ) {
+      console.log(part.id, "verified collision cache");
+      continue;
+    }
+  }
   const count = raw.readUInt32LE(8),
     positions = new Float32Array(count * 3);
   for (let i = 0; i < positions.length; i++)

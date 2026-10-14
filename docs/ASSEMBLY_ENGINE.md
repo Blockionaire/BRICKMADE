@@ -4,7 +4,7 @@ Updated 2026-10-14. Roadmap steps 3 and 4 are implemented as a deterministic, di
 
 ## Source of truth
 
-The broad source library remains 64,895 Rebrickable records and 15,654 selected LDraw entries. It is distinct from the **47 reviewed builder shapes / 393 attachment points**. A catalog search result is never automatically allowed into a generated assembly. `builder-parts.json` and its SQLite `builder_parts.profile_json` entries hold original-source provenance, surfaces, recorded Rebrickable color IDs, reviewed connector frames and collision evidence. Purchasing IDs remain in their own namespaces.
+The broad source library remains 64,895 Rebrickable records and 15,654 selected LDraw entries. It is distinct from the **327 packaged builder entries / 1,514 supported attachment points**. A catalog search result is never automatically allowed into a generated assembly. `builder-parts.json` and its SQLite `builder_parts.profile_json` entries hold original-source provenance, surfaces, recorded Rebrickable color IDs, reviewed connector frames and collision evidence. Purchasing IDs remain in their own namespaces.
 
 `src/domain/models.ts` creates the actual placements for Compact House, Little Rover, Bloom Pot and Garden Pavilion. Each has three detail levels and three sizes. Instruction difficulty changes grouping, not the geometry. Parts, steps, bags, counts, highlights, thumbnails and the assistant derive from these placements. House dimensions use the original surfaces at 8 mm per scene unit.
 
@@ -62,3 +62,5 @@ Storage format is version 5. Older projects keep names and settings, but reset o
 Physically build representative variants, record fit and support failures, then expand reviewed connections and compound subassemblies. Add measured mass/clutch evidence before claiming strength. A later photo-understanding model may propose a shape; it must choose reviewed parts and pass these independent checks. AI output itself cannot certify an assembly. Purchasing handoff additionally requires verified provider IDs and current availability, as described in [SOURCING_PLAN.md](SOURCING_PLAN.md).
 
 Release verification: 179 domain/source/engineering tests pass, including 108 complete model audits. Browser checks cover all 22 scenarios across the regression runs, including refusal to create a project from tampered collision data and visible manual window instructions. A production Pages smoke check verifies all nine routes, the validation worker, real meshes, source library, transparent glass, saved progress and instruction pace with no browser errors or failed requests.
+
+The expanded library has 264 port-bearing parts and 63 geometry-only entries. New ports pass source-backed seating and approach witnesses; physical fit and strength remain untested. See [BUILDER_LIBRARY.md](BUILDER_LIBRARY.md).

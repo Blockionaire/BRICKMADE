@@ -13,6 +13,16 @@ const directory = new URL("../../public/catalog/", import.meta.url);
 const manifest = JSON.parse(
   await fs.readFile(new URL("builder-parts.json", directory), "utf8"),
 );
+const palette = JSON.parse(
+  await fs.readFile(new URL("index.json", directory), "utf8"),
+).colors;
+const colorHeaders = palette
+  .filter((c) => ![16, 24, 10000].includes(c.id))
+  .map(
+    (c) =>
+      `0 !COLOUR LDraw_${c.id} CODE ${c.id} VALUE ${c.hex} EDGE ${c.edge} ALPHA ${c.alpha}`,
+  )
+  .join("\n");
 const resources = new Set();
 for (const part of manifest.parts) {
   const original = await fs.readFile(
@@ -22,7 +32,7 @@ for (const part of manifest.parts) {
   const document = original
     .replace(
       "0 FILE main.ldr",
-      "0 FILE main.ldr\n0 !COLOUR BrickMade_Builder CODE 10000 VALUE #C8C4BA EDGE #333333",
+      `0 FILE main.ldr\n${colorHeaders}\n0 !COLOUR BrickMade_Builder CODE 10000 VALUE #C8C4BA EDGE #333333`,
     )
     .replace(
       "1 16 0 0 0 1 0 0 0 1 0 0 0 1 parts/",
@@ -117,7 +127,7 @@ for (const part of manifest.parts) {
         resources.add(m),
       );
   });
-  for (const m of resources) m.dispose();
+  for (const m of resources) m?.dispose();
   resources.clear();
   console.log(
     part.id,
