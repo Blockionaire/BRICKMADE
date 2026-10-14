@@ -1,6 +1,6 @@
 # Description and photo to build — private prototype
 
-Updated 2026-10-14. The house studio generates actual parts and placements from an editable, bounded house description. It works on GitHub Pages without credentials. Optional OpenAI interpretation proposes that description from one to three resized photos through a separate private Vercel API. It does not generate or certify engineering geometry.
+Updated 2026-10-14. The house studio generates actual parts and placements from an editable, bounded house description. It works on GitHub Pages without credentials. Optional OpenAI interpretation proposes that description from one to three resized photos through a private API hosted with the app on Vercel. It does not generate or certify engineering geometry.
 
 ## Try it now
 
@@ -12,10 +12,10 @@ Non-house photos and complex multi-wing structures are outside this release. Uns
 
 ## Connect OpenAI with Vercel
 
-Use a separate Vercel project for the backend. The existing frontend stays at <https://blockionaire.github.io/BRICKMADE/>. Supabase is not needed for this milestone; accounts and shared cloud saves are later work.
+Vercel now hosts the complete Next.js app and its private photo API in one project. The GitHub Pages prototype remains available at <https://blockionaire.github.io/BRICKMADE/>. Supabase is not needed for this milestone; accounts and shared cloud saves are later work. Existing projects/progress are local to each website origin: moving to Vercel does not automatically transfer GitHub Pages saves.
 
-1. In Vercel, choose **Add New → Project**, import **Blockionaire/BRICKMADE**, name the project **brickmade-ai**, and keep the repository root as the Root Directory.
-2. This repository's `vercel.json` selects **Other** (`framework: null`), builds the small API landing page with `node scripts/prepare-api.mjs`, and uses `.api-public` as Output Directory. Use **Node.js 24**. Leave the configuration supplied by the repository in place; this Vercel project serves the API rather than the Next.js frontend.
+1. In Vercel, choose **Add New → Project**, import **Blockionaire/BRICKMADE**, name the project **brickmade** (or another available name), and keep the repository root as the Root Directory.
+2. This repository's `vercel.json` selects **Next.js**, builds with `npm run build`, and uses `.next` as Output Directory. Use **Node.js 24**. If you already deployed the previous API-only configuration, change the preset to Next.js and remove the old `node scripts/prepare-api.mjs` / `.api-public` overrides. Do not set `GITHUB_PAGES` or `NEXT_PUBLIC_BASE_PATH` on Vercel. Wait for the deployment of the updated repository configuration.
 3. In that project's **Settings → Environment Variables**, add these values for **Production**:
 
    | Name | Value |
@@ -23,10 +23,10 @@ Use a separate Vercel project for the backend. The existing frontend stays at <h
    | `OPENAI_API_KEY` | Paste your OpenAI project API key here. |
    | `OPENAI_MODEL` | `gpt-5.2`, or another vision model available to your account that supports Responses API structured outputs. |
    | `BRICKMADE_ACCESS_TOKEN` | A separate random private test code, at least 24 characters. Generate one with `openssl rand -hex 32`. |
-   | `BRICKMADE_ALLOWED_ORIGINS` | `https://blockionaire.github.io` (origin only, no `/BRICKMADE` path). |
+   | `BRICKMADE_ALLOWED_ORIGINS` | Your exact production app origin, e.g. `https://brickmade.vercel.app`. Optionally append `,https://blockionaire.github.io` to also connect the Pages prototype. No paths or trailing slash. |
 
 4. Deploy/redeploy after setting the variables. Use the production `https://…vercel.app` address. If Vercel Deployment Protection is enabled for production, allow the production API to be reached by the browser; its private test code still protects every interpretation. Preview deployments may remain protected.
-5. In BrickMade **Account → Connect photo interpretation**, paste the Vercel service root address and the separate private test code, then **Check & connect**. Never paste the OpenAI key into BrickMade. The app detects ordinary OpenAI key prefixes and rejects them before making a request. Connection details are stored only in this browser tab's session storage.
+5. Open the Vercel-hosted app. In **Account → Connect photo interpretation**, paste that same Vercel root address and the separate private test code, then **Check & connect**. Never paste the OpenAI key into BrickMade. The app detects ordinary OpenAI key prefixes and rejects them before making a request. Connection details are stored only in this browser tab's session storage.
 6. In **Create**, select real house photos, continue to **House studio**, and confirm sharing. **Interpret my photos** sends the first three real selected photos. Review the AI observations and uncertainty notes, correct the choices, then generate.
 
 The connection check verifies deployment reachability, private authorization and the protocol without making a provider call. The OpenAI key/model is exercised by the first real interpretation. Account access and a real key are required for that integration check; automated tests use explicit mocked provider responses and spend no API credits.
@@ -46,7 +46,7 @@ Only the validated description, source label and local build progress are saved.
 ## Implementation and checks
 
 - `shared/house-brief.ts`: one schema and runtime validator shared by browser and API. Bounded colors, geometry controls and notes; no part IDs or placement instructions.
-- `server/handler.mjs` / `server/openai.mjs`: authenticated transport, image validation, safe errors, provider call and strict output admission. `api/*.mjs` wraps the same handler for Vercel; `npm run api` runs it locally with Node 24 and ignored `.env.local`.
+- `server/handler.mjs` / `server/openai.mjs`: authenticated transport, image validation, safe errors, provider call and strict output admission. `src/pages/api/*.js` wraps the same handler for the Next.js production server and Vercel; raw request parsing and cancellation are preserved. Pages exports exclude these server-only wrappers; `npm run api` runs it locally with Node 24 and ignored `.env.local`.
 - `src/domain/models.ts`: source-backed description compiler; existing demos retain their geometry and progress. Model caching includes the canonical description and is bounded.
 - `src/services/providers.ts`: independent complete-assembly approval before saving. `src/services/model-thumbnail.ts` projects actual checksum-verified source triangles into bounded cached card previews, with no extra WebGL contexts.
 - Tests cover the complete original demo matrix, description geometry across bounded shapes/detail/sizes, exact pace/storage consistency, hostile inputs, origin/auth/body/image limits, malformed/refused/incomplete/quota responses, and the browser consent/error/cancellation flow. Browser photo tests mock interpretation explicitly; physical and live provider testing remain separate gates.
@@ -55,4 +55,4 @@ Local API development: copy `.env.example` to ignored `.env.local`, set server s
 
 Next: validate the real provider integration after deployment; compare real houses and correct interpretation mistakes; physically test representative generated models using [PHYSICAL_PART_TESTS.md](PHYSICAL_PART_TESTS.md). Expand footprint/roof/window capabilities only with new validated connection and whole-assembly examples.
 
-Release verification: 467 existing automated cases plus 99 new cases (566 total), nine new browser scenarios across production Pages runs, and the nine-route Pages smoke check. Native Node 24 API startup and fail-closed configuration were checked. A server-secret canary was absent from the exported frontend. Real OpenAI/Vercel account integration and physical builds remain pending.
+Release verification: 467 existing automated cases plus 99 new cases (566 total), nine new browser scenarios across production Pages runs, and the nine-route Pages smoke check. Native Node 24 API startup and fail-closed configuration were checked. A server-secret canary was absent from the exported frontend. Real OpenAI/Vercel account integration and physical builds remain pending. The unified deployment passed both production builds, all 14 API tests, nine browser scenarios on the full Next.js server, five full-app HTTP route checks and seven real Next.js API/security checks using a dummy server key without calling OpenAI. All nine static Pages routes remain available; API wrappers are excluded from that export.

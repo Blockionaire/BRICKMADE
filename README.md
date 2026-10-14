@@ -56,6 +56,10 @@ npm run build
 
 Browser tests use the system Chromium at `/usr/bin/chromium`. Set `CHROMIUM_PATH` to another Chromium executable if needed. Playwright starts a development server automatically if one is not already running. Tests cover creation, cancellation, local image selection, model controls, filters, progress persistence, assistant context, completion, renaming, reset, and screen widths of 320, 390, and 1440 pixels.
 
+## Vercel
+
+Import this repository as **brickmade** using the **Next.js** preset and Node.js 24. The repository configuration builds the full app and private photo API together with `npm run build`; output is `.next`. Remove any earlier API-only build/output overrides, and leave `GITHUB_PAGES` / `NEXT_PUBLIC_BASE_PATH` unset. Configure server secrets and your production origin using [PHOTO_TO_BUILD.md](docs/PHOTO_TO_BUILD.md). The OpenAI key stays server-side. GitHub Pages remains a static prototype, and browser-local saves are separate for each hosting origin.
+
 ## GitHub Pages
 
 The Pages workflow builds a static export and publishes it when `main` changes. Set the repository's **Settings → Pages → Source** to **GitHub Actions**. The intended project address is `https://blockionaire.github.io/BRICKMADE/`.

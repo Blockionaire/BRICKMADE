@@ -13,6 +13,8 @@ const nextConfig: NextConfig = {
         basePath: process.env.NEXT_PUBLIC_BASE_PATH || "",
         trailingSlash: true,
         images: { unoptimized: true },
+        // These .js API wrappers require a server; keep them out of Pages exports.
+        pageExtensions: ["ts", "tsx"],
       }
     : {}),
 };

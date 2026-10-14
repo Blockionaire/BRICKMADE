@@ -41,6 +41,8 @@ jobs:
       - uses: actions/upload-pages-artifact@v3
         with:
           path: out
+      - name: Validate full Vercel app and API build
+        run: npm run build
 
   deploy:
     needs: build

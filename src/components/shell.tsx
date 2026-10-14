@@ -21,7 +21,7 @@ const links = [
 ];
 
 export function Shell({ children }: { children: React.ReactNode }) {
-  const pathname = usePathname().replace(/\/$/, "") || "/";
+  const pathname = usePathname()?.replace(/\/$/, "") || "/";
   const isActive = (href: string) =>
     pathname === href ||
     (href === "/parts" && ["/catalog", "/connections"].includes(pathname));

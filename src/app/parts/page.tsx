@@ -43,10 +43,10 @@ function PartsContent() {
 function BuildParts({ active }: { active: Project }) {
   const model = createModel(active.settings);
   const params = useSearchParams();
-  const [query, setQuery] = useState(params.get("part") ?? "");
-  const [color, setColor] = useState(params.get("color") ?? "all");
+  const [query, setQuery] = useState(params?.get("part") ?? "");
+  const [color, setColor] = useState(params?.get("color") ?? "all");
   const [category, setCategory] = useState("all");
-  const [bag, setBag] = useState(params.get("bag") ?? "all");
+  const [bag, setBag] = useState(params?.get("bag") ?? "all");
   const [selected, setSelected] = useState<PartQuantity | null>(null);
   const source =
     model.bags.find((b) => String(b.number) === bag)?.parts ?? model.parts;
