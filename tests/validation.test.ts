@@ -131,6 +131,21 @@ describe("Assembly solver rejects broken engineering, rather than only testing i
     model.bags[0].lastStep = 1;
     expect(codes(model)).toContain("blocked-insertion"); // same-step order is also audited
   });
+  it("audits access for a late ground-supported piece underneath an existing roof", () => {
+    const model = fixture([
+      piece("left", "3003", [0, 0.6, 0]),
+      piece("roof", "3031", [1, 1.4, 0]),
+      piece("late-root", "3003", [2, 0.6, 0]),
+    ]);
+    const report = validateAssembly(model, shapes);
+    expect(report.components).toBe(1);
+    expect(report.issues.some((i) => i.code === "solid-collision")).toBe(false);
+    expect(
+      report.issues.some(
+        (i) => i.code === "blocked-insertion" && i.pieceIds[0] === "late-root",
+      ),
+    ).toBe(true);
+  });
   it("fails missing anchors and declared dependencies, including reversed same-step order", () => {
     const model = fixture([
       piece("base", "3022", [0, 0.2, 0]),

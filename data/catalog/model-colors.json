@@ -1,0 +1,65 @@
+{
+  "source": "Rebrickable rb_colors; aliases are UI labels, IDs stay in the Rebrickable namespace",
+  "colors": {
+    "sand": {
+      "rebrickableId": 19,
+      "sourceName": "Tan",
+      "hex": "#E4CD9E",
+      "alpha": 1
+    },
+    "roof": {
+      "rebrickableId": 320,
+      "sourceName": "Dark Red",
+      "hex": "#720E0F",
+      "alpha": 1
+    },
+    "glass": {
+      "rebrickableId": 47,
+      "sourceName": "Trans-Clear",
+      "hex": "#FCFCFC",
+      "alpha": 0.35
+    },
+    "wood": {
+      "rebrickableId": 70,
+      "sourceName": "Reddish Brown",
+      "hex": "#582A12",
+      "alpha": 1
+    },
+    "grass": {
+      "rebrickableId": 2,
+      "sourceName": "Green",
+      "hex": "#237841",
+      "alpha": 1
+    },
+    "stone": {
+      "rebrickableId": 71,
+      "sourceName": "Light Bluish Gray",
+      "hex": "#A0A5A9",
+      "alpha": 1
+    },
+    "leaf": {
+      "rebrickableId": 2,
+      "sourceName": "Green",
+      "hex": "#237841",
+      "alpha": 1
+    },
+    "flower": {
+      "rebrickableId": 14,
+      "sourceName": "Yellow",
+      "hex": "#F2CD37",
+      "alpha": 1
+    },
+    "black": {
+      "rebrickableId": 0,
+      "sourceName": "Black",
+      "hex": "#05131D",
+      "alpha": 1
+    },
+    "white": {
+      "rebrickableId": 15,
+      "sourceName": "White",
+      "hex": "#FFFFFF",
+      "alpha": 1
+    }
+  }
+}

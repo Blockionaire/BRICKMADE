@@ -407,8 +407,7 @@ export function validateAssembly(
     // Audit each declared axis from the target back to a clear approach position.
     for (const p of model.placements) {
       const instance = instances.get(p.id);
-      if (!instance || ground.has(p.id) || p.procedure === "manual-flex")
-        continue;
+      if (!instance || p.procedure === "manual-flex") continue;
       const originalAxis = p.approach ?? [0, 1, 0],
         axis = originalAxis.map((n) => Math.round(n)) as Vec3;
       if (
