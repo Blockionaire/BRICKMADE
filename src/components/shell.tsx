@@ -23,7 +23,7 @@ const links = [
 export function Shell({ children }: { children: React.ReactNode }) {
   const pathname = usePathname().replace(/\/$/, "") || "/";
   const isActive = (href: string) =>
-    pathname === href || (href === "/parts" && pathname === "/catalog");
+    pathname === href || (href === "/parts" && ["/catalog", "/connections"].includes(pathname));
   return (
     <>
       <header className="site-header">

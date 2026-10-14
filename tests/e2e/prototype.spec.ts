@@ -80,6 +80,7 @@ test("private demo runs from photos through model and parts", async ({
   await expect(page.getByRole("dialog")).toBeVisible();
   await page.getByRole("button", { name: "Close", exact: true }).click();
   await page.getByRole("link", { name: "Go to builder" }).click();
+  await expect(page).toHaveURL(/\/builder$/, { timeout: 15000 });
   await expect(
     page.getByRole("heading", { name: "A place to begin" }),
   ).toBeVisible();

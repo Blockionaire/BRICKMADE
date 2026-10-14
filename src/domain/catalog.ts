@@ -18,7 +18,8 @@ export const COLORS: Record<ColorId, { name: string; hex: string }> = {
 };
 
 // Curated Rebrickable shape identities; geometry/vendor mappings are separate.
-// Colors and house rendering are illustrative, not stock guarantees.
+// One scene unit = one 8 mm stud pitch. Geometry uses uniform LDraw scaling.
+// Colors remain illustrative, not stock guarantees.
 export const CATALOG: Record<string, CatalogPart> = {
   "3005": {
     id: "3005",
@@ -26,7 +27,7 @@ export const CATALOG: Record<string, CatalogPart> = {
     category: "Brick",
     width: 1,
     depth: 1,
-    height: 0.96,
+    height: 1.2,
     studs: true,
   },
   "3004": {
@@ -35,7 +36,7 @@ export const CATALOG: Record<string, CatalogPart> = {
     category: "Brick",
     width: 2,
     depth: 1,
-    height: 0.96,
+    height: 1.2,
     studs: true,
   },
   "3010": {
@@ -44,7 +45,7 @@ export const CATALOG: Record<string, CatalogPart> = {
     category: "Brick",
     width: 4,
     depth: 1,
-    height: 0.96,
+    height: 1.2,
     studs: true,
   },
   "3009": {
@@ -53,7 +54,7 @@ export const CATALOG: Record<string, CatalogPart> = {
     category: "Brick",
     width: 6,
     depth: 1,
-    height: 0.96,
+    height: 1.2,
     studs: true,
   },
   "3022": {
@@ -62,7 +63,7 @@ export const CATALOG: Record<string, CatalogPart> = {
     category: "Plate",
     width: 2,
     depth: 2,
-    height: 0.32,
+    height: 0.4,
     studs: true,
   },
   "3003": {
@@ -71,7 +72,7 @@ export const CATALOG: Record<string, CatalogPart> = {
     category: "Brick",
     width: 2,
     depth: 2,
-    height: 0.96,
+    height: 1.2,
     studs: true,
   },
   "3024": {
@@ -80,7 +81,7 @@ export const CATALOG: Record<string, CatalogPart> = {
     category: "Plate",
     width: 1,
     depth: 1,
-    height: 0.32,
+    height: 0.4,
     studs: true,
   },
   "3023": {
@@ -89,7 +90,7 @@ export const CATALOG: Record<string, CatalogPart> = {
     category: "Plate",
     width: 2,
     depth: 1,
-    height: 0.32,
+    height: 0.4,
     studs: true,
   },
   "3710": {
@@ -98,7 +99,7 @@ export const CATALOG: Record<string, CatalogPart> = {
     category: "Plate",
     width: 4,
     depth: 1,
-    height: 0.32,
+    height: 0.4,
     studs: true,
   },
   "3020": {
@@ -107,7 +108,7 @@ export const CATALOG: Record<string, CatalogPart> = {
     category: "Plate",
     width: 4,
     depth: 2,
-    height: 0.32,
+    height: 0.4,
     studs: true,
   },
   "3068b": {
@@ -116,7 +117,7 @@ export const CATALOG: Record<string, CatalogPart> = {
     category: "Tile",
     width: 2,
     depth: 2,
-    height: 0.32,
+    height: 0.4,
     studs: false,
   },
   "3070b": {
@@ -125,7 +126,7 @@ export const CATALOG: Record<string, CatalogPart> = {
     category: "Tile",
     width: 1,
     depth: 1,
-    height: 0.32,
+    height: 0.4,
     studs: false,
   },
 };

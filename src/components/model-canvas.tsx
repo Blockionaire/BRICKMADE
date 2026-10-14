@@ -3,7 +3,12 @@
 import { useEffect, useRef, useState } from "react";
 import * as THREE from "three";
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls.js";
-import { RoundedBoxGeometry } from "three/examples/jsm/geometries/RoundedBoxGeometry.js";
+import { BUILDER_BY_REBRICKABLE } from "@/domain/parts/profiles";
+import {
+  loadBuilderMesh,
+  createPartGeometry,
+  type DecodedMesh,
+} from "@/services/builder-geometry";
 import { CATALOG, COLORS } from "@/domain/catalog";
 import type {
   CameraView,
@@ -18,8 +23,6 @@ type Binding = {
   piece: Placement;
   body: THREE.InstancedMesh;
   index: number;
-  studs: THREE.InstancedMesh | null;
-  studStart: number;
   offset: number;
 };
 type Studio = {
@@ -87,6 +90,37 @@ export default function ModelCanvas({
   const materialCache = useRef(new Map<string, THREE.MeshStandardMaterial>());
   const motionPreference = useRef(false);
   const [failed, setFailed] = useState(false);
+  const meshKey = [...new Set(model.placements.map((p) => p.partId))]
+    .sort()
+    .join(",");
+  const [meshes, setMeshes] = useState<{
+    key: string;
+    data: Map<string, DecodedMesh>;
+  }>();
+  const [geometryError, setGeometryError] = useState(false);
+  const geometryReady = meshes?.key === meshKey;
+  useEffect(() => {
+    let cancelled = false;
+    Promise.all(
+      meshKey.split(",").map(async (id) => {
+        const profile = BUILDER_BY_REBRICKABLE.get(id);
+        if (!profile) throw Error("Unsupported builder part.");
+        return [id, await loadBuilderMesh(profile.id)] as const;
+      }),
+    )
+      .then((entries) => {
+        if (!cancelled) {
+          setMeshes({ key: meshKey, data: new Map(entries) });
+          setGeometryError(false);
+        }
+      })
+      .catch(() => {
+        if (!cancelled) setGeometryError(true);
+      });
+    return () => {
+      cancelled = true;
+    };
+  }, [meshKey]);
   useEffect(() => {
     pickCallback.current = onPick;
   }, [onPick]);
@@ -113,6 +147,7 @@ export default function ModelCanvas({
     renderer.toneMappingExposure = 1.3;
     renderer.domElement.setAttribute("role", "img");
     renderer.domElement.dataset.model = "house";
+    renderer.domElement.setAttribute("aria-busy", "true");
     element.appendChild(renderer.domElement);
     const preference = window.matchMedia("(prefers-reduced-motion: reduce)");
     motionPreference.current = preference.matches;
@@ -329,7 +364,7 @@ export default function ModelCanvas({
 
   useEffect(() => {
     const current = studio.current;
-    if (!current) return;
+    if (!current || !geometryReady || !meshes) return;
     current.cancelPlacement();
     disposeGroup(current.group);
     disposeGroup(current.guides, true);
@@ -345,8 +380,7 @@ export default function ModelCanvas({
     }
     const matrix = new THREE.Object3D();
     for (const [key, pieces] of groups) {
-      const first = pieces[0],
-        part = CATALOG[first.partId];
+      const first = pieces[0];
       const active = !!step && first.step === step;
       const materialKey = `${first.color}:${active && highlight ? "active" : step && highlight ? "ghost" : "normal"}`;
       let material = materialCache.current.get(materialKey);
@@ -363,14 +397,9 @@ export default function ModelCanvas({
         });
         materialCache.current.set(materialKey, material);
       }
+      const profile = BUILDER_BY_REBRICKABLE.get(first.partId)!;
       const body = new THREE.InstancedMesh(
-        new RoundedBoxGeometry(
-          part.width - 0.055,
-          part.height - 0.035,
-          part.depth - 0.055,
-          2,
-          0.035,
-        ),
+        createPartGeometry(profile.id, meshes.data.get(first.partId)!),
         material,
         pieces.length,
       );
@@ -379,22 +408,11 @@ export default function ModelCanvas({
       body.receiveShadow = true;
       body.userData.placements = pieces;
       body.instanceMatrix.setUsage(THREE.DynamicDrawUsage);
-      const studs = part.studs
-        ? new THREE.InstancedMesh(
-            new THREE.CylinderGeometry(0.24, 0.24, 0.15, 12),
-            material,
-            pieces.length * part.width * part.depth,
-          )
-        : null;
-      const studPieces: Placement[] = [];
-      let studIndex = 0;
       pieces.forEach((p, index) => {
         const binding: Binding = {
           piece: p,
           body,
           index,
-          studs,
-          studStart: studIndex,
           offset: 0,
         };
         current.bindings.push(binding);
@@ -403,29 +421,8 @@ export default function ModelCanvas({
         matrix.rotation.set(0, p.rotated ? Math.PI / 2 : 0, 0);
         matrix.updateMatrix();
         body.setMatrixAt(index, matrix.matrix);
-        if (studs)
-          for (let x = 0; x < part.width; x++)
-            for (let z = 0; z < part.depth; z++) {
-              const dx = x + 0.5 - part.width / 2,
-                dz = z + 0.5 - part.depth / 2;
-              matrix.position.set(
-                p.position[0] + (p.rotated ? dz : dx),
-                p.position[1] + part.height / 2 + 0.06,
-                p.position[2] + (p.rotated ? -dx : dz),
-              );
-              matrix.rotation.set(0, 0, 0);
-              matrix.updateMatrix();
-              studs.setMatrixAt(studIndex++, matrix.matrix);
-              studPieces.push(p);
-            }
       });
       current.group.add(body);
-      if (studs) {
-        studs.userData.placements = studPieces;
-        studs.castShadow = true;
-        studs.instanceMatrix.setUsage(THREE.DynamicDrawUsage);
-        current.group.add(studs);
-      }
     }
     // Destination outlines stay on the model while the incoming bricks descend.
     if (step && highlight) {
@@ -464,6 +461,9 @@ export default function ModelCanvas({
     }
     current.span = model.settings.size === "large" ? 17.5 : 15;
     const canvas = current.renderer.domElement;
+    canvas.dataset.geometry = "ldraw";
+    canvas.setAttribute("aria-busy", "false");
+    canvas.dataset.geometryParts = String(meshes.data.size);
     canvas.dataset.pieceCount = String(current.bindings.length);
     canvas.dataset.totalPieces = String(model.placements.length);
     canvas.setAttribute(
@@ -480,11 +480,11 @@ export default function ModelCanvas({
       current.bindings = [];
       current.bindingById.clear();
     };
-  }, [model, step, highlight]);
+  }, [model, step, highlight, geometryReady, meshes]);
 
   useEffect(() => {
     const current = studio.current;
-    if (!current) return;
+    if (!current || !geometryReady) return;
     disposeGroup(current.accents, true);
     const matching = current.bindings.filter(
       (binding) =>
@@ -528,40 +528,30 @@ export default function ModelCanvas({
     return () => {
       disposeGroup(current.accents, true);
     };
-  }, [model, step, highlight, selectedPlacementId, matchingKey]);
+  }, [
+    model,
+    step,
+    highlight,
+    selectedPlacementId,
+    matchingKey,
+    geometryReady,
+    meshes,
+  ]);
 
   useEffect(() => {
     const current = studio.current;
-    if (!current) return;
+    if (!current || !geometryReady) return;
     current.cancelPlacement();
     const incoming = current.bindings.filter((b) => b.piece.step === step);
     const matrix = new THREE.Object3D();
     const update = (binding: Binding, offset: number) => {
-      const p = binding.piece,
-        part = CATALOG[p.partId];
+      const p = binding.piece;
       binding.offset = offset;
       matrix.position.set(p.position[0], p.position[1] + offset, p.position[2]);
       matrix.rotation.set(0, p.rotated ? Math.PI / 2 : 0, 0);
       matrix.updateMatrix();
       binding.body.setMatrixAt(binding.index, matrix.matrix);
       binding.body.instanceMatrix.needsUpdate = true;
-      if (binding.studs) {
-        let index = binding.studStart;
-        for (let x = 0; x < part.width; x++)
-          for (let z = 0; z < part.depth; z++) {
-            const dx = x + 0.5 - part.width / 2,
-              dz = z + 0.5 - part.depth / 2;
-            matrix.position.set(
-              p.position[0] + (p.rotated ? dz : dx),
-              p.position[1] + offset + part.height / 2 + 0.06,
-              p.position[2] + (p.rotated ? -dx : dz),
-            );
-            matrix.rotation.set(0, 0, 0);
-            matrix.updateMatrix();
-            binding.studs.setMatrixAt(index++, matrix.matrix);
-          }
-        binding.studs.instanceMatrix.needsUpdate = true;
-      }
     };
     const canvas = current.renderer.domElement;
     let frame = 0,
@@ -622,7 +612,7 @@ export default function ModelCanvas({
     };
     frame = requestAnimationFrame(animate);
     return finish;
-  }, [model, step, highlight, placementMode, replay]);
+  }, [model, step, highlight, placementMode, replay, geometryReady, meshes]);
 
   const focusX = focus?.[0] ?? 0,
     focusY = focus?.[1] ?? 3,
@@ -708,6 +698,20 @@ export default function ModelCanvas({
 
   return (
     <div ref={container} className="canvas-container">
+      {!failed && !geometryReady && !geometryError && (
+        <div className="viewer-loading" role="status">
+          <span className="loading-dot" /> Loading real part geometry…
+        </div>
+      )}
+      {geometryError && !failed && (
+        <div className="viewer-fallback">
+          <ModelThumbnail model={model} name="Simplified model preview" />
+          <p>
+            The detailed geometry could not load. Reload to retry. This preview
+            is simplified.
+          </p>
+        </div>
+      )}
       {failed && (
         <div className="viewer-fallback">
           <ModelThumbnail model={model} name="Your build" />

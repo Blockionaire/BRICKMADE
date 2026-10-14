@@ -177,6 +177,14 @@ export default function CatalogPage() {
         description="Curves. Glass. Petals. Gears. Explore the pieces that make a model feel like the real thing."
         back="/parts"
       />
+      <Link href="/connections" className="library-connection-link">
+        <Shapes size={21} />
+        <span>
+          <strong>Make the connection.</strong>
+          <small>Try real attachment points in the connection studio.</small>
+        </span>
+        <ArrowRight size={18} />
+      </Link>
       <div
         className="library-source-tabs"
         role="group"

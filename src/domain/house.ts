@@ -145,9 +145,9 @@ function buildHouse(settings: GenerationSettings, legacy: boolean): HouseModel {
     (n) => {
       for (let x = -halfW; x < halfW; x += 2)
         for (let z = -halfD; z < halfD; z += 2)
-          add("3068b", "stone", x + 1, 0.32, z + 1, n);
+          add("3068b", "stone", x + 1, 0.4, z + 1, n);
       for (let z = halfD; z < baseDepth / 2; z += 2)
-        add("3068b", "stone", 0, 0.32, z + 1, n);
+        add("3068b", "stone", 0, 0.4, z + 1, n);
     },
   );
 
@@ -182,7 +182,7 @@ function buildHouse(settings: GenerationSettings, legacy: boolean): HouseModel {
             if (front && row < 4 && x >= -1 && x < 1) color = "wood";
             cells.push({ at: x, color });
           }
-          run(cells, front ? halfD - 0.5 : -halfD + 0.5, 0.64 + row * 0.96, n);
+          run(cells, front ? halfD - 0.5 : -halfD + 0.5, 0.8 + row * 1.2, n);
         }
         for (const side of [-1, 1]) {
           const cells: { at: number; color: ColorId }[] = [];
@@ -194,14 +194,14 @@ function buildHouse(settings: GenerationSettings, legacy: boolean): HouseModel {
                   ? "glass"
                   : "sand",
             });
-          run(cells, side * (halfW - 0.5), 0.64 + row * 0.96, n, true);
+          run(cells, side * (halfW - 0.5), 0.8 + row * 1.2, n, true);
         }
       },
     );
   }
 
-  const roofBase = 0.64 + wallRows * 0.96;
-  const roofTierHeight = easy ? 0.32 : 0.64;
+  const roofBase = 0.8 + wallRows * 1.2;
+  const roofTierHeight = easy ? 0.4 : 0.8;
   const roofLayers = halfD + 1;
   for (let layer = 0; layer < roofLayers; layer++) {
     step(
@@ -260,7 +260,7 @@ function buildHouse(settings: GenerationSettings, legacy: boolean): HouseModel {
             run(
               cells,
               z + 0.5,
-              roofBase + layer * 0.64 + sub * 0.32,
+              roofBase + layer * 0.8 + sub * 0.4,
               n,
               false,
               true,
@@ -280,9 +280,9 @@ function buildHouse(settings: GenerationSettings, legacy: boolean): HouseModel {
         // Begin above the supporting roof tier, without overlapping its interior.
         const z = -2;
         const supportingTier = halfD - 2;
-        const bottom = roofBase + (supportingTier + 1) * 0.64;
+        const bottom = roofBase + (supportingTier + 1) * 0.8;
         for (let i = 0; i < 4; i++)
-          add("3003", "wood", -halfW + 2, bottom + i * 0.96, z, n);
+          add("3003", "wood", -halfW + 2, bottom + i * 1.2, z, n);
       },
     );
   step(
@@ -299,14 +299,14 @@ function buildHouse(settings: GenerationSettings, legacy: boolean): HouseModel {
         for (let i = 0; i < shrubCount; i++) {
           const x = side * (halfW + 2);
           const z = -halfD + 1 + i * 2;
-          add("3003", "leaf", x, 0.32, z, n);
-          if (lush) add("3003", "leaf", x, 1.28, z, n);
-          add("3070b", "flower", x - 0.5, lush ? 2.24 : 1.28, z - 0.5, n);
+          add("3003", "leaf", x, 0.4, z, n);
+          if (lush) add("3003", "leaf", x, 1.6, z, n);
+          add("3070b", "flower", x - 0.5, lush ? 2.8 : 1.6, z - 0.5, n);
         }
       if (!easy)
         for (const side of [-1, 1]) {
-          add("3068b", "stone", side * 3, 0.32, halfD + 2, n);
-          add("3024", "flower", side * (halfW - 0.5), 0.32, halfD + 2.5, n);
+          add("3068b", "stone", side * 3, 0.4, halfD + 2, n);
+          add("3024", "flower", side * (halfW - 0.5), 0.4, halfD + 2.5, n);
         }
     },
   );
@@ -320,10 +320,10 @@ function buildHouse(settings: GenerationSettings, legacy: boolean): HouseModel {
       (n) => {
         for (const side of [-1, 1])
           for (let row = 0; row < 4; row++)
-            add("3005", "wood", side * 2, 0.64 + row * 0.96, halfD + 1.5, n);
+            add("3005", "wood", side * 2, 0.8 + row * 1.2, halfD + 1.5, n);
         for (let x = -3; x < 3; x++)
           for (let z = halfD; z < halfD + 2; z++)
-            add("3024", "roof", x + 0.5, 4.48, z + 0.5, n);
+            add("3024", "roof", x + 0.5, 5.6, z + 0.5, n);
       },
     );
     step(
@@ -334,10 +334,10 @@ function buildHouse(settings: GenerationSettings, legacy: boolean): HouseModel {
       (n) => {
         for (const x of [-halfW + 0.5, halfW - 0.5])
           for (let row = 1; row < 6; row++)
-            add("3005", "wood", x, 0.64 + row * 0.96, halfD + 0.5, n);
-        const top = roofBase + roofLayers * 0.64;
+            add("3005", "wood", x, 0.8 + row * 1.2, halfD + 0.5, n);
+        const top = roofBase + roofLayers * 0.8;
         add("3003", "glass", halfW - 2, top, 0, n);
-        add("3068b", "roof", halfW - 2, top + 0.96, 0, n);
+        add("3068b", "roof", halfW - 2, top + 1.2, 0, n);
       },
     );
     step(
@@ -347,10 +347,10 @@ function buildHouse(settings: GenerationSettings, legacy: boolean): HouseModel {
       4,
       (n) => {
         for (let x = -halfW; x < halfW; x++) {
-          add("3005", "wood", x + 0.5, 0.32, -baseDepth / 2 + 0.5, n);
+          add("3005", "wood", x + 0.5, 0.4, -baseDepth / 2 + 0.5, n);
           if ((x + halfW) % 3 === 0) {
-            add("3005", "wood", x + 0.5, 1.28, -baseDepth / 2 + 0.5, n);
-            add("3070b", "flower", x + 0.5, 2.24, -baseDepth / 2 + 0.5, n);
+            add("3005", "wood", x + 0.5, 1.6, -baseDepth / 2 + 0.5, n);
+            add("3070b", "flower", x + 0.5, 2.8, -baseDepth / 2 + 0.5, n);
           }
         }
       },

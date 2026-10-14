@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import dynamic from "next/dynamic";
 import Link from "next/link";
 import {
@@ -17,6 +17,8 @@ import {
   Compass,
 } from "lucide-react";
 import { CATALOG, COLORS } from "@/domain/catalog";
+import { BUILDER_BY_REBRICKABLE } from "@/domain/parts/profiles";
+import { findMates, quarterTurn } from "@/domain/parts/connections";
 import type { CameraView, HouseModel, PlacementMode } from "@/domain/types";
 import { PartIllustration, Sheet } from "./ui";
 const Canvas = dynamic(() => import("./model-canvas"), {
@@ -92,6 +94,22 @@ export function ModelViewer({
         (p) => p.partId === selected.partId && p.color === selected.color,
       )?.quantity
     : 0;
+  const attachments = useMemo(() => {
+    if (!selectable) return new Map<string, number>();
+    const result = findMates(
+      model.placements.map((p) => ({
+        id: p.id,
+        partId: BUILDER_BY_REBRICKABLE.get(p.partId)!.id,
+        position: p.position,
+        rotation: quarterTurn(p.rotated ? 1 : 0),
+      })),
+    );
+    const counts = new Map<string, number>();
+    for (const mate of result.mates)
+      for (const c of [mate.a, mate.b])
+        counts.set(c.pieceId, (counts.get(c.pieceId) ?? 0) + 1);
+    return counts;
+  }, [model, selectable]);
   const views: { id: CameraView; name: string }[] = [
     { id: "perspective", name: "3D" },
     { id: "front", name: "Front" },
@@ -225,6 +243,18 @@ export function ModelViewer({
               <X size={16} />
             </button>
           </div>
+          <p className="inspector-attachments">
+            {BUILDER_BY_REBRICKABLE.get(selected.partId)!.connectors.length}{" "}
+            reviewed attachment points · {attachments.get(selected.id) ?? 0}{" "}
+            aligned in this design.
+            <Link href="/connections">
+              Explore connections <ArrowUpRight size={12} />
+            </Link>
+            <span>
+              Alignment is a geometry check; this demo still needs whole-model
+              validation.
+            </span>
+          </p>
           <div className="inspector-actions">
             <button
               aria-pressed={matching}

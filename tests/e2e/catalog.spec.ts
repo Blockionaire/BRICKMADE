@@ -1,4 +1,11 @@
 import { expect, test } from "@playwright/test";
+import fs from "node:fs";
+const manifest = JSON.parse(
+  fs.readFileSync(
+    new URL("../../public/catalog/manifest.json", import.meta.url),
+    "utf8",
+  ),
+);
 
 test("the broad library searches real shapes and previews flowers and transparent glass", async ({
   page,
@@ -120,7 +127,7 @@ test("library filters, source attribution, non-preview records, and responsive l
     .click();
   await expect(
     page.locator(".library-results-grid .library-part-card"),
-  ).toHaveCount(15);
+  ).toHaveCount(manifest.previewCount);
   await expect(page.locator(".library-attribution")).toContainText("CC BY 4.0");
   await expect(
     page.getByRole("link", { name: "Catalog database" }),

@@ -5,17 +5,37 @@ import * as THREE from "three";
 import { LDrawLoader } from "three/examples/jsm/loaders/LDrawLoader.js";
 import { LDrawConditionalLineMaterial } from "three/examples/jsm/materials/LDrawConditionalLineMaterial.js";
 import manifest from "../public/catalog/manifest.json";
-import index from "../public/catalog/index.json";
-import rbIndex from "../public/catalog/rebrickable-index.json";
 import rbManifest from "../public/catalog/rebrickable-manifest.json";
 import sourceConfig from "../data/catalog/source.json";
 import { CATALOG } from "@/domain/catalog";
-import { searchLibrary } from "@/domain/library/types";
+import {
+  searchLibrary,
+  type LibraryIndex,
+  type LibraryPart,
+  type LibraryColor,
+} from "@/domain/library/types";
 import {
   exportBrickLinkWantedList,
   shoppingReadiness,
   type SourcingLine,
 } from "@/domain/library/shopping-list";
+
+// Load large fixtures as data, avoiding huge inferred TypeScript literal types.
+const index: LibraryIndex = JSON.parse(
+  fs.readFileSync(
+    new URL("../public/catalog/index.json", import.meta.url),
+    "utf8",
+  ),
+);
+const rbIndex: {
+  parts: (LibraryPart & { observedColorIds: number[] })[];
+  colors: (LibraryColor & { placeholder?: boolean })[];
+} = JSON.parse(
+  fs.readFileSync(
+    new URL("../public/catalog/rebrickable-index.json", import.meta.url),
+    "utf8",
+  ),
+);
 
 const python = (code: string) => {
   const result = spawnSync("python3", ["-c", code], { encoding: "utf8" });
@@ -102,10 +122,16 @@ describe("Licensed broad part catalog", () => {
       for (const preview of manifest.previews) {
         const loader = new LDrawLoader();
         loader.setConditionalLineMaterial(LDrawConditionalLineMaterial);
-        const text = fs.readFileSync(
-          `public/catalog/previews/${preview.id}.mpd`,
-          "utf8",
-        );
+        const text = fs
+          .readFileSync(`public/catalog/previews/${preview.id}.mpd`, "utf8")
+          .replace(
+            "0 FILE main.ldr",
+            "0 FILE main.ldr\n0 !COLOUR Test CODE 10000 VALUE #CCCCCC EDGE #222222",
+          )
+          .replace(
+            "1 16 0 0 0 1 0 0 0 1 0 0 0 1 parts/",
+            "1 10000 0 0 0 1 0 0 0 1 0 0 0 1 parts/",
+          );
         const group = await new Promise<THREE.Group>((resolve, reject) =>
           loader.parse(text, resolve, reject),
         );

@@ -41,7 +41,7 @@ The spotlight highlights one placement or all visible placements with the same p
 
 Version-2 saves map their old construction phases into the selected instructions. Version-3 saves migrate from the original 6/8/10-piece boundaries to version 4 using the exact completed placement IDs. Switching difficulty preserves those IDs and resumes at the first group containing unbuilt pieces; a partially completed larger group may repeat. Switching back without advancing returns to the original place. Completed builds remain complete, and each saved build retains its own pace.
 
-The house uses 12 curated shapes. The separate library imports **64,895 Rebrickable part records**, **100,148 observed part/color pairs**, **114,656 element-ID records**, and **15,654 selected official LDraw geometry entries**. Open **Parts → Beyond the basic brick** to search the two source namespaces and inspect 15 real geometry previews. Rebrickable data is current to 2026-10-13; LDraw is official release 2026-09. The SQLite download retains provenance and reserved connection/vendor-mapping tables. Historical colors are not live stock, and new parts are not automatically enabled in generation. See [BRICK_CATALOG.md](docs/BRICK_CATALOG.md) for permissions and import commands, and [SOURCING_PLAN.md](docs/SOURCING_PLAN.md) for the complete-list buying architecture.
+The house uses 12 curated shapes, now rendered from original LDraw surfaces at correct physical proportions. The connection workspace has 47 detailed shapes and 391 geometry-reviewed attachment points; open **Parts → Beyond the basic brick → Make the connection**. See [CONNECTIONS.md](docs/CONNECTIONS.md) for supported rules and limits. The separate library imports **64,895 Rebrickable part records**, **100,148 observed part/color pairs**, **114,656 element-ID records**, and **15,654 selected official LDraw geometry entries**. Open **Parts → Beyond the basic brick** to search the two source namespaces and inspect 47 real geometry previews. Rebrickable data is current to 2026-10-13; LDraw is official release 2026-09. The SQLite download retains provenance and reserved connection/vendor-mapping tables. Historical colors are not live stock, and new parts are not automatically enabled in generation. See [BRICK_CATALOG.md](docs/BRICK_CATALOG.md) for permissions and import commands, and [SOURCING_PLAN.md](docs/SOURCING_PLAN.md) for the complete-list buying architecture.
 
 
 ## Checks
@@ -68,13 +68,13 @@ npm run build:pages
 
 This writes the deployable site to `out/`, including every page, bundled fonts, and demo illustrations. Pages builds use the `/BRICKMADE` prefix and directory URLs so direct links and reloads work. The GitHub workflow takes the prefix from the Pages configuration, allowing a custom domain later. Normal development and production-server commands retain their original behavior.
 
-`npm run test:pages` checks a running static site: images, all seven routes, the 3D model, parts, assistant, and progress after reload. Set `PAGES_SMOKE_URL` to its full project URL; the default is the internal test server at port 4173 under `/BRICKMADE`.
+`npm run test:pages` checks a running static site: images, all eight routes, the 3D model, parts, assistant, and progress after reload. Set `PAGES_SMOKE_URL` to its full project URL; the default is the internal test server at port 4173 under `/BRICKMADE`.
 
-The hosted prototype requires no server, API keys, or database. Each visitor's photos stay in that browser session; build names and progress stay in that browser's local storage. Pages hosting does not add authentication.
+The hosted prototype requires no backend server or API keys. The catalog is a versioned snapshot bundled with the app, with a downloadable SQLite file; it needs no database server. Each visitor's photos stay in that browser session; build names and progress stay in that browser's local storage. Pages hosting does not add authentication.
 
 ## Project structure
 
-- `src/app`: Home, Create, Review, Builder, Parts, and Account routes.
+- `src/app`: Home, Create, Review, Builder, Parts, Catalog, Connections, and Account routes.
 - `src/components`: Shared controls, model viewer, assistant, and mobile navigation.
 - `src/domain`: Strict types, catalog identities, and deterministic house variants.
 - `src/services`: Replaceable generation/assistant providers and local project storage.

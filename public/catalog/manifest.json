@@ -81,7 +81,7 @@
   "partCount": 15654,
   "categoryCount": 85,
   "colorCount": 320,
-  "previewCount": 15,
+  "previewCount": 47,
   "excludedRootFiles": 9202,
   "categories": [
     {
@@ -530,9 +530,235 @@
       "file": "/catalog/previews/4624.mpd",
       "dependencyCount": 21,
       "sha256": "3e210a5c91ef559646b4101ee9cf4dfc9c348a57f9fd94aef2cef5acb61428aa"
+    },
+    {
+      "id": "3004",
+      "color": 71,
+      "file": "/catalog/previews/3004.mpd",
+      "dependencyCount": 9,
+      "sha256": "72e512bbe701d90a8ee6efe823f7f28a19dd4dfc88c919469810917a6a772c5e"
+    },
+    {
+      "id": "3622",
+      "color": 71,
+      "file": "/catalog/previews/3622.mpd",
+      "dependencyCount": 11,
+      "sha256": "b279b7dcb9adc5d67ed46df8cd6e09714d1c8336504b2412812d131f764fbd4f"
+    },
+    {
+      "id": "3010",
+      "color": 71,
+      "file": "/catalog/previews/3010.mpd",
+      "dependencyCount": 11,
+      "sha256": "2b2c92705f0e1e1c3f9846a07023ed5077a572d65187a5ee4e3c02bb0590dc51"
+    },
+    {
+      "id": "3009",
+      "color": 71,
+      "file": "/catalog/previews/3009.mpd",
+      "dependencyCount": 8,
+      "sha256": "46e3ec566c1f1e32b2fc32eb3915034d7071f05ce9a95d6921c27574f68b3a6f"
+    },
+    {
+      "id": "3003",
+      "color": 71,
+      "file": "/catalog/previews/3003.mpd",
+      "dependencyCount": 12,
+      "sha256": "8f044099c73adfa5b732cf0181477819a2b85628c60b14f4ca3f2310e039bfff"
+    },
+    {
+      "id": "3002",
+      "color": 71,
+      "file": "/catalog/previews/3002.mpd",
+      "dependencyCount": 9,
+      "sha256": "51bf04ed84b9ac3148b89d9e9458d77ef6706f1b3c7ffda9eefdaa5086f8bf2e"
+    },
+    {
+      "id": "3001",
+      "color": 71,
+      "file": "/catalog/previews/3001.mpd",
+      "dependencyCount": 10,
+      "sha256": "5b42b07c726b28b5e4c9020ca9913d69873b8cd4156b4821f2680052f387b85f"
+    },
+    {
+      "id": "2456",
+      "color": 71,
+      "file": "/catalog/previews/2456.mpd",
+      "dependencyCount": 8,
+      "sha256": "b98871e98880056c8101732175fe4cca6512cdf93eb72080c41048fdc7f58413"
+    },
+    {
+      "id": "3024",
+      "color": 71,
+      "file": "/catalog/previews/3024.mpd",
+      "dependencyCount": 8,
+      "sha256": "d0faf0daa01235bc4faaef61c8ef2b79ae6bff8500d5a589e7ce0536a2c80df2"
+    },
+    {
+      "id": "3023b",
+      "color": 71,
+      "file": "/catalog/previews/3023b.mpd",
+      "dependencyCount": 10,
+      "sha256": "8f6ae3da658c7174d604b7fc5c47bde7bb4467436dc481e85fdc6e5a6c3db025"
+    },
+    {
+      "id": "3623",
+      "color": 71,
+      "file": "/catalog/previews/3623.mpd",
+      "dependencyCount": 10,
+      "sha256": "2abcc8d4b66c150352f2969d334cbbacb7f5cdd9e105f289d2c46ce8bd367067"
+    },
+    {
+      "id": "3710",
+      "color": 71,
+      "file": "/catalog/previews/3710.mpd",
+      "dependencyCount": 11,
+      "sha256": "0f2e7735d69d4dffcf0f06681b2b92f9530866a55c4ea2a79bc804215e8655bf"
+    },
+    {
+      "id": "3666",
+      "color": 71,
+      "file": "/catalog/previews/3666.mpd",
+      "dependencyCount": 11,
+      "sha256": "f61bced518eceb5cbb619f7b445acd8d0eb1d817203f5190c236d5fb5536ca00"
+    },
+    {
+      "id": "3460",
+      "color": 71,
+      "file": "/catalog/previews/3460.mpd",
+      "dependencyCount": 11,
+      "sha256": "08643f84a14518ee26e05de3731d1d2ed93795147989ce8b4e2ae999a6b4a104"
+    },
+    {
+      "id": "3022",
+      "color": 71,
+      "file": "/catalog/previews/3022.mpd",
+      "dependencyCount": 8,
+      "sha256": "f7aee2efa14ab8ffc6639c960604028b1054156d718a8069175e6be5dbf820ec"
+    },
+    {
+      "id": "3795",
+      "color": 71,
+      "file": "/catalog/previews/3795.mpd",
+      "dependencyCount": 8,
+      "sha256": "3b22aebf813b1ef0bebbbcdf6193c1c071c71e2d4dda0df88bde2c1e350e9d79"
+    },
+    {
+      "id": "3034",
+      "color": 71,
+      "file": "/catalog/previews/3034.mpd",
+      "dependencyCount": 8,
+      "sha256": "26c124b2258b95c583e2fc4f2063e943d8dbb834a4ce47ad888daa98766b776f"
+    },
+    {
+      "id": "3031",
+      "color": 71,
+      "file": "/catalog/previews/3031.mpd",
+      "dependencyCount": 8,
+      "sha256": "e40c61d3ff13baf438ed7b88eb908e52d1f73ddd86fa0f617d4be9f7809993b8"
+    },
+    {
+      "id": "3035",
+      "color": 71,
+      "file": "/catalog/previews/3035.mpd",
+      "dependencyCount": 8,
+      "sha256": "3bb63eb4f17ec2e12d1a91930cc78ff57f3e3e5ed8e6e8398616975b95a3e8a6"
+    },
+    {
+      "id": "3070b",
+      "color": 71,
+      "file": "/catalog/previews/3070b.mpd",
+      "dependencyCount": 4,
+      "sha256": "a0ae1dda785ac83948ede4ad5c2a92f522f8a3178ac826a681ddffd29ed4a971"
+    },
+    {
+      "id": "3068b",
+      "color": 71,
+      "file": "/catalog/previews/3068b.mpd",
+      "dependencyCount": 9,
+      "sha256": "9fdd8bb6bdb6908e6f517156204df688811c234cbca8409297420cda0479688b"
+    },
+    {
+      "id": "3040b",
+      "color": 71,
+      "file": "/catalog/previews/3040b.mpd",
+      "dependencyCount": 10,
+      "sha256": "dc6a0a38d24c13af0aed2900f92f70cc4cc587d4eb620c7f970aeca50c5b722f"
+    },
+    {
+      "id": "2780",
+      "color": 71,
+      "file": "/catalog/previews/2780.mpd",
+      "dependencyCount": 14,
+      "sha256": "b8fb4f415af82d8853e779129462a54fb740328dd5a663a77fb1188df47251af"
+    },
+    {
+      "id": "3705",
+      "color": 71,
+      "file": "/catalog/previews/3705.mpd",
+      "dependencyCount": 4,
+      "sha256": "a0b66a0389f183d29fcea90ae6f083d9c6a622164d192043ff8f59e7051b8e3c"
+    },
+    {
+      "id": "32002",
+      "color": 71,
+      "file": "/catalog/previews/32002.mpd",
+      "dependencyCount": 13,
+      "sha256": "51219e1feaec47f85c4bbe65563099fc427cf3f30b6ec2ca6f875a2f68a37eaa"
+    },
+    {
+      "id": "4070",
+      "color": 71,
+      "file": "/catalog/previews/4070.mpd",
+      "dependencyCount": 9,
+      "sha256": "562a59275b4d13ef7bb0ef2edc87606b69eb658f1ed895acf5ec83c18fe914d2"
+    },
+    {
+      "id": "60470b",
+      "color": 71,
+      "file": "/catalog/previews/60470b.mpd",
+      "dependencyCount": 27,
+      "sha256": "3ed03a471195932f56fa742959003366a74d9e091dee11659074a9148afed078"
+    },
+    {
+      "id": "4032a",
+      "color": 71,
+      "file": "/catalog/previews/4032a.mpd",
+      "dependencyCount": 22,
+      "sha256": "775db4155533c5594c016fb7bb45311bf370e901e61ef6827186cbf38e211c33"
+    },
+    {
+      "id": "3941",
+      "color": 71,
+      "file": "/catalog/previews/3941.mpd",
+      "dependencyCount": 28,
+      "sha256": "94194687cd6b300e0bda8eeb242eacc387965fbbbc17dada050c53d8e89133a0"
+    },
+    {
+      "id": "3942c",
+      "color": 71,
+      "file": "/catalog/previews/3942c.mpd",
+      "dependencyCount": 10,
+      "sha256": "e524dd734b46ba2bcbbe4e898e09675c9ee3d9e2d6a35d41510b26d88ae70e64"
+    },
+    {
+      "id": "4589",
+      "color": 71,
+      "file": "/catalog/previews/4589.mpd",
+      "dependencyCount": 19,
+      "sha256": "91ce1984c0b8157cbc0a7c28a13bbd63fbb5531e57dc974f26853a60623bb29d"
+    },
+    {
+      "id": "3678b",
+      "color": 71,
+      "file": "/catalog/previews/3678b.mpd",
+      "dependencyCount": 18,
+      "sha256": "f15788ad03fa83f3073fcaccab88904142bc642ba4fa85ab4258ba9b9686c889"
     }
   ],
   "manufacturedPartColorCount": 0,
   "verifiedConnectionCount": 0,
-  "verifiedPurchaseMappingCount": 0
+  "verifiedPurchaseMappingCount": 0,
+  "reviewedBuilderPartCount": 47,
+  "reviewedConnectorCount": 391
 }

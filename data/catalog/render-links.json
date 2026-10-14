@@ -1,13 +1,97 @@
 {
-  "status": "metadata-reviewed illustration links; not provider buying mappings",
+  "status": "geometry-reviewed illustration links; not provider buying mappings",
   "links": [
     {
       "rebrickablePartId": "3005",
       "ldrawPartId": "3005"
     },
     {
+      "rebrickablePartId": "3004",
+      "ldrawPartId": "3004"
+    },
+    {
+      "rebrickablePartId": "3622",
+      "ldrawPartId": "3622"
+    },
+    {
+      "rebrickablePartId": "3010",
+      "ldrawPartId": "3010"
+    },
+    {
+      "rebrickablePartId": "3009",
+      "ldrawPartId": "3009"
+    },
+    {
+      "rebrickablePartId": "3003",
+      "ldrawPartId": "3003"
+    },
+    {
+      "rebrickablePartId": "3002",
+      "ldrawPartId": "3002"
+    },
+    {
+      "rebrickablePartId": "3001",
+      "ldrawPartId": "3001"
+    },
+    {
+      "rebrickablePartId": "2456",
+      "ldrawPartId": "2456"
+    },
+    {
+      "rebrickablePartId": "3024",
+      "ldrawPartId": "3024"
+    },
+    {
+      "rebrickablePartId": "3023",
+      "ldrawPartId": "3023b"
+    },
+    {
+      "rebrickablePartId": "3623",
+      "ldrawPartId": "3623"
+    },
+    {
+      "rebrickablePartId": "3710",
+      "ldrawPartId": "3710"
+    },
+    {
+      "rebrickablePartId": "3666",
+      "ldrawPartId": "3666"
+    },
+    {
+      "rebrickablePartId": "3460",
+      "ldrawPartId": "3460"
+    },
+    {
+      "rebrickablePartId": "3022",
+      "ldrawPartId": "3022"
+    },
+    {
       "rebrickablePartId": "3020",
       "ldrawPartId": "3020"
+    },
+    {
+      "rebrickablePartId": "3795",
+      "ldrawPartId": "3795"
+    },
+    {
+      "rebrickablePartId": "3034",
+      "ldrawPartId": "3034"
+    },
+    {
+      "rebrickablePartId": "3031",
+      "ldrawPartId": "3031"
+    },
+    {
+      "rebrickablePartId": "3035",
+      "ldrawPartId": "3035"
+    },
+    {
+      "rebrickablePartId": "3070b",
+      "ldrawPartId": "3070b"
+    },
+    {
+      "rebrickablePartId": "3068b",
+      "ldrawPartId": "3068b"
     },
     {
       "rebrickablePartId": "6141",
@@ -24,6 +108,10 @@
     {
       "rebrickablePartId": "3039",
       "ldrawPartId": "3039"
+    },
+    {
+      "rebrickablePartId": "3040b",
+      "ldrawPartId": "3040b"
     },
     {
       "rebrickablePartId": "3659",
@@ -54,12 +142,52 @@
       "ldrawPartId": "3700"
     },
     {
+      "rebrickablePartId": "2780",
+      "ldrawPartId": "2780"
+    },
+    {
+      "rebrickablePartId": "3705",
+      "ldrawPartId": "3705"
+    },
+    {
+      "rebrickablePartId": "32002",
+      "ldrawPartId": "32002"
+    },
+    {
       "rebrickablePartId": "3647",
       "ldrawPartId": "3647"
     },
     {
       "rebrickablePartId": "4624",
       "ldrawPartId": "4624"
+    },
+    {
+      "rebrickablePartId": "4070",
+      "ldrawPartId": "4070"
+    },
+    {
+      "rebrickablePartId": "60470b",
+      "ldrawPartId": "60470b"
+    },
+    {
+      "rebrickablePartId": "4032a",
+      "ldrawPartId": "4032a"
+    },
+    {
+      "rebrickablePartId": "3941",
+      "ldrawPartId": "3941"
+    },
+    {
+      "rebrickablePartId": "3942c",
+      "ldrawPartId": "3942c"
+    },
+    {
+      "rebrickablePartId": "4589",
+      "ldrawPartId": "4589"
+    },
+    {
+      "rebrickablePartId": "3678b",
+      "ldrawPartId": "3678b"
     }
   ]
 }
