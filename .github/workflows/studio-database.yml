@@ -20,6 +20,14 @@ jobs:
           --health-interval 5s
           --health-timeout 5s
           --health-retries 10
+      postgrest:
+        image: postgrest/postgrest:v12.2.3
+        env:
+          PGRST_DB_URI: postgres://postgres:studio-test-only@postgres:5432/brickmade_test
+          PGRST_DB_SCHEMAS: public
+          PGRST_DB_ANON_ROLE: anon
+          PGRST_JWT_SECRET: brickmade-postgrest-fixture-secret-0123456789
+        ports: [3009:3000]
     env:
       PGHOST: 127.0.0.1
       PGPORT: 5432
@@ -28,9 +36,16 @@ jobs:
       PGDATABASE: brickmade_test
     steps:
       - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "24"
       - name: Apply Supabase fixture and actual migration
         run: |
           psql -v ON_ERROR_STOP=1 -f tests/sql/supabase-fixture.sql
           psql -v ON_ERROR_STOP=1 -f supabase/migrations/202610150001_studio.sql
       - name: Exercise durable queue, ownership and recovery
         run: psql -v ON_ERROR_STOP=1 -f tests/sql/studio.sql
+      - name: Exercise actual PostgREST transport and RLS
+        run: |
+          psql -c "notify pgrst, 'reload schema'"
+          node tests/sql/rest-transport.mjs

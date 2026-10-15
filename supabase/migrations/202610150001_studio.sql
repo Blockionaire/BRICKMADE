@@ -125,7 +125,7 @@ begin
  if (select count(*) from public.bm_jobs where owner_id=p_owner and created_at>now()-interval '24 hours')>=10 then raise exception 'daily-limit'; end if;
  if (select count(*) from public.bm_jobs where owner_id=p_owner and stage not in ('completed','failed','cancelled'))>=2 then raise exception 'active-limit'; end if;
  if p_parent is not null then
-   select * into parent from public.bm_jobs where id=p_parent and owner_id=p_owner and project_id=p_project and stage='completed';
+   select * into parent from public.bm_jobs where id=p_parent and owner_id=p_owner and project_id=p_project and stage in ('completed','failed');
    if not found or not (parent.checkpoint ? 'description') then raise exception 'invalid-parent'; end if;
    p_inputs := '{}';
  else
