@@ -53,6 +53,17 @@ jobs:
           PY
       - name: Exercise durable queue, ownership and recovery
         run: psql -v ON_ERROR_STOP=1 -f tests/sql/studio.sql
+      - name: Verify optional closed-group policy template
+        run: |
+          python3 tests/sql/closed-group-access.py > /tmp/brickmade-group-access.log 2>&1 || {
+            python3 - <<'PYDIAG'
+          from pathlib import Path
+          t=Path('/tmp/brickmade-group-access.log').read_text()[-6000:]
+          print('::error::'+t.replace('%','%25').replace('\r','%0D').replace('\n','%0A'))
+          PYDIAG
+            exit 1
+          }
+          cat /tmp/brickmade-group-access.log
       - name: Exercise actual PostgREST transport and RLS
         run: |
           psql -c "notify pgrst, 'reload schema'"

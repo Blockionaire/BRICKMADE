@@ -8,6 +8,8 @@ Open [this project's SQL Editor](https://supabase.com/dashboard/project/dqwkbtss
 
 We need to check whether any other app grants all signed-in users access to its data. Supabase guest users also receive the `authenticated` role. A separate BrickMade schema does not change those existing policies. Do not enable anonymous sign-ins until this review is complete. Do not edit unrelated apps' policies or email settings as part of installation.
 
+If another app should share data only among approved people, it needs a way to identify those people. A browser connection using only the project's public key cannot distinguish approved visitors. Add or verify that app's sign-in/private backend before tightening its policy, so its current users are not locked out. A shared project's global signup settings cannot serve as an app-specific membership list. The optional [closed-group access template](../supabase/manual/closed-group-access.sql) supports explicitly approved, non-guest Supabase accounts once that prerequisite is met; it is **not** an automatic migration and must not be run with guessed user IDs. See [the closed-group guide](CLOSED_GROUP_ACCESS.md).
+
 ## 2. Install BrickMade's objects
 
 After reviewing the report, for a new installation run these files in SQL Editor, **one at a time, in order**:
