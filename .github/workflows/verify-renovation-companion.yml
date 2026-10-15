@@ -1,0 +1,42 @@
+name: Verify closed-group companion SQL
+on:
+  push:
+    branches: [codex/verify-renovation-access]
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  access:
+    runs-on: ubuntu-latest
+    services:
+      postgres:
+        image: postgres:17-alpine
+        env:
+          POSTGRES_PASSWORD: companion-fixture-only
+          POSTGRES_DB: companion_access_test
+        ports: [5432:5432]
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 5s
+          --health-timeout 5s
+          --health-retries 10
+    env:
+      PGHOST: 127.0.0.1
+      PGPORT: 5432
+      PGUSER: postgres
+      PGPASSWORD: companion-fixture-only
+      PGDATABASE: companion_access_test
+    steps:
+      - uses: actions/checkout@v4
+      - name: Verify exact companion SQL on real PostgreSQL
+        working-directory: verification
+        run: |
+          python3 renovation-database.py > /tmp/companion-sql.log 2>&1 || {
+            python3 - <<'PYDIAG'
+          from pathlib import Path
+          t=Path('/tmp/companion-sql.log').read_text()[-6000:]
+          print('::error::'+t.replace('%','%25').replace('\r','%0D').replace('\n','%0A'))
+          PYDIAG
+            exit 1
+          }
+          cat /tmp/companion-sql.log
