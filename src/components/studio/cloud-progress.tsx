@@ -44,7 +44,8 @@ export function CloudProgressSync({
   const [status, setStatus] = useState<
       "idle" | "saving" | "saved" | "error" | "conflict"
     >(() =>
-      project.cloud?.progressSignature === JSON.stringify(payload(project))
+      project.cloud &&
+      project.cloud.progressSignature === JSON.stringify(payload(project))
         ? "saved"
         : "idle",
     ),

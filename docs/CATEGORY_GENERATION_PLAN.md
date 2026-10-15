@@ -1,5 +1,7 @@
 # Category-first photo-to-brick generation
 
+**Implementation update, 2026-10-15:** the six implementation steps are now present in the repository, with House as the first enabled category. The working infrastructure uses Vercel + Supabase Postgres/Auth/Storage + a portable Node 24 worker; Trigger.dev and Realtime are not required. See [CLOUD_STUDIO_SETUP.md](CLOUD_STUDIO_SETUP.md) for actual routes and activation, and [RELEASE_LOG.md](RELEASE_LOG.md) for verified results. The original proposal below is retained as planning history. Hosted activation and real OpenAI testing require the owner’s project/worker secrets.
+
 Proposed architecture, 2026-10-15. This is a build plan, not an implemented or deployed capability. It replaces the intended creation flow; existing saved builds, the interactive viewer, parts and progress remain valuable foundations. No customer payments, brick pricing or ordering enter this milestone.
 
 ## Product flow

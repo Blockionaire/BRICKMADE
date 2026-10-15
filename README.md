@@ -1,6 +1,6 @@
 # BrickMade
 
-A mobile-first, private-testing prototype for turning personal objects into brick builds. The first demo is a compact house with a terracotta roof, windows, a front door, a chimney, and a small garden.
+A mobile-first private prototype for turning photos into personal brick builds. The category-first House studio uses private Supabase uploads, a durable generation worker, real supported pieces and checked, saved instructions. Four separate local demonstrations remain available; Car, Animal, Flower and Free format photo generators are explicitly in development.
 
 ## Run locally
 
@@ -14,16 +14,20 @@ npm run dev
 
 Demo/manual generation needs no credentials, environment variables, database server, or external AI service. Optional photo interpretation uses a separate private Vercel backend; see [PHOTO_TO_BUILD.md](docs/PHOTO_TO_BUILD.md) for where to add the OpenAI key. The imported catalog database and browser index are bundled. Fonts and illustrations are bundled locally. For a production build, use `npm run build` followed by `npm start`.
 
-## Try the prototype
+## Try the cloud studio
 
-1. Choose **Create new build**, then **Use demo photos**, or select three local JPG, PNG, or WebP images.
+Open Create, choose House, add one to three photos, then Generate. Default settings produce a compact balanced design. Reopen a queued build to resume; after checking, explore the actual model, change detail/size/pace, open saved versions, or enter Builder. Optional email linking keeps the same guest collection across devices. See [CLOUD_STUDIO_SETUP.md](docs/CLOUD_STUDIO_SETUP.md) for Supabase and worker activation; the studio explains availability when not configured. GitHub Pages links to the Vercel cloud app for this workflow.
+
+## Try the local demonstrations
+
+1. Choose **Create new build → Explore demo builds**, then **Use demo photos**, or select three local JPG, PNG, or WebP images.
 2. Name the build, choose Easy/Normal/Hard model detail and a size, then choose Easy/Medium/Hard building difficulty independently.
 3. Generate the demo, rotate the house, and compare variants.
 4. Explore parts by color, type, or sorting bag.
 5. Switch saved builds using visual model cards in Builder or Parts. Follow your selected instruction pace, replay each group’s placement, and use automatic or manual camera guidance. Tap a brick or a current-step part card to spotlight it, highlight visible matches, or find its exact part/color in Parts. Ask the demo assistant about the current step.
 6. Finish the walkthrough, or resume later. Progress and build names are stored in this browser.
 
-Demo photo selection does not analyze images; choose one of four predefined demo families. **Create → Design a house** generates a new checked house from an editable description without an API key. Optional photo interpretation sends up to three resized real photos to your connected private service and OpenAI only after explicit sharing consent. Photos are never persisted in build data; OpenAI’s applicable retention policy applies to interpreted images. Assistant responses are deterministic demonstrations, not external AI calls. No payments, pricing, cost estimates, ordering, or unlock gates are included.
+Demo photo selection does not analyze images; choose one of four predefined demo families. **Create → Explore demo builds → Design a house** generates a new checked house from an editable description without an API key. Optional photo interpretation sends up to three resized real photos to your connected private service and OpenAI only after explicit sharing consent. Photos are never persisted in build data; OpenAI’s applicable retention policy applies to interpreted images. Assistant responses are deterministic demonstrations, not external AI calls. No payments, pricing, cost estimates, ordering, or unlock gates are included.
 
 The Normal compact house has 126 actual placements, small guided steps and 4 sorting bags. Statistics, parts, bags, and instructions are calculated from the same placement data. All 108 family/detail/size/pace combinations are digitally audited for recorded colors, reviewed connections, sampled material clearance, support, placement order and inventory. Physical fit/strength and current stock remain untested. See [ASSEMBLY_ENGINE.md](docs/ASSEMBLY_ENGINE.md).
 
@@ -58,7 +62,7 @@ Browser tests use the system Chromium at `/usr/bin/chromium`. Set `CHROMIUM_PATH
 
 ## Vercel
 
-Import this repository as **brickmade** using the **Next.js** preset and Node.js 24. The repository configuration builds the full app and private photo API together with `npm run build`; output is `.next`. Remove any earlier API-only build/output overrides, and leave `GITHUB_PAGES` / `NEXT_PUBLIC_BASE_PATH` unset. Configure server secrets and your production origin using [PHOTO_TO_BUILD.md](docs/PHOTO_TO_BUILD.md). The OpenAI key stays server-side. GitHub Pages remains a static prototype, and browser-local saves are separate for each hosting origin.
+Import this repository as **brickmade** using the **Next.js** preset and Node.js 24. The repository configuration builds the full app and private photo API together with `npm run build`; output is `.next`. Remove any earlier API-only build/output overrides, and leave `GITHUB_PAGES` / `NEXT_PUBLIC_BASE_PATH` unset. Configure the cloud studio and worker using [CLOUD_STUDIO_SETUP.md](docs/CLOUD_STUDIO_SETUP.md). The separate legacy photo interpreter is documented in [PHOTO_TO_BUILD.md](docs/PHOTO_TO_BUILD.md). The OpenAI key stays server-side. GitHub Pages remains a static prototype, and browser-local saves are separate for each hosting origin.
 
 ## GitHub Pages
 

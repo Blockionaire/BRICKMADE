@@ -29,6 +29,11 @@ try {
       failedRequests.push(`${response.status()} ${response.url()}`);
   });
   await page.goto(`${site}/create/`);
+  await page.getByRole("button", { name: /House.*Your home/ }).click();
+  await expect(
+    page.getByRole("link", { name: "Open the cloud studio" }),
+  ).toHaveAttribute("href", "https://brickmade.vercel.app/create");
+  await page.getByRole("link", { name: /Explore demo builds/ }).click();
   await page.getByRole("button", { name: "Use demo photos" }).click();
   await expect(page.getByAltText("Demo house front view")).toBeVisible();
   await expect
@@ -147,6 +152,8 @@ try {
     "account",
     "builder",
     "create",
+    "create/demo",
+    "design",
     "catalog",
     "connections",
     "models",
@@ -158,7 +165,7 @@ try {
   assert.deepEqual(errors, []);
   assert.deepEqual(failedRequests, []);
   console.log(
-    "Pages smoke check passed: nine routes, photos, real builder meshes, connection snapping and Technic fit, parts filter, independent instruction difficulty, broad part catalog, glass geometry, assistant, and saved progress. No browser errors or failed requests.",
+    "Pages smoke check passed: eleven routes, cloud studio handoff, photos, real builder meshes, connection snapping and Technic fit, parts filter, independent instruction difficulty, broad part catalog, glass geometry, assistant, and saved progress. No browser errors or failed requests.",
   );
 } finally {
   await browser.close();

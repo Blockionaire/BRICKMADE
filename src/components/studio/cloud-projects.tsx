@@ -63,7 +63,7 @@ function CloudBuildCard({ project }: { project: SavedCloudProject }) {
       b.created_at.localeCompare(a.created_at),
     ),
     job = jobs[0],
-    preview = jobs.find((j) => j.stage === "completed");
+    preview = jobs.find((j) => j.stage === "completed")?.id;
   const host = useRef<HTMLAnchorElement>(null),
     [artifact, setArtifact] = useState<StudioArtifact | null>(null),
     [failed, setFailed] = useState(false);
@@ -74,7 +74,7 @@ function CloudBuildCard({ project }: { project: SavedCloudProject }) {
     const load = () => {
       if (started) return;
       started = true;
-      loadStudioArtifact(preview.id, abort.signal)
+      loadStudioArtifact(preview, abort.signal)
         .then((r) => {
           if (!abort.signal.aborted) setArtifact(r.artifact);
         })
@@ -100,7 +100,7 @@ function CloudBuildCard({ project }: { project: SavedCloudProject }) {
       abort.abort();
       observer?.disconnect();
     };
-  }, [preview?.id]);
+  }, [preview]);
   return (
     <Link
       ref={host}
@@ -130,7 +130,7 @@ function CloudBuildCard({ project }: { project: SavedCloudProject }) {
         )}
       </div>
       <div>
-        {artifact && preview?.id !== job.id && (
+        {artifact && preview !== job.id && (
           <small>Showing the previous checked version</small>
         )}
         <span className="tag">
