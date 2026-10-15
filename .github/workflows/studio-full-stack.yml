@@ -27,7 +27,11 @@ jobs:
           p=Path('supabase/config.toml')
           s=p.read_text()
           assert 'enable_anonymous_sign_ins = false' in s
-          p.write_text(s.replace('enable_anonymous_sign_ins = false','enable_anonymous_sign_ins = true'))
+          s=s.replace('enable_anonymous_sign_ins = false','enable_anonymous_sign_ins = true').replace('max_frequency = "1m"','max_frequency = "1s"')
+          template=Path('supabase/templates/brickmade-code.html');template.parent.mkdir(exist_ok=True)
+          template.write_text('<p>Your BrickMade code is {{ .Token }}</p>')
+          s+='\n[auth.email.template.magic_link]\nsubject = "BrickMade sign-in code"\ncontent_path = "./supabase/templates/brickmade-code.html"\n[auth.email.template.email_change]\nsubject = "BrickMade collection code"\ncontent_path = "./supabase/templates/brickmade-code.html"\n'
+          p.write_text(s)
           PY
           supabase start --exclude studio,imgproxy,edge-runtime,realtime,logflare,vector,supavisor
           supabase status -o json > /tmp/brickmade-supabase.json

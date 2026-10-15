@@ -97,19 +97,135 @@ test("real private uploads, durable recovery, checked artifact, variants, frozen
   await expect(
     page.getByText("Progress saved privately", { exact: true }),
   ).toBeVisible({ timeout: 20000 });
-  const progress = await db.rows(
-    "bm_progress",
-    `project_id=eq.${saved.projectId}`,
-  );
-  expect(
-    progress.some(
-      (p: { completed_ids: string[] }) => p.completed_ids.length > 0,
-    ),
-  ).toBe(true);
+  await expect
+    .poll(
+      async () => {
+        const progress = await db.rows(
+          "bm_progress",
+          `project_id=eq.${saved.projectId}`,
+        );
+        return progress.some(
+          (p: { completed_ids: string[] }) => p.completed_ids.length > 0,
+        );
+      },
+      { timeout: 20000 },
+    )
+    .toBe(true);
   await page.evaluate(() => localStorage.clear());
   await page.goto(`/design?job=${variant}`);
   await page.getByRole("button", { name: "Let’s build this" }).click();
   await expect(page).toHaveURL(/\/builder/);
   await expect(page.getByText(/Step 2 of/)).toBeVisible();
   expect(errors).toEqual([]);
+});
+
+// Local mail capture only: no external mailbox or production SMTP is contacted.
+async function capturedCode(email: string, seen: Set<string>) {
+  let code = "";
+  await expect
+    .poll(
+      async () => {
+        try {
+          const response = await fetch(
+            "http://127.0.0.1:54324/api/v1/messages",
+          );
+          if (response.ok) {
+            const listing = await response.json();
+            for (const message of listing.messages || []) {
+              if (
+                seen.has(message.ID) ||
+                !JSON.stringify(message.To).includes(email)
+              )
+                continue;
+              const mail = await (
+                await fetch(
+                  `http://127.0.0.1:54324/api/v1/message/${message.ID}`,
+                )
+              ).json();
+              const match = (mail.Text || mail.HTML || "").match(
+                /code is (\d{6,10})/,
+              );
+              if (match) {
+                seen.add(message.ID);
+                code = match[1];
+                return code;
+              }
+            }
+          }
+        } catch {
+          /* Mail capture may still be starting. */
+        }
+        return "";
+      },
+      { timeout: 20000, intervals: [500, 1000] },
+    )
+    .toBeTruthy();
+  return code;
+}
+test("guest email linking retains ownership and email sign-in restores the same collection", async ({
+  page,
+  browser,
+}) => {
+  test.setTimeout(90000);
+  await page.goto("/account");
+  await expect(page.getByLabel("Email address", { exact: true })).toBeVisible();
+  const guest = (await (await page.request.get("/api/studio/session")).json())
+    .user;
+  const reserved = await page.evaluate(async () => {
+    const r = await fetch("/api/studio/projects", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        category: "house",
+        photos: [{ bytes: 100, sha256: "a".repeat(64) }],
+      }),
+    });
+    if (!r.ok) throw Error("Could not reserve guest collection fixture");
+    return r.json();
+  });
+  const email = `brickmade-${Date.now()}@example.test`,
+    seen = new Set<string>();
+  await page.getByLabel("Email address", { exact: true }).fill(email);
+  await page.getByRole("button", { name: "Send my code", exact: true }).click();
+  await expect(page.getByLabel("Code from your email")).toBeVisible();
+  await page
+    .getByLabel("Code from your email")
+    .fill(await capturedCode(email, seen));
+  await page
+    .getByRole("button", { name: "Verify and continue", exact: true })
+    .click();
+  await expect(page.getByText(/Your account is connected/)).toBeVisible();
+  const linked = (await (await page.request.get("/api/studio/session")).json())
+    .user;
+  expect(linked.id).toBe(guest.id);
+  expect(linked.anonymous).toBe(false);
+  const other = await browser.newContext(),
+    signedIn = await other.newPage();
+  await signedIn.goto("/account");
+  await signedIn.getByRole("button", { name: "Sign in", exact: true }).click();
+  await signedIn.getByLabel("Email address", { exact: true }).fill(email);
+  await signedIn
+    .getByRole("button", { name: "Send my code", exact: true })
+    .click();
+  await expect(signedIn.getByLabel("Code from your email")).toBeVisible();
+  await signedIn
+    .getByLabel("Code from your email")
+    .fill(await capturedCode(email, seen));
+  await signedIn
+    .getByRole("button", { name: "Verify and continue", exact: true })
+    .click();
+  await expect(signedIn.getByText(/Your account is connected/)).toBeVisible();
+  expect(
+    (await (await signedIn.request.get("/api/studio/session")).json()).user.id,
+  ).toBe(guest.id);
+  await signedIn
+    .getByRole("button", { name: "Sign out on this device" })
+    .click();
+  await expect(
+    signedIn.getByRole("button", { name: "Keep my guest builds" }),
+  ).toBeVisible();
+  expect(
+    (await (await signedIn.request.get("/api/studio/session")).json()).user.id,
+  ).not.toBe(guest.id);
+  await other.close();
 });

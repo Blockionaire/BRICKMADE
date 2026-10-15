@@ -35,6 +35,10 @@ export function CloudProgressSync({ project }: { project: Project }) {
   }, []);
   useEffect(() => {
     if (!project.cloud || !project.artifact || paused.current) return;
+    if (JSON.stringify(payload(project)) === last.current) return;
+    queueMicrotask(() => {
+      if (mounted.current) setStatus("idle");
+    });
     const timer = setTimeout(async () => {
       if (working.current) return;
       const p = projectRepository

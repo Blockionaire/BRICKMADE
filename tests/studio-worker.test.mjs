@@ -23,11 +23,11 @@ function fixture(
   const db = {
     rpc: vi.fn(async () => true),
     rows: vi.fn(async () => []),
-    insert: vi.fn(),
-    upload: vi.fn(),
-    remove: vi.fn(),
-    patch: vi.fn(),
-    download: vi.fn(),
+    insert: vi.fn(async () => null),
+    upload: vi.fn(async () => null),
+    remove: vi.fn(async () => null),
+    patch: vi.fn(async () => null),
+    download: vi.fn(async () => null),
   };
   return {
     job,
