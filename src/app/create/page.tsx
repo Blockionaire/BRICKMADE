@@ -60,9 +60,11 @@ export default function CreatePage() {
     ...DEFAULT_SETTINGS,
   });
   const [error, setError] = useState("");
+  const [failedAction, setFailedAction] = useState("Photo upload");
   const [generationStage, setGenerationStage] = useState(0);
   const [photoConsent, setPhotoConsent] = useState(false);
   const input = useRef<HTMLInputElement>(null);
+  const errorAlert = useRef<HTMLDivElement>(null);
   const urls = useRef(new Set<string>());
   const controller = useRef<AbortController | null>(null);
   useEffect(() => {
@@ -73,9 +75,15 @@ export default function CreatePage() {
       controller.current = null;
     };
   }, []);
+  useEffect(() => {
+    if (!error || !errorAlert.current) return;
+    errorAlert.current.focus({ preventScroll: true });
+    errorAlert.current.scrollIntoView({ block: "center" });
+  }, [error, stage]);
 
   function addPhotos(files: FileList | null) {
     if (!files) return;
+    setFailedAction("Photo upload");
     setError("");
     setPhotoConsent(false);
     const list = Array.from(files);
@@ -132,6 +140,7 @@ export default function CreatePage() {
   }
   async function interpret() {
     if (controller.current && !controller.current.signal.aborted) return;
+    setFailedAction("Photo interpretation");
     const connection = readAiConnection();
     if (!connection) {
       setError(
@@ -184,10 +193,12 @@ export default function CreatePage() {
       controller.current = null;
     } finally {
       clearTimeout(timer);
+      if (controller.current === abort) controller.current = null;
     }
   }
   async function generate() {
     if (controller.current && !controller.current.signal.aborted) return;
+    setFailedAction("Brick generation");
     const abort = new AbortController();
     controller.current = abort;
     setError("");
@@ -221,6 +232,8 @@ export default function CreatePage() {
       );
       setStage("settings");
       controller.current = null;
+    } finally {
+      if (controller.current === abort) controller.current = null;
     }
   }
 
@@ -358,6 +371,17 @@ export default function CreatePage() {
           <i>3</i>Preview
         </span>
       </div>
+      {error && (
+        <div
+          className="form-error create-error"
+          role="alert"
+          tabIndex={-1}
+          ref={errorAlert}
+        >
+          <strong>{failedAction} stopped</strong>
+          <p>{error}</p>
+        </div>
+      )}
       {stage === "upload" ? (
         <div className="create-layout">
           <div>
@@ -441,11 +465,6 @@ export default function CreatePage() {
                 </button>
               </div>
             </div>
-            {error && (
-              <p className="form-error" role="alert">
-                {error}
-              </p>
-            )}
             <div className="privacy-note">
               <ShieldCheck size={17} />
               <p>
@@ -678,11 +697,6 @@ export default function CreatePage() {
                 pace anytime.
               </p>
             </div>
-            {error && (
-              <p className="form-error" role="alert">
-                {error}
-              </p>
-            )}
             <div className="flow-actions">
               <button
                 className="text-link"

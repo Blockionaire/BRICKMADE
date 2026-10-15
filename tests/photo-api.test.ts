@@ -120,6 +120,37 @@ describe("Private photo API boundaries", () => {
     });
     expect(api.fetcher).not.toHaveBeenCalled();
   });
+  it("checks POST authorization and the photo upload origin without calling OpenAI", async () => {
+    const api = await service();
+    // A browser's same-origin status GET may omit Origin.
+    expect(
+      (
+        await fetch(`${api.base}/api/status`, {
+          headers: { Authorization: `Bearer ${api.token}` },
+        })
+      ).status,
+    ).toBe(200);
+    const post = (origin: string, token = api.token) =>
+      fetch(`${api.base}/api/status`, {
+        method: "POST",
+        headers: {
+          Origin: origin,
+          Authorization: `Bearer ${token}`,
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ version: 1 }),
+      });
+    const forbidden = await post("https://wrong-app.example");
+    expect(forbidden.status).toBe(403);
+    expect((await forbidden.json()).error.code).toBe("origin");
+    expect(
+      (await post("https://blockionaire.github.io", "incorrect")).status,
+    ).toBe(401);
+    const connected = await post("https://blockionaire.github.io");
+    expect(connected.status).toBe(200);
+    expect((await connected.json()).ready).toBe(true);
+    expect(api.fetcher).not.toHaveBeenCalled();
+  });
   it("sends one image request with a strict description schema and storage disabled", async () => {
     const api = await service();
     const r = await api.request();

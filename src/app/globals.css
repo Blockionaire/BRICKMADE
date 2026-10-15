@@ -935,6 +935,20 @@ svg {
   margin: 16px 0;
   line-height: 1.7;
 }
+.create-error {
+  padding: 18px 22px;
+  border: 1px solid var(--accent);
+  border-radius: 16px;
+  background: var(--surface);
+  scroll-margin: 100px;
+}
+.create-error strong {
+  display: block;
+  font-size: 14px;
+}
+.create-error p {
+  margin: 6px 0 0;
+}
 .photo-guide {
   border-radius: 14px;
   background: #eeeede;

@@ -47,6 +47,7 @@ async function mockApi(
       return;
     }
     expect(request.headers().authorization).toBe(`Bearer ${code}`);
+    if (request.url().endsWith("/status")) expect(request.method()).toBe("POST");
     const result = request.url().endsWith("/status")
       ? {
           status: 200,
@@ -105,9 +106,7 @@ test("one personal photo opens interpretation directly without choosing a demo",
   await expect(
     page.getByRole("button", { name: "Generate my house" }),
   ).toBeVisible();
-  await expect(
-    page.getByRole("group", { name: "Demo design" }),
-  ).toHaveCount(0);
+  await expect(page.getByRole("group", { name: "Demo design" })).toHaveCount(0);
   await page.screenshot({
     path: "/tmp/brickmade-own-photo-mobile.png",
     fullPage: true,
@@ -257,6 +256,8 @@ test("unsupported and failed AI responses leave the editable description and col
   for (const result of [
     response,
     { status: 429, body: { error: { code: "provider-limit" } } },
+    { status: 403, body: { error: { code: "origin" } } },
+    { status: 503, body: { error: { code: "provider-configuration" } } },
     { status: 200, body: { version: 1, brief: { placements: [] } } },
   ]) {
     response = result;
@@ -267,6 +268,12 @@ test("unsupported and failed AI responses leave the editable description and col
     await expect(page.locator('.form-error[role="alert"]')).toBeVisible({
       timeout: 15000,
     });
+    await expect(page.locator('.form-error[role="alert"]')).toBeInViewport();
+    await expect(page.locator('.form-error[role="alert"]')).toBeFocused();
+    if (result.status === 403)
+      await expect(page.locator('.form-error[role="alert"]')).toContainText(
+        "BRICKMADE_ALLOWED_ORIGINS",
+      );
     await expect(
       page.getByRole("button", { name: "Generate my house" }),
     ).toBeVisible();
@@ -332,12 +339,16 @@ test("house generation refuses tampered collision evidence before saving", async
   await expect(page.locator('.form-error[role="alert"]')).toBeVisible({
     timeout: 15000,
   });
+  await expect(page.locator('.form-error[role="alert"]')).toBeInViewport();
   await expect(page).toHaveURL(/\/create/);
   expect(
     await page.evaluate(() =>
       localStorage.getItem("brickmade.private-demo.v1"),
     ),
   ).toBeNull();
+  await page.unroute("**/catalog/collision/*.bvox*");
+  await page.getByRole("button", { name: "Generate my house" }).click();
+  await expect(page).toHaveURL(/\/review/, { timeout: 60000 });
 });
 test("OpenAI keys cannot be pasted into the browser connection", async ({
   page,

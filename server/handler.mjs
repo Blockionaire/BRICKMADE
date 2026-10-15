@@ -149,12 +149,12 @@ export function makeHandler({
       return res.end();
     }
     if (
-      (path === "/api/status" && req.method !== "GET") ||
+      (path === "/api/status" && !["GET", "POST"].includes(req.method)) ||
       (path === "/api/analyze" && req.method !== "POST")
     ) {
       res.setHeader(
         "Allow",
-        path === "/api/status" ? "GET, OPTIONS" : "POST, OPTIONS",
+        path === "/api/status" ? "GET, POST, OPTIONS" : "POST, OPTIONS",
       );
       return send(405, {
         error: { code: "method", message: "This method is not supported." },

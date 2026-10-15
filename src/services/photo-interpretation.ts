@@ -100,6 +100,8 @@ async function request(
     // Do not echo arbitrary server strings or credentials into UI errors.
     const messages: Record<string, string> = {
       access: "The private test code is incorrect or expired.",
+      origin:
+        "Add this app's exact origin to BRICKMADE_ALLOWED_ORIGINS in Vercel, then redeploy. Use https:// followed by the app domain, without a path or trailing slash.",
       "not-configured":
         "Add the OpenAI key and private test code to Vercel, then redeploy the service.",
       "provider-configuration":
@@ -114,6 +116,12 @@ async function request(
         "These photos could not be interpreted. Choose different photos or describe the house manually.",
       incomplete:
         "The interpretation was incomplete. Try clearer photos or fewer views.",
+      "invalid-photo":
+        "The service could not read a prepared photo. Try one different JPG or PNG photo.",
+      "invalid-description":
+        "The AI returned a description this prototype could not use. Nothing was generated; try again with one clear house photo.",
+      "provider-unreachable":
+        "The server could not reach OpenAI. Try again shortly.",
     };
     throw Error(
       messages[data?.error?.code] ??
@@ -126,7 +134,11 @@ export async function checkAiConnection(
   connection: AiConnection,
   signal: AbortSignal,
 ) {
-  const status = await request(connection, "/api/status", signal);
+  // POST makes the browser send Origin even when the app and service share a host.
+  // A same-origin GET could connect successfully while photo POSTs were forbidden.
+  const status = await request(connection, "/api/status", signal, {
+    version: 1,
+  });
   if (
     status.version !== 1 ||
     status.ready !== true ||
