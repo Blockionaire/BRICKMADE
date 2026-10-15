@@ -52,7 +52,18 @@ jobs:
           node --import ./server/register.mjs tests/fixtures/cloud-worker.mjs > /tmp/brickmade-fixture-worker.log 2>&1 &
           worker_pid=$!
           trap 'kill "$worker_pid" 2>/dev/null || true' EXIT
-          node node_modules/@playwright/test/cli.js test tests/e2e/studio-live.spec.ts --output=test-results-studio-live
+          node node_modules/@playwright/test/cli.js test tests/e2e/studio-live.spec.ts --output=test-results-studio-live > /tmp/brickmade-live.log 2>&1 || {
+            python3 - <<'PYDIAG'
+          from pathlib import Path
+          import re
+          for f in ['/tmp/brickmade-live.log','/tmp/brickmade-fixture-worker.log']:
+            t=Path(f).read_text()[-10000:]
+            t=re.sub(r'(https?://[^\s?]+)\?[^\s]+',r'\1?[redacted]',t)
+            print('::error::'+t.replace('%','%25').replace('\r','%0D').replace('\n','%0A'))
+          PYDIAG
+            exit 1
+          }
+          cat /tmp/brickmade-live.log
       - name: Diagnostic artifacts
         if: failure()
         uses: actions/upload-artifact@v4

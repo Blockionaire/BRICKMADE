@@ -1,6 +1,7 @@
-import { describe, it, expect, vi } from "vitest";
+import { describe, it, expect, vi, beforeAll } from "vitest";
 import { randomUUID } from "node:crypto";
 import { runStudioJob, cleanupStudioAssets } from "../server/job-runner.mjs";
+import { compileHouse } from "../server/compile-house.mjs";
 import { StudioError } from "../server/supabase.mjs";
 import { HOUSE_EXAMPLE, DEFAULT_STUDIO_OPTIONS } from "../shared/studio";
 function fixture(
@@ -36,7 +37,47 @@ function fixture(
     logger: vi.fn(),
   };
 }
+let checked;
+beforeAll(async () => {
+  checked = await compileHouse(HOUSE_EXAMPLE, DEFAULT_STUDIO_OPTIONS);
+  if (checked.validation.status !== "passed")
+    throw Error("Test source assembly failed");
+}, 30000);
 describe("Durable worker recovery and publication", () => {
+  it("does not delete a potentially committed artifact after an ambiguous publication response", async () => {
+    const f = fixture();
+    f.compile.mockImplementation(async () => structuredClone(checked));
+    f.db.rpc.mockImplementation(async (name) => {
+      if (name === "bm_finish_job")
+        throw new StudioError(
+          503,
+          "cloud-unreachable",
+          "Publication response was interrupted",
+        );
+      return true;
+    });
+    await runStudioJob(f.job, f);
+    expect(f.db.upload).toHaveBeenCalledTimes(1);
+    expect(f.db.remove).not.toHaveBeenCalled();
+    expect(f.db.rpc).toHaveBeenCalledWith(
+      "bm_finish_job",
+      expect.objectContaining({
+        p_artifact: expect.objectContaining({
+          pieceCount: checked.model.placements.length,
+        }),
+      }),
+    );
+  });
+  it("removes a losing attempt's immutable object when publication is explicitly fenced out", async () => {
+    const f = fixture();
+    f.compile.mockImplementation(async () => structuredClone(checked));
+    f.db.rpc.mockImplementation(async (name) => name !== "bm_finish_job");
+    await runStudioJob(f.job, f);
+    expect(f.db.remove).toHaveBeenCalledWith("bm-designs", [
+      `${f.job.owner_id}/${f.job.project_id}/${f.job.id}/${f.job.lease_token}.json`,
+    ]);
+  });
+
   it("does not repeat an ambiguous paid interpretation on lease recovery", async () => {
     const f = fixture({
       interpretationStarted: true,

@@ -48,4 +48,11 @@ jobs:
       - name: Exercise actual PostgREST transport and RLS
         run: |
           psql -c "notify pgrst, 'reload schema'"
-          node tests/sql/rest-transport.mjs
+          node tests/sql/rest-transport.mjs > /tmp/brickmade-rest.log 2>&1 || {
+            python3 - <<'PYDIAG'
+          from pathlib import Path
+          t=Path('/tmp/brickmade-rest.log').read_text()[-6000:]
+          print('::error::'+t.replace('%','%25').replace('\r','%0D').replace('\n','%0A'))
+          PYDIAG
+            exit 1
+          }
