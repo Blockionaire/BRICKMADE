@@ -17,7 +17,7 @@ After reviewing the report, for a new installation run these files in SQL Editor
 
 If migration one is already installed in `public`, skip it and run only migration two. If `brickmade` already exists or any `bm_` names belong to another app, inspect that before proceeding. Each migration is transactional. Migration two preserves existing BrickMade rows, owner policies and grants while moving its five tables and eleven functions into `brickmade`. It refuses to overwrite an existing schema.
 
-In **Data API settings → Exposed schemas**, add `brickmade` and **keep all current entries**. In Table Editor's schema selector, choose `brickmade`. Storage has two private buckets: `bm-inputs` and `bm-designs`. Leave them private.
+In **Data API settings → Exposed schemas**, add `brickmade` and **keep all current entries**. In Table Editor's schema selector, choose `brickmade`. Storage has two private buckets: `bm-inputs` and `bm-designs`. Leave them private. BrickMade-specific restrictive Storage guards protect these buckets even when another app has broad permissive Storage policies; other buckets keep their rules.
 
 After the access review, enable **Anonymous Sign-Ins** in Authentication settings. For this first same-browser guest test, leave existing email providers, confirmation settings and templates unchanged. Guest collections require their browser cookies until optional account linking is configured.
 

@@ -43,7 +43,7 @@ jobs:
         run: |
           python3 - <<'PY'
           import subprocess
-          for path in ['tests/sql/supabase-fixture.sql','supabase/migrations/202610150001_studio.sql','tests/sql/before-isolation.sql','supabase/migrations/202610150002_isolate_schema.sql','tests/sql/schema-isolation.sql']:
+          for path in ['tests/sql/supabase-fixture.sql','supabase/migrations/202610150001_studio.sql','tests/sql/before-isolation.sql','supabase/migrations/202610150002_isolate_schema.sql','tests/sql/schema-isolation.sql','tests/sql/storage-isolation.sql']:
             r=subprocess.run(['psql','-v','ON_ERROR_STOP=1','-f',path],capture_output=True,text=True)
             if r.returncode:
               t=(path+'\n'+r.stdout+r.stderr)[-6000:]

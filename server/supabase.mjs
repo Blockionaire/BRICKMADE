@@ -114,7 +114,7 @@ export function supabaseClient({ env = process.env, fetcher = fetch } = {}) {
           "database-schema",
           "Expose the brickmade schema in Supabase Data API settings, keeping existing schemas enabled.",
         );
-      if (data.code === "PGRST202" || data.code === "PGRST205")
+      if (["PGRST202", "PGRST205", "42P01", "42883"].includes(data.code))
         throw new StudioError(
           503,
           "database-migration",

@@ -5,10 +5,11 @@
 BrickMade can use the approved shared small-apps Supabase project for initial private testing. No hosted database changes have been made by this release.
 
 - Added a forward migration into a dedicated `brickmade` schema. It moves only BrickMade's five tables and eleven functions, retaining existing builds, owner policies, grants, foreign keys and event sequences. An existing schema causes installation to fail safely instead of being reused.
+- Added restrictive Storage guards for BrickMade's two buckets. Even a simulated broad legacy policy cannot grant other owners or unauthenticated callers access to these files, allow direct writes, or bypass input expiry. Other buckets retain their existing rules.
 - Scoped the server and worker's database requests to `brickmade`; Auth and Storage requests retain their own API behavior. Missing schema exposure/migrations now produce specific setup errors without raw database details.
 - Added a read-only shared-project preflight and a [step-by-step activation checklist](SHARED_SUPABASE_QUICKSTART.md) covering migration order, exposed schemas, Vercel variables and a temporary local worker. No third Supabase project, new subscription or worker-host account is required for the initial test.
 - Extended real PostgreSQL/PostgREST verification with existing BrickMade rows and a simulated second app. Checks cover preserved app data/functions/buckets, the second app's original public API and owner policy, the moved Storage policy, sequence privileges, and the durable queue in its new schema. The full isolated Supabase/worker/browser workflow now uses the custom schema too.
-- Twenty Studio API checks pass, including database profile headers and actionable migration/schema failures. Lint, TypeScript and the full Next.js production build pass.
+- Twenty-two Studio API checks pass, including database profile headers and actionable migration/schema failures. Lint, TypeScript and the full Next.js production build pass.
 
 Supabase Auth, service credentials and resource limits are still shared. Review the other apps' policies before enabling anonymous sign-ins, because guest identities have the `authenticated` role. For the first same-browser guest test, preserve the existing email configuration; optional email recovery can be configured after reviewing compatibility.
 

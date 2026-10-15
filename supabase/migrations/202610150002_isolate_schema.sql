@@ -43,5 +43,31 @@ begin
 end $$;
 
 -- Storage policies reference table OIDs and follow the move automatically.
+-- Shared-project permissive policies are ORed together. These restrictive guards
+-- keep even a broad existing policy from opening BrickMade's buckets, while
+-- evaluating to true for every other bucket. Signed service-issued tickets and
+-- the service-role worker retain their existing Storage API behavior.
+create policy bm_bucket_authenticated_read_guard on storage.objects
+as restrictive for select to authenticated using (
+ bucket_id not in ('bm-inputs','bm-designs') or (
+  (storage.foldername(name))[1]=(select auth.uid())::text and (
+   bucket_id='bm-designs' or exists (
+    select 1 from brickmade.bm_assets a
+    where a.path=name and a.bucket='bm-inputs'
+      and a.owner_id=(select auth.uid()) and a.expires_at>now() and a.state<>'deleted'
+   )
+  )
+ )
+);
+create policy bm_bucket_anonymous_read_guard on storage.objects
+as restrictive for select to anon using (bucket_id not in ('bm-inputs','bm-designs'));
+create policy bm_bucket_insert_guard on storage.objects
+as restrictive for insert to anon,authenticated with check (bucket_id not in ('bm-inputs','bm-designs'));
+create policy bm_bucket_update_guard on storage.objects
+as restrictive for update to anon,authenticated
+using (bucket_id not in ('bm-inputs','bm-designs')) with check (bucket_id not in ('bm-inputs','bm-designs'));
+create policy bm_bucket_delete_guard on storage.objects
+as restrictive for delete to anon,authenticated using (bucket_id not in ('bm-inputs','bm-designs'));
+
 notify pgrst, 'reload schema';
 commit;

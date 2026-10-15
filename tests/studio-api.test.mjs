@@ -251,6 +251,8 @@ describe("Cloud transport", () => {
     ["PGRST106", "database-schema"],
     ["PGRST202", "database-migration"],
     ["PGRST205", "database-migration"],
+    ["42P01", "database-migration"],
+    ["42883", "database-migration"],
   ])(
     "explains %s setup failures without exposing database responses",
     async (providerCode, code) => {
