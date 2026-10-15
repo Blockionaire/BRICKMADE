@@ -299,6 +299,24 @@ export function StudioResult() {
             <div
               className="studio-variant-buttons"
               role="group"
+              aria-label="Model size"
+            >
+              {(["compact", "standard", "large"] as const).map((size, i) => (
+                <button
+                  key={size}
+                  disabled={!!busy || current?.options.size === size}
+                  aria-pressed={current?.options.size === size}
+                  onClick={() =>
+                    void action("variant", { ...current!.options, size })
+                  }
+                >
+                  {["Compact", "Standard", "Large"][i]}
+                </button>
+              ))}
+            </div>
+            <div
+              className="studio-variant-buttons"
+              role="group"
               aria-label="Instruction pace"
             >
               {(["easy", "medium", "hard"] as const).map((pace, i) => (
@@ -418,6 +436,20 @@ export function StudioResult() {
                   )}{" "}
                   Retry this build
                 </button>
+                {current.options.size !== "large" && (
+                  <button
+                    className="button button-secondary"
+                    disabled={!!busy}
+                    onClick={() =>
+                      void action("retry", {
+                        ...current.options,
+                        size: "large",
+                      })
+                    }
+                  >
+                    Try a larger model <ArrowRight size={17} />
+                  </button>
+                )}
                 <p className="field-description">
                   Retry reuses the saved analysis when available. Otherwise it
                   resends the same private photos while they are retained.

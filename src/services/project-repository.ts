@@ -50,6 +50,8 @@ function validProject(value: unknown): value is Project {
       p.cloud &&
       (!p.artifact ||
         typeof p.cloud.projectId !== "string" ||
+        p.cloud.projectId !== p.artifact.projectId ||
+        p.cloud.jobId !== p.artifact.jobId ||
         typeof p.cloud.jobId !== "string" ||
         !/^[a-f0-9]{64}$/.test(p.cloud.sha256))
     )

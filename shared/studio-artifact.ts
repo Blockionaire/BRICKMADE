@@ -48,6 +48,27 @@ export function parseStudioArtifact(value: unknown): StudioArtifact {
     !m ||
     m.revision !== a.compilerVersion ||
     !m.settings ||
+    m.settings.detail !== a.options.detail ||
+    m.settings.size !== a.options.size ||
+    m.settings.buildDifficulty !== a.options.pace ||
+    !m.studio ||
+    !Array.isArray(m.studio.adaptations) ||
+    m.studio.adaptations.some((n) => typeof n !== "string") ||
+    !a.provenance ||
+    typeof a.provenance.model !== "string" ||
+    !Array.isArray(a.provenance.inputHashes) ||
+    a.provenance.inputHashes.some((h) => !/^[a-f0-9]{64}$/.test(h)) ||
+    !Number.isInteger(a.provenance.repairCount) ||
+    a.provenance.repairCount < 0 ||
+    a.provenance.repairCount > 2 ||
+    a.fidelity?.method !== "feature-consistency" ||
+    !Number.isFinite(a.fidelity.aspectRatioError) ||
+    a.fidelity.aspectRatioError < 0 ||
+    !Number.isFinite(a.fidelity.windowRetention) ||
+    a.fidelity.windowRetention < 0 ||
+    a.fidelity.windowRetention > 1 ||
+    !Array.isArray(a.fidelity.notes) ||
+    a.fidelity.notes.some((n) => typeof n !== "string") ||
     !Array.isArray(m.placements) ||
     m.placements.length < 1 ||
     m.placements.length > 5000 ||
@@ -73,7 +94,8 @@ export function parseStudioArtifact(value: unknown): StudioArtifact {
   const inventory = new Map<string, number>();
   for (const p of m.placements) {
     if (
-      !/^piece-\d+$/.test(p.id) ||
+      !/^piece-[1-9][0-9]*$/.test(p.id) ||
+      Number(p.id.slice(6)) > m.placements.length ||
       typeof p.partId !== "string" ||
       typeof p.color !== "string" ||
       !Array.isArray(p.position) ||
@@ -82,6 +104,7 @@ export function parseStudioArtifact(value: unknown): StudioArtifact {
       !p.rotation ||
       p.rotation.length !== 4 ||
       p.rotation.some((n) => !Number.isFinite(n)) ||
+      Math.abs(Math.hypot(...p.rotation) - 1) > 0.001 ||
       !Number.isInteger(p.step)
     )
       throw Error("The design has an invalid placement.");

@@ -155,6 +155,34 @@ async function capturedCode(email: string, seen: Set<string>) {
         } catch {
           /* Mail capture may still be starting. */
         }
+        // Supabase CLI releases using Inbucket expose a different local API.
+        try {
+          const mailbox = encodeURIComponent(email.split("@")[0]);
+          const response = await fetch(
+            `http://127.0.0.1:54324/api/v1/mailbox/${mailbox}`,
+          );
+          if (response.ok) {
+            const messages = await response.json();
+            for (const message of messages) {
+              if (seen.has(message.id)) continue;
+              const mail = await (
+                await fetch(
+                  `http://127.0.0.1:54324/api/v1/mailbox/${mailbox}/${message.id}`,
+                )
+              ).json();
+              const match = (mail.body?.text || mail.body?.html || "").match(
+                /code is (\d{6,10})/,
+              );
+              if (match) {
+                seen.add(message.id);
+                code = match[1];
+                return code;
+              }
+            }
+          }
+        } catch {
+          /* Only local captured messages are inspected. */
+        }
         return "";
       },
       { timeout: 20000, intervals: [500, 1000] },
@@ -218,6 +246,12 @@ test("guest email linking retains ownership and email sign-in restores the same 
   expect(
     (await (await signedIn.request.get("/api/studio/session")).json()).user.id,
   ).toBe(guest.id);
+  const collection = (
+    await (await signedIn.request.get("/api/studio/projects")).json()
+  ).projects;
+  expect(
+    collection.some((p: { id: string }) => p.id === reserved.projectId),
+  ).toBe(true);
   await signedIn
     .getByRole("button", { name: "Sign out on this device" })
     .click();

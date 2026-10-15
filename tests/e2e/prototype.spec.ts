@@ -169,7 +169,7 @@ test("uploads remain local, can be removed, and generation can be cancelled", as
   await page.getByRole("button", { name: "Cancel and go back" }).click();
   await expect(page.getByLabel("Give your build a name")).toBeVisible();
   await page.waitForTimeout(5000);
-  await expect(page).toHaveURL(/\/create$/);
+  await expect(page).toHaveURL(/\/create\/demo$/);
   await page.getByRole("button", { name: "Create my preview" }).click();
   await expect(page).toHaveURL(/\/review/, { timeout: 15000 });
 });
