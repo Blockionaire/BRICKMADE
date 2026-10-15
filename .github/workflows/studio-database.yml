@@ -1,0 +1,36 @@
+name: Verify BrickMade durable database
+on:
+  push:
+    branches: [main, codex/category-studio]
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  postgres:
+    runs-on: ubuntu-latest
+    services:
+      postgres:
+        image: postgres:17-alpine
+        env:
+          POSTGRES_PASSWORD: studio-test-only
+          POSTGRES_DB: brickmade_test
+        ports: [5432:5432]
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 5s
+          --health-timeout 5s
+          --health-retries 10
+    env:
+      PGHOST: 127.0.0.1
+      PGPORT: 5432
+      PGUSER: postgres
+      PGPASSWORD: studio-test-only
+      PGDATABASE: brickmade_test
+    steps:
+      - uses: actions/checkout@v4
+      - name: Apply Supabase fixture and actual migration
+        run: |
+          psql -v ON_ERROR_STOP=1 -f tests/sql/supabase-fixture.sql
+          psql -v ON_ERROR_STOP=1 -f supabase/migrations/202610150001_studio.sql
+      - name: Exercise durable queue, ownership and recovery
+        run: psql -v ON_ERROR_STOP=1 -f tests/sql/studio.sql
