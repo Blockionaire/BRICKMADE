@@ -10,6 +10,7 @@ import {
   UserRound,
   ArrowUpRight,
 } from "lucide-react";
+import { CloudProgressBridge } from "./studio/cloud-progress";
 import { BrandMark } from "./brand-mark";
 
 const links = [
@@ -58,7 +59,10 @@ export function Shell({ children }: { children: React.ReactNode }) {
           </div>
         </div>
       </header>
-      <main className="main-content">{children}</main>
+      <main className="main-content">
+        <CloudProgressBridge />
+        {children}
+      </main>
       <footer className="site-footer">
         <BrandMark small />
         <span>Your world. Made personal.</span>

@@ -61,6 +61,11 @@ export async function importStudioBuild(
     : model.steps.find((s) => s.placementIds.some((id) => !done.has(id)))
         ?.number || 1;
   project.completedPlacementIds = [...done];
+  project.cloud!.progressSignature = JSON.stringify({
+    sha256,
+    completedIds: [...done].sort(),
+    pace,
+  });
   projectRepository.save(project);
   return project;
 }

@@ -3,7 +3,7 @@ import { useEffect, useRef, useState } from "react";
 import { Cloud, CloudOff, LoaderCircle } from "lucide-react";
 import type { Project } from "@/domain/types";
 import { projectModel } from "@/domain/project-model";
-import { projectRepository } from "@/services/project-repository";
+import { projectRepository, useProjects } from "@/services/project-repository";
 import { studioRequest } from "@/services/studio-client";
 import type { CloudProgress } from "@/services/studio-projects";
 function payload(p: Project) {
@@ -18,13 +18,39 @@ function payload(p: Project) {
     pace: p.settings.buildDifficulty || "medium",
   };
 }
-export function CloudProgressSync({ project }: { project: Project }) {
+export function CloudProgressBridge() {
+  const { projects, activeId } = useProjects();
+  return (
+    <>
+      {projects
+        .filter((p) => p.cloud && p.artifact)
+        .map((p) => (
+          <CloudProgressSync
+            key={p.id}
+            project={p}
+            visible={p.id === activeId}
+          />
+        ))}
+    </>
+  );
+}
+export function CloudProgressSync({
+  project,
+  visible = true,
+}: {
+  project: Project;
+  visible?: boolean;
+}) {
   const [status, setStatus] = useState<
       "idle" | "saving" | "saved" | "error" | "conflict"
-    >("idle"),
+    >(() =>
+      project.cloud?.progressSignature === JSON.stringify(payload(project))
+        ? "saved"
+        : "idle",
+    ),
     [retry, setRetry] = useState(0);
   const working = useRef(false),
-    last = useRef(""),
+    last = useRef(project.cloud?.progressSignature || ""),
     paused = useRef(false),
     mounted = useRef(true);
   useEffect(() => {
@@ -79,13 +105,17 @@ export function CloudProgressSync({ project }: { project: Project }) {
           .snapshot()
           .projects.find((v) => v.id === p.id);
         if (latest?.cloud)
-          projectRepository.save({
-            ...latest,
-            cloud: {
-              ...latest.cloud,
-              progressVersion: result.progress.version,
+          projectRepository.save(
+            {
+              ...latest,
+              cloud: {
+                ...latest.cloud,
+                progressVersion: result.progress.version,
+                progressSignature: signature,
+              },
             },
-          });
+            false,
+          );
         if (mounted.current) setStatus("saved");
       } catch (e) {
         if (mounted.current)
@@ -125,6 +155,7 @@ export function CloudProgressSync({ project }: { project: Project }) {
         : model.steps.find((s) => s.placementIds.some((id) => !ids.has(id)))
             ?.number || 1;
       last.current = JSON.stringify(payload(next));
+      next.cloud.progressSignature = last.current;
       paused.current = false;
       projectRepository.save(next);
       setStatus("saved");
@@ -132,7 +163,7 @@ export function CloudProgressSync({ project }: { project: Project }) {
       setStatus("error");
     }
   }
-  if (!project.cloud) return null;
+  if (!project.cloud || !visible) return null;
   return (
     <div
       className={`cloud-progress-note ${["error", "conflict"].includes(status) ? "error" : ""}`}

@@ -102,6 +102,12 @@ test("real private uploads, durable recovery, checked artifact, variants, frozen
   );
   expect(before).toBeTruthy();
   await page.getByRole("button", { name: "Next step", exact: true }).click();
+  // Navigate before the debounce expires: saving must survive leaving Builder.
+  await page
+    .getByRole("navigation", { name: "Mobile navigation" })
+    .getByRole("link", { name: "Home", exact: true })
+    .click();
+  await expect(page).toHaveURL(/\/$/);
   await expect(
     page.getByText("Progress saved privately", { exact: true }),
   ).toBeVisible({ timeout: 20000 });

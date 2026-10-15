@@ -1,7 +1,6 @@
 "use client";
 
-import {CloudProgressSync} from "@/components/studio/cloud-progress";
-import {projectModel} from "@/domain/project-model";
+import { projectModel } from "@/domain/project-model";
 import { useState } from "react";
 import Link from "next/link";
 import {
@@ -31,7 +30,7 @@ import { projectRepository, useProjects } from "@/services/project-repository";
 
 export default function BuilderPage() {
   const { active } = useProjects();
-  return <><CloudProgressSync key={`sync-${active.id}`} project={active}/><BuilderContent key={active.id} active={active} /></>;
+  return <BuilderContent key={active.id} active={active} />;
 }
 
 function BuilderContent({ active }: { active: Project }) {
@@ -116,7 +115,7 @@ function BuilderContent({ active }: { active: Project }) {
           </button>
         </div>
         <BuildDifficultySelector
-            frozenModel={active.artifact ? model : undefined}
+          frozenModel={active.artifact ? model : undefined}
           compact
           settings={active.settings}
           onChange={(difficulty) =>
@@ -175,7 +174,7 @@ function BuilderContent({ active }: { active: Project }) {
         </div>
       </div>
       <BuildDifficultySelector
-            frozenModel={active.artifact ? model : undefined}
+        frozenModel={active.artifact ? model : undefined}
         compact
         settings={active.settings}
         onChange={(difficulty) => {

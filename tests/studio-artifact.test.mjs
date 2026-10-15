@@ -8,7 +8,11 @@ import {
 } from "../shared/studio";
 import { parseStudioArtifact } from "../shared/studio-artifact";
 import { projectModel } from "../src/domain/project-model";
-import { parseSavedState } from "../src/services/project-repository";
+import {
+  parseSavedState,
+  projectRepository,
+  DEMO_PROJECT,
+} from "../src/services/project-repository";
 let artifact;
 beforeAll(async () => {
   const r = await compileHouse(HOUSE_EXAMPLE, DEFAULT_STUDIO_OPTIONS);
@@ -34,6 +38,23 @@ beforeAll(async () => {
   expect(r.validation.status).toBe("passed");
 }, 30000);
 describe("Immutable design accounting", () => {
+  it("background progress updates preserve the user's active build", () => {
+    projectRepository.reset();
+    try {
+      const a = { ...DEMO_PROJECT, id: "first" },
+        b = { ...DEMO_PROJECT, id: "second" };
+      projectRepository.save(a);
+      projectRepository.save(b);
+      projectRepository.save({ ...a, currentStep: 2 }, false);
+      expect(projectRepository.snapshot().activeId).toBe("second");
+      expect(
+        projectRepository.snapshot().projects.find((p) => p.id === "first")
+          .currentStep,
+      ).toBe(2);
+    } finally {
+      projectRepository.reset();
+    }
+  });
   it("accepts the exact checked native artifact", () =>
     expect(parseStudioArtifact(artifact)).toBe(artifact));
   it.each([

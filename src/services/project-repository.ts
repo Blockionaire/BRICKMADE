@@ -230,7 +230,7 @@ function write(state: SavedState) {
 
 export const projectRepository = {
   snapshot: getSnapshot,
-  save(project: Project) {
+  save(project: Project, activate = true) {
     if (project.artifact || project.settings.houseBrief)
       project = {
         ...project,
@@ -243,7 +243,7 @@ export const projectRepository = {
     write({
       version: 5,
       projects: [project, ...others].slice(0, 100),
-      activeId: project.id,
+      activeId: activate ? project.id : current.activeId,
     });
   },
   activate(id: string) {

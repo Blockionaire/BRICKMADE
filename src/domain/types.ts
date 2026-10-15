@@ -145,6 +145,7 @@ export interface Project {
     jobId: string;
     sha256: string;
     progressVersion?: number;
+    progressSignature?: string;
   };
   id: string;
   name: string;

@@ -18,7 +18,7 @@ export function publicJob(j) {
   };
 }
 async function body(req) {
-  const limit = 48000;
+  const limit = 80000;
   if (Number(req.headers["content-length"]) > limit)
     throw new StudioError(
       413,

@@ -281,7 +281,9 @@ export default function ModelCanvas({
     controls.addEventListener("change", requestRender);
     controls.addEventListener("start", interruptCamera);
     let pointerStart: { x: number; y: number; id: number } | null = null;
+    let pendingTap: { x: number; y: number } | null = null;
     const down = (event: PointerEvent) => {
+      pendingTap = null;
       pointerStart =
         event.isPrimary && event.button === 0
           ? { x: event.clientX, y: event.clientY, id: event.pointerId }
@@ -289,6 +291,7 @@ export default function ModelCanvas({
     };
     const cancel = () => {
       pointerStart = null;
+      pendingTap = null;
     };
     const raycaster = new THREE.Raycaster();
     const up = (event: PointerEvent) => {
@@ -301,11 +304,21 @@ export default function ModelCanvas({
         !pickCallback.current
       )
         return;
+      pendingTap = { x: event.clientX, y: event.clientY };
+    };
+    // Selecting during pointerup can insert a link beneath a touch before its
+    // compatibility click. Wait for click so that event's target stays canvas.
+    const pick = (event: MouseEvent) => {
+      const point = pendingTap;
+      pendingTap = null;
+      if (!point || !pickCallback.current) return;
+      event.preventDefault();
+      event.stopPropagation();
       const rect = renderer.domElement.getBoundingClientRect();
       raycaster.setFromCamera(
         new THREE.Vector2(
-          ((event.clientX - rect.left) / rect.width) * 2 - 1,
-          -((event.clientY - rect.top) / rect.height) * 2 + 1,
+          ((point.x - rect.left) / rect.width) * 2 - 1,
+          -((point.y - rect.top) / rect.height) * 2 + 1,
         ),
         camera,
       );
@@ -325,6 +338,7 @@ export default function ModelCanvas({
     };
     renderer.domElement.addEventListener("pointerdown", down);
     renderer.domElement.addEventListener("pointerup", up);
+    renderer.domElement.addEventListener("click", pick);
     renderer.domElement.addEventListener("pointercancel", cancel);
     renderer.domElement.addEventListener("webglcontextlost", lost);
     const preferenceChanged = () => {
@@ -347,6 +361,7 @@ export default function ModelCanvas({
       controls.dispose();
       renderer.domElement.removeEventListener("pointerdown", down);
       renderer.domElement.removeEventListener("pointerup", up);
+      renderer.domElement.removeEventListener("click", pick);
       renderer.domElement.removeEventListener("pointercancel", cancel);
       renderer.domElement.removeEventListener("webglcontextlost", lost);
       preference.removeEventListener("change", preferenceChanged);
