@@ -18,12 +18,14 @@ import {
 } from "@/domain/catalog";
 import { createModel } from "@/domain/models";
 import { MODEL_KINDS, modelInfo } from "@/domain/models";
+import { regroupFrozenModel } from "@/domain/project-model";
 import type {
   BuildSize,
   DetailLevel,
   BuildDifficulty,
   GenerationSettings,
   ModelKind,
+  HouseModel,
 } from "@/domain/types";
 
 export function DetailSelector({
@@ -143,10 +145,12 @@ export function BuildDifficultySelector({
   settings,
   onChange,
   compact = false,
+  frozenModel,
 }: {
   settings: GenerationSettings;
   onChange: (value: BuildDifficulty) => void;
   compact?: boolean;
+  frozenModel?: HouseModel;
 }) {
   const value = settings.buildDifficulty ?? "medium";
   const icons = [Footprints, Blocks, Layers];
@@ -161,8 +165,10 @@ export function BuildDifficultySelector({
       <div className="instruction-options">
         {BUILD_DIFFICULTIES.map((level, index) => {
           const Icon = icons[index];
-          const count = createModel({ ...settings, buildDifficulty: level.id })
-            .steps.length;
+          const count = frozenModel?.constructionPhases
+            ? regroupFrozenModel(frozenModel, level.id).steps.length
+            : createModel({ ...settings, buildDifficulty: level.id }).steps
+                .length;
           return (
             <label
               key={level.id}

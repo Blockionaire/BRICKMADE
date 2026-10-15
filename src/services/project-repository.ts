@@ -4,6 +4,9 @@ import { useSyncExternalStore } from "react";
 import { createModel } from "@/domain/models";
 import { DEFAULT_SETTINGS } from "@/domain/catalog";
 import { parseHouseBrief } from "../../shared/house-brief";
+import { parseHouseDesign } from "../../shared/studio";
+import { parseStudioArtifact } from "../../shared/studio-artifact";
+import { projectModel } from "@/domain/project-model";
 import type { Project } from "@/domain/types";
 
 interface SavedState {
@@ -33,6 +36,27 @@ let memoryState: SavedState | null = null;
 function validProject(value: unknown): value is Project {
   if (!value || typeof value !== "object") return false;
   const p = value as Project;
+  try {
+    if (p.settings?.houseDesign) parseHouseDesign(p.settings.houseDesign);
+    if (p.artifact) {
+      parseStudioArtifact(p.artifact);
+      if (
+        p.settings.detail !== p.artifact.options.detail ||
+        p.settings.size !== p.artifact.options.size
+      )
+        return false;
+    }
+    if (
+      p.cloud &&
+      (!p.artifact ||
+        typeof p.cloud.projectId !== "string" ||
+        typeof p.cloud.jobId !== "string" ||
+        !/^[a-f0-9]{64}$/.test(p.cloud.sha256))
+    )
+      return false;
+  } catch {
+    return false;
+  }
   if (p.settings?.houseBrief !== undefined) {
     try {
       if (
@@ -104,7 +128,7 @@ export function parseSavedState(raw: string | null): SavedState {
       } as Project["settings"];
       if (!["easy", "normal", "hard"].includes(settings.detail))
         throw new Error("Invalid detail");
-      const model = createModel(settings);
+      const model = projectModel({ ...p, settings });
       if (state.version < 5)
         return {
           ...p,
@@ -115,6 +139,7 @@ export function parseSavedState(raw: string | null): SavedState {
           migrationNotice: "structure-updated",
         };
       if (
+        !p.artifact &&
         settings.houseBrief &&
         p.modelRevision &&
         p.modelRevision !== model.revision
@@ -202,11 +227,14 @@ function write(state: SavedState) {
 }
 
 export const projectRepository = {
+  snapshot: getSnapshot,
   save(project: Project) {
-    if (project.settings.houseBrief)
+    if (project.artifact || project.settings.houseBrief)
       project = {
         ...project,
-        modelRevision: createModel(project.settings).revision,
+        modelRevision:
+          project.artifact?.compilerVersion ||
+          createModel(project.settings).revision,
       };
     const current = getSnapshot();
     const others = current.projects.filter((p) => p.id !== project.id);
@@ -224,6 +252,21 @@ export const projectRepository = {
   remove(id: string) {
     const state = getSnapshot();
     const projects = state.projects.filter((p) => p.id !== id);
+    write(
+      projects.length
+        ? {
+            version: 5,
+            projects,
+            activeId: projects.some((p) => p.id === state.activeId)
+              ? state.activeId
+              : projects[0].id,
+          }
+        : INITIAL,
+    );
+  },
+  clearCloudCopies() {
+    const state = getSnapshot();
+    const projects = state.projects.filter((p) => !p.cloud);
     write(
       projects.length
         ? {

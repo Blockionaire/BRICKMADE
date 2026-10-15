@@ -1,10 +1,10 @@
 "use client";
 
+import {projectModel} from "@/domain/project-model";
 import { useState } from "react";
 import { ArrowUpRight, Check, Search, Plus, Layers } from "lucide-react";
 import Link from "next/link";
 import { BUILD_SIZES, DETAIL_LEVELS } from "@/domain/catalog";
-import { createModel } from "@/domain/models";
 import { projectRepository, useProjects } from "@/services/project-repository";
 import { MigrationNotice } from "./migration-notice";
 import { ModelThumbnail } from "./model-thumbnail";
@@ -28,7 +28,7 @@ export function ProjectSelector() {
       >
         <span className="active-build-thumbnail">
           <ModelThumbnail
-            model={createModel(active.settings)}
+            model={projectModel(active)}
             name={active.name}
           />
         </span>
@@ -66,7 +66,7 @@ export function ProjectSelector() {
           )}
           <div className="project-options">
             {filtered.slice(0, limit).map((project) => {
-              const model = createModel(project.settings);
+              const model = projectModel(project);
               const mode = DETAIL_LEVELS.find(
                 (d) => d.id === project.settings.detail,
               )?.name;

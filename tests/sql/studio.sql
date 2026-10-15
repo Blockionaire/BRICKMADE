@@ -22,11 +22,13 @@ begin
  if not public.bm_job_step(j.id,lease,'finalizing',94,'{}') then raise exception 'finalizing failed';end if;
  published_path:=j.owner_id::text||'/'||project::text||'/'||j.id::text||'/'||lease::text||'.json';
  insert into public.bm_assets(owner_id,project_id,bucket,path,mime,bytes,sha256) values(j.owner_id,project,'bm-designs',published_path,'application/json',100,repeat('c',64));
- if not public.bm_finish_job(j.id,lease,jsonb_build_object('path',published_path,'sha256',repeat('c',64),'bytes',100),'A checked house') then raise exception 'publication failed';end if;
- if public.bm_finish_job(j.id,lease,jsonb_build_object('path',published_path,'sha256',repeat('c',64),'bytes',100),'Again') then raise exception 'duplicate publication succeeded';end if;
+ if not public.bm_finish_job(j.id,lease,jsonb_build_object('path',published_path,'sha256',repeat('c',64),'bytes',100,'pieceCount',20),'A checked house') then raise exception 'publication failed';end if;
+ if public.bm_finish_job(j.id,lease,jsonb_build_object('path',published_path,'sha256',repeat('c',64),'bytes',100,'pieceCount',20),'Again') then raise exception 'duplicate publication succeeded';end if;
  if exists(select 1 from public.bm_assets where path=published_path and expires_at is not null) then raise exception 'published artifact will expire';end if;
  perform public.bm_save_progress(j.owner_id,project,repeat('c',64),'["piece-1"]','easy',0);
  begin perform public.bm_save_progress(j.owner_id,project,repeat('c',64),'[]','medium',0);raise exception 'lost update accepted';exception when others then if sqlerrm<>'progress-conflict' then raise;end if;end;
+ begin perform public.bm_save_progress(j.owner_id,project,repeat('c',64),'["piece-21"]','easy',1);raise exception 'nonexistent piece accepted';exception when others then if sqlerrm<>'invalid-progress' then raise;end if;end;
+ begin perform public.bm_save_progress(j.owner_id,project,repeat('c',64),'["piece-1","piece-1"]','easy',1);raise exception 'duplicate piece accepted';exception when others then if sqlerrm<>'invalid-progress' then raise;end if;end;
  cancelled:=public.bm_submit_job(j.owner_id,project,array[photo],valid_options,gen_random_uuid());
  perform public.bm_cancel_job(j.owner_id,cancelled.id);
  if (select stage from public.bm_jobs where id=cancelled.id)<>'cancelled' then raise exception 'queued cancellation failed';end if;

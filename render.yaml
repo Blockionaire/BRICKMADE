@@ -1,0 +1,19 @@
+# Optional deployment target for the portable worker; no service is created by this file.
+services:
+  - type: worker
+    name: brickmade-generation
+    runtime: docker
+    dockerfilePath: ./worker.Dockerfile
+    envVars:
+      - key: SUPABASE_URL
+        sync: false
+      - key: SUPABASE_PUBLISHABLE_KEY
+        sync: false
+      - key: SUPABASE_SERVICE_ROLE_KEY
+        sync: false
+      - key: OPENAI_API_KEY
+        sync: false
+      - key: OPENAI_MODEL
+        value: gpt-5.2
+      - key: OPENAI_REASONING_EFFORT
+        value: high

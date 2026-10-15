@@ -87,3 +87,7 @@ Demo and manual house generation require no backend server or API keys. Optional
 Start with the [master product and build brief](docs/MASTER_PRODUCT_BRIEF.md) for the full vision and agreed prototype scope. The compact house is the first demo; the Porsche 911 remains a future second showcase. BrickMade is independent and is not affiliated with LEGO.
 
 See [BUILDER_LIBRARY.md](docs/BUILDER_LIBRARY.md) for the expanded operational parts, source-based qualification and [physical test checklist](docs/PHYSICAL_PART_TESTS.md).
+
+### Category-first private Studio
+
+The full Next.js app now includes a category-first House studio and server-managed Supabase identity, private uploads, durable jobs and saved build progress. Run its separate Node 24 generation worker alongside the web app. See [cloud setup and operations](docs/CLOUD_STUDIO_SETUP.md) for the exact SQL, host variables, email settings, worker deployment and activation checks. Other categories remain explicitly unavailable while their generators are developed. Legacy local demonstrations are available at `/create/demo`.

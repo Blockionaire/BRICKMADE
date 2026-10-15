@@ -34,6 +34,7 @@ test("private demo runs from photos through model and parts", async ({
     page.getByRole("heading", { name: "Your world, one brick at a time." }),
   ).toBeVisible();
   await page.getByRole("link", { name: "Create new build" }).click();
+  await page.getByRole("link",{name:/Explore demo builds/}).click();
   await expect(
     page.getByRole("button", { name: "Continue", exact: true }),
   ).toBeDisabled({ timeout: 15000 });
@@ -150,7 +151,7 @@ test("builder saves progress, gives contextual help, and completes the walkthrou
 test("uploads remain local, can be removed, and generation can be cancelled", async ({
   page,
 }) => {
-  await page.goto("/create");
+  await page.goto("/create/demo");
   await page.getByLabel("Upload photos").setInputFiles({
     name: "sample.png",
     mimeType: "image/png",

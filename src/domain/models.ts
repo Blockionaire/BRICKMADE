@@ -1,5 +1,7 @@
 import { CATALOG, COLORS } from "./catalog";
 import { parseHouseBrief } from "../../shared/house-brief";
+import { parseHouseDesign } from "../../shared/studio";
+import { createStudioHouse } from "./studio/house";
 import { partCapabilities } from "./parts/selection";
 import { countParts } from "./inventory";
 import { planBuildSteps } from "./build-steps";
@@ -84,7 +86,7 @@ export const modelInfo = (settings: GenerationSettings) => {
 };
 const cache = new Map<string, HouseModel>();
 
-class Assembly {
+export class Assembly {
   placements: Placement[] = [];
   phases: BuildPhase[] = [];
   adaptations = new Set<string>();
@@ -900,6 +902,16 @@ function pavilion(a: Assembly) {
   );
 }
 export function createModel(settings: GenerationSettings): HouseModel {
+  if (settings.houseDesign) {
+    const description = parseHouseDesign(settings.houseDesign);
+    const key = JSON.stringify({ ...settings, houseDesign: description });
+    const previous = cache.get(key);
+    if (previous) return previous;
+    const result = createStudioHouse(description, settings);
+    cache.set(key, result);
+    if (cache.size > 128) cache.delete(cache.keys().next().value!);
+    return result;
+  }
   const houseBrief = settings.houseBrief
     ? parseHouseBrief(settings.houseBrief)
     : undefined;

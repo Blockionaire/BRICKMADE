@@ -1,4 +1,6 @@
 import type { HouseBrief } from "../../shared/house-brief";
+import type { HouseDesign } from "../../shared/studio";
+import type { StudioArtifact } from "../../shared/studio-artifact";
 export type DetailLevel = "easy" | "normal" | "hard";
 export type BuildDifficulty = "easy" | "medium" | "hard";
 export type CameraView =
@@ -36,6 +38,7 @@ export interface GenerationSettings {
   buildDifficulty?: BuildDifficulty;
   modelKind?: ModelKind;
   houseBrief?: HouseBrief;
+  houseDesign?: HouseDesign;
   designSource?: "manual" | "openai";
 }
 
@@ -103,6 +106,16 @@ export interface SortingGroup {
 }
 
 export interface HouseModel {
+  constructionPhases?: BuildPhase[];
+  studio?: {
+    moduleVersion: string;
+    description: HouseDesign;
+    adaptations: string[];
+    footprintStuds: [number, number];
+    windowCounts: [number, number, number, number];
+    storeys: number;
+    roofShape: string;
+  };
   kind?: ModelKind;
   revision?: string;
   design?: {
@@ -125,6 +138,14 @@ export interface HouseModel {
 }
 
 export interface Project {
+  artifact?: StudioArtifact;
+  cloud?: {
+    ownerId?: string;
+    projectId: string;
+    jobId: string;
+    sha256: string;
+    progressVersion?: number;
+  };
   id: string;
   name: string;
   createdAt: string;

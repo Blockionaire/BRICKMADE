@@ -16,7 +16,7 @@ async function connect(page: Page) {
   ).toBeVisible();
 }
 async function photoStudio(page: Page) {
-  await go(page, "/create");
+  await go(page, "/create/demo");
   await page.getByLabel("Upload photos").setInputFiles(
     [1, 2, 3].map((i) => ({
       name: `view-${i}.jpg`,
@@ -82,7 +82,7 @@ test("one personal photo opens interpretation directly without choosing a demo",
     return { status: 200, body: { version: 1, brief: HOUSE_PRESETS[1].brief } };
   });
   await connect(page);
-  await go(page, "/create");
+  await go(page, "/create/demo");
   await page
     .getByLabel("Upload photos")
     .setInputFiles("tests/fixtures/house-upload.jpg");
@@ -118,7 +118,7 @@ test("manual house description generates a checked, persistent build with actual
   test.setTimeout(150000);
   const errors: string[] = [];
   page.on("pageerror", (e) => errors.push(e.message));
-  await go(page, "/create");
+  await go(page, "/create/demo");
   await page
     .getByRole("button", { name: "Design a house", exact: true })
     .click();
@@ -331,7 +331,7 @@ test("house generation refuses tampered collision evidence before saving", async
   await page.route("**/catalog/collision/*.bvox*", (route) =>
     route.fulfill({ status: 200, body: Buffer.from("invalid evidence") }),
   );
-  await go(page, "/create");
+  await go(page, "/create/demo");
   await page
     .getByRole("button", { name: "Design a house", exact: true })
     .click();
@@ -372,7 +372,7 @@ test("house studio and connection controls fit small phones and desktop", async 
 }) => {
   for (const width of [320, 390, 1440]) {
     await page.setViewportSize({ width, height: 900 });
-    await go(page, "/create");
+    await go(page, "/create/demo");
     await page
       .getByRole("button", { name: "Design a house", exact: true })
       .click();

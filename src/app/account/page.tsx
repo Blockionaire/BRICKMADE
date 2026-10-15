@@ -1,5 +1,7 @@
 "use client";
 
+import {CloudAccount} from "@/components/studio/cloud-account";
+import {CloudProjects} from "@/components/studio/cloud-projects";
 import { useState } from "react";
 import {
   UserRound,
@@ -161,6 +163,8 @@ export default function AccountPage() {
           </div>
         </Sheet>
       )}
+      <CloudAccount/>
+      <CloudProjects/>
     </div>
   );
 }

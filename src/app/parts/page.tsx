@@ -1,5 +1,6 @@
 "use client";
 
+import {projectModel} from "@/domain/project-model";
 import { useState, Suspense } from "react";
 import { useSearchParams } from "next/navigation";
 import {
@@ -15,7 +16,6 @@ import Link from "next/link";
 import libraryManifest from "../../../public/catalog/rebrickable-manifest.json";
 import { ProjectSelector } from "@/components/project-selector";
 import { CATALOG, COLORS } from "@/domain/catalog";
-import { createModel } from "@/domain/models";
 import {
   PageHeading,
   PartCard,
@@ -41,7 +41,7 @@ function PartsContent() {
 }
 
 function BuildParts({ active }: { active: Project }) {
-  const model = createModel(active.settings);
+  const model = projectModel(active);
   const params = useSearchParams();
   const [query, setQuery] = useState(params?.get("part") ?? "");
   const [color, setColor] = useState(params?.get("color") ?? "all");

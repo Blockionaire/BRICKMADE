@@ -1,5 +1,7 @@
 "use client";
 
+import {CloudProjects} from "@/components/studio/cloud-projects";
+import {projectModel} from "@/domain/project-model";
 import Link from "next/link";
 import {
   ArrowRight,
@@ -14,13 +16,12 @@ import {
 import { MigrationNotice } from "@/components/migration-notice";
 import { ModelThumbnail } from "@/components/model-thumbnail";
 import { ModelViewer } from "@/components/model-viewer";
-import { createModel } from "@/domain/models";
 import { ActionLink } from "@/components/ui";
 import { projectRepository, useProjects } from "@/services/project-repository";
 
 export default function HomePage() {
   const { projects, active } = useProjects();
-  const model = createModel(active.settings);
+  const model = projectModel(active);
   const progress = active.completed
     ? 100
     : Math.round(((active.currentStep - 1) / model.steps.length) * 100);
@@ -139,7 +140,7 @@ export default function HomePage() {
         </div>
         <div className="builds-grid">
           {projects.map((project) => {
-            const m = createModel(project.settings);
+            const m = projectModel(project);
             const percent = project.completed
               ? 100
               : Math.round(((project.currentStep - 1) / m.steps.length) * 100);
@@ -214,6 +215,7 @@ export default function HomePage() {
         </p>
         <span>Turn anything into a brick build.</span>
       </div>
+      <CloudProjects/>
     </div>
   );
 }

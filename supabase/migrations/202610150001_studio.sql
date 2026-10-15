@@ -182,7 +182,7 @@ create function public.bm_finish_job(p_job uuid,p_lease uuid,p_artifact jsonb,p_
 language plpgsql security definer set search_path=public,pg_temp as $$
 declare j public.bm_jobs;
 begin
- if length(p_title) not between 1 and 60 or p_artifact->>'sha256' !~ '^[a-f0-9]{64}$' or (p_artifact->>'bytes')::integer not between 1 and 15000000 then raise exception 'invalid-artifact'; end if;
+ if length(p_title) not between 1 and 60 or p_artifact->>'sha256' !~ '^[a-f0-9]{64}$' or (p_artifact->>'bytes')::integer not between 1 and 15000000 or coalesce((p_artifact->>'pieceCount')::integer,0) not between 1 and 5000 then raise exception 'invalid-artifact'; end if;
  update public.bm_jobs set stage='completed',progress=100,artifact=p_artifact,lease_until=null,lease_token=null,updated_at=now()
  where id=p_job and lease_token=p_lease and lease_until>now() and not cancel_requested and stage='finalizing' returning * into j;
  if not found then return false; end if;
@@ -221,10 +221,14 @@ begin
 end $$;
 create function public.bm_save_progress(p_owner uuid,p_project uuid,p_sha text,p_ids jsonb,p_pace text,p_version integer)
 returns public.bm_progress language plpgsql security definer set search_path=public,pg_temp as $$
-declare r public.bm_progress;
+declare r public.bm_progress; piece_count integer;
 begin
  if p_pace not in ('easy','medium','hard') or jsonb_typeof(p_ids)<>'array' or jsonb_array_length(p_ids)>5000 then raise exception 'invalid-progress'; end if;
- if not exists(select 1 from public.bm_jobs where owner_id=p_owner and project_id=p_project and stage='completed' and artifact->>'sha256'=p_sha) then raise exception 'not-found'; end if;
+ select (artifact->>'pieceCount')::integer into piece_count from public.bm_jobs where owner_id=p_owner and project_id=p_project and stage='completed' and artifact->>'sha256'=p_sha limit 1;
+ if not found then raise exception 'not-found'; end if;
+ if piece_count is null or (select count(distinct value) from jsonb_array_elements(p_ids))<>jsonb_array_length(p_ids) then raise exception 'invalid-progress'; end if;
+ if exists(select 1 from jsonb_array_elements(p_ids) x where jsonb_typeof(x)<>'string' or x#>>'{}' !~ '^piece-[1-9][0-9]{0,3}$') then raise exception 'invalid-progress'; end if;
+ if exists(select 1 from jsonb_array_elements_text(p_ids) x where substring(x from 7)::integer>piece_count) then raise exception 'invalid-progress'; end if;
  perform pg_advisory_xact_lock(hashtextextended(p_project::text,1));
  select * into r from public.bm_progress where project_id=p_project and artifact_sha256=p_sha;
  if found and r.version<>p_version then raise exception 'progress-conflict'; end if;
@@ -242,6 +246,6 @@ grant execute on function public.bm_valid_options(jsonb),public.bm_create_projec
 insert into storage.buckets(id,name,public,file_size_limit,allowed_mime_types) values
  ('bm-inputs','bm-inputs',false,716800,array['image/jpeg']),
  ('bm-designs','bm-designs',false,15000000,array['application/json']);
-create policy bm_input_owner_read on storage.objects for select to authenticated using(bucket_id='bm-inputs' and (storage.foldername(name))[1]=(select auth.uid())::text);
+create policy bm_input_owner_read on storage.objects for select to authenticated using(bucket_id='bm-inputs' and (storage.foldername(name))[1]=(select auth.uid())::text and exists(select 1 from public.bm_assets a where a.path=name and a.bucket='bm-inputs' and a.expires_at>now() and a.state<>'deleted'));
 create policy bm_design_owner_read on storage.objects for select to authenticated using(bucket_id='bm-designs' and (storage.foldername(name))[1]=(select auth.uid())::text);
 commit;

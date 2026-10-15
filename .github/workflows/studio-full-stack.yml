@@ -1,0 +1,66 @@
+name: Verify private Studio end to end
+on:
+  push:
+    branches: [main, codex/category-studio]
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  studio:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "24"
+          cache: npm
+      - run: npm ci
+      - uses: supabase/setup-cli@v1
+        with:
+          version: 2.121.0
+      - name: Start isolated real Supabase Auth, Storage and Postgres
+        run: |
+          supabase init --yes
+          python3 - <<'PY'
+          from pathlib import Path
+          p=Path('supabase/config.toml')
+          s=p.read_text()
+          assert 'enable_anonymous_sign_ins = false' in s
+          p.write_text(s.replace('enable_anonymous_sign_ins = false','enable_anonymous_sign_ins = true'))
+          PY
+          supabase start --exclude studio,imgproxy,edge-runtime,realtime,logflare,vector,supavisor
+          supabase status -o json > /tmp/brickmade-supabase.json
+          python3 - <<'PY'
+          import json,os
+          s=json.load(open('/tmp/brickmade-supabase.json'))
+          with open(os.environ['GITHUB_ENV'],'a') as f:
+            for k,v in {'SUPABASE_URL':s['API_URL'],'SUPABASE_ANON_KEY':s['ANON_KEY'],'SUPABASE_SERVICE_ROLE_KEY':s['SERVICE_ROLE_KEY'],'BRICKMADE_LOCAL_SUPABASE':'1','STUDIO_FULL_STACK':'1'}.items():
+              if 'KEY' in k: print('::add-mask::'+v)
+              f.write(k+'='+v+'\n')
+          PY
+      - name: Install browser and build actual app
+        run: |
+          npx playwright install --with-deps chromium
+          node -e "const fs=require('fs');fs.appendFileSync(process.env.GITHUB_ENV,'CHROMIUM_PATH='+require('@playwright/test').chromium.executablePath()+'\n')"
+          npm run build
+      - name: Run real queue, worker, private storage and browser
+        env:
+          E2E_BASE_URL: http://127.0.0.1:4281
+          E2E_SERVER_COMMAND: node node_modules/next/dist/bin/next start --hostname 127.0.0.1 --port 4281
+        run: |
+          node --import ./server/register.mjs tests/fixtures/cloud-worker.mjs > /tmp/brickmade-fixture-worker.log 2>&1 &
+          worker_pid=$!
+          trap 'kill "$worker_pid" 2>/dev/null || true' EXIT
+          node node_modules/@playwright/test/cli.js test tests/e2e/studio-live.spec.ts --output=test-results-studio-live
+      - name: Diagnostic artifacts
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: studio-integration-diagnostics
+          path: |
+            test-results-studio-live
+            /tmp/brickmade-fixture-worker.log
+          retention-days: 3
+      - if: always()
+        run: supabase stop --no-backup || true

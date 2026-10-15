@@ -1,5 +1,6 @@
 "use client";
 
+import { projectModel } from "@/domain/project-model";
 import { useEffect, useRef, useState } from "react";
 import { Check, ArrowRight, Layers, Blocks, Info, Pencil } from "lucide-react";
 import Link from "next/link";
@@ -24,7 +25,7 @@ import { reviewAssembly } from "@/services/assembly-validation";
 
 export default function ReviewPage() {
   const { active } = useProjects();
-  const model = createModel(active.settings);
+  const model = projectModel(active);
   const [pendingSettings, setPendingSettings] =
     useState<GenerationSettings | null>(null);
   const [renaming, setRenaming] = useState(false);
@@ -119,9 +120,11 @@ export default function ReviewPage() {
             </button>
           </div>
           <p>
-            {model.design
-              ? "Generated from your editable house description. Review the adaptations below for the actual design choices."
-              : modelInfo(active.settings).description}
+            {model.studio
+              ? "Created from your photos with category-specific house construction rules."
+              : model.design
+                ? "Generated from your editable house description. Review the adaptations below for the actual design choices."
+                : modelInfo(active.settings).description}
           </p>
           {model.design ? (
             <div className="generated-design-summary">
@@ -134,16 +137,26 @@ export default function ReviewPage() {
                 {model.design.brief.aspectRatio.toFixed(2)} : 1 requested
                 proportions
               </p>
-              <button
-                className="button button-secondary"
-                onClick={() => {
-                  setDraft(model.design!.brief);
-                  setDesignError("");
-                }}
-              >
-                <Pencil size={16} />
-                Edit house description
-              </button>
+              {!active.artifact && (
+                <button
+                  className="button button-secondary"
+                  onClick={() => {
+                    setDraft(model.design!.brief);
+                    setDesignError("");
+                  }}
+                >
+                  <Pencil size={16} />
+                  Edit house description
+                </button>
+              )}
+              {active.cloud && (
+                <Link
+                  href={`/design?job=${active.cloud.jobId}`}
+                  className="button button-secondary"
+                >
+                  Open saved design & versions
+                </Link>
+              )}
               <details>
                 <summary>Design adaptations & limits</summary>
                 <ul>
@@ -164,18 +177,24 @@ export default function ReviewPage() {
               }
             />
           )}
-          <DetailSelector
-            settings={active.settings}
-            compact
-            value={active.settings.detail}
-            onChange={(detail) =>
-              updateSettings({ ...active.settings, detail })
-            }
-          />
-          <SizeSelector
-            value={active.settings.size}
-            onChange={(size) => updateSettings({ ...active.settings, size })}
-          />
+          {!active.artifact && (
+            <>
+              <DetailSelector
+                settings={active.settings}
+                compact
+                value={active.settings.detail}
+                onChange={(detail) =>
+                  updateSettings({ ...active.settings, detail })
+                }
+              />
+              <SizeSelector
+                value={active.settings.size}
+                onChange={(size) =>
+                  updateSettings({ ...active.settings, size })
+                }
+              />
+            </>
+          )}
           <div className="review-summary">
             <span>
               <Layers size={17} />
@@ -198,6 +217,7 @@ export default function ReviewPage() {
             </p>
           )}
           <BuildDifficultySelector
+            frozenModel={active.artifact ? model : undefined}
             compact
             settings={active.settings}
             onChange={(difficulty) =>
