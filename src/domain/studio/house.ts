@@ -7,7 +7,7 @@ import {
 import type { GenerationSettings, ColorId, HouseModel } from "../types";
 import type { HouseBrief } from "../../../shared/house-brief";
 import { planHouseScene } from "../../../shared/design-scene";
-export const STUDIO_HOUSE_REVISION = "2026-10-15.house-v2.1";
+export const STUDIO_HOUSE_REVISION = "2026-10-15.house-v2.2";
 const brick = (n: number) =>
   n >= 8
     ? "3008"
@@ -445,16 +445,27 @@ export function createStudioHouse(
       }),
     );
     if (!cells.size) break;
-    const at = y;
-    a.phase(
-      `${s.roofShape} roof · contour ${course + 1}`,
-      "Build each smaller roof contour on the supported studs of the preceding course.",
-      roofBag,
-      () => plateTiles(cells, at, s.roofColor, hard ? 2 : 4),
-      "Roof contours",
-      "top",
-    );
-    y += 0.4;
+    // Build real studded risers: pitch changes roof height, including small models.
+    const rises =
+      s.roofShape === "flat"
+        ? 1
+        : s.roofPitch === "steep"
+          ? 3
+          : s.roofPitch === "medium"
+            ? 2
+            : 1;
+    for (let rise = 0; rise < rises; rise++) {
+      const at = y;
+      a.phase(
+        `${s.roofShape} roof · contour ${course + 1}, course ${rise + 1}`,
+        "Build the roof contour on the supported studs of the preceding course. Vertical courses preserve the requested roof pitch.",
+        roofBag,
+        () => plateTiles(cells, at, s.roofColor, hard ? 2 : 4),
+        "Roof contours",
+        "top",
+      );
+      y += 0.4;
+    }
   }
   if (s.chimney) {
     // Find a supported stud on the highest contour rather than guessing through the roof.

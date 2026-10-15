@@ -22,6 +22,22 @@ describe("Category contracts", () => {
       parseStudioOptions({ ...DEFAULT_STUDIO_OPTIONS, detail: "collector" }),
     ).toThrow();
   });
+  it("changes actual roof height for interpreted pitch even at compact scale", () => {
+    const models = (["low", "medium", "steep"] as const).map((roofPitch) =>
+      createModel({
+        houseDesign: { ...HOUSE_EXAMPLE, roofPitch },
+        detail: "normal",
+        size: "compact",
+        buildDifficulty: "medium",
+      }),
+    );
+    const tops = models.map((m) =>
+      Math.max(...m.placements.map((p) => p.position[1])),
+    );
+    expect(tops[1]).toBeGreaterThan(tops[0]);
+    expect(tops[2]).toBeGreaterThan(tops[1]);
+    expect(models[0].stats.pieceCount).toBeLessThan(models[2].stats.pieceCount);
+  });
   it("preserves shape while changing instruction pace", () => {
     const base = {
       detail: "normal" as const,
@@ -43,24 +59,31 @@ describe("Category contracts", () => {
 });
 const cases = (["rectangle", "l-shaped"] as const).flatMap((footprint, f) =>
   (["flat", "gable", "hip", "shed"] as const).flatMap((roofShape, r) =>
-    [1, 2, 3].map((storeys, i) => ({
-      footprint,
-      roofShape,
-      storeys: storeys as 1 | 2 | 3,
-      detail: (["easy", "normal", "hard"] as const)[(r + i + f) % 3],
-      size: (["compact", "standard", "large"] as const)[(r + i) % 3],
-      pace: (["easy", "medium", "hard"] as const)[(r + f + i) % 3],
-      ridgeAxis: (i % 2 ? "depth" : "width") as "width" | "depth",
-    })),
+    [1, 2, 3].flatMap((storeys, i) =>
+      (roofShape === "flat"
+        ? ["low" as const]
+        : (["low", "medium", "steep"] as const)
+      ).map((roofPitch) => ({
+        footprint,
+        roofShape,
+        roofPitch,
+        storeys: storeys as 1 | 2 | 3,
+        detail: (["easy", "normal", "hard"] as const)[(r + i + f) % 3],
+        size: (["compact", "standard", "large"] as const)[(r + i) % 3],
+        pace: (["easy", "medium", "hard"] as const)[(r + f + i) % 3],
+        ridgeAxis: (i % 2 ? "depth" : "width") as "width" | "depth",
+      })),
+    ),
   ),
 );
 describe("Expanded House digital release matrix", () => {
   for (const c of cases)
-    it(`${c.footprint} ${c.roofShape} ${c.storeys} floors ${c.detail}/${c.size}/${c.pace}`, async () => {
+    it(`${c.footprint} ${c.roofShape} pitch ${c.roofPitch} ${c.storeys} floors ${c.detail}/${c.size}/${c.pace}`, async () => {
       const description = {
         ...HOUSE_EXAMPLE,
         footprint: c.footprint,
         roofShape: c.roofShape,
+        roofPitch: c.roofPitch,
         storeys: c.storeys,
         ridgeAxis: c.ridgeAxis,
       };
