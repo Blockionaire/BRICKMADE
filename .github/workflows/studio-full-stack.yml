@@ -48,6 +48,10 @@ jobs:
           npx playwright install --with-deps chromium
           node -e "const fs=require('fs');fs.appendFileSync(process.env.GITHUB_ENV,'CHROMIUM_PATH='+require('@playwright/test').chromium.executablePath()+'\n')"
           npm run build
+      - name: Verify packaged worker image without network or secrets
+        run: |
+          docker build -f worker.Dockerfile -t brickmade-worker-ci .
+          docker run --rm --network none brickmade-worker-ci node --import ./server/register.mjs --input-type=module -e 'import {compileHouse} from "./server/compile-house.mjs"; import {HOUSE_EXAMPLE,DEFAULT_STUDIO_OPTIONS} from "./shared/studio.ts"; const r=await compileHouse(HOUSE_EXAMPLE,DEFAULT_STUDIO_OPTIONS); if(r.validation.status!=="passed")process.exit(1); console.log("PASS: non-root worker image, source checksums, actual compiler and assembly checks",r.model.stats.pieceCount);'
       - name: Run real queue, worker, private storage and browser
         env:
           E2E_BASE_URL: http://127.0.0.1:4281

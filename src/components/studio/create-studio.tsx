@@ -433,10 +433,21 @@ export function CreateStudio() {
             {configured === false && (
               <div className="studio-notice">
                 <ShieldCheck size={20} />
-                <p>
-                  The private cloud studio is being connected. You can explore
-                  the demo builds while it’s getting ready.
-                </p>
+                <div>
+                  <p>
+                    {process.env.NEXT_PUBLIC_BASE_PATH
+                      ? "Photo generation runs in our private cloud app. Open the cloud studio to create a saved build from your photos."
+                      : "The private cloud studio is being connected. You can explore the demo builds while it’s getting ready."}
+                  </p>
+                  {process.env.NEXT_PUBLIC_BASE_PATH && (
+                    <a
+                      className="text-link"
+                      href="https://brickmade.vercel.app/create"
+                    >
+                      Open the cloud studio <ArrowRight size={15} />
+                    </a>
+                  )}
+                </div>
               </div>
             )}
             <div className="studio-submit">

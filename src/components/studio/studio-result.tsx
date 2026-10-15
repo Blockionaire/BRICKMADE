@@ -90,7 +90,7 @@ export function StudioResult() {
     }
   }, [current?.stage]);
   useEffect(() => {
-    if (!id) return;
+    if (!id || process.env.NEXT_PUBLIC_BASE_PATH) return;
     const abort = new AbortController();
     let timer: ReturnType<typeof setTimeout> | undefined;
     async function poll() {
@@ -203,6 +203,22 @@ export function StudioResult() {
       }
     }
   }
+  if (process.env.NEXT_PUBLIC_BASE_PATH)
+    return (
+      <div id="page-content" className="studio-page">
+        <PageHeading
+          eyebrow="Your private collection"
+          title="Continue in the cloud studio."
+          description="Saved photo builds are available in the full BrickMade app."
+        />
+        <a
+          className="button button-primary"
+          href={`https://brickmade.vercel.app/design${id ? `?job=${encodeURIComponent(id)}` : ""}`}
+        >
+          Open the cloud studio <ArrowRight size={18} />
+        </a>
+      </div>
+    );
   if (!id)
     return (
       <div id="page-content" className="studio-page">

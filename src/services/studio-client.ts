@@ -21,6 +21,9 @@ export async function studioRequest<T>(
     signal,
   }: { method?: string; body?: unknown; signal?: AbortSignal } = {},
 ): Promise<T> {
+  // GitHub Pages has no server routes. Report that capability explicitly.
+  if (path === "config" && process.env.NEXT_PUBLIC_BASE_PATH)
+    return { version: 1, configured: false } as T;
   let response: Response;
   try {
     response = await fetch(`/api/studio/${path}`, {
