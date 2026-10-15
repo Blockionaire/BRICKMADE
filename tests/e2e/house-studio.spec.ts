@@ -25,7 +25,9 @@ async function photoStudio(page: Page) {
     })),
   );
   await page.getByRole("button", { name: "Continue", exact: true }).click();
-  await page.getByRole("button", { name: /House studio/ }).click();
+  await expect(
+    page.getByRole("button", { name: /House studio/ }),
+  ).toHaveAttribute("aria-pressed", "true");
 }
 async function mockApi(
   page: Page,
@@ -68,6 +70,49 @@ async function mockApi(
     }
   });
 }
+test("one personal photo opens interpretation directly without choosing a demo", async ({
+  page,
+}) => {
+  let uploads = 0;
+  await mockApi(page, async (body) => {
+    uploads++;
+    expect(body.consent).toBe(true);
+    expect(body.photos).toHaveLength(1);
+    return { status: 200, body: { version: 1, brief: HOUSE_PRESETS[1].brief } };
+  });
+  await connect(page);
+  await go(page, "/create");
+  await page
+    .getByLabel("Upload photos")
+    .setInputFiles("tests/fixtures/house-upload.jpg");
+  await page.getByRole("button", { name: "Continue", exact: true }).click();
+  await expect(
+    page.getByRole("button", { name: /House studio/ }),
+  ).toHaveAttribute("aria-pressed", "true");
+  await expect(
+    page.getByRole("heading", { name: "Interpret your house photos" }),
+  ).toBeVisible();
+  const interpret = page.getByRole("button", {
+    name: "Interpret my photos",
+    exact: true,
+  });
+  await expect(interpret).toBeDisabled();
+  expect(uploads).toBe(0);
+  await page.locator(".photo-consent input").check();
+  await interpret.click();
+  await expect(page.getByText(/Photo interpretation ·/)).toBeVisible();
+  expect(uploads).toBe(1);
+  await expect(
+    page.getByRole("button", { name: "Generate my house" }),
+  ).toBeVisible();
+  await expect(
+    page.getByRole("group", { name: "Demo design" }),
+  ).toHaveCount(0);
+  await page.screenshot({
+    path: "/tmp/brickmade-own-photo-mobile.png",
+    fullPage: true,
+  });
+});
 test("manual house description generates a checked, persistent build with actual source-mesh thumbnails", async ({
   page,
 }) => {

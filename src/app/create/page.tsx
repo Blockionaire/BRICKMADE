@@ -54,6 +54,7 @@ export default function CreatePage() {
     "upload" | "settings" | "generating" | "analyzing"
   >("upload");
   const [photos, setPhotos] = useState<Photo[]>([]);
+  const realPhotoCount = photos.filter((photo) => !photo.demo).length;
   const [name, setName] = useState("Compact House");
   const [settings, setSettings] = useState<GenerationSettings>({
     ...DEFAULT_SETTINGS,
@@ -339,7 +340,7 @@ export default function CreatePage() {
         }
         description={
           stage === "upload"
-            ? "Choose a few photos of a place you love, or try our little house."
+            ? "Upload your own house photos for AI interpretation, or explore a demo build."
             : "Keep it simple or enjoy the details. There’s no wrong place to start."
         }
         back="/"
@@ -456,14 +457,18 @@ export default function CreatePage() {
             </div>
             <div className="flow-actions">
               <span>
-                {photos.length < 3
-                  ? `Add ${3 - photos.length} more ${3 - photos.length === 1 ? "photo" : "photos"} to continue`
-                  : "Looking good. Let’s make it yours."}
+                {realPhotoCount > 0
+                  ? "Next: interpret your house photos. No demo selection needed."
+                  : photos.length < 3
+                    ? "Add 1–3 house photos, or use the demo photos."
+                    : "Explore the demo collection."}
               </span>
               <button
                 className="button button-primary"
-                disabled={photos.length < 3}
-                onClick={() => setStage("settings")}
+                disabled={!realPhotoCount && photos.length < 3}
+                onClick={() =>
+                  realPhotoCount ? startHouseStudio() : setStage("settings")
+                }
               >
                 Continue <ArrowRight size={17} />
               </button>
@@ -573,24 +578,38 @@ export default function CreatePage() {
                     generating.
                   </p>
                 )}
-                <HouseBriefEditor
-                  brief={settings.houseBrief}
-                  onChange={editBrief}
-                />
                 <section
                   className="photo-interpretation-panel"
                   aria-label="Photo interpretation"
                 >
                   <div className="house-section-title">
                     <ScanLine size={20} />
-                    <h2>Let your photos shape it</h2>
+                    <h2>Interpret your house photos</h2>
                     <span className="tag">Optional AI</span>
                   </div>
                   <p>
+                    Start from your own photos without choosing a demo. AI
+                    proposes an editable house description; you review it before
+                    generating the brick build. This prototype supports simple
+                    rectangular houses, with approximate proportions and
+                    details.
+                  </p>
+                  <p>
                     {photos.some((p) => !p.demo)
-                      ? `Interpret the first ${Math.min(3, photos.filter((p) => !p.demo).length)} real photos, then check and edit the result above.`
+                      ? `Interpret the first ${Math.min(3, photos.filter((p) => !p.demo).length)} real photos, then check and edit the description below.`
                       : "Add real house photos to use interpretation. You can generate this description without photos or an API key."}
                   </p>
+                  {!realPhotoCount && (
+                    <button
+                      className="button button-secondary"
+                      onClick={() => {
+                        setStage("upload");
+                        setPhotoConsent(false);
+                      }}
+                    >
+                      <Camera size={17} /> Add my house photos
+                    </button>
+                  )}
                   <details>
                     <summary>Connect your private photo service</summary>
                     <AiConnectionPanel
@@ -620,6 +639,10 @@ export default function CreatePage() {
                     Interpret my photos
                   </button>
                 </section>
+                <HouseBriefEditor
+                  brief={settings.houseBrief}
+                  onChange={editBrief}
+                />
               </>
             ) : (
               <ModelKindSelector
