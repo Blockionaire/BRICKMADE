@@ -222,6 +222,54 @@ describe("Cloud transport", () => {
     SUPABASE_ANON_KEY: "sb_publishable_fixture",
     SUPABASE_SERVICE_ROLE_KEY: "sb_secret_fixture",
   };
+  it("scopes database reads and writes to BrickMade without changing Auth or Storage", async () => {
+    const fetcher = vi.fn(async () => new Response("[]"));
+    const db = supabaseClient({ env, fetcher });
+    await db.rows("bm_projects", "limit=1");
+    await db.rpc("bm_valid_options", { v: DEFAULT_STUDIO_OPTIONS });
+    await db.patch("bm_assets", "id=eq.fixture", { state: "deleted" });
+    await db.request("/auth/v1/user", { token: "user-token", service: false });
+    await db.upload(
+      "bm-inputs",
+      "owner/photo.jpg",
+      new Uint8Array([1]),
+      "image/jpeg",
+    );
+    const headers = fetcher.mock.calls.map((call) => call[1].headers);
+    expect(headers[0]["Accept-Profile"]).toBe("brickmade");
+    expect(headers[0]["Content-Profile"]).toBeUndefined();
+    for (const h of headers.slice(1, 3)) {
+      expect(h["Accept-Profile"]).toBe("brickmade");
+      expect(h["Content-Profile"]).toBe("brickmade");
+    }
+    for (const h of headers.slice(3)) {
+      expect(h["Accept-Profile"]).toBeUndefined();
+      expect(h["Content-Profile"]).toBeUndefined();
+    }
+  });
+  it.each([
+    ["PGRST106", "database-schema"],
+    ["PGRST202", "database-migration"],
+    ["PGRST205", "database-migration"],
+  ])(
+    "explains %s setup failures without exposing database responses",
+    async (providerCode, code) => {
+      const db = supabaseClient({
+        env,
+        fetcher: async () =>
+          new Response(
+            JSON.stringify({
+              code: providerCode,
+              message: "private-database-detail",
+            }),
+            { status: 406 },
+          ),
+      });
+      const failure = await db.rpc("bm_valid_options", {}).catch((e) => e);
+      expect(failure).toMatchObject({ status: 503, code });
+      expect(failure.message).not.toContain("private-database-detail");
+    },
+  );
   it("keeps HTTP forbidden except explicitly enabled loopback fixtures", () => {
     expect(() =>
       cloudConfig({

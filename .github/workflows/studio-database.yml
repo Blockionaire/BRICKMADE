@@ -24,7 +24,7 @@ jobs:
         image: postgrest/postgrest:v12.2.3
         env:
           PGRST_DB_URI: postgres://postgres:studio-test-only@postgres:5432/brickmade_test
-          PGRST_DB_SCHEMAS: public
+          PGRST_DB_SCHEMAS: public,brickmade
           PGRST_DB_ANON_ROLE: anon
           PGRST_JWT_SECRET: brickmade-postgrest-fixture-secret-0123456789
         ports: [3009:3000]
@@ -41,8 +41,16 @@ jobs:
           node-version: "24"
       - name: Apply Supabase fixture and actual migration
         run: |
-          psql -v ON_ERROR_STOP=1 -f tests/sql/supabase-fixture.sql
-          psql -v ON_ERROR_STOP=1 -f supabase/migrations/202610150001_studio.sql
+          python3 - <<'PY'
+          import subprocess
+          for path in ['tests/sql/supabase-fixture.sql','supabase/migrations/202610150001_studio.sql','tests/sql/before-isolation.sql','supabase/migrations/202610150002_isolate_schema.sql','tests/sql/schema-isolation.sql']:
+            r=subprocess.run(['psql','-v','ON_ERROR_STOP=1','-f',path],capture_output=True,text=True)
+            if r.returncode:
+              t=(path+'\n'+r.stdout+r.stderr)[-6000:]
+              print('::error::'+t.replace('%','%25').replace('\r','%0D').replace('\n','%0A'))
+              raise SystemExit(r.returncode)
+            print(path+': passed')
+          PY
       - name: Exercise durable queue, ownership and recovery
         run: psql -v ON_ERROR_STOP=1 -f tests/sql/studio.sql
       - name: Exercise actual PostgREST transport and RLS

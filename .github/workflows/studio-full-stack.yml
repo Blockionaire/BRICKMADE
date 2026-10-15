@@ -27,6 +27,8 @@ jobs:
           p=Path('supabase/config.toml')
           s=p.read_text()
           assert 'enable_anonymous_sign_ins = false' in s
+          assert 'schemas = ["public", "graphql_public"]' in s
+          s=s.replace('schemas = ["public", "graphql_public"]','schemas = ["public", "graphql_public", "brickmade"]')
           s=s.replace('enable_anonymous_sign_ins = false','enable_anonymous_sign_ins = true').replace('enable_confirmations = false','enable_confirmations = true').replace('max_frequency = "1m"','max_frequency = "1s"')
           template=Path('supabase/templates/brickmade-code.html');template.parent.mkdir(exist_ok=True)
           template.write_text('<p>Your BrickMade code is {{ .Token }}</p>')

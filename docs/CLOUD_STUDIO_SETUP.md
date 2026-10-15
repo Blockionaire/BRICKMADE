@@ -10,11 +10,21 @@ Supabase provides server-managed anonymous identity, optional email linking/sign
 
 ## 1. Choose the project
 
-Use a dedicated BrickMade Supabase project. Sharing a project is technically possible, but shares Auth settings, service credentials, storage, capacity and operational changes. Prefixing these tables prevents name clashes; it does not isolate the project-level settings. Leave the wine project untouched. Decide whether to upgrade based on Supabase's current active-project limits and your needs; this code does not require a paid database tier for private testing.
+**Current testing decision, 2026-10-15:** use the existing shared project for smaller apps. A third Supabase project or paid upgrade is not required for this private test, provided the shared project has capacity. Leave the wine project untouched. A dedicated BrickMade project remains the recommendation before broader rollout.
+
+The selected project is `https://dqwkbtsstvakcvlnwvwk.supabase.co`. BrickMade uses its own **`brickmade` PostgreSQL schema**, with `bm_` tables/functions and private `bm-inputs`/`bm-designs` buckets. The forward migration preserves existing BrickMade builds while moving only its five tables and eleven functions. Other applications keep their schemas, tables, functions and buckets. Auth settings, service credentials, backups and resource limits remain shared; the schema is not a separate security boundary for a project-wide service key.
+
+Start with the shorter [shared-project checklist](SHARED_SUPABASE_QUICKSTART.md). Run the read-only [preflight](../supabase/shared-project-preflight.sql) in SQL Editor before installation to identify namespace collisions and review existing policies. Do not rerun migrations already applied.
+
+Before enabling anonymous sign-ins, review the other apps' access policies: Supabase anonymous users also have the `authenticated` role. Policies that allow every authenticated user may admit these new guest identities. This review needs project-dashboard/database access; the public project URL alone does not establish that the existing apps are isolated.
+
+For the first same-browser photo-generation test, use a guest session and preserve existing email confirmation settings, templates and providers. Email linking and cross-device recovery can be enabled/tested after checking compatibility with the shared apps. In section 2, enable anonymous sign-ins after the access review, and defer the email-specific changes in steps 2–3.
+
+The generation worker is still required. For this initial test it can run temporarily on a trusted computer with Node 24, so a paid worker host can wait. Clone this repository, run `npm ci`, enter the worker variables from section 4 into ignored `.env.local`, then run `npm run worker`. The Vercel app and worker must use the same Supabase project. The worker connects outward to Supabase/OpenAI and does not need a public port or tunnel. Keep it running until the test job completes; its input-expiry cleanup also requires a running worker.
 
 ## 2. Prepare Supabase
 
-1. In the selected project, open SQL Editor and run the exact contents of [`202610150001_studio.sql`](../supabase/migrations/202610150001_studio.sql), once. Alternatively use Supabase CLI linked to that project and `supabase db push`. Review the project reference before applying. This migration creates only BrickMade-prefixed objects and two new private buckets; it must not be blindly rerun against an already migrated project.
+1. After the read-only preflight and policy review, open SQL Editor in the selected project. For a new installation, run [`202610150001_studio.sql`](../supabase/migrations/202610150001_studio.sql), then [`202610150002_isolate_schema.sql`](../supabase/migrations/202610150002_isolate_schema.sql), once each and in that order. If the first migration is already installed with its tables in `public`, run only the second. If `brickmade` already exists, inspect it before proceeding: migration two deliberately refuses to reuse an existing schema. With CLI-managed migrations, link to the correct project and use `supabase db push`. Do not blindly rerun installation SQL. In **Data API settings → Exposed schemas**, add **`brickmade`**, preserving every existing schema entry. Keep `public`/other apps exposed as before. Select `brickmade` in Table Editor to view these tables. The app and worker use this schema explicitly; they no longer query BrickMade objects in `public`.
 2. Under Authentication → Providers, enable **Anonymous Sign-Ins**. Keep email enabled and **Confirm email** enabled for optional collection recovery. The linking flow verifies ownership of the address using its email code. Anonymous users are real private identities, but clearing cookies before linking an email can lose access to that guest collection.
 3. Under Authentication → Email Templates, include `{{ .Token }}` in **Change Email Address** and **Magic Link** templates. The UI accepts the numeric code; a link-only template will not provide that experience. Configure production SMTP before broader testing. Supabase's default email service has restricted recipients/rate limits.
 4. Copy the project URL and keys into hosting environment settings below. Never paste keys into a GitHub issue, source file or chat.
@@ -26,7 +36,7 @@ Set these for **Production** in the existing `brickmade` Vercel project, then re
 
 | Variable | Secret? | Value |
 | --- | --- | --- |
-| `SUPABASE_URL` | No | Dedicated project's `https://…supabase.co` root |
+| `SUPABASE_URL` | No | `https://dqwkbtsstvakcvlnwvwk.supabase.co` |
 | `SUPABASE_PUBLISHABLE_KEY` | No | Project publishable key; legacy `SUPABASE_ANON_KEY` is also supported |
 | `SUPABASE_SERVICE_ROLE_KEY` | **Yes** | Server service-role JWT or Supabase secret key; bypasses RLS, never expose |
 | `BRICKMADE_APP_ORIGIN` | No | `https://brickmade.vercel.app`, or the exact custom HTTPS origin |
@@ -41,7 +51,7 @@ Build from [`worker.Dockerfile`](../worker.Dockerfile). Or on a Node 24 host run
 
 | Variable | Secret? | Value |
 | --- | --- | --- |
-| `SUPABASE_URL` | No | Same dedicated project |
+| `SUPABASE_URL` | No | Same selected project |
 | `SUPABASE_PUBLISHABLE_KEY` | No | Same publishable/legacy anon key |
 | `SUPABASE_SERVICE_ROLE_KEY` | **Yes** | Same server-only service credential |
 | `OPENAI_API_KEY` | **Yes** | Your OpenAI project key, entered only in the worker host's secrets |
@@ -58,7 +68,7 @@ For local work copy `.env.example` to ignored `.env.local`, fill values privatel
 2. Choose House at `/create`, add one clear exterior photo and Generate. Uploads start only at Generate. Confirm it reaches interpreting, planning, compiling, checking and completed. A job remaining queued usually means the worker is not running or points to a different project.
 3. Reload the result mid-generation; it should resume the saved job. Cancel another job and confirm it never publishes a design.
 4. Open the actual model, inspect adaptations, Parts and Builder. Check piece totals agree. Change detail; the new version reuses the saved interpretation without another photo call. Changing instruction pace must preserve the geometry and inventory.
-5. Complete a step, wait for cloud save, reload. Link a guest email using the code, then sign in on another device and open the saved build/progress.
+5. Complete a step, wait for cloud save, reload. For the initial shared-project test, stay in the same guest browser. After the shared email settings have been reviewed, optionally link a guest email using the code, then sign in on another device and open the saved build/progress.
 6. Test with a second independent user; their collection and private artifact endpoints must not expose the first user's projects.
 
 Real hosted OpenAI, SMTP, and provider access must be checked using your accounts. CI's photo-analysis fixture is explicit and never enabled in the production worker.
@@ -78,5 +88,5 @@ Real hosted OpenAI, SMTP, and provider access must be checked using your account
 
 - `npm run lint`, `npm run typecheck`, `npm test`, `npm run build`.
 - `npm run test:e2e`: local mobile and legacy prototype coverage; mocked service cases are identified in tests. New artifact fixtures are compiled and digitally checked using the native Node worker code.
-- GitHub workflow **Verify BrickMade durable database** starts real PostgreSQL/PostgREST, applies the actual migration, checks owner RLS, idempotency, lease recovery/fencing, cancellation, publication and progress conflicts.
+- GitHub workflow **Verify BrickMade durable database** starts real PostgreSQL/PostgREST, applies both actual migrations with pre-existing BrickMade and unrelated-app fixtures, checks namespace/data/privilege preservation, owner RLS, idempotency, lease recovery/fencing, cancellation, publication and progress conflicts.
 - Workflow **Verify private Studio end to end** starts isolated real Supabase Auth/Storage/Postgres and the actual Next.js app and worker/compiler. Only the vision call is an explicit CI fixture. It exercises private upload, reload recovery, variants, frozen artifact import, progress and a separate owner. No user database or OpenAI key is used.

@@ -56,6 +56,31 @@ for (let i = 0; i < 30; i++) {
   }
 }
 assert(ready, "PostgREST did not become ready after schema reload");
+// Another app's original public API and ownership rules must still work.
+const publicRows = await db.request(
+  "/rest/v1/shared_app_fixture?select=label",
+  {
+    service: false,
+    token: jwt("authenticated", other),
+    headers: { "Accept-Profile": "public" },
+  },
+);
+assert.deepEqual(publicRows, [{ label: "Existing app data" }]);
+assert.deepEqual(
+  await db.request("/rest/v1/shared_app_fixture?select=label", {
+    service: false,
+    token: jwt("authenticated", owner),
+    headers: { "Accept-Profile": "public" },
+  }),
+  [],
+);
+await assert.rejects(
+  () =>
+    db.request("/rest/v1/bm_projects?select=id", {
+      headers: { "Accept-Profile": "public" },
+    }),
+  { code: "database-migration" },
+);
 const created = await db.rpc("bm_create_project", {
   p_owner: owner,
   p_category: "house",
@@ -111,5 +136,5 @@ await assert.rejects(() =>
   }),
 );
 console.log(
-  "PASS: actual HTTP RPC/composite/scalar decoding, owner reads, cross-owner RLS and denied worker privileges",
+  "PASS: isolated-schema HTTP RPC/composite/scalar decoding, owner RLS, denied worker privileges and unchanged other-app public API",
 );

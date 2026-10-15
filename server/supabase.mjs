@@ -69,6 +69,14 @@ export function supabaseClient({ env = process.env, fetcher = fetch } = {}) {
         method,
         headers: {
           apikey: service ? config.serviceKey : config.publicKey,
+          ...(path.startsWith("/rest/v1/")
+            ? {
+                "Accept-Profile": "brickmade",
+                ...(!["GET", "HEAD"].includes(method)
+                  ? { "Content-Profile": "brickmade" }
+                  : {}),
+              }
+            : {}),
           ...((
             token || (service ? config.serviceKey : config.publicKey)
           ).startsWith("eyJ") || token
@@ -100,6 +108,18 @@ export function supabaseClient({ env = process.env, fetcher = fetch } = {}) {
       } catch {
         /* Never echo provider bodies. */
       }
+      if (data.code === "PGRST106")
+        throw new StudioError(
+          503,
+          "database-schema",
+          "Expose the brickmade schema in Supabase Data API settings, keeping existing schemas enabled.",
+        );
+      if (data.code === "PGRST202" || data.code === "PGRST205")
+        throw new StudioError(
+          503,
+          "database-migration",
+          "BrickMade's database migration or API schema cache needs updating.",
+        );
       const known = String(data.message || "");
       const codes = {
         "daily-limit": [
