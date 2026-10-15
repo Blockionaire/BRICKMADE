@@ -7699,3 +7699,10 @@ button.part-card:active {
 .studio-viewer-wrap .viewer-caption {
   visibility: hidden;
 }
+.studio-adaptations summary svg { display:inline; vertical-align:middle; margin-right:5px; }
+.studio-version-list { display:grid; gap:7px; max-height:310px; overflow:auto; margin:12px 0; }
+.studio-version-list a { display:flex; justify-content:space-between; align-items:center; padding:11px 12px; border:1px solid var(--line); border-radius:12px; }
+.studio-version-list a[aria-current=page] { background:var(--soft); border-color:var(--accent); }
+.studio-version-list b,.studio-version-list small { display:block; }
+.studio-version-list b { font-size:12px; }
+.studio-version-list small { color:var(--muted); font-size:10px; margin-top:3px; }

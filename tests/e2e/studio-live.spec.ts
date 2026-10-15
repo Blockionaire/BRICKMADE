@@ -38,6 +38,14 @@ test("real private uploads, durable recovery, checked artifact, variants, frozen
   const saved = (await job.json()).job;
   expect(saved.stage).toBe("completed");
   expect(saved.artifact.pieceCount).toBeGreaterThan(100);
+  await expect(page.locator(".studio-viewer canvas")).toHaveAttribute(
+    "aria-busy",
+    "false",
+  );
+  await expect(page.locator(".studio-viewer canvas")).toHaveAttribute(
+    "data-total-pieces",
+    String(saved.artifact.pieceCount),
+  );
   const db = supabaseClient();
   const events = await db.rows("bm_job_events", `job_id=eq.${first}`);
   expect(events.map((x: { stage: string }) => x.stage)).toEqual(

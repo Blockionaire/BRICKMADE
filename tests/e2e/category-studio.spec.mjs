@@ -117,7 +117,8 @@ async function mock(page, { failure = false, configured = true } = {}) {
       data = {
         progress,
       };
-    } else if (path === "projects")
+    } else if (path.endsWith("/jobs")) data = { jobs: [] };
+    else if (path === "projects")
       data = {
         projects: [],
       };
@@ -183,6 +184,14 @@ test("category-first mobile flow previews locally, submits once and opens the ex
     timeout: 30000,
   });
   expect(fixture.uploads()).toBe(1);
+  await expect(page.locator(".studio-viewer canvas")).toHaveAttribute(
+    "aria-busy",
+    "false",
+  );
+  await expect(page.locator(".studio-viewer canvas")).toHaveAttribute(
+    "data-total-pieces",
+    String(artifact.model.placements.length),
+  );
   await page.screenshot({
     path: "/tmp/brickmade-result-mobile.png",
     fullPage: true,

@@ -272,6 +272,19 @@ export function makeStudioHandler({
       if (
         action === "projects" &&
         path.length === 3 &&
+        path[2] === "jobs" &&
+        req.method === "GET"
+      ) {
+        const project = requireId(path[1]);
+        const jobs = await db.rows(
+          "bm_jobs",
+          `project_id=eq.${project}&owner_id=eq.${requireId(user.id)}&order=created_at.desc&limit=50`,
+        );
+        return send(200, { jobs: jobs.map(publicJob) });
+      }
+      if (
+        action === "projects" &&
+        path.length === 3 &&
         ["generate", "variants"].includes(path[2]) &&
         req.method === "POST"
       ) {

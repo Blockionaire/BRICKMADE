@@ -62,18 +62,19 @@ function CloudBuildCard({ project }: { project: SavedCloudProject }) {
   const jobs = [...project.bm_jobs].sort((a, b) =>
       b.created_at.localeCompare(a.created_at),
     ),
-    job = jobs.find((j) => j.stage === "completed") || jobs[0];
+    job = jobs[0],
+    preview = jobs.find((j) => j.stage === "completed");
   const host = useRef<HTMLAnchorElement>(null),
     [artifact, setArtifact] = useState<StudioArtifact | null>(null),
     [failed, setFailed] = useState(false);
   useEffect(() => {
-    if (job.stage !== "completed") return;
+    if (!preview) return;
     const abort = new AbortController();
     let started = false;
     const load = () => {
       if (started) return;
       started = true;
-      loadStudioArtifact(job.id, abort.signal)
+      loadStudioArtifact(preview.id, abort.signal)
         .then((r) => {
           if (!abort.signal.aborted) setArtifact(r.artifact);
         })
@@ -99,7 +100,7 @@ function CloudBuildCard({ project }: { project: SavedCloudProject }) {
       abort.abort();
       observer?.disconnect();
     };
-  }, [job.id, job.stage]);
+  }, [preview?.id]);
   return (
     <Link
       ref={host}
@@ -129,8 +130,19 @@ function CloudBuildCard({ project }: { project: SavedCloudProject }) {
         )}
       </div>
       <div>
+        {artifact && preview?.id !== job.id && (
+          <small>Showing the previous checked version</small>
+        )}
         <span className="tag">
-          {artifact ? `${artifact.model.stats.pieceCount} pieces` : job.stage}
+          {job.stage === "completed" && artifact
+            ? `${artifact.model.stats.pieceCount} pieces`
+            : job.stage === "failed"
+              ? "Needs another try"
+              : job.stage === "cancelled"
+                ? "Cancelled"
+                : job.stage === "completed"
+                  ? "Ready to build"
+                  : "Build in progress"}
         </span>
         <h3>{project.title}</h3>
         <span className="text-link">

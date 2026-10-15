@@ -128,14 +128,29 @@ export default function ReviewPage() {
           </p>
           {model.design ? (
             <div className="generated-design-summary">
-              <span className="tag">Your editable design</span>
+              <span className="tag">
+                {active.artifact
+                  ? "Saved photo design"
+                  : "Your editable design"}
+              </span>
               <p>
-                {model.design.brief.roof === "flat"
-                  ? "Flat roof"
-                  : "Stepped gable"}{" "}
-                · {model.design.brief.height} height ·{" "}
-                {model.design.brief.aspectRatio.toFixed(2)} : 1 requested
-                proportions
+                {model.studio ? (
+                  <>
+                    {model.studio.roofShape} roof · {model.studio.storeys}{" "}
+                    storey{model.studio.storeys === 1 ? "" : "s"} ·{" "}
+                    {model.studio.description.aspectRatio.toFixed(2)} : 1
+                    requested proportions
+                  </>
+                ) : (
+                  <>
+                    {model.design.brief.roof === "flat"
+                      ? "Flat roof"
+                      : "Stepped gable"}{" "}
+                    · {model.design.brief.height} height ·{" "}
+                    {model.design.brief.aspectRatio.toFixed(2)} : 1 requested
+                    proportions
+                  </>
+                )}
               </p>
               {!active.artifact && (
                 <button

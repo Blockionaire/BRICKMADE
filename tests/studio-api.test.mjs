@@ -187,6 +187,35 @@ describe("Studio API boundaries", () => {
     });
   });
 });
+describe("Saved project versions", () => {
+  it("scopes version history to the verified owner and omits private checkpoints", async () => {
+    const a = await api(),
+      project = randomUUID(),
+      id = randomUUID();
+    a.db.rows.mockResolvedValue([
+      {
+        id,
+        project_id: project,
+        owner_id: a.user.id,
+        stage: "completed",
+        options: DEFAULT_STUDIO_OPTIONS,
+        checkpoint: {
+          description: HOUSE_EXAMPLE,
+          private: "private-checkpoint-fixture",
+        },
+      },
+    ]);
+    const response = await a.request(`projects/${project}/jobs`, undefined, {
+      Cookie: "bm_access=fixture-" + randomUUID(),
+    });
+    expect(response.status).toBe(200);
+    const text = await response.text();
+    expect(text).toContain(id);
+    expect(text).not.toContain("private-checkpoint-fixture");
+    expect(a.db.rows.mock.calls[0][1]).toContain(`owner_id=eq.${a.user.id}`);
+    expect(a.db.rows.mock.calls[0][1]).toContain(`project_id=eq.${project}`);
+  });
+});
 describe("Cloud transport", () => {
   const env = {
     SUPABASE_URL: "https://project.supabase.co",

@@ -27,6 +27,7 @@ import {
   recordStudioJob,
   StudioClientError,
 } from "@/services/studio-client";
+import { StudioVersions } from "./studio-versions";
 import { importStudioBuild } from "@/services/studio-projects";
 const LABELS: Record<string, string> = {
   queued: "Your build is in line",
@@ -386,6 +387,7 @@ export function StudioResult() {
                 pixel-level resemblance score.
               </small>
             </details>
+            {current && <StudioVersions current={current} />}
             <p className="studio-privacy">
               <ShieldCheck size={16} /> Private photos expire after 24 hours.
               Your model remains saved.
@@ -466,6 +468,9 @@ export function StudioResult() {
                     Try a larger model <ArrowRight size={17} />
                   </button>
                 )}
+                <Link href="/create" className="text-link">
+                  Choose new photos <ArrowRight size={15} />
+                </Link>
                 <p className="field-description">
                   Retry reuses the saved analysis when available. Otherwise it
                   resends the same private photos while they are retained.
