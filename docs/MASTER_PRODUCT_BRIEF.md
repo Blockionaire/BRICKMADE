@@ -4,6 +4,8 @@
 
 This document describes the full product vision. Where later examples differ, these agreed prototype decisions take precedence:
 
+- **Next direction — 2026-10-15:** redesign creation around category → photos → automatic generation → design, starting with House, Car, Animal, Flower and Free format as category modules. Each module needs category context, schemas, construction logic and quality checks. Use sensible defaults and move optional detail/refinement controls to the result; retain independent instruction pace. The proposed infrastructure is Vercel + Supabase + a durable generation worker. See [CATEGORY_GENERATION_PLAN.md](CATEGORY_GENERATION_PLAN.md) for the proposed architecture, sequence and release gates. This is planned work; the narrow house prototype described below remains the implemented capability until replaced. Do not present category placeholders as working generators.
+
 - The first prototype is for private testing.
 - The primary demo is **Compact House**: a small, distinctive house with a pitched roof, windows, a front door, and a chimney.
 - The **Porsche 911** is a second showcase for richer shapes and detail, after the house workflow is established.
