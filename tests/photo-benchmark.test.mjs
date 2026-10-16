@@ -54,6 +54,13 @@ describe("Private real-photo benchmark tooling", () => {
       expect(interpret).not.toHaveBeenCalled();
       expect(JSON.stringify(report)).not.toContain("Private address");
       expect(JSON.stringify(report)).not.toContain(dir);
+      const expected = manifest.cases[0].expected;
+      manifest.cases[0].expected = { unknownProperty: true };
+      await writeFile(join(dir, "cases.json"), JSON.stringify(manifest));
+      await expect(loadBenchmark(join(dir, "cases.json"))).rejects.toThrow(
+        "invalid-expectations",
+      );
+      manifest.cases[0].expected = expected;
       manifest.cases[0].consent = false;
       await writeFile(join(dir, "cases.json"), JSON.stringify(manifest));
       await expect(loadBenchmark(join(dir, "cases.json"))).rejects.toThrow(

@@ -58,17 +58,47 @@ export async function inspectStudio({
     [
       "database",
       async () => {
-        if (
-          (await db.rpc("bm_valid_options", { v: DEFAULT_STUDIO_OPTIONS })) !==
-          true
-        )
-          throw Error();
+        for (const category of STUDIO_CATEGORIES.filter((c) => c.available))
+          if (
+            (await db.rpc("bm_valid_options", {
+              v: { ...DEFAULT_STUDIO_OPTIONS, category: category.id },
+            })) !== true
+          )
+            throw Error();
         await db.rows("bm_projects", "select=id&limit=0");
         add(
           "database",
           "passed",
           "schema-ready",
           "The brickmade schema and core RPC are reachable.",
+        );
+      },
+    ],
+    [
+      "build-assistant",
+      async () => {
+        const schema = await db.request("/rest/v1/");
+        if (
+          ![
+            "bm_assistant_begin",
+            "bm_assistant_finish",
+            "bm_assistant_cleanup",
+          ].every((name) => schema.paths?.[`/rpc/${name}`])
+        )
+          throw new StudioError(
+            503,
+            "database-migration",
+            "Missing assistant migration",
+          );
+        add(
+          "build-assistant",
+          env.OPENAI_API_KEY?.trim() ? "passed" : "failed",
+          env.OPENAI_API_KEY?.trim()
+            ? "assistant-configured"
+            : "assistant-configuration",
+          env.OPENAI_API_KEY?.trim()
+            ? "Assistant RPCs and the server's provider setting are present. No paid key/model validation was attempted."
+            : "Set OPENAI_API_KEY in the Vercel server environment for saved-design AI help.",
         );
       },
     ],

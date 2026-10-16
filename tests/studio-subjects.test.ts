@@ -294,6 +294,31 @@ describe("Saved subject artifacts and actual fidelity", () => {
       },
     });
     expect(() => parseStudioArtifact({ ...artifact, version: 1 })).toThrow();
+    const reordered = structuredClone(artifact);
+    reordered.model.settings.subjectDesign = Object.fromEntries(
+      Object.entries(reordered.model.settings.subjectDesign!).reverse(),
+    ) as typeof reordered.model.settings.subjectDesign;
+    expect(() => parseStudioArtifact(reordered)).not.toThrow();
+
+    for (const mutate of [
+      (a: typeof artifact) => {
+        a.model.subject!.features[0].retained = 99999;
+      },
+      (a: typeof artifact) => {
+        a.model.subject!.footprintStuds[0] = NaN;
+      },
+      (a: typeof artifact) => {
+        a.model.settings.modelKind = "house";
+      },
+      (a: typeof artifact) => {
+        a.description.subject = "unsupported";
+      },
+    ]) {
+      const invalid = structuredClone(artifact);
+      mutate(invalid);
+      expect(() => parseStudioArtifact(invalid)).toThrow();
+    }
+
     const project = {
       id: "cloud-" + artifact.jobId,
       name: "A saved animal",

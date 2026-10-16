@@ -366,6 +366,15 @@ for (const category of ["flower", "car", "animal", "free"]) {
     await expect(page.getByText(/Saved steps 1/)).toBeVisible();
     await page.getByRole("button", { name: "Close", exact: true }).click();
     await page.goto("/parts");
+    await expect(
+      page.locator('.active-build [data-thumbnail-source="real-mesh"]'),
+    ).toHaveAttribute(
+      "data-total-pieces",
+      String(expected.model.placements.length),
+    );
+    await expect(
+      page.locator(".active-build .model-thumbnail"),
+    ).toHaveAttribute("src", /^data:image\/png/, { timeout: 20000 });
     const csvPromise = page.waitForEvent("download");
     await page.getByRole("button", { name: "Save full parts list" }).click();
     expect((await csvPromise).suggestedFilename()).toBe("brickmade-parts.csv");

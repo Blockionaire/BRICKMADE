@@ -11,6 +11,7 @@ import { interpretStudioPhotos } from "./studio-vision.mjs";
 import { parseDesignDescription } from "../shared/design-description.ts";
 import { generateCheckedDesign } from "./generate-design.mjs";
 import { compileInThread } from "./job-runner.mjs";
+import { categoryModule } from "./category-knowledge.mjs";
 
 export async function prepareBenchmarkPhoto(path) {
   const info = await stat(path);
@@ -88,6 +89,16 @@ export async function loadBenchmark(path) {
           !/^[a-zA-Z][a-zA-Z0-9]{0,40}$/.test(key) ||
           !["string", "boolean", "number"].includes(typeof value) ||
           (typeof value === "number" && !Number.isFinite(value)),
+      )
+    )
+      throw Error("invalid-expectations");
+    if (
+      Object.keys(item.expected).some(
+        (key) =>
+          !Object.hasOwn(
+            categoryModule(options.category).schema.properties,
+            key,
+          ),
       )
     )
       throw Error("invalid-expectations");

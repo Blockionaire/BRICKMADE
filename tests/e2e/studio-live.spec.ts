@@ -28,6 +28,24 @@ test("real private uploads, durable recovery, checked artifact, variants, frozen
   await page.getByRole("button", { name: "Generate my build" }).click();
   await expect(page).toHaveURL(/\/design\?job=/, { timeout: 30000 });
   const first = new URL(page.url()).searchParams.get("job")!;
+  const readiness = await (
+    await page.request.get("/api/studio/readiness")
+  ).json();
+  expect(readiness.paidCallsMade).toBe(false);
+  expect(
+    readiness.checks.find((c: { name: string }) => c.name === "database")
+      .status,
+  ).toBe("passed");
+  expect(
+    readiness.checks.find((c: { name: string }) => c.name === "authentication")
+      .status,
+  ).toBe("passed");
+  // No real OpenAI secret is present in this isolated API process.
+  expect(
+    readiness.checks.find((c: { name: string }) => c.name === "build-assistant")
+      .code,
+  ).toBe("assistant-configuration");
+
   await page.reload();
   await expect(
     page.getByRole("button", { name: "Let’s build this" }),

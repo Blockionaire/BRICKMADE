@@ -2,6 +2,7 @@ import { describe, it, expect, vi } from "vitest";
 import { inspectStudio } from "../server/studio-doctor.mjs";
 import { workerPresence } from "../server/worker-presence.mjs";
 const env = {
+  OPENAI_API_KEY: "private-test-provider",
   SUPABASE_URL: "https://fixture.supabase.co",
   SUPABASE_PUBLISHABLE_KEY: "public-fixture",
   SUPABASE_SERVICE_ROLE_KEY: "private-fixture",
@@ -9,15 +10,25 @@ const env = {
 function fixture() {
   return {
     request: vi.fn(async (path) =>
-      path.includes("auth/")
-        ? { external: { anonymous_users: true }, disable_signup: false }
-        : {
-            public: false,
-            file_size_limit: path.endsWith("bm-inputs") ? 716800 : 15000000,
-            allowed_mime_types: [
-              path.endsWith("bm-inputs") ? "image/jpeg" : "application/json",
-            ],
-          },
+      path === "/rest/v1/"
+        ? {
+            paths: Object.fromEntries(
+              [
+                "bm_assistant_begin",
+                "bm_assistant_finish",
+                "bm_assistant_cleanup",
+              ].map((name) => [`/rpc/${name}`, {}]),
+            ),
+          }
+        : path.includes("auth/")
+          ? { external: { anonymous_users: true }, disable_signup: false }
+          : {
+              public: false,
+              file_size_limit: path.endsWith("bm-inputs") ? 716800 : 15000000,
+              allowed_mime_types: [
+                path.endsWith("bm-inputs") ? "image/jpeg" : "application/json",
+              ],
+            },
     ),
     rows: vi.fn(async () => []),
     rpc: vi.fn(async (name) =>
@@ -44,7 +55,7 @@ describe("Studio operational readiness", () => {
     expect(report.ready).toBe(true);
     expect(report.paidCallsMade).toBe(false);
     expect(db.rpc.mock.calls.map((c) => c[0]).sort()).toEqual([
-      "bm_valid_options",
+      ...Array(5).fill("bm_valid_options"),
       "bm_worker_health",
     ]);
     expect(db.rows.mock.calls[0][1]).toContain("limit=0");

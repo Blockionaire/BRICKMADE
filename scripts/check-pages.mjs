@@ -1,9 +1,53 @@
 import assert from "node:assert/strict";
 import { chromium, expect } from "@playwright/test";
+import { createServer } from "node:http";
+import { readFile, stat } from "node:fs/promises";
+import { resolve, extname } from "node:path";
 
-const site = (
-  process.env.PAGES_SMOKE_URL || "http://127.0.0.1:4173/BRICKMADE"
-).replace(/\/$/, "");
+// A fresh checkout can run the smoke test after build:pages without another terminal.
+let preview;
+let previewUrl;
+if (!process.env.PAGES_SMOKE_URL) {
+  const root = resolve("out");
+  await stat(resolve(root, "index.html"));
+  const types = {
+    ".html": "text/html",
+    ".js": "text/javascript",
+    ".css": "text/css",
+    ".json": "application/json",
+    ".svg": "image/svg+xml",
+    ".png": "image/png",
+    ".jpg": "image/jpeg",
+    ".woff2": "font/woff2",
+  };
+  preview = createServer(async (req, res) => {
+    try {
+      const path = decodeURIComponent(
+        new URL(req.url, "http://localhost").pathname,
+      );
+      if (path !== "/BRICKMADE" && !path.startsWith("/BRICKMADE/"))
+        throw Error();
+      let file = resolve(root, "." + path.slice("/BRICKMADE".length));
+      if (file !== root && !file.startsWith(root + "/")) throw Error();
+      if ((await stat(file)).isDirectory()) file = resolve(file, "index.html");
+      const bytes = await readFile(file);
+      res.writeHead(200, {
+        "Content-Type": types[extname(file)] || "application/octet-stream",
+      });
+      res.end(bytes);
+    } catch {
+      res.writeHead(404);
+      res.end();
+    }
+  });
+  await new Promise((done, reject) => {
+    preview.once("error", reject);
+    preview.listen(0, "127.0.0.1", done);
+  });
+  previewUrl = `http://127.0.0.1:${preview.address().port}/BRICKMADE`;
+}
+
+const site = (process.env.PAGES_SMOKE_URL || previewUrl).replace(/\/$/, "");
 const origin = new URL(site).origin;
 const prefix = new URL(site).pathname;
 const browser = await chromium.launch({
@@ -169,4 +213,5 @@ try {
   );
 } finally {
   await browser.close();
+  if (preview) await new Promise((done) => preview.close(done));
 }

@@ -31,6 +31,16 @@ export interface StudioArtifact {
     parentJobId?: string;
   };
 }
+function canonical(value: unknown): unknown {
+  if (Array.isArray(value)) return value.map(canonical);
+  if (value && typeof value === "object")
+    return Object.fromEntries(
+      Object.entries(value)
+        .sort(([a], [b]) => a.localeCompare(b))
+        .map(([key, v]) => [key, canonical(v)]),
+    );
+  return value;
+}
 /** Validate untrusted artifact structure and exact placement/instruction/inventory accounting. */
 export function parseStudioArtifact(value: unknown): StudioArtifact {
   if (!value || typeof value !== "object")
@@ -49,13 +59,54 @@ export function parseStudioArtifact(value: unknown): StudioArtifact {
   parseStudioOptions(a.options);
   if (a.version === 1 && a.options.category !== "house")
     throw Error("This artifact version only supports House designs.");
-  parseDesignDescription(a.description, a.options.category);
+  if (
+    parseDesignDescription(a.description, a.options.category).subject !==
+    a.options.category
+  )
+    throw Error("An unsupported interpretation cannot be a completed design.");
   const m = a.model;
   const metadata = a.options.category === "house" ? m?.studio : m?.subject;
   if (a.options.category !== "house") {
     if (!m?.subject || m.subject.description.category !== a.options.category)
       throw Error("The saved category model is inconsistent.");
     parseDesignDescription(m.subject.description, a.options.category);
+    const expectedKind = {
+      car: "rover",
+      flower: "plant",
+      animal: "animal",
+      free: "sculpture",
+    }[a.options.category];
+    if (
+      !m.settings?.subjectDesign ||
+      JSON.stringify(
+        canonical(
+          parseDesignDescription(m.settings.subjectDesign, a.options.category),
+        ),
+      ) !== JSON.stringify(canonical(m.subject.description)) ||
+      m.settings.modelKind !== expectedKind ||
+      m.kind !== expectedKind ||
+      m.subject.description.subject !== a.options.category ||
+      m.subject.moduleVersion !== a.moduleVersion ||
+      !Array.isArray(m.subject.footprintStuds) ||
+      m.subject.footprintStuds.length !== 2 ||
+      m.subject.footprintStuds.some((n) => !Number.isFinite(n) || n <= 0) ||
+      !Array.isArray(m.subject.features) ||
+      !m.subject.features.length ||
+      m.subject.features.length > 20 ||
+      m.subject.features.some(
+        (f) =>
+          typeof f.name !== "string" ||
+          !f.name.trim() ||
+          f.name.length > 80 ||
+          !Number.isSafeInteger(f.requested) ||
+          !Number.isSafeInteger(f.retained) ||
+          f.requested < 0 ||
+          f.requested > 5000 ||
+          f.retained < 0 ||
+          f.retained > f.requested,
+      )
+    )
+      throw Error("The saved category metadata is invalid.");
   }
   if (
     !m ||
