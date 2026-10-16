@@ -26,6 +26,20 @@ import { reviewAssembly } from "@/services/assembly-validation";
 export default function ReviewPage() {
   const { active } = useProjects();
   const model = projectModel(active);
+  const generated = Boolean(
+    active.artifact || model.design || model.studio || model.subject,
+  );
+  const designNotes = model.studio
+    ? [...model.studio.adaptations, ...model.studio.description.uncertainties]
+    : model.subject
+      ? [
+          ...model.subject.adaptations,
+          ...model.subject.description.uncertainties,
+        ]
+      : model.design
+        ? [...model.design.adaptations, ...model.design.brief.uncertainties]
+        : [];
+
   const [pendingSettings, setPendingSettings] =
     useState<GenerationSettings | null>(null);
   const [renaming, setRenaming] = useState(false);
@@ -88,11 +102,13 @@ export default function ReviewPage() {
                 <Check size={13} /> Your preview is ready
               </span>
               <span className="demo-label">
-                {model.design
-                  ? model.design.source === "openai"
-                    ? "PHOTO-ASSISTED PROTOTYPE"
-                    : "GENERATED HOUSE"
-                  : "DEMO MODEL"}
+                {active.artifact
+                  ? "PHOTO-INFORMED PROTOTYPE"
+                  : model.design
+                    ? model.design.source === "openai"
+                      ? "PHOTO-ASSISTED PROTOTYPE"
+                      : "GENERATED HOUSE"
+                    : "DEMO MODEL"}
               </span>
             </div>
             <ModelViewer model={model} className="review-viewer" />
@@ -122,11 +138,13 @@ export default function ReviewPage() {
           <p>
             {model.studio
               ? "Created from your photos with category-specific house construction rules."
-              : model.design
-                ? "Generated from your editable house description. Review the adaptations below for the actual design choices."
-                : modelInfo(active.settings).description}
+              : model.subject
+                ? "Created from your photos with category-specific construction rules."
+                : model.design
+                  ? "Generated from your editable house description. Review the adaptations below for the actual design choices."
+                  : modelInfo(active.settings).description}
           </p>
-          {model.design ? (
+          {generated ? (
             <div className="generated-design-summary">
               <span className="tag">
                 {active.artifact
@@ -141,7 +159,9 @@ export default function ReviewPage() {
                     {model.studio.description.aspectRatio.toFixed(2)} : 1
                     requested proportions
                   </>
-                ) : (
+                ) : model.subject ? (
+                  model.subject.description.summary
+                ) : model.design ? (
                   <>
                     {model.design.brief.roof === "flat"
                       ? "Flat roof"
@@ -150,9 +170,9 @@ export default function ReviewPage() {
                     {model.design.brief.aspectRatio.toFixed(2)} : 1 requested
                     proportions
                   </>
-                )}
+                ) : null}
               </p>
-              {!active.artifact && (
+              {!active.artifact && model.design && (
                 <button
                   className="button button-secondary"
                   onClick={() => {
@@ -175,10 +195,7 @@ export default function ReviewPage() {
               <details>
                 <summary>Design adaptations & limits</summary>
                 <ul>
-                  {[
-                    ...model.design.adaptations,
-                    ...model.design.brief.uncertainties,
-                  ].map((note, i) => (
+                  {designNotes.map((note, i) => (
                     <li key={i}>{note}</li>
                   ))}
                 </ul>
@@ -217,7 +234,7 @@ export default function ReviewPage() {
             </span>
             <span>
               <Blocks size={17} />
-              {model.steps.length} {model.design ? "building" : "demo"} steps ·{" "}
+              {model.steps.length} {generated ? "building" : "demo"} steps ·{" "}
               {model.bags.length} sorting bags
             </span>
           </div>

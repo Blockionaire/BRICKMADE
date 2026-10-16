@@ -8,7 +8,9 @@ registerHooks({
   resolve(specifier, context, next) {
     if (
       specifier.startsWith("@/") ||
-      (specifier.startsWith(".") && context.parentURL?.startsWith("file:"))
+      (specifier.startsWith(".") &&
+        context.parentURL?.startsWith("file:") &&
+        !context.parentURL.includes("/node_modules/"))
     ) {
       const base = specifier.startsWith("@/")
         ? resolve(root, "src", specifier.slice(2))

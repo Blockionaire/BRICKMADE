@@ -3,6 +3,7 @@ import { mkdtemp, writeFile, rm } from "node:fs/promises";
 import { tmpdir } from "node:os";
 import { join } from "node:path";
 import sharp from "sharp";
+import { execFileSync } from "node:child_process";
 import {
   loadBenchmark,
   prepareBenchmarkPhoto,
@@ -11,6 +12,24 @@ import {
 import { DEFAULT_STUDIO_OPTIONS, HOUSE_EXAMPLE } from "../shared/studio.ts";
 import { StudioError } from "../server/supabase.mjs";
 describe("Private real-photo benchmark tooling", () => {
+  it("runs native Node image preparation without rewriting dependency-internal CommonJS paths", () => {
+    const output = execFileSync(
+      process.execPath,
+      [
+        "--import",
+        "./server/register.mjs",
+        "--input-type=module",
+        "-e",
+        "import{prepareBenchmarkPhoto}from'./server/photo-benchmark.mjs';const p=await prepareBenchmarkPhoto('tests/fixtures/house-upload.jpg');console.log(p.sha256);",
+      ],
+      {
+        encoding: "utf8",
+        stdio: ["ignore", "pipe", "pipe"],
+        env: { ...process.env, OPENAI_API_KEY: "" },
+      },
+    );
+    expect(output.trim()).toMatch(/^[a-f0-9]{64}$/);
+  });
   it("strips metadata, bounds dimensions and validates all permissions before any provider call", async () => {
     const dir = await mkdtemp(join(tmpdir(), "bm-benchmark-"));
     try {

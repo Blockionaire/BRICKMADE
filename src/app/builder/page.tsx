@@ -123,7 +123,10 @@ function BuilderContent({ active }: { active: Project }) {
           }
         />
         <p className="demo-note">
-          Digital demo complete. Physical construction still needs validation.
+          {active.artifact
+            ? "Digital walkthrough complete."
+            : "Digital demo complete."}{" "}
+          Physical construction still needs validation.
         </p>
         {restart && (
           <Sheet
@@ -405,8 +408,10 @@ function BuilderContent({ active }: { active: Project }) {
             <ArrowUpRight size={18} />
           </button>
           <p className="demo-note">
-            Guided digital demo. Physical fit and stability haven’t been
-            validated yet.
+            {active.artifact
+              ? "Digitally checked prototype."
+              : "Guided digital demo."}{" "}
+            Physical fit and stability haven’t been validated yet.
           </p>
         </div>
       </div>

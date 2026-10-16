@@ -387,5 +387,16 @@ for (const category of ["flower", "car", "animal", "free"]) {
         () => document.documentElement.scrollWidth <= window.innerWidth,
       ),
     ).toBe(true);
+    await page.getByRole("button", { name: "Close", exact: true }).click();
+    await page.goto("/review");
+    await expect(
+      page.getByText("PHOTO-INFORMED PROTOTYPE", { exact: true }),
+    ).toBeVisible();
+    await expect(
+      page.getByRole("group", { name: "Demo design", exact: true }),
+    ).toHaveCount(0);
+    await expect(
+      page.getByRole("link", { name: "Open saved design & versions" }),
+    ).toHaveAttribute("href", `/design?job=${jobId}`);
   });
 }
