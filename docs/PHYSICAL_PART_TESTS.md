@@ -1,5 +1,7 @@
 # First physical checks for the expanded library
 
+For a complete saved design, use **Parts → Physical test pack**. It exports exact placements, instructions, BOM, bags, artifact hash (for cloud builds), source/admission evidence and a pending checklist. Record every result against that exact model and instruction pace. No test result is prefilled as passed.
+
 The software work does not require the user's help. Physical fit and handling cannot be established from LDraw surfaces, so this is the next useful contribution before launch. Existing pieces in any recorded source color are sufficient; no buying flow or kit ordering is required.
 
 Use gentle ordinary building force. Stop if a fit needs force, bends unexpectedly, stresses plastic, or appears to involve the wrong connection type. These experiments are not production instructions.

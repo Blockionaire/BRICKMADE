@@ -9,6 +9,7 @@ import {
 } from "../server/supabase.mjs";
 import { interpretStudioPhotos } from "../server/studio-vision.mjs";
 import { HOUSE_EXAMPLE, DEFAULT_STUDIO_OPTIONS } from "../shared/studio";
+import { SUBJECT_EXAMPLES } from "../shared/subject-design.ts";
 const servers = [];
 afterEach(async () => {
   await Promise.all(
@@ -109,7 +110,7 @@ describe("Studio API boundaries", () => {
     expect((await a.request("projects")).status).toBe(401);
     expect(a.db.request).not.toHaveBeenCalled();
   });
-  it("reserves only validated private JPEG metadata and rejects placeholder categories", async () => {
+  it("reserves only validated private JPEG metadata and rejects unknown categories", async () => {
     const a = await api();
     const headers = {
       Cookie: "bm_access=fixture-" + randomUUID(),
@@ -119,7 +120,7 @@ describe("Studio API boundaries", () => {
         await a.request(
           "projects",
           {
-            category: "car",
+            category: "boat",
             photos: [],
           },
           headers,
@@ -452,4 +453,66 @@ describe("Category photo interpretation", () => {
       ),
     );
   });
+});
+
+describe("Category-specific interpretation contracts", () => {
+  for (const categoryId of ["flower", "car", "animal", "free"]) {
+    it(`supplies ${categoryId} knowledge and the correct strict schema`, async () => {
+      const description = SUBJECT_EXAMPLES[categoryId];
+      const fetcher = vi.fn(
+        async () =>
+          new Response(
+            JSON.stringify({
+              status: "completed",
+              output: [
+                {
+                  type: "message",
+                  role: "assistant",
+                  content: [
+                    { type: "output_text", text: JSON.stringify(description) },
+                  ],
+                },
+              ],
+            }),
+          ),
+      );
+      const result = await interpretStudioPhotos(["explicit-test-photo"], {
+        env: { OPENAI_API_KEY: "fixture" },
+        categoryId,
+        fetcher,
+      });
+      expect(result.description).toEqual(description);
+      const body = JSON.parse(fetcher.mock.calls[0][1].body);
+      expect(body.text.format.name).toBe(`brickmade_${categoryId}_v1`);
+      expect(body.text.format.schema.properties.category.enum).toEqual([
+        categoryId,
+      ]);
+      expect(body.instructions).toContain("untrusted visual observations");
+      expect(body.instructions).not.toContain("Category: House");
+    });
+    it(`rejects another category instead of substituting a ${categoryId} template`, async () => {
+      const fetcher = async () =>
+        new Response(
+          JSON.stringify({
+            status: "completed",
+            output: [
+              {
+                type: "message",
+                role: "assistant",
+                content: [
+                  { type: "output_text", text: JSON.stringify(HOUSE_EXAMPLE) },
+                ],
+              },
+            ],
+          }),
+        );
+      await expect(
+        interpretStudioPhotos(["fixture"], {
+          env: { OPENAI_API_KEY: "fixture" },
+          categoryId,
+          fetcher,
+        }),
+      ).rejects.toMatchObject({ code: "invalid-description" });
+    });
+  }
 });

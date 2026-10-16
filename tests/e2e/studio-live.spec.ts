@@ -18,8 +18,8 @@ test("real private uploads, durable recovery, checked artifact, variants, frozen
   });
   await page.goto("/create");
   await expect(
-    page.getByRole("button", { name: /Car.*In the making/ }),
-  ).toBeDisabled();
+    page.getByRole("button", { name: /Car.*static display/ }),
+  ).toBeEnabled();
   await page.getByRole("button", { name: /House.*Your home/ }).click();
   await page
     .getByLabel("Upload your photos")
@@ -277,3 +277,60 @@ test("guest email linking retains ownership and email sign-in restores the same 
   ).not.toBe(guest.id);
   await other.close();
 });
+
+for (const category of ["flower", "car", "animal", "free"]) {
+  test(`real ${category} upload, capable-worker claim, native checks and private saved artifact`, async ({
+    page,
+  }) => {
+    test.setTimeout(180000);
+    await page.goto("/create");
+    const labels: Record<string, RegExp> = {
+      flower: /Flower.*bloom/,
+      car: /Car.*static display/,
+      animal: /Animal.*Cats/,
+      free: /Free format.*grounded/,
+    };
+    await page.getByRole("button", { name: labels[category] }).click();
+    await page
+      .getByLabel("Upload your photos")
+      .setInputFiles("tests/fixtures/house-upload.jpg");
+    await page.getByRole("button", { name: "Generate my build" }).click();
+    await expect(page).toHaveURL(/\/design\?job=/, { timeout: 30000 });
+    await expect(
+      page.getByRole("button", { name: "Let’s build this" }),
+    ).toBeVisible({ timeout: 120000 });
+    const id = new URL(page.url()).searchParams.get("job")!;
+    const job = (
+      await (await page.request.get(`/api/studio/jobs/${id}`)).json()
+    ).job;
+    expect(job.options.category).toBe(category);
+    const ticket = await (
+      await page.request.get(`/api/studio/jobs/${id}/artifact`)
+    ).json();
+    const artifact = await (await page.request.get(ticket.url)).json();
+    expect(artifact.version).toBe(2);
+    expect(artifact.description.category).toBe(category);
+    expect(artifact.validation.status).toBe("passed");
+    expect(artifact.provenance.model).toBe("explicit-ci-photo-fixture");
+    expect(artifact.provenance.inputHashes).toHaveLength(1);
+    expect(
+      artifact.model.parts.reduce(
+        (n: number, p: { quantity: number }) => n + p.quantity,
+        0,
+      ),
+    ).toBe(artifact.model.placements.length);
+    await page.getByRole("button", { name: "Let’s build this" }).click();
+    const saved = await page.evaluate(() =>
+      JSON.parse(localStorage.getItem("brickmade.private-demo.v1") || "{}"),
+    );
+    expect(
+      saved.projects.find(
+        (p: { cloud?: { jobId: string } }) => p.cloud?.jobId === id,
+      ).artifact.model.placements,
+    ).toEqual(artifact.model.placements);
+    await page.goto("/parts");
+    const download = page.waitForEvent("download");
+    await page.getByRole("button", { name: "Save full parts list" }).click();
+    expect((await download).suggestedFilename()).toBe("brickmade-parts.csv");
+  });
+}

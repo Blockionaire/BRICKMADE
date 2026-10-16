@@ -1,5 +1,7 @@
 # Connect the shared Supabase project
 
+Exact owner actions and the renovation access prerequisite are collected in [OWNER_ACTIONS.md](OWNER_ACTIONS.md).
+
 Selected project: **`https://dqwkbtsstvakcvlnwvwk.supabase.co`**. These instructions prepare the existing Vercel app for private House photo tests. Code and automated tests do not apply changes to this hosted database.
 
 ## 1. Check the other applications first
@@ -16,8 +18,11 @@ After reviewing the report, for a new installation run these files in SQL Editor
 
 1. [202610150001_studio.sql](../supabase/migrations/202610150001_studio.sql)
 2. [202610150002_isolate_schema.sql](../supabase/migrations/202610150002_isolate_schema.sql)
+3. [202610160001_worker_health.sql](../supabase/migrations/202610160001_worker_health.sql)
+4. [202610160002_category_jobs.sql](../supabase/migrations/202610160002_category_jobs.sql)
+5. [202610160003_build_assistant.sql](../supabase/migrations/202610160003_build_assistant.sql)
 
-If migration one is already installed in `public`, skip it and run only migration two. If `brickmade` already exists or any `bm_` names belong to another app, inspect that before proceeding. Each migration is transactional. Migration two preserves existing BrickMade rows, owner policies and grants while moving its five tables and eleven functions into `brickmade`. It refuses to overwrite an existing schema.
+If migration one is already installed in `public`, skip it and apply the remaining unapplied migrations in order. If `brickmade` already exists or any `bm_` names belong to another app, inspect that before proceeding. Each migration is transactional. Migration two preserves existing BrickMade rows, owner policies and grants while moving its five tables and eleven functions into `brickmade`. It refuses to overwrite an existing schema.
 
 In **Data API settings → Exposed schemas**, add `brickmade` and **keep all current entries**. In Table Editor's schema selector, choose `brickmade`. Storage has two private buckets: `bm-inputs` and `bm-designs`. Leave them private. BrickMade-specific restrictive Storage guards protect these buckets even when another app has broad permissive Storage policies; other buckets keep their rules.
 
@@ -34,7 +39,7 @@ In the existing `brickmade` project's **Production environment variables**, add:
 | `SUPABASE_SERVICE_ROLE_KEY` | This project's server secret key or legacy service-role key | **Yes** |
 | `BRICKMADE_APP_ORIGIN` | `https://brickmade.vercel.app` | No |
 
-Copy keys directly from Supabase's API-key settings into Vercel. Keep secrets out of chat, GitHub and browser-facing `NEXT_PUBLIC_` variables. The service key has access to the shared project, so only trusted server processes may receive it. Redeploy after saving. Use the **Next.js** application preset.
+Keep `OPENAI_API_KEY` and your selected `OPENAI_MODEL` on Vercel too for the saved-design AI build assistant. Copy keys directly from Supabase's API-key settings into Vercel. Keep secrets out of chat, GitHub and browser-facing `NEXT_PUBLIC_` variables. The service key has access to the shared project, so only trusted server processes may receive it. Redeploy after saving. Use the **Next.js** application preset.
 
 ## 4. Start the generation worker
 
@@ -46,7 +51,7 @@ Clone the current repository and run `npm ci`. Copy `.env.example` to ignored `.
 - `OPENAI_API_KEY`: your secret key, copied directly into `.env.local` or a worker host's secret settings.
 - `OPENAI_MODEL=gpt-5.2` and `OPENAI_REASONING_EFFORT=high`.
 
-Run `npm run worker` and keep it running through the test. It connects outward; no public port or tunnel is needed. The key already saved in Vercel is not automatically copied to this worker. A permanent worker host can be configured later; [the operations guide](CLOUD_STUDIO_SETUP.md) covers deployment and cleanup behavior.
+Run `npm run worker` and keep it running through the test. In another terminal, run `npm run studio:doctor` to check actual schema/Auth/bucket connectivity and fresh category-capable worker presence without any paid AI call. It connects outward; no public port or tunnel is needed. The key already saved in Vercel is not automatically copied to this worker. A permanent worker host can be configured later; [the operations guide](CLOUD_STUDIO_SETUP.md) covers deployment and cleanup behavior.
 
 ## 5. Try one House photo
 

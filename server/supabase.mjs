@@ -122,6 +122,26 @@ export function supabaseClient({ env = process.env, fetcher = fetch } = {}) {
         );
       const known = String(data.message || "");
       const codes = {
+        "assistant-request-conflict": [
+          409,
+          "assistant-request-conflict",
+          "This question reference belongs to a different request.",
+        ],
+        "assistant-request-uncertain": [
+          409,
+          "assistant-request-uncertain",
+          "This question was already attempted. Its result is unavailable; it will not be charged again automatically.",
+        ],
+        "assistant-daily-limit": [
+          429,
+          "assistant-daily-limit",
+          "Today's AI help limit has been reached. Your saved instructions remain available.",
+        ],
+        "assistant-busy": [
+          429,
+          "assistant-busy",
+          "AI help is busy. Wait for the current answer before asking again.",
+        ],
         "daily-limit": [
           429,
           "daily-limit",

@@ -19,7 +19,13 @@ export async function studioRequest<T>(
     method = "GET",
     body,
     signal,
-  }: { method?: string; body?: unknown; signal?: AbortSignal } = {},
+    timeout = 30000,
+  }: {
+    method?: string;
+    body?: unknown;
+    signal?: AbortSignal;
+    timeout?: number;
+  } = {},
 ): Promise<T> {
   // GitHub Pages has no server routes. Report that capability explicitly.
   if (path === "config" && process.env.NEXT_PUBLIC_BASE_PATH)
@@ -34,7 +40,7 @@ export async function studioRequest<T>(
       ...(body !== undefined ? { body: JSON.stringify(body) } : {}),
       signal: AbortSignal.any([
         ...(signal ? [signal] : []),
-        AbortSignal.timeout(30000),
+        AbortSignal.timeout(timeout),
       ]),
     });
   } catch {

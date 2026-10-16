@@ -25,7 +25,7 @@ Rebrickable's **100,148 observed part/color pairs** and **114,656 element-ID rec
 
 [shopping-list.ts](../src/domain/library/shopping-list.ts) checks every line before producing BrickLink-style wanted-list XML. It rejects unverified part/color inputs, missing/ambiguous mappings, invalid identities/conditions/quantities, and quantity overflow. It merges duplicate exact provider part/color/condition lines. It contains no prices, stock assertion, checkout, or ordering logic.
 
-The XML still needs a real provider import acceptance test. Unit tests use explicit synthetic verified fixtures, not the house's illustrative colors. The exporter is not wired to a live “buy this set” button. The current house palette must first be replaced or mapped through reviewed valid color choices; guessing the nearest RGB is insufficient.
+The Parts screen now exports a complete source-ID BOM CSV, an exact mapping-gap report and a physical test pack. The provider handoff is wired behind full per-line mapping verification in `build-handoff.ts`; `data/catalog/purchase-mappings.json` intentionally contains no guessed provider identities. The XML still needs a real provider import acceptance test. Unit tests use explicit synthetic verified fixtures, not the house's illustrative colors. No purchase or order is placed. Current models use observed Rebrickable part/color pairs. Their exact marketplace part/color identities still need independent verification; guessing the nearest RGB is insufficient.
 
 A future BrickOwl handoff should submit only reviewed BOID/color/quantity entries through the documented customer-triggered form. Do not send photos, private build names, or public-MOC publications automatically.
 

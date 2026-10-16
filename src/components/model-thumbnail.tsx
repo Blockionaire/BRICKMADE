@@ -12,7 +12,8 @@ export const ModelThumbnail = memo(function ModelThumbnail({
   model: HouseModel;
   name: string;
 }) {
-  if (model.design) return <GeneratedThumbnail model={model} name={name} />;
+  if (model.design || model.studio || model.subject)
+    return <GeneratedThumbnail model={model} name={name} />;
   return (
     <Image
       width={480}

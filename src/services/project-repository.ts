@@ -86,7 +86,9 @@ function validProject(value: unknown): value is Project {
     ) &&
     ["compact", "standard", "large"].includes(p.settings.size) &&
     (p.settings.modelKind === undefined ||
-      ["house", "rover", "plant", "pavilion"].includes(p.settings.modelKind)) &&
+      ["house", "rover", "plant", "pavilion", "animal", "sculpture"].includes(
+        p.settings.modelKind,
+      )) &&
     (p.settings.buildDifficulty === undefined ||
       ["easy", "medium", "hard"].includes(p.settings.buildDifficulty)) &&
     (p.completedPlacementIds === undefined ||

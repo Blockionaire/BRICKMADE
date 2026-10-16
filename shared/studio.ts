@@ -11,26 +11,26 @@ export const STUDIO_CATEGORIES = [
   {
     id: "car",
     name: "Car",
-    description: "A favourite ride, reimagined.",
-    available: false,
+    description: "Your ride as a static display model.",
+    available: true,
   },
   {
     id: "animal",
     name: "Animal",
-    description: "A little character of their own.",
-    available: false,
+    description: "Cats, dogs and rabbits with character.",
+    available: true,
   },
   {
     id: "flower",
     name: "Flower",
     description: "Something lovely, always in bloom.",
-    available: false,
+    available: true,
   },
   {
     id: "free",
     name: "Free format",
-    description: "An idea that doesn’t fit a box.",
-    available: false,
+    description: "Turn an object into a grounded sculpture.",
+    available: true,
   },
 ] as const;
 export type StudioCategory = (typeof STUDIO_CATEGORIES)[number]["id"];

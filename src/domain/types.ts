@@ -1,13 +1,15 @@
 import type { HouseBrief } from "../../shared/house-brief";
 import type { HouseDesign } from "../../shared/studio";
 import type { StudioArtifact } from "../../shared/studio-artifact";
+import type { SubjectDesign } from "../../shared/subject-design";
 export type DetailLevel = "easy" | "normal" | "hard";
 export type BuildDifficulty = "easy" | "medium" | "hard";
 export type CameraView =
   "perspective" | "front" | "back" | "side" | "left" | "top";
 export type PlacementMode = "assembled" | "guide";
 export type BuildSize = "compact" | "standard" | "large";
-export type ModelKind = "house" | "rover" | "plant" | "pavilion";
+export type ModelKind =
+  "house" | "rover" | "plant" | "pavilion" | "animal" | "sculpture";
 export type ColorId =
   | "sand"
   | "roof"
@@ -18,7 +20,15 @@ export type ColorId =
   | "leaf"
   | "flower"
   | "black"
-  | "white";
+  | "white"
+  | "red"
+  | "blue"
+  | "orange"
+  | "pink"
+  | "purple"
+  | "lavender"
+  | "dark-blue"
+  | "dark-stone";
 export type Category =
   | "Brick"
   | "Plate"
@@ -39,6 +49,7 @@ export interface GenerationSettings {
   modelKind?: ModelKind;
   houseBrief?: HouseBrief;
   houseDesign?: HouseDesign;
+  subjectDesign?: SubjectDesign;
   designSource?: "manual" | "openai";
 }
 
@@ -106,6 +117,13 @@ export interface SortingGroup {
 }
 
 export interface HouseModel {
+  subject?: {
+    moduleVersion: string;
+    description: SubjectDesign;
+    adaptations: string[];
+    footprintStuds: [number, number];
+    features: { name: string; requested: number; retained: number }[];
+  };
   constructionPhases?: BuildPhase[];
   studio?: {
     moduleVersion: string;
@@ -160,6 +178,7 @@ export interface Project {
 }
 
 export interface AssistantContext {
+  cloud?: { jobId: string; sha256: string; pace: BuildDifficulty };
   projectName: string;
   step: BuildStep;
   nextStep?: BuildStep;

@@ -7706,3 +7706,7 @@ button.part-card:active {
 .studio-version-list b,.studio-version-list small { display:block; }
 .studio-version-list b { font-size:12px; }
 .studio-version-list small { color:var(--muted); font-size:10px; margin-top:3px; }
+
+.build-handoff-actions { display:flex; flex-wrap:wrap; align-items:center; gap:12px; margin:18px 0 24px; }
+.assistant-references { display:block; color:var(--muted); margin:8px 0; font-size:11px; }
+@media(max-width:600px) { .build-handoff-actions > .button { flex:1 1 160px; } }

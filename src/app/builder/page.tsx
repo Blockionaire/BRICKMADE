@@ -412,7 +412,17 @@ function BuilderContent({ active }: { active: Project }) {
       </div>
       {assistant && (
         <Assistant
+          key={`${active.id}-${number}-${active.settings.buildDifficulty}`}
           context={{
+            ...(active.cloud
+              ? {
+                  cloud: {
+                    jobId: active.cloud.jobId,
+                    sha256: active.cloud.sha256,
+                    pace: active.settings.buildDifficulty || "medium",
+                  },
+                }
+              : {}),
             projectName: active.name,
             step,
             nextStep: model.steps[number],

@@ -4,13 +4,14 @@ import { randomUUID } from "node:crypto";
 import { supabaseClient, StudioError, digest } from "./supabase.mjs";
 import { interpretStudioPhotos } from "./studio-vision.mjs";
 import { validatePhotoRequest } from "./handler.mjs";
+import { parseStudioOptions } from "../shared/studio.ts";
 import {
-  parseHouseDesign,
-  parseStudioOptions,
-  HOUSE_MODULE_VERSION,
-} from "../shared/studio.ts";
+  parseDesignDescription,
+  moduleVersionFor,
+} from "../shared/design-description.ts";
+import { generateCheckedDesign } from "./generate-design.mjs";
 import { parseStudioArtifact } from "../shared/studio-artifact.ts";
-import { planHouseScene } from "../shared/design-scene.ts";
+import { planDesignScene } from "../shared/design-scene.ts";
 export function compileInThread(
   description,
   options,
@@ -66,7 +67,7 @@ export function compileInThread(
           new StudioError(
             500,
             "compiler-error",
-            "The house compiler could not complete this design.",
+            "The design compiler could not complete this design.",
           ),
         );
     });
@@ -75,7 +76,7 @@ export function compileInThread(
         new StudioError(
           500,
           "compiler-error",
-          "The house compiler stopped unexpectedly.",
+          "The design compiler stopped unexpectedly.",
         ),
       ),
     );
@@ -85,7 +86,7 @@ export function compileInThread(
           new StudioError(
             500,
             "compiler-error",
-            "The house compiler was interrupted.",
+            "The design compiler was interrupted.",
           ),
         );
     });
@@ -166,12 +167,16 @@ export async function runStudioJob(
   }, 15000);
   try {
     const options = parseStudioOptions(job.options);
+    const moduleVersion = moduleVersionFor(options.category);
     await step("preparing", 5);
     let description,
       providerModel =
         job.checkpoint?.providerModel || env.OPENAI_MODEL || "gpt-5.2";
     if (job.checkpoint?.description)
-      description = parseHouseDesign(job.checkpoint.description);
+      description = parseDesignDescription(
+        job.checkpoint.description,
+        options.category,
+      );
     else {
       if (job.checkpoint?.interpretationStarted)
         throw new StudioError(
@@ -212,92 +217,44 @@ export async function runStudioJob(
       validatePhotoRequest({ version: 1, consent: true, photos });
       await step("interpreting", 15, {
         interpretationStarted: true,
-        moduleVersion: HOUSE_MODULE_VERSION,
+        moduleVersion,
       });
-      const result = await interpret(photos, { env, signal: combined });
-      description = result.description;
+      const result = await interpret(photos, {
+        env,
+        signal: combined,
+        categoryId: options.category,
+      });
+      description = parseDesignDescription(
+        result.description,
+        options.category,
+      );
       providerModel = result.model;
       await step("planning", 40, {
         description,
         providerModel,
         moduleVersion: result.moduleVersion,
+        inputHashes: assets.map((a) => a.sha256),
       });
     }
     await step("planning", 40, {
       description,
       providerModel,
-      moduleVersion: HOUSE_MODULE_VERSION,
-      scene: planHouseScene(description, options),
+      moduleVersion,
+      scene: planDesignScene(description, options),
     });
-    let result,
-      repairCount = 0;
-    for (let repair = 0; repair <= 2; repair++) {
-      const actual =
-        repair === 0
-          ? description
-          : repair === 1
-            ? { ...description, chimney: false, garden: false }
-            : {
-                ...description,
-                chimney: false,
-                garden: false,
-                frontWindows: Math.min(1, description.frontWindows),
-                rearWindows: 0,
-                leftWindows: 0,
-                rightWindows: 0,
-              };
-      await step("compiling", 50 + repair * 16, { repair });
-      result = await compile(actual, options, combined, () =>
-        step("checking", 65 + repair * 10),
-      );
-      if (stage !== "checking") await step("checking", 65 + repair * 10);
-      if (result.validation.status === "passed") {
-        repairCount = repair;
-        if (repair)
-          result.model.studio.adaptations.push(
-            repair === 1
-              ? "Garden/chimney details were omitted after an assembly failure."
-              : "Some window and decorative details were omitted after assembly failures.",
-          );
-        break;
-      }
-      if (repair === 2)
-        throw new StudioError(
-          422,
-          "assembly-failed",
-          "This house could not be assembled with the current supported patterns. No substitute demo was saved. Try a smaller or simpler version.",
-        );
-    }
-    // Compare the actual generated features against the original interpretation, including repairs.
-    const desired = [
-      description.frontWindows,
-      description.rearWindows,
-      description.leftWindows,
-      description.rightWindows,
-    ].reduce((a, b) => a + b, 0);
-    const retained = result.model.studio.windowCounts.reduce(
-      (a, b) => a + b,
-      0,
-    );
-    result.fidelity.windowRetention = desired
-      ? Math.min(1, retained / desired)
-      : 1;
-    if (
-      result.fidelity.aspectRatioError > 0.3 ||
-      result.fidelity.windowRetention < (options.detail === "easy" ? 0.2 : 0.35)
-    )
-      throw new StudioError(
-        422,
-        "fidelity-limit",
-        "A technically checked design would lose too many visible features at this scale. Try a larger or more detailed version.",
-      );
+    const result = await generateCheckedDesign(description, options, {
+      compile,
+      signal: combined,
+      onStage: step,
+    });
+    const repairCount = result.repairCount;
     await step("finalizing", 94, { repairCount });
     const artifact = parseStudioArtifact({
-      version: 1,
+      version: options.category === "house" ? 1 : 2,
       jobId: job.id,
       projectId: job.project_id,
       createdAt: new Date().toISOString(),
-      moduleVersion: HOUSE_MODULE_VERSION,
+      moduleVersion,
       compilerVersion: result.model.revision,
       profileVersion: result.profileVersion,
       description,
@@ -307,15 +264,20 @@ export async function runStudioJob(
       fidelity: result.fidelity,
       provenance: {
         model: providerModel,
-        inputHashes: job.checkpoint?.parent
-          ? []
-          : (
-              await db.rows(
-                "bm_assets",
-                `id=in.(${job.input_ids.join(",")})&owner_id=eq.${job.owner_id}`,
-              )
-            ).map((a) => a.sha256),
+        inputHashes: Array.isArray(job.checkpoint?.inputHashes)
+          ? job.checkpoint.inputHashes
+          : job.checkpoint?.parent
+            ? []
+            : (
+                await db.rows(
+                  "bm_assets",
+                  `id=in.(${job.input_ids.join(",")})&owner_id=eq.${job.owner_id}`,
+                )
+              ).map((a) => a.sha256),
         repairCount,
+        ...(job.checkpoint?.parent
+          ? { parentJobId: job.checkpoint.parent }
+          : {}),
       },
     });
     const bytes = Buffer.from(JSON.stringify(artifact));
@@ -417,6 +379,7 @@ export async function runStudioJob(
   }
 }
 export async function cleanupStudioAssets(db) {
+  await db.rpc("bm_assistant_cleanup", {});
   const assets = await db.rows(
     "bm_assets",
     `expires_at=lt.${new Date().toISOString()}&state=neq.deleted&limit=100`,

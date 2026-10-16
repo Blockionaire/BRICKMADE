@@ -2,6 +2,8 @@ import { CATALOG, COLORS } from "./catalog";
 import { parseHouseBrief } from "../../shared/house-brief";
 import { parseHouseDesign } from "../../shared/studio";
 import { createStudioHouse } from "./studio/house";
+import { createStudioSubject } from "./studio/subject";
+import { parseSubjectDesign } from "../../shared/subject-design";
 import { partCapabilities } from "./parts/selection";
 import { countParts } from "./inventory";
 import { planBuildSteps } from "./build-steps";
@@ -68,8 +70,29 @@ export const MODEL_KINDS: {
   },
 ];
 export const kindFor = (settings: GenerationSettings) =>
-  settings.modelKind ?? "house";
+  settings.modelKind ??
+  (settings.subjectDesign
+    ? (
+        {
+          car: "rover",
+          flower: "plant",
+          animal: "animal",
+          free: "sculpture",
+        } as const
+      )[settings.subjectDesign.category]
+    : "house");
 export const modelInfo = (settings: GenerationSettings) => {
+  if (settings.subjectDesign)
+    return {
+      id: kindFor(settings),
+      name: settings.subjectDesign.title,
+      description: settings.subjectDesign.summary,
+      details: [
+        "Larger pieces and a simpler silhouette.",
+        "Recognisable proportions and selected details.",
+        "Finer contours and smaller pieces.",
+      ],
+    };
   const info = MODEL_KINDS.find((k) => k.id === kindFor(settings))!;
   return settings.houseBrief
     ? {
@@ -127,12 +150,12 @@ export class Assembly {
   ): Placement {
     const part = CATALOG[partId];
     if (!part) throw Error(`No curated part ${partId}`);
-    if (this.settings.houseBrief) {
+    if (this.settings.houseBrief || this.settings.subjectDesign) {
       const profile = BUILDER_BY_REBRICKABLE.get(partId);
       if (!profile || !partCapabilities(profile).supported)
         throw Error(`Part ${partId} has no supported connection rules.`);
       if (!profile.observedColorIds.includes(COLORS[color].rebrickableId)) {
-        const replacement = (
+        const candidates = (
           [
             "sand",
             "white",
@@ -144,9 +167,31 @@ export class Assembly {
             "grass",
             "flower",
           ] as ColorId[]
-        ).find((candidate) =>
+        ).filter((candidate) =>
           profile.observedColorIds.includes(COLORS[candidate].rebrickableId),
         );
+        const rgb = (c: ColorId) =>
+          COLORS[c].hex
+            .slice(1)
+            .match(/../g)!
+            .map((v) => parseInt(v, 16));
+        const requested = rgb(color);
+        const replacement = this.settings.subjectDesign
+          ? (Object.keys(COLORS) as ColorId[])
+              .filter(
+                (c) =>
+                  profile.observedColorIds.includes(COLORS[c].rebrickableId) &&
+                  COLORS[c].alpha === COLORS[color].alpha,
+              )
+              .sort((a, b) => {
+                const distance = (c: ColorId) =>
+                  rgb(c).reduce(
+                    (sum, value, i) => sum + (value - requested[i]) ** 2,
+                    0,
+                  );
+                return distance(a) - distance(b);
+              })[0]
+          : candidates[0];
         if (!replacement)
           throw Error(`No recorded color is available for part ${partId}.`);
         this.adaptations.add(
@@ -902,6 +947,16 @@ function pavilion(a: Assembly) {
   );
 }
 export function createModel(settings: GenerationSettings): HouseModel {
+  if (settings.subjectDesign) {
+    const description = parseSubjectDesign(settings.subjectDesign);
+    const key = JSON.stringify({ ...settings, subjectDesign: description });
+    const previous = cache.get(key);
+    if (previous) return previous;
+    const result = createStudioSubject(description, settings);
+    cache.set(key, result);
+    if (cache.size > 128) cache.delete(cache.keys().next().value!);
+    return result;
+  }
   if (settings.houseDesign) {
     const description = parseHouseDesign(settings.houseDesign);
     const key = JSON.stringify({ ...settings, houseDesign: description });
@@ -931,6 +986,8 @@ export function createModel(settings: GenerationSettings): HouseModel {
   const old = cache.get(key);
   if (old) return old;
   const assembly = new Assembly(normalized);
+  if (normalized.modelKind === "animal" || normalized.modelKind === "sculpture")
+    throw Error("This category needs its photo-derived design description.");
   ({ house, rover, plant, pavilion })[normalized.modelKind](assembly);
   const model = assembly.finish();
   cache.set(key, model);

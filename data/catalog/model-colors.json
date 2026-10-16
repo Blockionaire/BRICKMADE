@@ -60,6 +60,54 @@
       "sourceName": "White",
       "hex": "#FFFFFF",
       "alpha": 1
+    },
+    "red": {
+      "rebrickableId": 4,
+      "sourceName": "Red",
+      "hex": "#C91A09",
+      "alpha": 1
+    },
+    "blue": {
+      "rebrickableId": 1,
+      "sourceName": "Blue",
+      "hex": "#0055BF",
+      "alpha": 1
+    },
+    "orange": {
+      "rebrickableId": 25,
+      "sourceName": "Orange",
+      "hex": "#FE8A18",
+      "alpha": 1
+    },
+    "pink": {
+      "rebrickableId": 29,
+      "sourceName": "Bright Pink",
+      "hex": "#E4ADC8",
+      "alpha": 1
+    },
+    "purple": {
+      "rebrickableId": 22,
+      "sourceName": "Purple",
+      "hex": "#81007B",
+      "alpha": 1
+    },
+    "lavender": {
+      "rebrickableId": 31,
+      "sourceName": "Lavender",
+      "hex": "#E1D5ED",
+      "alpha": 1
+    },
+    "dark-blue": {
+      "rebrickableId": 272,
+      "sourceName": "Dark Blue",
+      "hex": "#0A3463",
+      "alpha": 1
+    },
+    "dark-stone": {
+      "rebrickableId": 72,
+      "sourceName": "Dark Bluish Gray",
+      "hex": "#6C6E68",
+      "alpha": 1
     }
   }
 }

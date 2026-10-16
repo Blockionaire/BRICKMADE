@@ -14,3 +14,6 @@ next-env.d.ts
 # Catalog import/test bytecode
 __pycache__/
 *.py[cod]
+
+# User-owned benchmark photos and private reports
+private-benchmarks/

@@ -2,6 +2,8 @@ import { randomUUID } from "node:crypto";
 import { supabaseClient, StudioError, requireId } from "./supabase.mjs";
 import { studioSession, clearSession, storeSession } from "./session.mjs";
 import { STUDIO_CATEGORIES, parseStudioOptions } from "../shared/studio.ts";
+import { inspectStudio } from "./studio-doctor.mjs";
+import { answerSavedBuild } from "./build-assistant.mjs";
 export function publicJob(j) {
   return {
     id: j.id,
@@ -156,6 +158,11 @@ export function makeStudioHandler({
         clearSession(res, secure);
         return send(200, { ok: true });
       }
+      if (action === "readiness" && path.length === 1 && req.method === "GET")
+        return send(
+          200,
+          await inspectStudio({ env, fetcher, dbFactory: () => db }),
+        );
       if (action === "account" && path.length === 2 && req.method === "POST") {
         const v = await body(req),
           email =
@@ -219,11 +226,11 @@ export function makeStudioHandler({
       if (action === "projects" && path.length === 1 && req.method === "POST") {
         const v = await body(req);
         keys(v, ["category", "photos"]);
-        if (v.category !== "house")
+        if (!STUDIO_CATEGORIES.some((c) => c.id === v.category && c.available))
           throw new StudioError(
             422,
             "category-not-ready",
-            "This category is still being developed. House is available first.",
+            "This category is not available for generation.",
           );
         if (
           !Array.isArray(v.photos) ||
@@ -233,7 +240,7 @@ export function makeStudioHandler({
           throw new StudioError(
             400,
             "photos",
-            "Choose one to three house photos.",
+            "Choose one to three photos of the same subject.",
           );
         for (const p of v.photos) {
           if (!p || typeof p !== "object")
@@ -298,7 +305,9 @@ export function makeStudioHandler({
             : ["assetIds", "options", "requestKey", "consent"],
         );
         const opts = options(v.options);
-        if (opts.category !== "house")
+        if (
+          !STUDIO_CATEGORIES.some((c) => c.id === opts.category && c.available)
+        )
           throw new StudioError(
             422,
             "category-not-ready",
@@ -341,6 +350,19 @@ export function makeStudioHandler({
           );
         if (path.length === 2 && req.method === "GET")
           return send(200, { job: publicJob(j) });
+        if (
+          path[2] === "assistant" &&
+          path.length === 3 &&
+          req.method === "POST"
+        )
+          return send(
+            200,
+            await answerSavedBuild(j, user.id, await body(req), {
+              db,
+              env,
+              fetcher,
+            }),
+          );
         if (path[2] === "cancel" && req.method === "POST") {
           await db.rpc("bm_cancel_job", { p_owner: user.id, p_job: id });
           return send(200, { ok: true });

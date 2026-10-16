@@ -1,30 +1,35 @@
 import type { HouseModel } from "../src/domain/types";
 import type { ValidationReport } from "../src/domain/validation/assembly";
+import { parseStudioOptions, type StudioOptions } from "./studio";
 import {
-  parseHouseDesign,
-  parseStudioOptions,
-  type HouseDesign,
-  type StudioOptions,
-} from "./studio";
+  parseDesignDescription,
+  type DesignDescription,
+} from "./design-description";
 export interface StudioArtifact {
-  version: 1;
+  version: 1 | 2;
   jobId: string;
   projectId: string;
   createdAt: string;
   moduleVersion: string;
   compilerVersion: string;
   profileVersion: string;
-  description: HouseDesign;
+  description: DesignDescription;
   options: StudioOptions;
   model: HouseModel;
   validation: ValidationReport;
   fidelity: {
-    aspectRatioError: number;
-    windowRetention: number;
+    aspectRatioError: number | null;
+    windowRetention?: number;
+    featureRetention?: number;
     method: "feature-consistency";
     notes: string[];
   };
-  provenance: { model: string; inputHashes: string[]; repairCount: number };
+  provenance: {
+    model: string;
+    inputHashes: string[];
+    repairCount: number;
+    parentJobId?: string;
+  };
 }
 /** Validate untrusted artifact structure and exact placement/instruction/inventory accounting. */
 export function parseStudioArtifact(value: unknown): StudioArtifact {
@@ -32,7 +37,7 @@ export function parseStudioArtifact(value: unknown): StudioArtifact {
     throw Error("The saved design is invalid.");
   const a = value as StudioArtifact;
   if (
-    a.version !== 1 ||
+    ![1, 2].includes(a.version) ||
     typeof a.jobId !== "string" ||
     typeof a.projectId !== "string" ||
     typeof a.compilerVersion !== "string" ||
@@ -41,9 +46,17 @@ export function parseStudioArtifact(value: unknown): StudioArtifact {
     !Number.isFinite(Date.parse(a.createdAt))
   )
     throw Error("The design version is not supported.");
-  parseHouseDesign(a.description);
   parseStudioOptions(a.options);
+  if (a.version === 1 && a.options.category !== "house")
+    throw Error("This artifact version only supports House designs.");
+  parseDesignDescription(a.description, a.options.category);
   const m = a.model;
+  const metadata = a.options.category === "house" ? m?.studio : m?.subject;
+  if (a.options.category !== "house") {
+    if (!m?.subject || m.subject.description.category !== a.options.category)
+      throw Error("The saved category model is inconsistent.");
+    parseDesignDescription(m.subject.description, a.options.category);
+  }
   if (
     !m ||
     m.revision !== a.compilerVersion ||
@@ -51,9 +64,9 @@ export function parseStudioArtifact(value: unknown): StudioArtifact {
     m.settings.detail !== a.options.detail ||
     m.settings.size !== a.options.size ||
     m.settings.buildDifficulty !== a.options.pace ||
-    !m.studio ||
-    !Array.isArray(m.studio.adaptations) ||
-    m.studio.adaptations.some((n) => typeof n !== "string") ||
+    !metadata ||
+    !Array.isArray(metadata.adaptations) ||
+    metadata.adaptations.some((n) => typeof n !== "string") ||
     !a.provenance ||
     typeof a.provenance.model !== "string" ||
     !Array.isArray(a.provenance.inputHashes) ||
@@ -62,11 +75,17 @@ export function parseStudioArtifact(value: unknown): StudioArtifact {
     a.provenance.repairCount < 0 ||
     a.provenance.repairCount > 2 ||
     a.fidelity?.method !== "feature-consistency" ||
-    !Number.isFinite(a.fidelity.aspectRatioError) ||
-    a.fidelity.aspectRatioError < 0 ||
-    !Number.isFinite(a.fidelity.windowRetention) ||
-    a.fidelity.windowRetention < 0 ||
-    a.fidelity.windowRetention > 1 ||
+    (!(a.version === 2 && a.fidelity.aspectRatioError === null) &&
+      (!Number.isFinite(a.fidelity.aspectRatioError) ||
+        a.fidelity.aspectRatioError! < 0)) ||
+    (a.options.category === "house" &&
+      (!Number.isFinite(a.fidelity.windowRetention) ||
+        a.fidelity.windowRetention! < 0 ||
+        a.fidelity.windowRetention! > 1)) ||
+    (a.options.category !== "house" &&
+      (!Number.isFinite(a.fidelity.featureRetention) ||
+        a.fidelity.featureRetention! < 0 ||
+        a.fidelity.featureRetention! > 1)) ||
     !Array.isArray(a.fidelity.notes) ||
     a.fidelity.notes.some((n) => typeof n !== "string") ||
     !Array.isArray(m.placements) ||

@@ -27,6 +27,35 @@ export async function compileHouse(
   if (model.placements.length > 5000)
     throw Error("This design exceeds the current piece budget.");
   await onCompiled({ pieceCount: model.placements.length });
+  const validation = await checkCompiledModel(model);
+  const requested = [
+    s.frontWindows,
+    s.rearWindows,
+    s.leftWindows,
+    s.rightWindows,
+  ].reduce((a, b) => a + b, 0);
+  const retained = model.studio.windowCounts.reduce((a, b) => a + b, 0);
+  return {
+    model,
+    validation,
+    profileVersion: PROFILE_VERSION,
+    fidelity: {
+      aspectRatioError:
+        Math.abs(
+          model.studio.footprintStuds[0] / model.studio.footprintStuds[1] -
+            s.aspectRatio,
+        ) / s.aspectRatio,
+      windowRetention: requested ? Math.min(1, retained / requested) : 1,
+      method: "feature-consistency",
+      notes: [
+        "This score checks described features and proportions, not pixel-level similarity to the photos.",
+        ...model.studio.adaptations,
+      ],
+    },
+  };
+}
+/** Shared collision evidence and assembly checks for every generation category. */
+export async function checkCompiledModel(model) {
   const entries = await Promise.all(
     [...new Set(model.placements.map((p) => placementPose(p).partId))].map(
       async (id) => {
@@ -58,30 +87,5 @@ export async function compileHouse(
       },
     ),
   );
-  const validation = validateAssembly(model, new Map(entries));
-  const requested = [
-    s.frontWindows,
-    s.rearWindows,
-    s.leftWindows,
-    s.rightWindows,
-  ].reduce((a, b) => a + b, 0);
-  const retained = model.studio.windowCounts.reduce((a, b) => a + b, 0);
-  return {
-    model,
-    validation,
-    profileVersion: PROFILE_VERSION,
-    fidelity: {
-      aspectRatioError:
-        Math.abs(
-          model.studio.footprintStuds[0] / model.studio.footprintStuds[1] -
-            s.aspectRatio,
-        ) / s.aspectRatio,
-      windowRetention: requested ? Math.min(1, retained / requested) : 1,
-      method: "feature-consistency",
-      notes: [
-        "This score checks described features and proportions, not pixel-level similarity to the photos.",
-        ...model.studio.adaptations,
-      ],
-    },
-  };
+  return validateAssembly(model, new Map(entries));
 }

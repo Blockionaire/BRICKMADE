@@ -1,7 +1,8 @@
 "use client";
 
-import {projectModel} from "@/domain/project-model";
-import { useState, Suspense } from "react";
+import { BuildHandoff } from "@/components/build-handoff";
+import { projectModel } from "@/domain/project-model";
+import { useState, useSyncExternalStore, Suspense } from "react";
 import { useSearchParams } from "next/navigation";
 import {
   Search,
@@ -35,8 +36,22 @@ export default function PartsPage() {
   );
 }
 
+const subscribeHydration = () => () => {};
+const clientSnapshot = () => true;
+const serverSnapshot = () => false;
 function PartsContent() {
   const { active } = useProjects();
+  const hydrated = useSyncExternalStore(
+    subscribeHydration,
+    clientSnapshot,
+    serverSnapshot,
+  );
+  if (!hydrated)
+    return (
+      <div className="viewer-loading" role="status">
+        Preparing your saved parts…
+      </div>
+    );
   return <BuildParts key={active.id} active={active} />;
 }
 
@@ -103,6 +118,7 @@ function BuildParts({ active }: { active: Project }) {
           Go to builder <ArrowRight size={16} />
         </Link>
       </div>
+      <BuildHandoff project={active} />
       <Link href="/catalog" className="parts-library-link">
         <Shapes size={24} />
         <span>

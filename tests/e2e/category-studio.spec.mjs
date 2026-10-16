@@ -2,6 +2,7 @@ import { test, expect } from "@playwright/test";
 import { execFileSync } from "node:child_process";
 import { createHash, randomUUID } from "node:crypto";
 let artifact, body, hash;
+const categoryFixtures = {};
 const projectId = randomUUID(),
   jobId = randomUUID(),
   owner = randomUUID();
@@ -18,8 +19,36 @@ test.beforeAll(() => {
   ).trim();
   artifact = JSON.parse(body);
   hash = createHash("sha256").update(body).digest("hex");
+  categoryFixtures.house = { artifact, body, hash };
+  for (const category of ["flower", "car", "animal", "free"]) {
+    const source = `import{compileSubject}from'./server/compile-subject.mjs';import{SUBJECT_EXAMPLES}from'./shared/subject-design.ts';import{DEFAULT_STUDIO_OPTIONS}from'./shared/studio.ts';const options={...DEFAULT_STUDIO_OPTIONS,category:'${category}'};const r=await compileSubject(SUBJECT_EXAMPLES['${category}'],options);if(r.validation.status!=='passed')throw Error('Fixture failed');console.log(JSON.stringify({version:2,jobId:'${jobId}',projectId:'${projectId}',createdAt:new Date().toISOString(),moduleVersion:r.model.subject.moduleVersion,compilerVersion:r.model.revision,profileVersion:r.profileVersion,description:SUBJECT_EXAMPLES['${category}'],options,model:r.model,validation:r.validation,fidelity:r.fidelity,provenance:{model:'explicit-browser-fixture',inputHashes:[],repairCount:0}}));`;
+    const data = execFileSync(
+      process.execPath,
+      [
+        "--import",
+        "./server/register.mjs",
+        "--input-type=module",
+        "-e",
+        source,
+      ],
+      {
+        encoding: "utf8",
+        maxBuffer: 16000000,
+        stdio: ["ignore", "pipe", "pipe"],
+      },
+    ).trim();
+    categoryFixtures[category] = {
+      artifact: JSON.parse(data),
+      body: data,
+      hash: createHash("sha256").update(data).digest("hex"),
+    };
+  }
 });
-async function mock(page, { failure = false, configured = true } = {}) {
+async function mock(
+  page,
+  { failure = false, configured = true, category = "house" } = {},
+) {
+  const { artifact, body, hash } = categoryFixtures[category];
   let submitted = false,
     polls = 0,
     uploadCount = 0,
@@ -85,7 +114,18 @@ async function mock(page, { failure = false, configured = true } = {}) {
         bytes: Buffer.byteLength(body),
         sha256: hash,
       };
-    else if (path === `jobs/${jobId}`) {
+    else if (path === `jobs/${jobId}/assistant`) {
+      const v = req.postDataJSON();
+      expect(v.sha256).toBe(hash);
+      expect(v.step).toBe(1);
+      data = {
+        answer:
+          "Use the saved pieces in step 1, matching their listed colors and orientation.",
+        stepNumbers: [1],
+        pieceIds: [artifact.model.steps[0].placementIds[0]],
+        action: "highlight",
+      };
+    } else if (path === `jobs/${jobId}`) {
       polls++;
       data = {
         job: {
@@ -148,9 +188,9 @@ test("category-first mobile flow previews locally, submits once and opens the ex
   await page.goto("/create");
   await expect(
     page.getByRole("button", {
-      name: /Car.*In the making/,
+      name: /Car.*static display/,
     }),
-  ).toBeDisabled();
+  ).toBeEnabled();
   await page
     .getByRole("button", {
       name: /House.*Your home/,
@@ -275,3 +315,68 @@ test("an unconfigured deployment explains availability before accepting a submis
   expect(fixture.submitted()).toBe(false);
   expect(fixture.uploads()).toBe(0);
 });
+
+for (const category of ["flower", "car", "animal", "free"]) {
+  test(`${category} photo flow loads the exact new category model, AI help and complete parts exports`, async ({
+    page,
+  }) => {
+    await mock(page, { category });
+    await page.goto("/create");
+    const label = {
+      flower: /Flower.*bloom/,
+      car: /Car.*static display/,
+      animal: /Animal.*Cats/,
+      free: /Free format.*grounded/,
+    }[category];
+    await page.getByRole("button", { name: label }).click();
+    await page
+      .getByLabel("Upload your photos")
+      .setInputFiles("tests/fixtures/house-upload.jpg");
+    await page.getByRole("button", { name: "Generate my build" }).click();
+    await expect(
+      page.getByRole("button", { name: "Let’s build this" }),
+    ).toBeVisible({ timeout: 30000 });
+    const expected = categoryFixtures[category].artifact;
+    await expect(page.locator(".studio-viewer canvas")).toHaveAttribute(
+      "data-total-pieces",
+      String(expected.model.placements.length),
+    );
+    await expect(page.locator(".studio-viewer canvas")).toHaveAttribute(
+      "aria-busy",
+      "false",
+    );
+    await page.screenshot({
+      path: `/tmp/brickmade-${category}-result-mobile.png`,
+      fullPage: true,
+    });
+    await page.getByRole("button", { name: "Let’s build this" }).click();
+    await expect(page).toHaveURL(/\/builder/);
+    await page.getByRole("button", { name: /A little help/ }).click();
+    await expect(
+      page.getByText("AI · saved design context", { exact: true }),
+    ).toBeVisible();
+    await page
+      .getByRole("button", { name: "Which parts?", exact: true })
+      .click();
+    await expect(
+      page.getByText(
+        "Use the saved pieces in step 1, matching their listed colors and orientation.",
+      ),
+    ).toBeVisible();
+    await expect(page.getByText(/Saved steps 1/)).toBeVisible();
+    await page.getByRole("button", { name: "Close", exact: true }).click();
+    await page.goto("/parts");
+    const csvPromise = page.waitForEvent("download");
+    await page.getByRole("button", { name: "Save full parts list" }).click();
+    expect((await csvPromise).suggestedFilename()).toBe("brickmade-parts.csv");
+    await page.getByRole("button", { name: "Find my pieces" }).click();
+    await expect(
+      page.getByText(/Marketplace IDs still need verification/),
+    ).toBeVisible();
+    expect(
+      await page.evaluate(
+        () => document.documentElement.scrollWidth <= window.innerWidth,
+      ),
+    ).toBe(true);
+  });
+}

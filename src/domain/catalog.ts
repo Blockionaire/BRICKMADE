@@ -19,6 +19,14 @@ const names: Record<ColorId, string> = {
   flower: "Soft gold",
   black: "Black",
   white: "White",
+  red: "Red",
+  blue: "Blue",
+  orange: "Orange",
+  pink: "Pink",
+  purple: "Purple",
+  lavender: "Lavender",
+  "dark-blue": "Dark blue",
+  "dark-stone": "Dark gray",
 };
 export const COLORS = Object.fromEntries(
   Object.entries(colorData.colors).map(([id, value]) => [
@@ -168,9 +176,16 @@ for (const profile of BUILDER_PARTS) {
     ? "Technic"
     : profile.tags.includes("Plants & flowers")
       ? "Plant"
-      : ["Brick", "Plate", "Tile", "Slope", "Arch", "Window", "Panel", "Wedge"].includes(
-            profile.category,
-          )
+      : [
+            "Brick",
+            "Plate",
+            "Tile",
+            "Slope",
+            "Arch",
+            "Window",
+            "Panel",
+            "Wedge",
+          ].includes(profile.category)
         ? profile.category
         : profile.id === "60601"
           ? "Window"

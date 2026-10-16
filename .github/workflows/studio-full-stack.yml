@@ -50,6 +50,11 @@ jobs:
           npx playwright install --with-deps chromium
           node -e "const fs=require('fs');fs.appendFileSync(process.env.GITHUB_ENV,'CHROMIUM_PATH='+require('@playwright/test').chromium.executablePath()+'\n')"
           npm run build
+      - name: Verify all domain, API and source-backed construction checks
+        run: |
+          npm run lint
+          npm run typecheck
+          npm test
       - name: Verify packaged worker image without network or secrets
         run: |
           docker build -f worker.Dockerfile -t brickmade-worker-ci .

@@ -331,13 +331,13 @@ export function CreateStudio() {
         <section
           className="studio-upload-layout"
           ref={uploadSection}
-          aria-label="Your house photos"
+          aria-label="Your subject photos"
         >
           <div className="panel studio-upload-panel">
             <div className="panel-title">
               <div>
                 <span className="eyebrow">The starting point</span>
-                <h2>Show us your house.</h2>
+                <h2>Show us what makes it yours.</h2>
               </div>
               <span className="tag">{photos.length}/3 photos</span>
             </div>

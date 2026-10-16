@@ -32,7 +32,7 @@ import { importStudioBuild } from "@/services/studio-projects";
 const LABELS: Record<string, string> = {
   queued: "Your build is in line",
   preparing: "Preparing your photos",
-  interpreting: "Finding the character of your house",
+  interpreting: "Finding what makes your subject distinctive",
   planning: "Planning its shapes and features",
   compiling: "Choosing and placing real pieces",
   checking: "Checking the assembly",
@@ -376,7 +376,8 @@ export function StudioResult() {
               <summary>What was interpreted and simplified</summary>
               <ul>
                 {[
-                  ...result.artifact.model.studio!.adaptations,
+                  ...(result.artifact.model.studio ||
+                    result.artifact.model.subject)!.adaptations,
                   ...result.artifact.description.uncertainties,
                 ].map((note, i) => (
                   <li key={i}>{note}</li>

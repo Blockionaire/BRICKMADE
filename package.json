@@ -17,7 +17,9 @@
     "format": "prettier --write src tests *.ts *.mjs package.json",
     "build:pages": "GITHUB_PAGES=true NEXT_PUBLIC_BASE_PATH=/BRICKMADE next build",
     "test:pages": "node scripts/check-pages.mjs",
-    "worker": "node --env-file-if-exists=.env.local --import ./server/register.mjs server/worker-entry.mjs"
+    "worker": "node --env-file-if-exists=.env.local --import ./server/register.mjs server/worker-entry.mjs",
+    "studio:doctor": "node --env-file-if-exists=.env.local --import ./server/register.mjs scripts/studio-doctor.mjs",
+    "benchmark:photos": "node --env-file-if-exists=.env.local --import ./server/register.mjs scripts/photo-benchmark.mjs"
   },
   "dependencies": {
     "@fontsource-variable/dm-sans": "^5.2.8",
@@ -41,7 +43,8 @@
     "tailwindcss": "^4.2.0",
     "three-mesh-bvh": "0.9.16",
     "typescript": "^5.9.0",
-    "vitest": "^4.0.0"
+    "vitest": "^4.0.0",
+    "sharp": "0.35.5"
   },
   "type": "module"
 }

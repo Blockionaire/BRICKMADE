@@ -1,9 +1,9 @@
 import { categoryModule } from "./category-knowledge.mjs";
-import { parseHouseDesign } from "../shared/studio.ts";
+import { parseDesignDescription } from "../shared/design-description.ts";
 import { StudioError } from "./supabase.mjs";
 export async function interpretStudioPhotos(
   photos,
-  { env = process.env, signal, fetcher = fetch } = {},
+  { env = process.env, signal, fetcher = fetch, categoryId = "house" } = {},
 ) {
   const key = env.OPENAI_API_KEY?.trim();
   if (!key)
@@ -12,7 +12,7 @@ export async function interpretStudioPhotos(
       "provider-configuration",
       "The image service needs its OpenAI key configured on the worker.",
     );
-  const category = categoryModule("house"),
+  const category = categoryModule(categoryId),
     model = env.OPENAI_MODEL?.trim() || "gpt-5.2";
   const effort = env.OPENAI_REASONING_EFFORT || "high";
   if (!["low", "medium", "high"].includes(effort))
@@ -45,7 +45,7 @@ export async function interpretStudioPhotos(
             content: [
               {
                 type: "input_text",
-                text: `Interpret these ${photos.length} views of the same house. Prioritize distinctive features and report uncertainty. Return the v2 house description.`,
+                text: `Interpret these ${photos.length} views of the same ${category.name.toLowerCase()} subject. Prioritize distinctive features and report uncertainty. Return the supplied category description.`,
               },
               ...photos.map((image_url) => ({
                 type: "input_image",
@@ -58,7 +58,10 @@ export async function interpretStudioPhotos(
         text: {
           format: {
             type: "json_schema",
-            name: "brickmade_house_v2",
+            name:
+              categoryId === "house"
+                ? "brickmade_house_v2"
+                : `brickmade_${categoryId}_v1`,
             strict: true,
             schema: category.schema,
           },
@@ -115,7 +118,7 @@ export async function interpretStudioPhotos(
     throw new StudioError(
       422,
       "interpretation-refused",
-      "These photos could not be interpreted. Please choose different house photos.",
+      "These photos could not be interpreted. Please choose different subject photos.",
     );
   const texts = content.filter((c) => c.type === "output_text");
   let description;
@@ -126,7 +129,7 @@ export async function interpretStudioPhotos(
       texts[0].text.length > 14000
     )
       throw Error();
-    description = parseHouseDesign(JSON.parse(texts[0].text));
+    description = parseDesignDescription(JSON.parse(texts[0].text), categoryId);
   } catch {
     throw new StudioError(
       502,
@@ -134,11 +137,11 @@ export async function interpretStudioPhotos(
       "The AI description was not usable. No model was substituted; please retry with clearer photos.",
     );
   }
-  if (description.subject !== "house")
+  if (description.subject === "unsupported")
     throw new StudioError(
       422,
       "unsupported-subject",
-      "This first category supports houses. These photos could not be represented by the current house construction rules.",
+      "These photos could not be represented by this category's current construction rules. No unrelated model was substituted.",
     );
   return { description, model, moduleVersion: category.version };
 }

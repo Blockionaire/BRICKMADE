@@ -1,4 +1,5 @@
 import type { HouseDesign, StudioOptions, StudioCategory } from "./studio";
+import type { DesignDescription } from "./design-description";
 export interface DesignScene {
   version: 1;
   category: StudioCategory;
@@ -59,6 +60,52 @@ export function planHouseScene(
       { feature: "storeys-and-roof", importance: "identity" },
       { feature: "entrance-and-window-rhythm", importance: "identity" },
       { feature: "chimney-and-garden", importance: "detail" },
+    ],
+  };
+}
+export function planDesignScene(
+  s: DesignDescription,
+  options: StudioOptions,
+): DesignScene {
+  if (!("category" in s)) return planHouseScene(s, options);
+  const width =
+    options.size === "large" ? 24 : options.size === "standard" ? 20 : 16;
+  const roles = {
+    flower: ["bonded-base", "planters-and-stems", "foliage-and-blooms"],
+    car: [
+      "bonded-plinth",
+      "display-chassis-and-fixed-wheels",
+      "body-and-cabin",
+      "lights-and-trim",
+    ],
+    animal: [
+      "bonded-plinth",
+      "grounded-paws-and-bonded-deck",
+      "body-head-and-ears",
+      "reviewed-sideways-eyes",
+    ],
+    free: [
+      "bonded-plinth",
+      "grounded-component-supports",
+      "compiled-stud-volumes",
+    ],
+  }[s.category];
+  return {
+    version: 1,
+    category: s.category,
+    units: "stud",
+    footprint: { kind: "display-base", width, depth: width },
+    assemblies: roles.map((role, index) => ({
+      id: `assembly-${index + 1}`,
+      role,
+      dependsOn: index ? [`assembly-${index}`] : [],
+      features: [s.category, "reviewed-attachments", "recorded-part-colors"],
+    })),
+    priorities: [
+      { feature: "observed-proportions-and-color", importance: "identity" },
+      { feature: "recognisable-silhouette", importance: "identity" },
+      { feature: "supported-source-parts", importance: "identity" },
+      { feature: "small-surface-details", importance: "detail" },
     ],
   };
 }
