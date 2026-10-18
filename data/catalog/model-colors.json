@@ -108,6 +108,144 @@
       "sourceName": "Dark Bluish Gray",
       "hex": "#6C6E68",
       "alpha": 1
+    },
+    "magenta": {
+      "rebrickableId": 26,
+      "sourceName": "Magenta",
+      "hex": "#901F76",
+      "alpha": 1
+    },
+    "lime": {
+      "rebrickableId": 27,
+      "sourceName": "Lime",
+      "hex": "#A5CA18",
+      "alpha": 1
+    },
+    "dark-tan": {
+      "rebrickableId": 28,
+      "sourceName": "Dark Tan",
+      "hex": "#897D62",
+      "alpha": 1
+    },
+    "medium-blue": {
+      "rebrickableId": 73,
+      "sourceName": "Medium Blue",
+      "hex": "#7396C8",
+      "alpha": 1
+    },
+    "medium-nougat": {
+      "rebrickableId": 84,
+      "sourceName": "Medium Nougat",
+      "hex": "#AA7D55",
+      "alpha": 1
+    },
+    "bright-light-orange": {
+      "rebrickableId": 191,
+      "sourceName": "Bright Light Orange",
+      "hex": "#FCAC00",
+      "alpha": 1
+    },
+    "dark-azure": {
+      "rebrickableId": 321,
+      "sourceName": "Dark Azure",
+      "hex": "#469BC3",
+      "alpha": 1
+    },
+    "medium-azure": {
+      "rebrickableId": 322,
+      "sourceName": "Medium Azure",
+      "hex": "#68C3E2",
+      "alpha": 1
+    },
+    "sand-green": {
+      "rebrickableId": 378,
+      "sourceName": "Sand Green",
+      "hex": "#708E7C",
+      "alpha": 1
+    },
+    "dark-orange": {
+      "rebrickableId": 484,
+      "sourceName": "Dark Orange",
+      "hex": "#91501C",
+      "alpha": 1
+    },
+    "dark-pink": {
+      "rebrickableId": 5,
+      "sourceName": "Dark Pink",
+      "hex": "#D3359D",
+      "alpha": 1
+    },
+    "bright-green": {
+      "rebrickableId": 10,
+      "sourceName": "Bright Green",
+      "hex": "#58AB41",
+      "alpha": 1
+    },
+    "bright-light-blue": {
+      "rebrickableId": 212,
+      "sourceName": "Bright Light Blue",
+      "hex": "#9DC3F7",
+      "alpha": 1
+    },
+    "dark-green": {
+      "rebrickableId": 288,
+      "sourceName": "Dark Green",
+      "hex": "#00451A",
+      "alpha": 1
+    },
+    "sand-blue": {
+      "rebrickableId": 379,
+      "sourceName": "Sand Blue",
+      "hex": "#70819A",
+      "alpha": 1
+    },
+    "dark-brown": {
+      "rebrickableId": 308,
+      "sourceName": "Dark Brown",
+      "hex": "#352100",
+      "alpha": 1
+    },
+    "light-nougat": {
+      "rebrickableId": 78,
+      "sourceName": "Light Nougat",
+      "hex": "#FFC995",
+      "alpha": 1
+    },
+    "bright-light-yellow": {
+      "rebrickableId": 226,
+      "sourceName": "Bright Light Yellow",
+      "hex": "#FFEC6C",
+      "alpha": 1
+    },
+    "nougat": {
+      "rebrickableId": 92,
+      "sourceName": "Nougat",
+      "hex": "#BB805A",
+      "alpha": 1
+    },
+    "medium-lavender": {
+      "rebrickableId": 30,
+      "sourceName": "Medium Lavender",
+      "hex": "#A06EB9",
+      "alpha": 1
+    },
+    "dark-turquoise": {
+      "rebrickableId": 3,
+      "sourceName": "Dark Turquoise",
+      "hex": "#069D9F",
+      "alpha": 1
+    },
+    "yellowish-green": {
+      "rebrickableId": 326,
+      "sourceName": "Yellowish Green",
+      "hex": "#E2F99A",
+      "alpha": 1
+    },
+    "light-aqua": {
+      "rebrickableId": 323,
+      "sourceName": "Light Aqua",
+      "hex": "#D3F2EA",
+      "alpha": 1
     }
   }
 }

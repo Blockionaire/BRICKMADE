@@ -5,8 +5,16 @@ import {
   parseDesignDescription,
   type DesignDescription,
 } from "./design-description";
+import { isSculptDesign, parseSculptDesign } from "./sculpt-design";
+const SCULPT_KINDS = {
+  house: "house",
+  car: "rover",
+  flower: "plant",
+  animal: "animal",
+  free: "sculpture",
+} as const;
 export interface StudioArtifact {
-  version: 1 | 2;
+  version: 1 | 2 | 3;
   jobId: string;
   projectId: string;
   createdAt: string;
@@ -21,7 +29,9 @@ export interface StudioArtifact {
     aspectRatioError: number | null;
     windowRetention?: number;
     featureRetention?: number;
-    method: "feature-consistency";
+    /** Version 3: overlap of the built model with each reference silhouette. */
+    silhouette?: { front: number; side: number };
+    method: "feature-consistency" | "silhouette-agreement";
     notes: string[];
   };
   provenance: {
@@ -47,7 +57,7 @@ export function parseStudioArtifact(value: unknown): StudioArtifact {
     throw Error("The saved design is invalid.");
   const a = value as StudioArtifact;
   if (
-    ![1, 2].includes(a.version) ||
+    ![1, 2, 3].includes(a.version) ||
     typeof a.jobId !== "string" ||
     typeof a.projectId !== "string" ||
     typeof a.compilerVersion !== "string" ||
@@ -59,14 +69,51 @@ export function parseStudioArtifact(value: unknown): StudioArtifact {
   parseStudioOptions(a.options);
   if (a.version === 1 && a.options.category !== "house")
     throw Error("This artifact version only supports House designs.");
+  const sculpt = a.version === 3;
+  if (sculpt !== isSculptDesign(a.description))
+    throw Error("The design version and description disagree.");
   if (
     parseDesignDescription(a.description, a.options.category).subject !==
     a.options.category
   )
     throw Error("An unsupported interpretation cannot be a completed design.");
   const m = a.model;
-  const metadata = a.options.category === "house" ? m?.studio : m?.subject;
-  if (a.options.category !== "house") {
+  const metadata =
+    a.options.category === "house" && !sculpt ? m?.studio : m?.subject;
+  if (sculpt) {
+    if (
+      !m?.subject ||
+      !isSculptDesign(m.subject.description) ||
+      m.subject.description.category !== a.options.category ||
+      !m.settings?.sculptDesign ||
+      JSON.stringify(
+        canonical(
+          parseSculptDesign(m.settings.sculptDesign, a.options.category),
+        ),
+      ) !==
+        JSON.stringify(
+          canonical(
+            parseSculptDesign(m.subject.description, a.options.category),
+          ),
+        ) ||
+      JSON.stringify(canonical(m.subject.description)) !==
+        JSON.stringify(canonical(a.description)) ||
+      m.settings.modelKind !== SCULPT_KINDS[a.options.category] ||
+      m.kind !== SCULPT_KINDS[a.options.category] ||
+      m.subject.moduleVersion !== a.moduleVersion ||
+      !Array.isArray(m.subject.footprintStuds) ||
+      m.subject.footprintStuds.length !== 2 ||
+      m.subject.footprintStuds.some((n) => !Number.isFinite(n) || n <= 0) ||
+      !Array.isArray(m.subject.features) ||
+      !m.subject.features.length ||
+      m.subject.features.length > 20 ||
+      !m.subject.silhouette ||
+      [m.subject.silhouette.front, m.subject.silhouette.side].some(
+        (n) => !Number.isFinite(n) || n < 0 || n > 1,
+      )
+    )
+      throw Error("The saved sculpture metadata is invalid.");
+  } else if (a.options.category !== "house") {
     if (!m?.subject || m.subject.description.category !== a.options.category)
       throw Error("The saved category model is inconsistent.");
     parseDesignDescription(m.subject.description, a.options.category);
@@ -125,15 +172,22 @@ export function parseStudioArtifact(value: unknown): StudioArtifact {
     !Number.isInteger(a.provenance.repairCount) ||
     a.provenance.repairCount < 0 ||
     a.provenance.repairCount > 2 ||
-    a.fidelity?.method !== "feature-consistency" ||
-    (!(a.version === 2 && a.fidelity.aspectRatioError === null) &&
+    a.fidelity?.method !==
+      (sculpt ? "silhouette-agreement" : "feature-consistency") ||
+    (!(a.version >= 2 && a.fidelity.aspectRatioError === null) &&
       (!Number.isFinite(a.fidelity.aspectRatioError) ||
         a.fidelity.aspectRatioError! < 0)) ||
+    (sculpt &&
+      (!a.fidelity.silhouette ||
+        [a.fidelity.silhouette.front, a.fidelity.silhouette.side].some(
+          (n) => !Number.isFinite(n) || n < 0 || n > 1,
+        ))) ||
     (a.options.category === "house" &&
+      !sculpt &&
       (!Number.isFinite(a.fidelity.windowRetention) ||
         a.fidelity.windowRetention! < 0 ||
         a.fidelity.windowRetention! > 1)) ||
-    (a.options.category !== "house" &&
+    ((a.options.category !== "house" || sculpt) &&
       (!Number.isFinite(a.fidelity.featureRetention) ||
         a.fidelity.featureRetention! < 0 ||
         a.fidelity.featureRetention! > 1)) ||

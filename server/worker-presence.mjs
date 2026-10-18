@@ -1,5 +1,5 @@
 import { STUDIO_CATEGORIES } from "../shared/studio.ts";
-export const WORKER_RUNTIME = "2026-10-16.studio-v3";
+export const WORKER_RUNTIME = "2026-10-18.studio-v4-sculpt";
 export function workerPresence(
   db,
   id,

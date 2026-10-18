@@ -1,5 +1,6 @@
 import type { HouseDesign, StudioOptions, StudioCategory } from "./studio";
 import type { DesignDescription } from "./design-description";
+import type { SculptDesign } from "./sculpt-design";
 export interface DesignScene {
   version: 1;
   category: StudioCategory;
@@ -68,6 +69,7 @@ export function planDesignScene(
   options: StudioOptions,
 ): DesignScene {
   if (!("category" in s)) return planHouseScene(s, options);
+  if (s.version === 3) return planSculptScene(s, options);
   const width =
     options.size === "large" ? 24 : options.size === "standard" ? 20 : 16;
   const roles = {
@@ -106,6 +108,61 @@ export function planDesignScene(
       { feature: "recognisable-silhouette", importance: "identity" },
       { feature: "supported-source-parts", importance: "identity" },
       { feature: "small-surface-details", importance: "detail" },
+    ],
+  };
+}
+
+/** Version 3: reference views → carved volume → bonded courses with fitted details. */
+export function planSculptScene(
+  s: SculptDesign,
+  options: StudioOptions,
+): DesignScene {
+  const views = s.reference?.views.views.map((v) => v.view) ?? [];
+  const details = {
+    house: "fitted-window-frames-and-doors",
+    car: "glazing-wheels-and-lights",
+    animal: "eyes-nose-and-markings",
+    flower: "stems-leaf-elements-and-blooms",
+    free: "located-surface-details",
+  }[s.category];
+  const width =
+    options.size === "large" ? 24 : options.size === "standard" ? 20 : 16;
+  return {
+    version: 1,
+    category: s.category,
+    units: "stud",
+    footprint: { kind: "display-base", width, depth: width },
+    assemblies: [
+      {
+        id: "foundation",
+        role: "bonded-base",
+        dependsOn: [],
+        features: ["recorded-part-colors"],
+      },
+      {
+        id: "volume",
+        role: "visual-hull-from-reference-views",
+        dependsOn: ["foundation"],
+        features: views.map((v) => `${v}-view`),
+      },
+      {
+        id: "courses",
+        role: "anchored-bonded-courses",
+        dependsOn: ["volume"],
+        features: ["slopes", "supports"],
+      },
+      {
+        id: "details",
+        role: details,
+        dependsOn: ["courses"],
+        features: ["located-features"],
+      },
+    ],
+    priorities: [
+      { feature: "reference-silhouette", importance: "identity" },
+      { feature: "calibrated-region-colours", importance: "identity" },
+      { feature: "located-features", importance: "identity" },
+      { feature: "surface-finish", importance: "detail" },
     ],
   };
 }

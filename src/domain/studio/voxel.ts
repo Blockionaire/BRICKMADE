@@ -1,4 +1,4 @@
-import { Assembly } from "../models";
+import type { Assembly } from "../models";
 import { CATALOG, COLORS } from "../catalog";
 import { BUILDER_BY_REBRICKABLE } from "../parts/profiles";
 import type { ColorId } from "../types";
