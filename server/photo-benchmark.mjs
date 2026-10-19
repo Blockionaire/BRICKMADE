@@ -7,7 +7,8 @@ import {
   DEFAULT_STUDIO_OPTIONS,
 } from "../shared/studio.ts";
 import { validatePhotoRequest } from "./handler.mjs";
-import { interpretStudioPhotos } from "./studio-vision.mjs";
+import { interpretSculpt, prepareReference } from "./sculpt-pipeline.mjs";
+import { sculptSchema, isSculptDesign } from "../shared/sculpt-design.ts";
 import { parseDesignDescription } from "../shared/design-description.ts";
 import { generateCheckedDesign } from "./generate-design.mjs";
 import { compileInThread } from "./job-runner.mjs";
@@ -95,6 +96,11 @@ export async function loadBenchmark(path) {
     if (
       Object.keys(item.expected).some(
         (key) =>
+          // Expectations name category traits (version 3) or legacy description fields.
+          !Object.hasOwn(
+            sculptSchema(options.category).properties.traits.properties,
+            key,
+          ) &&
           !Object.hasOwn(
             categoryModule(options.category).schema.properties,
             key,
@@ -127,9 +133,11 @@ export async function runPhotoBenchmark(
     maxCalls = 0,
     env = process.env,
     signal,
-    interpret = interpretStudioPhotos,
+    interpret = interpretSculpt,
+    reference = prepareReference,
     compile = compileInThread,
     onCase = () => {},
+    onModel = async () => {},
   } = {},
 ) {
   if (
@@ -160,7 +168,7 @@ export async function runPhotoBenchmark(
           item.photos.map((p) => p.photo),
           { env, signal, categoryId: item.options.category },
         );
-        const description = parseDesignDescription(
+        let description = parseDesignDescription(
           analysis.description,
           item.options.category,
         );
@@ -168,6 +176,25 @@ export async function runPhotoBenchmark(
           stage: "interpreting",
           milliseconds: Math.round(performance.now() - at),
         });
+        if (isSculptDesign(description)) {
+          // Reference views and feature location are part of the same bounded case.
+          const viewsAt = performance.now();
+          const prepared = await reference(
+            item.photos.map((p) =>
+              Buffer.from(p.photo.split(",")[1], "base64"),
+            ),
+            description,
+            { env, signal },
+          );
+          description = parseDesignDescription(
+            { ...description, reference: prepared.reference },
+            item.options.category,
+          );
+          stages.push({
+            stage: "reference-views",
+            milliseconds: Math.round(performance.now() - viewsAt),
+          });
+        }
         const checked = await generateCheckedDesign(description, item.options, {
           compile,
           signal,
@@ -183,16 +210,20 @@ export async function runPhotoBenchmark(
         result.geometrySha256 = createHash("sha256")
           .update(JSON.stringify(checked.model.placements))
           .digest("hex");
+        const observed = isSculptDesign(description)
+          ? description.traits
+          : description;
         result.featureChecks = Object.entries(item.expected).map(
           ([feature, expected]) => ({
             feature,
             expected,
-            actual: description[feature] ?? null,
+            actual: observed[feature] ?? null,
             passed:
-              Object.hasOwn(description, feature) &&
-              description[feature] === expected,
+              Object.hasOwn(observed, feature) &&
+              observed[feature] === expected,
           }),
         );
+        await onModel(item.id, checked.model);
         result.fidelity = checked.fidelity;
         result.repairCount = checked.repairCount;
         result.digitalValidation = checked.validation.status;
@@ -224,6 +255,7 @@ export async function runPhotoBenchmark(
     results,
     limitations: [
       "Expected-feature comparisons evaluate interpretation, not image likeness.",
+      "Silhouette agreement compares the model with AI-drawn reference views, not with the photos themselves; saved renders support the human resemblance review.",
       "Digital assembly checks do not certify physical fit, clutch, balance or strength.",
       "No automatic retry of paid interpretation, including ambiguous failures.",
     ],

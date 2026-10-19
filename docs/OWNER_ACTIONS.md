@@ -36,7 +36,7 @@ Open your existing `brickmade` Vercel project's Production environment settings.
 | `SUPABASE_SERVICE_ROLE_KEY` | This project's server secret key or legacy service-role key | **Yes** |
 | `BRICKMADE_APP_ORIGIN` | `https://brickmade.vercel.app` | No |
 | `OPENAI_API_KEY` | Keep your existing OpenAI project key here; the build assistant uses it server-side | **Yes** |
-| `OPENAI_MODEL` | Keep your selected image/Responses/strict-output-capable model; repository default `gpt-5.2` | No |
+| `OPENAI_MODEL` | Keep your selected image/Responses/strict-output-capable model; repository default `gpt-5.5` | No |
 
 No secret uses a `NEXT_PUBLIC_` name. The existing legacy test token/origins can remain for `/create/demo`; the new Studio does not request a test code. `OPENAI_ASSISTANT_MODEL` optionally overrides only build-help responses. Redeploy after saving.
 
@@ -46,7 +46,7 @@ For initial private testing, use a trusted computer with Node 24. No additional 
 
 1. Clone/update this repository; run `npm ci`.
 2. Copy `.env.example` to the ignored `.env.local`.
-3. Enter the same three `SUPABASE_` settings, `OPENAI_API_KEY`, `OPENAI_MODEL`, and `OPENAI_REASONING_EFFORT=high` privately. The key in Vercel is not automatically available on this computer.
+3. Enter the same three `SUPABASE_` settings, `OPENAI_API_KEY`, `OPENAI_MODEL`, `OPENAI_REASONING_EFFORT=high`, `OPENAI_IMAGE_MODEL=gpt-image-2` and `OPENAI_IMAGE_QUALITY=medium` privately. The key in Vercel is not automatically available on this computer.
 4. Run `npm run worker` and leave it running. It requires no public port or tunnel.
 5. In another terminal run `npm run studio:doctor`. It checks Auth, schema, private buckets and fresh category-capable worker heartbeats, without creating a user/job or calling OpenAI. Resolve any failed check before generating. An advertised provider setting is not proof the key/model works; the first real photo test checks that.
 

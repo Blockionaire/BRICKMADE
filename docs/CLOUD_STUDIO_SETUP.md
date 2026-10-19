@@ -55,7 +55,9 @@ Build from [`worker.Dockerfile`](../worker.Dockerfile). Or on a Node 24 host run
 | `SUPABASE_PUBLISHABLE_KEY` | No | Same publishable/legacy anon key |
 | `SUPABASE_SERVICE_ROLE_KEY` | **Yes** | Same server-only service credential |
 | `OPENAI_API_KEY` | **Yes** | Your OpenAI project key, entered only in the worker host's secrets |
-| `OPENAI_MODEL` | No | `gpt-5.2` default; must support image input, Responses and strict structured output |
+| `OPENAI_MODEL` | No | `gpt-5.5` default; must support image input, Responses and strict structured output |
+| `OPENAI_IMAGE_MODEL` | No | `gpt-image-2` default; draws the orthographic reference views (image edits with streaming) |
+| `OPENAI_IMAGE_QUALITY` | No | `medium` default (`low`, `medium` or `high`); higher costs more per view |
 | `OPENAI_REASONING_EFFORT` | No | `high` default; `low`, `medium` or `high` supported |
 
 The OpenAI key already stored in Vercel is **not automatically available to this worker**. Copy it directly between the providers' secret settings. The server does not infer missing dimensions or generate arbitrary unsupported parts. A stronger vision model can improve interpretation; it cannot remove the current compiler's geometry limits.

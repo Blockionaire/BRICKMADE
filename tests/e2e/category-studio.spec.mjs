@@ -325,7 +325,7 @@ for (const category of ["flower", "car", "animal", "free"]) {
     const label = {
       flower: /Flower.*bloom/,
       car: /Car.*static display/,
-      animal: /Animal.*Cats/,
+      animal: /Animal.*Pets/,
       free: /Free format.*grounded/,
     }[category];
     await page.getByRole("button", { name: label }).click();

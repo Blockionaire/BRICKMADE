@@ -176,15 +176,15 @@ const TRAITS: Record<StudioCategory, Rule> = {
     hubColor: color,
   }),
   animal: object({
-    species: text(40),
+    species: text(80),
     pose: choice(["standing", "sitting", "lying", "other"]),
     bodyColor: color,
     eyeColor: color,
     noseColor: color,
-    markings: text(160),
+    markings: text(300),
   }),
   flower: object({
-    plant: text(40),
+    plant: text(80),
     bloomCount: { type: "integer", minimum: 1, maximum: 12 },
     bloomForm: choice([
       "daisy",
@@ -204,7 +204,7 @@ const TRAITS: Record<StudioCategory, Rule> = {
     containerColor: color,
   }),
   free: object({
-    object: text(40),
+    object: text(80),
     crossSection: choice(["round", "rounded", "rect"]),
     mainColor: color,
   }),
@@ -214,11 +214,12 @@ export function sculptSchema(category: StudioCategory) {
     version: { type: "integer", enum: [3] },
     category: choice([category]),
     subject: choice([category, "unsupported"]),
-    title: text(60),
-    summary: text(600),
+    // Generous limits: providers that enforce them cut words mid-token.
+    title: text(120),
+    summary: text(1200),
     confidence: choice(["low", "medium", "high"]),
-    observations: { type: "array", maxItems: 10, items: text(160) },
-    uncertainties: { type: "array", maxItems: 10, items: text(160) },
+    observations: { type: "array", maxItems: 10, items: text(300) },
+    uncertainties: { type: "array", maxItems: 10, items: text(300) },
     dimensions: object({
       width: { type: "number", minimum: 0.01, maximum: 100 },
       depth: { type: "number", minimum: 0.01, maximum: 100 },
@@ -228,9 +229,9 @@ export function sculptSchema(category: StudioCategory) {
       type: "array",
       minItems: 1,
       maxItems: 10,
-      items: object({ region: text(40), color }),
+      items: object({ region: text(100), color }),
     },
-    viewNotes: text(400),
+    viewNotes: text(800),
     traits: TRAITS[category],
   });
 }
@@ -238,7 +239,7 @@ const coordinate: Rule = { type: "number", minimum: 0, maximum: 1 };
 export function featureSchema(category: StudioCategory) {
   return object({
     consistent: { type: "boolean" },
-    notes: { type: "array", maxItems: 6, items: text(160) },
+    notes: { type: "array", maxItems: 6, items: text(300) },
     features: {
       type: "array",
       maxItems: 40,

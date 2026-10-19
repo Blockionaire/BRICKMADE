@@ -1,5 +1,21 @@
 # BrickMade release notes
 
+## 2026-10-19 — Photo-carved sculptures for all five categories
+
+New builds no longer fill a fixed template. Every category now runs one pipeline (description version 3):
+
+1. **Category-informed interpretation** (`gpt-5.5` by default). Detailed per-category knowledge tells the model what makes a house, car, animal, flower or object recognisable, typical real sizes, how to choose LEGO colours per region (correcting for light), and what to tell the view artist. Animals are no longer limited to cats, dogs and rabbits.
+2. **Orthographic reference views** (`gpt-image-2`): front, side and top views of the subject on a flat key colour, drawn from the photos. They are segmented locally, with see-through glass and enclosed gaps filled, and stored as small RGB grids (at most 128 px). Photos are not stored; variants recompile from these grids without photos.
+3. **Feature location**: a second vision pass checks the views against the photos (inconsistent views stop the build) and locates windows, doors, wheels, lights, eyes, noses, blooms, leaves and containers.
+4. **Carving and packing**: a visual hull of the views at the chosen resolution, colours calibrated onto the interpreted palette, and anchored, bonded packing into real bricks and plates. Every part sits on a stud of an earlier part, so the instruction order is buildable. Real 45° and curved slopes smooth roofs and bodies; Detailed finishes tops with tiles; houses get real window frames with glass; flowers get carved pots, straight stems, real leaf elements and bloom heads.
+5. **Resemblance measure**: overlap of the built model with each reference silhouette (front/side). The gate is 55% (30% for open flower forms).
+
+**Design quality** now changes the design itself. Simple uses whole-brick courses, about 4 colours and a coarse grid. Standard works at plate level with about 8 colours, slopes and fitted details. Detailed uses a ~1.4× finer grid with about 12 colours, slopes and a studless tiled finish. **Building experience** (Beginner, Hobbyist, Advanced) changes only the instructions: at most 6 pieces per step, about 16 per step grouped by area, or whole layers. The app has a new **printable manual** (`/manual`) that draws every step from the real part meshes, with exact part callouts per step and per bag.
+
+Verification: lint, TypeScript, production build. 843 unit/domain/API tests pass, including 14 new sculpture tests. Those cover all 5 categories × 3 levels with full collision/insertion/anchoring checks, the level and experience differences, the v3 job flow without repeated paid calls, and artifact v3 integrity. 12 mobile browser scenarios pass (5 new: create → result → builder → printable manual for every category, with no horizontal overflow). The fixtures are live-pipeline outputs from AI-generated stand-in photos, not anyone's real photos.
+
+Limits: hidden sides come from AI-drawn views and are estimates. Silhouette agreement is not certified photographic accuracy. Physical fit and strength remain untested. The OpenAI account behind this test ran out of credit during development; it must be topped up before hosted builds can run (the app now says so explicitly).
+
 ## 2026-10-16 — Five category grammars, saved-design AI help and private test tooling
 
 The autonomous implementation across the five requested work areas is complete. Hosted activation, real-photo quality evidence, exact marketplace mapping/import acceptance and physical tests still need the owner's accounts/data or actual pieces. No hosted Supabase migration, renovation login cutover, paid AI call, subscription or order was performed.

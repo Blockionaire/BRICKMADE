@@ -305,7 +305,7 @@ for (const category of ["flower", "car", "animal", "free"]) {
     const labels: Record<string, RegExp> = {
       flower: /Flower.*bloom/,
       car: /Car.*static display/,
-      animal: /Animal.*Cats/,
+      animal: /Animal.*Pets/,
       free: /Free format.*grounded/,
     };
     await page.getByRole("button", { name: labels[category] }).click();
