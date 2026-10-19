@@ -1,5 +1,22 @@
 # BrickMade release notes
 
+## 2026-10-19 — Parts library: 1,928 more real parts with verified connections
+
+The builder catalogue grows from 327 to 2,255 parts. The new parts are the most-used undecorated LEGO System parts, ranked by how often they appear in real Rebrickable inventories. Each one has:
+
+- its official LDraw geometry, as a compact mesh;
+- a 0.4 mm collision solid;
+- its observed colours and its Rebrickable/LDraw identity;
+- connection points from the LDCad Shadow Library (CC BY-SA 4.0).
+
+Besides studs and anti-studs there are new connection kinds: axles and axle holes, Technic pins and pin holes, bars, bar holders and hollow studs, and clips. A shared-axis engagement rule decides which of them fit together. Every proposed connection point was tested against reference parts (pin, axle, bar, beam, clip, hollow stud). It passes only if the reference seats, overlaps nothing but the hole's own bore, and withdraws freely. 38,710 of 40,139 proposals passed. 1,613 parts are now connection-tested and 315 are display-only. See `docs/PARTS_LIBRARY.md`.
+
+The printable manual now has an **LDraw file** button. It exports the model as an `.ldr` file with one step per build step, which LeoCAD, LDCad and BrickLink Studio can open.
+
+Not yet included: generation does not use the new parts yet. SNOT, wheels and axles, and more curved slopes are the next step. Hinge fingers and tyre-on-rim fits are not modelled yet. The builder registry adds about 0.8 MB gzipped to the app bundle; loading it on demand is a planned follow-up.
+
+Verification: lint, TypeScript, production build. 866 tests pass, including a re-audit of a fixed sample of library parts, exact unpacking of every packed profile, and an LDraw export check against the builder's own connector positions and official brick datums. The mobile manual page shows no horizontal overflow, and the download works.
+
 ## 2026-10-19 — Photo-carved sculptures for all five categories
 
 New builds no longer fill a fixed template. Every category now runs one pipeline (description version 3):

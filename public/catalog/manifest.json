@@ -2724,5 +2724,9 @@
   "connectionTestedBuilderPartCount": 221,
   "portedBuilderPartCount": 264,
   "geometryOnlyBuilderPartCount": 63,
-  "newPortWitnessCount": 8968
+  "newPortWitnessCount": 8968,
+  "libraryBuilderPartCount": 1928,
+  "libraryConnectionTestedPartCount": 1613,
+  "libraryAcceptedConnectorCount": 38710,
+  "libraryRejectedConnectorCount": 1429
 }

@@ -3,11 +3,12 @@
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
-import { ArrowLeft, LoaderCircle, Printer } from "lucide-react";
+import { ArrowLeft, Download, LoaderCircle, Printer } from "lucide-react";
 import { projectModel } from "@/domain/project-model";
 import { CATALOG, COLORS } from "@/domain/catalog";
 import { useProjects } from "@/services/project-repository";
 import { createStepRenderer } from "@/services/step-renderer";
+import { exportLDraw } from "@/domain/export/ldraw";
 import { PartCard } from "@/components/ui";
 import { ProjectSelector } from "@/components/project-selector";
 import type { HouseModel, Project } from "@/domain/types";
@@ -59,6 +60,17 @@ function Manual({ active }: { active: Project }) {
       dispose?.();
     };
   }, [model]);
+  const downloadLDraw = () => {
+    const { fileName, text } = exportLDraw(model, active.name);
+    const url = URL.createObjectURL(
+      new Blob([text], { type: "application/x-ldraw" }),
+    );
+    const link = document.createElement("a");
+    link.href = url;
+    link.download = fileName;
+    link.click();
+    setTimeout(() => URL.revokeObjectURL(url), 0);
+  };
   const ready = Object.keys(images).length;
   const complete = ready === model.steps.length;
   return (
@@ -68,6 +80,13 @@ function Manual({ active }: { active: Project }) {
           <ArrowLeft size={16} /> Back to the builder
         </Link>
         <ProjectSelector />
+        <button
+          className="button button-secondary"
+          onClick={downloadLDraw}
+          title="Open the model in LDraw tools such as LeoCAD or BrickLink Studio"
+        >
+          <Download size={18} /> LDraw file
+        </button>
         <button
           className="button button-primary"
           disabled={!complete}

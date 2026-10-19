@@ -28,6 +28,7 @@ import {
   createPartGeometry,
 } from "@/services/builder-geometry";
 import type { PartPose, Vec3 } from "@/domain/parts/types";
+import catalogManifest from "../public/catalog/manifest.json";
 
 const pose = (
   id: string,
@@ -45,7 +46,12 @@ const bytes = (id: string) => {
 };
 describe("Accurate real geometry in the builder", () => {
   it("covers all house identities with explicit namespaces and correct physical scale", () => {
-    expect(BUILDER_PARTS).toHaveLength(327);
+    expect(BUILDER_PARTS.filter((p) => p.batch !== "library")).toHaveLength(
+      327,
+    );
+    expect(BUILDER_PARTS).toHaveLength(
+      327 + catalogManifest.libraryBuilderPartCount,
+    );
     expect(PART_UNITS.studMillimetres).toBe(8);
     expect(PART_UNITS.lduMillimetres).toBe(0.4);
     expect(BUILDER_BY_REBRICKABLE.get("3023")!.id).toBe("3023b");
@@ -119,6 +125,17 @@ describe("Accurate real geometry in the builder", () => {
       expect(covered.size).toBe(p.mesh.vertexCount);
       expect(overlap).toBe(false);
       geometry.dispose();
+      // Library source documents live in the reproducible build cache, not in git.
+      if (p.batch === "library") {
+        expect(p.geometryFile).toBe(`build-cache:geometry/${p.id}.mpd`);
+        expect(p.source.url).toMatch(/^https:\/\/library\.ldraw\.org\//);
+        for (const c of p.connectors) {
+          expect(c.evidence.file).toMatch(/^ldcad:(parts|p)\//);
+          expect(Math.hypot(...c.normal)).toBeCloseTo(1);
+          expect(c.status).toBe("geometry-reviewed");
+        }
+        continue;
+      }
       const document = fs.readFileSync(`public${p.geometryFile}`, "utf8");
       expect(createHash("sha256").update(document).digest("hex")).toBe(
         p.geometrySha256,
@@ -131,7 +148,7 @@ describe("Accurate real geometry in the builder", () => {
         expect(c.status).toBe("geometry-reviewed");
       }
     }
-  }, 30000);
+  }, 300000);
   it.each(["3005", "3023b", "11477", "3039", "2780", "4070", "24866"])(
     "%s compiled bounds equal uniformly transformed original surfaces",
     async (id) => {
@@ -194,8 +211,8 @@ describe("Accurate real geometry in the builder", () => {
     );
     expect(result.status).toBe(0);
     expect(JSON.parse(result.stdout)).toEqual({
-      parts: 327,
-      connectors: 1514,
+      parts: 327 + catalogManifest.libraryBuilderPartCount,
+      connectors: 1514 + catalogManifest.libraryAcceptedConnectorCount,
       verified: 0,
       fk: [],
     });

@@ -1,7 +1,8 @@
 /** Compile original LDraw surfaces to small, uniformly scaled binary meshes.
  * No remeshing, body boxes, nonuniform stretching or geometry simplification.
- * Binary: LE uint32 magic 0x45474d42 ('BMGE'), version 1, vertex count,
- * followed by Float32 XYZ positions then Float32 XYZ normals.
+ * Binary format: see mesh-format.mjs. Reviewed core/expansion parts use version 1;
+ * parts-library parts (source geometry in the git-ignored build cache) use the compact
+ * version 2. `--batch library` compiles only that batch.
  */
 import fs from "node:fs/promises";
 import { createHash } from "node:crypto";
@@ -9,6 +10,7 @@ import { spawnSync } from "node:child_process";
 import * as THREE from "three";
 import { LDrawLoader } from "three/examples/jsm/loaders/LDrawLoader.js";
 import { LDrawConditionalLineMaterial } from "three/examples/jsm/materials/LDrawConditionalLineMaterial.js";
+import { decodeMesh, encodeMeshV2 } from "./mesh-format.mjs";
 const directory = new URL("../../public/catalog/", import.meta.url);
 const manifest = JSON.parse(
   await fs.readFile(new URL("builder-parts.json", directory), "utf8"),
@@ -23,10 +25,17 @@ const colorHeaders = palette
       `0 !COLOUR LDraw_${c.id} CODE ${c.id} VALUE ${c.hex} EDGE ${c.edge} ALPHA ${c.alpha}`,
   )
   .join("\n");
+const cache = new URL("../../.cache/catalog/", import.meta.url);
+const onlyBatch = process.argv.includes("--batch")
+  ? process.argv[process.argv.indexOf("--batch") + 1]
+  : null;
 const resources = new Set();
 for (const part of manifest.parts) {
+  if (onlyBatch && part.batch !== onlyBatch) continue;
   const original = await fs.readFile(
-    new URL(`geometry/${part.id}.mpd`, directory),
+    part.geometryFile?.startsWith("build-cache:")
+      ? new URL(part.geometryFile.slice("build-cache:".length), cache)
+      : new URL(`geometry/${part.id}.mpd`, directory),
     "utf8",
   );
   const document = original
@@ -90,14 +99,21 @@ for (const part of manifest.parts) {
   });
   if (!positions.length || positions.some((n) => !Number.isFinite(n)))
     throw Error("Invalid mesh " + part.id);
-  const buffer = Buffer.alloc(12 + (positions.length + normals.length) * 4);
-  buffer.writeUInt32LE(0x45474d42, 0);
-  buffer.writeUInt32LE(1, 4);
-  buffer.writeUInt32LE(positions.length / 3, 8);
-  positions.forEach((v, i) => buffer.writeFloatLE(v, 12 + i * 4));
-  normals.forEach((v, i) =>
-    buffer.writeFloatLE(v, 12 + (positions.length + i) * 4),
-  );
+  let buffer;
+  if (part.batch === "library") {
+    buffer = encodeMeshV2(positions, normals);
+    // Bounds and audits use exactly what the browser decodes.
+    decodeMesh(buffer).positions.forEach((v, i) => (positions[i] = v));
+  } else {
+    buffer = Buffer.alloc(12 + (positions.length + normals.length) * 4);
+    buffer.writeUInt32LE(0x45474d42, 0);
+    buffer.writeUInt32LE(1, 4);
+    buffer.writeUInt32LE(positions.length / 3, 8);
+    positions.forEach((v, i) => buffer.writeFloatLE(v, 12 + i * 4));
+    normals.forEach((v, i) =>
+      buffer.writeFloatLE(v, 12 + (positions.length + i) * 4),
+    );
+  }
   await fs.writeFile(new URL(`geometry/${part.id}.bin`, directory), buffer);
   const bounds = [
     Infinity,
@@ -141,7 +157,7 @@ for (const part of manifest.parts) {
 }
 await fs.writeFile(
   new URL("builder-parts.json", directory),
-  JSON.stringify(manifest, null, 2) + "\n",
+  JSON.stringify(manifest) + "\n",
 );
 const sync = spawnSync(
   "python3",
