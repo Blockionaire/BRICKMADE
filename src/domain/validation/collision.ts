@@ -17,12 +17,15 @@ export interface CollisionInstance {
   max: Vec3;
 }
 export const COLLISION_RESOLUTION = 0.05;
+/** Version 1 stores the occupancy bits; version 2 (parts library) stores LEB128 run
+ * lengths of alternating empty/solid cells, starting with empty. */
 export function decodeCollisionShape(buffer: ArrayBuffer): CollisionShape {
   if (buffer.byteLength < 36) throw Error("Truncated collision artifact.");
-  const d = new DataView(buffer);
+  const d = new DataView(buffer),
+    version = d.getUint32(4, true);
   if (
     d.getUint32(0, true) !== 0x31585642 ||
-    d.getUint32(4, true) !== 1 ||
+    (version !== 1 && version !== 2) ||
     Math.abs(d.getFloat32(8, true) - COLLISION_RESOLUTION) > 1e-7
   )
     throw Error("Collision artifact version mismatch.");
@@ -32,12 +35,39 @@ export function decodeCollisionShape(buffer: ArrayBuffer): CollisionShape {
   if (
     dims.some((n) => !n || n > 1000) ||
     total > 10_000_000 ||
-    buffer.byteLength !== 36 + Math.ceil(total / 8)
+    (version === 1 && buffer.byteLength !== 36 + Math.ceil(total / 8))
   )
     throw Error("Invalid collision artifact dimensions.");
-  const bits = new Uint8Array(buffer, 36);
-  if (total % 8 && bits.at(-1)! >> (total % 8))
-    throw Error("Invalid collision padding bits.");
+  let bits: Uint8Array;
+  if (version === 1) {
+    bits = new Uint8Array(buffer, 36);
+    if (total % 8 && bits.at(-1)! >> (total % 8))
+      throw Error("Invalid collision padding bits.");
+  } else {
+    bits = new Uint8Array(Math.ceil(total / 8));
+    const runs = new Uint8Array(buffer, 36);
+    let offset = 0,
+      cell = 0,
+      solid = false;
+    while (offset < runs.length) {
+      let run = 0,
+        shift = 0,
+        byte: number;
+      do {
+        if (offset >= runs.length || shift > 28)
+          throw Error("Invalid collision run length.");
+        byte = runs[offset++];
+        run += (byte & 0x7f) * 2 ** shift;
+        shift += 7;
+      } while (byte & 0x80);
+      if (cell + run > total) throw Error("Invalid collision run length.");
+      if (solid)
+        for (let i = cell; i < cell + run; i++) bits[i >> 3] |= 1 << (i & 7);
+      cell += run;
+      solid = !solid;
+    }
+    if (cell !== total) throw Error("Invalid collision run length.");
+  }
   let occupiedCells = 0;
   for (const b of bits) {
     let n = b;

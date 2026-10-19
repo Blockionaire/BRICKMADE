@@ -53,10 +53,117 @@ export function worldConnectors(pose: PartPose): WorldConnector[] {
       : undefined,
   }));
 }
+const CYLINDER_KINDS = new Set(["cyl-male", "cyl-female", "clip"]);
+const sectionLength = (c: Connector) =>
+  (c.sections ?? []).reduce((n, s) => n + s.length, 0);
+/** Section at a distance along the connector's axis, or undefined past its ends. */
+function sectionAt(c: Connector, t: number) {
+  let start = 0;
+  for (const s of c.sections ?? []) {
+    if (t >= start - 1e-6 && t <= start + s.length + 1e-6) return s;
+    start += s.length;
+  }
+  return undefined;
+}
+const RADIUS_TOLERANCE = 0.026; // 0.5 LDU
+/** A male cross-axle turns freely in a round hole; a round pin cannot enter a cross hole. */
+function shapesFit(male: string, female: string) {
+  if (female === "C") return male !== "A";
+  if (male === "A") return female === "A" || female === "R";
+  if (female === "A") return false;
+  return true;
+}
+function cylinderValid(c: Connector) {
+  return (
+    CYLINDER_KINDS.has(c.kind) &&
+    c.status === "geometry-reviewed" &&
+    Array.isArray(c.sections) &&
+    c.sections.length > 0 &&
+    c.sections.every(
+      (s) =>
+        typeof s.shape === "string" &&
+        Number.isFinite(s.radius) &&
+        s.radius > 0 &&
+        Number.isFinite(s.length) &&
+        s.length > 0,
+    ) &&
+    c.position.every(Number.isFinite) &&
+    Math.abs(Math.hypot(...c.normal) - 1) < 1e-5 &&
+    !!c.evidence.file &&
+    !!c.evidence.method
+  );
+}
+/**
+ * LDCad-style cylinder engagement: the axes must coincide; fixed snaps seat at their
+ * start datums, sliding ones anywhere they overlap. Within the overlap the male may be
+ * narrower than the hole (collars, countersinks) but must engage at least 3 LDU at an
+ * equal radius with a compatible cross-section.
+ */
+export function sectionRadiusAt(c: Connector, t: number) {
+  return sectionAt(c, t)?.radius;
+}
+export function cylinderEngagement(a: WorldConnector, b: WorldConnector) {
+  if (!cylinderValid(a) || !cylinderValid(b))
+    return { reason: "Not cylinder snaps." };
+  const male =
+    a.kind === "cyl-male" ? a : b.kind === "cyl-male" ? b : undefined;
+  const female = male === a ? b : a;
+  if (!male || female.kind === "cyl-male")
+    return { reason: "A cylinder fit needs one shaft and one hole or clip." };
+  const na = new Vector3(...male.normal),
+    nb = new Vector3(...female.normal);
+  const dot = na.dot(nb);
+  if (Math.abs(dot) < -angleLimit)
+    return { reason: "The axes are not parallel." };
+  const slide = !!(male.slide || female.slide);
+  if (!slide && dot < 0)
+    return { reason: "Fixed snaps must point the same way." };
+  const offset = new Vector3(...female.position).sub(
+    new Vector3(...male.position),
+  );
+  const along = offset.dot(na);
+  const lateral = offset.clone().sub(na.clone().multiplyScalar(along)).length();
+  if (lateral > 0.01) return { reason: "The axes do not coincide." };
+  // Female interval expressed along the male axis.
+  const lf = sectionLength(female),
+    lm = sectionLength(male);
+  const f0 = along,
+    f1 = along + (dot > 0 ? lf : -lf);
+  const lo = Math.max(0, Math.min(f0, f1)),
+    hi = Math.min(lm, Math.max(f0, f1));
+  if (hi - lo <= 1e-4)
+    return { reason: "The shaft does not reach into the hole." };
+  if (!slide && Math.abs(along) > SEATING_TOLERANCE)
+    return { reason: "Fixed snaps must seat at their start datums." };
+  let engaged = 0;
+  const step = 0.025;
+  for (let t = lo + step / 2; t < hi; t += step) {
+    const ms = sectionAt(male, t),
+      fs = sectionAt(female, dot > 0 ? t - along : along - t);
+    if (!ms || !fs) continue;
+    if (ms.radius > fs.radius + RADIUS_TOLERANCE)
+      return { reason: "The shaft is wider than the hole." };
+    if (Math.abs(ms.radius - fs.radius) <= RADIUS_TOLERANCE) {
+      if (!shapesFit(ms.shape, fs.shape))
+        return {
+          reason: "The cross-sections do not fit (round pin in an axle hole).",
+        };
+      engaged += step;
+    }
+  }
+  if (engaged < 0.15 - 1e-6) return { reason: "Too little engaged length." };
+  return { male, female, lo, hi, along, dot, slide };
+}
 export function compatibleFamily(
   a: Connector,
   b: Connector,
-): "stud" | "pin" | "window" | undefined {
+): "stud" | "pin" | "window" | "cylinder" | undefined {
+  if (CYLINDER_KINDS.has(a.kind) || CYLINDER_KINDS.has(b.kind))
+    return cylinderValid(a) &&
+      cylinderValid(b) &&
+      (a.kind === "cyl-male") !== (b.kind === "cyl-male")
+      ? "cylinder"
+      : undefined;
   const valid = (c: Connector) =>
     c.status === "geometry-reviewed" &&
     c.position.length === 3 &&
@@ -139,6 +246,18 @@ export function inspectMate(
       reason:
         "These attachment types or dimensions do not have a supported fit.",
     };
+  if (family === "cylinder") {
+    const e = cylinderEngagement(a, b);
+    if (!("male" in e) || !e.male) return { reason: e.reason };
+    // A sliding shaft or bar can pass through several holes and clips.
+    const exclusive = [e.female, ...(e.male.slide ? [] : [e.male])];
+    if (exclusive.some((c) => occupied.has(connectorKey(c))))
+      return { reason: "That attachment point is already occupied." };
+    return {
+      mate: { a, b, distance: 0, family, status: "geometry-compatible" },
+      reason: "The shaft engages the hole along a shared axis.",
+    };
+  }
   if (
     [a, b].some(
       (c) => occupied.has(connectorKey(c)) || occupied.has(channelKey(c)),
@@ -187,7 +306,10 @@ export function snapPose(
   const from = new Vector3(...local.normal)
     .applyQuaternion(original)
     .normalize();
-  const to = new Vector3(...target.normal).normalize().negate();
+  const cylinder = CYLINDER_KINDS.has(local.kind);
+  const to = cylinder
+    ? new Vector3(...target.normal).normalize()
+    : new Vector3(...target.normal).normalize().negate();
   const alignment = new Rotation().setFromUnitVectors(from, to);
   const twist = new Rotation().setFromAxisAngle(
     to,
@@ -225,6 +347,8 @@ export function findMates(poses: PartPose[]): {
           for (const previous of buckets.get(
             key(cell[0] + x, cell[1] + y, cell[2] + z),
           ) ?? []) {
+            if (CYLINDER_KINDS.has(previous.kind) || CYLINDER_KINDS.has(c.kind))
+              continue; // handled by the axis-line pass below
             const { mate } = inspectMate(previous, c);
             if (mate) candidates.push(mate);
           }
@@ -232,6 +356,26 @@ export function findMates(poses: PartPose[]): {
     const bucket = buckets.get(bucketKey) ?? [];
     bucket.push(c);
     buckets.set(bucketKey, bucket);
+  }
+  // Cylinder snaps can engage away from their datums (sliding axles, bars in clips):
+  // group them by axis line instead of by position.
+  const lines = new Map<string, WorldConnector[]>();
+  for (const c of connectors) {
+    if (!CYLINDER_KINDS.has(c.kind)) continue;
+    const n = new Vector3(...c.normal);
+    if (n.x < -0.5 || n.y < -0.5 || n.z < -0.5) n.negate();
+    const p = new Vector3(...c.position);
+    const foot = p.clone().sub(n.clone().multiplyScalar(p.dot(n)));
+    const k = [...n.toArray(), ...foot.toArray()]
+      .map((v) => Math.round(v * 50))
+      .join(",");
+    const list = lines.get(k) ?? [];
+    for (const other of list) {
+      const { mate } = inspectMate(other, c);
+      if (mate) candidates.push(mate);
+    }
+    list.push(c);
+    lines.set(k, list);
   }
   candidates.sort(
     (a, b) =>
@@ -247,6 +391,9 @@ export function findMates(poses: PartPose[]): {
     if (!inspectMate(candidate.a, candidate.b, occupied).mate) continue;
     mates.push(candidate);
     for (const c of [candidate.a, candidate.b]) {
+      connected.add(c.pieceId);
+      if (candidate.family === "cylinder" && c.kind === "cyl-male" && c.slide)
+        continue;
       occupied.add(connectorKey(c));
       if (c.channel) occupied.add(channelKey(c));
       connected.add(c.pieceId);

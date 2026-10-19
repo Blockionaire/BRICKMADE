@@ -7710,3 +7710,176 @@ button.part-card:active {
 .build-handoff-actions { display:flex; flex-wrap:wrap; align-items:center; gap:12px; margin:18px 0 24px; }
 .assistant-references { display:block; color:var(--muted); margin:8px 0; font-size:11px; }
 @media(max-width:600px) { .build-handoff-actions > .button { flex:1 1 160px; } }
+
+/* Reference views the sculpture was carved from */
+.studio-reference-views {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(84px, 1fr));
+  gap: 10px;
+  margin: 12px 0 8px;
+}
+.studio-reference-views figure {
+  margin: 0;
+  display: grid;
+  gap: 4px;
+  justify-items: center;
+}
+.studio-reference-views canvas {
+  width: 100%;
+  max-width: 140px;
+  aspect-ratio: auto;
+  image-rendering: pixelated;
+  border-radius: 10px;
+  background: var(--surface-soft, rgba(0, 0, 0, 0.04));
+}
+.studio-reference-views figcaption {
+  font-size: 0.75rem;
+  opacity: 0.7;
+}
+
+/* Printable building manual */
+.manual-page {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 24px;
+  overflow-wrap: anywhere;
+  min-width: 0;
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 24px 16px 64px;
+}
+.manual-toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+.manual-toolbar .project-switcher {
+  flex: 1 1 100%;
+  margin-bottom: 0;
+}
+.manual-toolbar > *,
+.manual-cover > *,
+.manual-bag {
+  min-width: 0;
+  max-width: 100%;
+}
+.manual-cover {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: 24px;
+  align-items: center;
+}
+.manual-cover img,
+.manual-step img {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+.manual-small {
+  font-size: 0.85rem;
+  opacity: 0.75;
+}
+.manual-bag h2 {
+  display: flex;
+  align-items: baseline;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+.manual-bag h2 small {
+  font-size: 0.9rem;
+  opacity: 0.7;
+}
+.manual-parts {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 8px;
+  margin: 12px 0 20px;
+}
+.manual-steps {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 16px;
+}
+.manual-step {
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  border-radius: 16px;
+  padding: 12px;
+  background: #fffdf9;
+  break-inside: avoid;
+}
+.manual-step-head {
+  display: flex;
+  gap: 10px;
+  align-items: baseline;
+}
+.manual-step-head b {
+  font-size: 1.6rem;
+  line-height: 1;
+}
+.manual-step-placeholder {
+  aspect-ratio: 520 / 420;
+  border-radius: 10px;
+  background: rgba(0, 0, 0, 0.04);
+}
+.manual-callout {
+  list-style: none;
+  padding: 0;
+  margin: 8px 0 0;
+  display: grid;
+  gap: 4px;
+  font-size: 0.9rem;
+}
+.manual-swatch {
+  display: inline-block;
+  width: 12px;
+  height: 12px;
+  border-radius: 3px;
+  margin-right: 6px;
+  vertical-align: -1px;
+  border: 1px solid rgba(0, 0, 0, 0.25);
+}
+@media (max-width: 640px) {
+  .manual-cover {
+    grid-template-columns: 1fr;
+  }
+  .manual-steps,
+  .manual-parts {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+@media print {
+  .manual-toolbar,
+  .skip-link,
+  header,
+  nav,
+  footer {
+    display: none !important;
+  }
+  .manual-page {
+    padding: 0;
+    max-width: none;
+  }
+  .manual-steps {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  .manual-bag {
+    break-before: page;
+  }
+  .manual-step {
+    background: #fff;
+  }
+}
+.studio-variant-label {
+  display: block;
+  margin: 10px 0 -2px;
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--muted);
+}

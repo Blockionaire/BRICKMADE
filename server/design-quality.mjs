@@ -1,6 +1,6 @@
 /** Bounded category-specific repairs; the source interpretation is retained. */
 export function repairDescription(s, attempt) {
-  if (!attempt) return s;
+  if (!attempt || s.version === 3) return s;
   if (!("category" in s))
     return attempt === 1
       ? { ...s, chimney: false, garden: false }
@@ -33,6 +33,8 @@ export function repairDescription(s, attempt) {
   }
 }
 export function evaluateFidelity(description, result) {
+  // Version 3 measures agreement with the reference silhouettes during compilation.
+  if (description.version === 3) return result.fidelity;
   if (!("category" in description)) {
     const desired =
       description.frontWindows +
@@ -105,6 +107,12 @@ export function evaluateFidelity(description, result) {
   };
 }
 export function passesFidelity(description, options, fidelity) {
+  if (description.version === 3) {
+    // Flowers are open forms (stems and leaves), so their silhouettes overlap less.
+    const minimum = description.category === "flower" ? 0.3 : 0.55;
+    const { front, side } = fidelity.silhouette;
+    return (front + side) / 2 >= minimum && fidelity.featureRetention >= 0.5;
+  }
   if (fidelity.aspectRatioError !== null && fidelity.aspectRatioError > 0.3)
     return false;
   return !("category" in description)

@@ -1,4 +1,6 @@
 "use client";
+import { ReferenceViews } from "./reference-views";
+import { DETAIL_LABELS, EXPERIENCE_LABELS } from "../../../shared/studio";
 import { useEffect, useRef, useState } from "react";
 import { useSearchParams, useRouter } from "next/navigation";
 import Link from "next/link";
@@ -294,12 +296,13 @@ export function StudioResult() {
             <span className="eyebrow">Make it yours</span>
             <h2>A build with your character.</h2>
             <p>{result.artifact.description.summary}</p>
+            <span className="studio-variant-label">Design quality</span>
             <div
               className="studio-variant-buttons"
               role="group"
-              aria-label="Change model detail"
+              aria-label="Design quality"
             >
-              {(["easy", "normal", "hard"] as const).map((detail, i) => (
+              {(["easy", "normal", "hard"] as const).map((detail) => (
                 <button
                   key={detail}
                   disabled={!!busy || current?.options.detail === detail}
@@ -309,10 +312,11 @@ export function StudioResult() {
                   }
                 >
                   <Sparkles size={16} />
-                  {["Simpler", "Balanced", "More detail"][i]}
+                  {DETAIL_LABELS[detail].name}
                 </button>
               ))}
             </div>
+            <span className="studio-variant-label">Size</span>
             <div
               className="studio-variant-buttons"
               role="group"
@@ -331,12 +335,13 @@ export function StudioResult() {
                 </button>
               ))}
             </div>
+            <span className="studio-variant-label">Building experience</span>
             <div
               className="studio-variant-buttons"
               role="group"
-              aria-label="Instruction pace"
+              aria-label="Building experience"
             >
-              {(["easy", "medium", "hard"] as const).map((pace, i) => (
+              {(["easy", "medium", "hard"] as const).map((pace) => (
                 <button
                   key={pace}
                   disabled={!!busy || current?.options.pace === pace}
@@ -346,7 +351,7 @@ export function StudioResult() {
                   }
                 >
                   <Layers size={16} />
-                  {["Small steps", "Balanced steps", "Layer by layer"][i]}
+                  {EXPERIENCE_LABELS[pace].name}
                 </button>
               ))}
             </div>
@@ -384,10 +389,25 @@ export function StudioResult() {
                 ))}
               </ul>
               <small>
-                Proportions are estimated. Feature consistency checks are not a
-                pixel-level resemblance score.
+                {result.artifact.fidelity.silhouette
+                  ? `The bricks cover ${Math.round(result.artifact.fidelity.silhouette.front * 100)}% of the front and ${Math.round(result.artifact.fidelity.silhouette.side * 100)}% of the side reference silhouette. The reference views are AI-drawn from your photos; hidden sides are estimated.`
+                  : "Proportions are estimated. Feature consistency checks are not a pixel-level resemblance score."}
               </small>
             </details>
+            {"reference" in result.artifact.description &&
+              result.artifact.description.reference && (
+                <details className="studio-adaptations">
+                  <summary>What BrickMade understood from your photos</summary>
+                  <ReferenceViews
+                    views={result.artifact.description.reference.views.views}
+                  />
+                  <small>
+                    These orthographic views were drawn by AI from your photos
+                    and carved into bricks. Your photos themselves are not
+                    stored with the design.
+                  </small>
+                </details>
+              )}
             {current && <StudioVersions current={current} />}
             <p className="studio-privacy">
               <ShieldCheck size={16} /> Private photos expire after 24 hours.

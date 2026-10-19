@@ -1,5 +1,38 @@
 # BrickMade release notes
 
+## 2026-10-19 — Parts library: 1,928 more real parts with verified connections
+
+The builder catalogue grows from 327 to 2,255 parts. The new parts are the most-used undecorated LEGO System parts, ranked by how often they appear in real Rebrickable inventories. Each one has:
+
+- its official LDraw geometry, as a compact mesh;
+- a 0.4 mm collision solid;
+- its observed colours and its Rebrickable/LDraw identity;
+- connection points from the LDCad Shadow Library (CC BY-SA 4.0).
+
+Besides studs and anti-studs there are new connection kinds: axles and axle holes, Technic pins and pin holes, bars, bar holders and hollow studs, and clips. A shared-axis engagement rule decides which of them fit together. Every proposed connection point was tested against reference parts (pin, axle, bar, beam, clip, hollow stud). It passes only if the reference seats, overlaps nothing but the hole's own bore, and withdraws freely. 38,710 of 40,139 proposals passed. 1,613 parts are now connection-tested and 315 are display-only. See `docs/PARTS_LIBRARY.md`.
+
+The printable manual now has an **LDraw file** button. It exports the model as an `.ldr` file with one step per build step, which LeoCAD, LDCad and BrickLink Studio can open.
+
+Not yet included: generation does not use the new parts yet. SNOT, wheels and axles, and more curved slopes are the next step. Hinge fingers and tyre-on-rim fits are not modelled yet. The builder registry adds about 0.8 MB gzipped to the app bundle; loading it on demand is a planned follow-up.
+
+Verification: lint, TypeScript, production build. 866 tests pass, including a re-audit of a fixed sample of library parts, exact unpacking of every packed profile, and an LDraw export check against the builder's own connector positions and official brick datums. The mobile manual page shows no horizontal overflow, and the download works.
+
+## 2026-10-19 — Photo-carved sculptures for all five categories
+
+New builds no longer fill a fixed template. Every category now runs one pipeline (description version 3):
+
+1. **Category-informed interpretation** (`gpt-5.5` by default). Detailed per-category knowledge tells the model what makes a house, car, animal, flower or object recognisable, typical real sizes, how to choose LEGO colours per region (correcting for light), and what to tell the view artist. Animals are no longer limited to cats, dogs and rabbits.
+2. **Orthographic reference views** (`gpt-image-2`): front, side and top views of the subject on a flat key colour, drawn from the photos. They are segmented locally, with see-through glass and enclosed gaps filled, and stored as small RGB grids (at most 128 px). Photos are not stored; variants recompile from these grids without photos.
+3. **Feature location**: a second vision pass checks the views against the photos (inconsistent views stop the build) and locates windows, doors, wheels, lights, eyes, noses, blooms, leaves and containers.
+4. **Carving and packing**: a visual hull of the views at the chosen resolution, colours calibrated onto the interpreted palette, and anchored, bonded packing into real bricks and plates. Every part sits on a stud of an earlier part, so the instruction order is buildable. Real 45° and curved slopes smooth roofs and bodies; Detailed finishes tops with tiles; houses get real window frames with glass; flowers get carved pots, straight stems, real leaf elements and bloom heads.
+5. **Resemblance measure**: overlap of the built model with each reference silhouette (front/side). The gate is 55% (30% for open flower forms).
+
+**Design quality** now changes the design itself. Simple uses whole-brick courses, about 4 colours and a coarse grid. Standard works at plate level with about 8 colours, slopes and fitted details. Detailed uses a ~1.4× finer grid with about 12 colours, slopes and a studless tiled finish. **Building experience** (Beginner, Hobbyist, Advanced) changes only the instructions: at most 6 pieces per step, about 16 per step grouped by area, or whole layers. The app has a new **printable manual** (`/manual`) that draws every step from the real part meshes, with exact part callouts per step and per bag.
+
+Verification: lint, TypeScript, production build. 843 unit/domain/API tests pass, including 14 new sculpture tests. Those cover all 5 categories × 3 levels with full collision/insertion/anchoring checks, the level and experience differences, the v3 job flow without repeated paid calls, and artifact v3 integrity. 12 mobile browser scenarios pass (5 new: create → result → builder → printable manual for every category, with no horizontal overflow). The fixtures are live-pipeline outputs from AI-generated stand-in photos, not anyone's real photos.
+
+Limits: hidden sides come from AI-drawn views and are estimates. Silhouette agreement is not certified photographic accuracy. Physical fit and strength remain untested. The OpenAI account behind this test ran out of credit during development; it must be topped up before hosted builds can run (the app now says so explicitly).
+
 ## 2026-10-16 — Five category grammars, saved-design AI help and private test tooling
 
 The autonomous implementation across the five requested work areas is complete. Hosted activation, real-photo quality evidence, exact marketplace mapping/import acceptance and physical tests still need the owner's accounts/data or actual pieces. No hosted Supabase migration, renovation login cutover, paid AI call, subscription or order was performed.

@@ -17,3 +17,6 @@ __pycache__/
 
 # User-owned benchmark photos and private reports
 private-benchmarks/
+
+# Reproducible catalog build inputs (LDraw source geometry)
+.cache/

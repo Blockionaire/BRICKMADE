@@ -49,7 +49,7 @@ Clone the current repository and run `npm ci`. Copy `.env.example` to ignored `.
 
 - The same three `SUPABASE_` variables as Vercel.
 - `OPENAI_API_KEY`: your secret key, copied directly into `.env.local` or a worker host's secret settings.
-- `OPENAI_MODEL=gpt-5.2` and `OPENAI_REASONING_EFFORT=high`.
+- `OPENAI_MODEL=gpt-5.5`, `OPENAI_REASONING_EFFORT=high`, `OPENAI_IMAGE_MODEL=gpt-image-2` and `OPENAI_IMAGE_QUALITY=medium`.
 
 Run `npm run worker` and keep it running through the test. In another terminal, run `npm run studio:doctor` to check actual schema/Auth/bucket connectivity and fresh category-capable worker presence without any paid AI call. It connects outward; no public port or tunnel is needed. The key already saved in Vercel is not automatically copied to this worker. A permanent worker host can be configured later; [the operations guide](CLOUD_STUDIO_SETUP.md) covers deployment and cleanup behavior.
 

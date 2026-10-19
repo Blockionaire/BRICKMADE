@@ -202,7 +202,9 @@ describe("Checked collision evidence", () => {
       expect(raw.byteLength).toBe(data.bytes);
       expect(shapes.get(part.id)!.occupiedCells).toBe(data.occupiedCells);
       expect(data.resolution).toBe(0.05);
-      expect(data.meshSha256).toBe(part.mesh.sha256);
+      // The packed library runtime omits audit fields; the source JSON keeps them.
+      if (part.batch !== "library")
+        expect(data.meshSha256).toBe(part.mesh.sha256);
     }
   });
   it("retains exact reviewed profiles and recorded color evidence in SQLite", () => {
@@ -215,7 +217,7 @@ from pathlib import Path
 parts={p['id']:p for p in json.loads(Path('public/catalog/builder-parts.json').read_text())['parts']}
 db=sqlite3.connect('public/catalog/brickmade.sqlite')
 rows=db.execute('SELECT ldraw_id,profile_json FROM builder_parts').fetchall()
-assert len(rows)==327
+assert len(rows)==len(parts)
 for ident,profile in rows:
  p=json.loads(profile)
  assert p==parts[ident],ident
@@ -246,6 +248,17 @@ print('matched')`,
     [24, 28, 32].forEach((i) => view.setUint32(i, 1, true));
     new Uint8Array(pad)[36] = 129;
     expect(() => decodeCollisionShape(pad)).toThrow(/padding/);
+    // Run-length artifacts must cover the grid exactly.
+    const runs = new ArrayBuffer(38),
+      rle = new DataView(runs);
+    rle.setUint32(0, 0x31585642, true);
+    rle.setUint32(4, 2, true);
+    rle.setFloat32(8, 0.05, true);
+    [24, 28, 32].forEach((i) => rle.setUint32(i, 2, true));
+    new Uint8Array(runs).set([3, 5], 36);
+    expect(decodeCollisionShape(runs).occupiedCells).toBe(5);
+    new Uint8Array(runs)[37] = 6;
+    expect(() => decodeCollisionShape(runs)).toThrow(/run length/);
   });
   it("never fills a rounded part outside its source bounding surface", () => {
     const pot = collisionInstance(

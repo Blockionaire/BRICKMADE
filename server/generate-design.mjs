@@ -12,7 +12,8 @@ export async function generateCheckedDesign(
 ) {
   let result,
     repairCount = 0;
-  const maxRepair = options.category === "free" ? 0 : 2;
+  const maxRepair =
+    options.category === "free" || description.version === 3 ? 0 : 2;
   for (let repair = 0; repair <= maxRepair; repair++) {
     const actual = repairDescription(description, repair);
     await onStage("compiling", 50 + repair * 16, { repair });
@@ -46,7 +47,9 @@ export async function generateCheckedDesign(
     throw new StudioError(
       422,
       "fidelity-limit",
-      "A technically checked design would lose too many visible features at this scale. Try a larger or more detailed version.",
+      description.version === 3
+        ? "The checked model did not follow the reference silhouette closely enough at this scale. Try a larger or more detailed version."
+        : "A technically checked design would lose too many visible features at this scale. Try a larger or more detailed version.",
     );
 
   return { ...result, repairCount };

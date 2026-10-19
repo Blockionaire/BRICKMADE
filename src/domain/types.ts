@@ -2,6 +2,7 @@ import type { HouseBrief } from "../../shared/house-brief";
 import type { HouseDesign } from "../../shared/studio";
 import type { StudioArtifact } from "../../shared/studio-artifact";
 import type { SubjectDesign } from "../../shared/subject-design";
+import type { SculptDesign } from "../../shared/sculpt-design";
 export type DetailLevel = "easy" | "normal" | "hard";
 export type BuildDifficulty = "easy" | "medium" | "hard";
 export type CameraView =
@@ -28,7 +29,30 @@ export type ColorId =
   | "purple"
   | "lavender"
   | "dark-blue"
-  | "dark-stone";
+  | "dark-stone"
+  | "magenta"
+  | "lime"
+  | "dark-tan"
+  | "medium-blue"
+  | "medium-nougat"
+  | "bright-light-orange"
+  | "dark-azure"
+  | "medium-azure"
+  | "sand-green"
+  | "dark-orange"
+  | "dark-pink"
+  | "bright-green"
+  | "bright-light-blue"
+  | "dark-green"
+  | "sand-blue"
+  | "dark-brown"
+  | "light-nougat"
+  | "bright-light-yellow"
+  | "nougat"
+  | "medium-lavender"
+  | "dark-turquoise"
+  | "yellowish-green"
+  | "light-aqua";
 export type Category =
   | "Brick"
   | "Plate"
@@ -50,6 +74,8 @@ export interface GenerationSettings {
   houseBrief?: HouseBrief;
   houseDesign?: HouseDesign;
   subjectDesign?: SubjectDesign;
+  /** Version 3: photo-derived reference views carved into a sculpture. */
+  sculptDesign?: SculptDesign;
   designSource?: "manual" | "openai";
 }
 
@@ -119,10 +145,12 @@ export interface SortingGroup {
 export interface HouseModel {
   subject?: {
     moduleVersion: string;
-    description: SubjectDesign;
+    description: SubjectDesign | SculptDesign;
     adaptations: string[];
     footprintStuds: [number, number];
     features: { name: string; requested: number; retained: number }[];
+    /** Intersection-over-union of the built model with each reference silhouette. */
+    silhouette?: { front: number; side: number };
   };
   constructionPhases?: BuildPhase[];
   studio?: {

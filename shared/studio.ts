@@ -7,32 +7,108 @@ export const STUDIO_CATEGORIES = [
     name: "House",
     description: "Your home, made miniature.",
     available: true,
+    guide: {
+      tag: "House",
+      headline: "A familiar place.\nA new perspective.",
+      looksFor:
+        "We read its massing, storeys, roof form and pitch, the window and door layout of the front, and the brick, render and roof colours—then fit real window frames into the walls.",
+      tips: [
+        "Photograph the entrance side straight on, plus one corner view",
+        "Keep the whole roof and both corners in the frame",
+        "Cars, hedges and people in front are ignored",
+      ],
+    },
   },
   {
     id: "car",
     name: "Car",
     description: "Your ride as a static display model.",
     available: true,
+    guide: {
+      tag: "Car",
+      headline: "Every curve.\nIn bricks.",
+      looksFor:
+        "We read the side profile, roofline, wheel positions, body and glass colours and the face of the car—headlights, grille and bumpers.",
+      tips: [
+        "A clean side view matters most; add a front three-quarter view",
+        "Show all wheels and the full length of the car",
+        "Wheels are fixed display details, not rolling axles",
+      ],
+    },
   },
   {
     id: "animal",
     name: "Animal",
-    description: "Cats, dogs and rabbits with character.",
+    description: "Pets and animals in their own pose.",
     available: true,
+    guide: {
+      tag: "Animal",
+      headline: "Their pose.\nTheir colours.",
+      looksFor:
+        "We read the pose, head-to-body proportions, ears and tail, coat colours and markings, and place the eyes and nose where they really are.",
+      tips: [
+        "Show the whole animal, including paws, ears and tail",
+        "A side view plus a face-on view works best",
+        "Fur, whiskers and thin details are stepped at brick scale",
+      ],
+    },
   },
   {
     id: "flower",
     name: "Flower",
     description: "Something lovely, always in bloom.",
     available: true,
+    guide: {
+      tag: "Flower",
+      headline: "Always in bloom.\nNever wilting.",
+      looksFor:
+        "We count the blooms and read their form and colours, the stems and leaves, and the pot or vase—then build stems with real leaf elements and carved flower heads.",
+      tips: [
+        "Show the whole plant and its container",
+        "Blooms facing the camera read best",
+        "Very dense foliage is simplified to its main leaves",
+      ],
+    },
   },
   {
     id: "free",
     name: "Free format",
     description: "Turn an object into a grounded sculpture.",
     available: true,
+    guide: {
+      tag: "Free format",
+      headline: "Any object.\nBrick by brick.",
+      looksFor:
+        "We read the object's silhouette, its cross-section (round, rounded or square), colour regions and small identifying details.",
+      tips: [
+        "One solid object, fully in view, on a plain background if possible",
+        "Add a side view for objects that are not symmetrical",
+        "Thin wires, glass and text are approximated",
+      ],
+    },
   },
 ] as const;
+/** What each detail level changes in the design itself. */
+export const DETAIL_LABELS = {
+  easy: {
+    name: "Simple",
+    hint: "Whole bricks, the main colours, a bolder silhouette",
+  },
+  normal: {
+    name: "Standard",
+    hint: "Plate-level shaping, real slopes and fitted details",
+  },
+  hard: {
+    name: "Detailed",
+    hint: "A finer grid, more colours and a smooth tiled finish",
+  },
+} as const;
+/** What each build-experience level changes in the instructions. */
+export const EXPERIENCE_LABELS = {
+  easy: { name: "Beginner", hint: "A few pieces per step, one area at a time" },
+  medium: { name: "Hobbyist", hint: "Comfortable steps grouped by area" },
+  hard: { name: "Advanced", hint: "Whole layers per step, like a pro set" },
+} as const;
 export type StudioCategory = (typeof STUDIO_CATEGORIES)[number]["id"];
 export type StudioDetail = "easy" | "normal" | "hard";
 export type StudioPace = "easy" | "medium" | "hard";

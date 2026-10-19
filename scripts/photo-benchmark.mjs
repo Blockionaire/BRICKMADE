@@ -19,16 +19,27 @@ const abort = new AbortController();
 process.once("SIGINT", () => abort.abort());
 try {
   const cases = await loadBenchmark(resolve(value("--manifest")));
+  const folder = resolve("private-benchmarks/reports");
+  await mkdir(folder, { recursive: true, mode: 0o700 });
+  const stamp = Date.now();
   const report = await runPhotoBenchmark(cases, {
     live: args.includes("--live"),
     maxCalls: Number(value("--max-calls") || 0),
     signal: abort.signal,
     onCase: (r) => console.info(JSON.stringify(r)),
+    // Renders of the built model (never the photos) for side-by-side human review.
+    onModel: async (id, model) => {
+      const { renderPlacements } = await import("../server/model-render.mjs");
+      for (const view of ["perspective", "front", "side"])
+        await writeFile(
+          resolve(folder, `report-${stamp}-${id}-${view}.png`),
+          await renderPlacements(model.placements, { view }),
+          { mode: 0o600 },
+        );
+    },
   });
-  const folder = resolve("private-benchmarks/reports");
-  await mkdir(folder, { recursive: true, mode: 0o700 });
   await writeFile(
-    resolve(folder, `report-${Date.now()}.json`),
+    resolve(folder, `report-${stamp}.json`),
     JSON.stringify(report, null, 2),
     { mode: 0o600 },
   );

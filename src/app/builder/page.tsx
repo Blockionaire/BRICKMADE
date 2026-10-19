@@ -396,6 +396,9 @@ function BuilderContent({ active }: { active: Project }) {
               <BookOpen size={17} />
               <p>{step.hint}</p>
             </div>
+            <Link href="/manual" className="text-link">
+              Printable manual with every step <ArrowUpRight size={14} />
+            </Link>
           </div>
           <button className="assistant-cta" onClick={() => setAssistant(true)}>
             <span className="assistant-cta-icon">

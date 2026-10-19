@@ -1,6 +1,6 @@
 import { Quaternion, Vector3 } from "three";
 import { COLORS } from "../catalog";
-import { findMates, validPose } from "../parts/connections";
+import { findMates, sectionRadiusAt, validPose } from "../parts/connections";
 import {
   BUILDER_BY_REBRICKABLE,
   PART_PROFILES,
@@ -80,6 +80,15 @@ function contactAllowance(pair: Mate[], a: PartPose, b: PartPose) {
             local.every((n, i) => n >= r[i] - 1e-5 && n <= r[i + 3] + 1e-5),
           ) ?? false
         );
+      }
+      if (m.family === "cylinder") {
+        // Only the hole's own bore (or the clip's grip) may overlap the shaft.
+        const female = m.a.kind === "cyl-male" ? m.b : m.a;
+        const d = new Vector3(...point).sub(new Vector3(...female.position));
+        const t = d.dot(new Vector3(...female.normal));
+        const radius = sectionRadiusAt(female, t);
+        if (radius === undefined) return false;
+        return d.lengthSq() - t * t <= (radius + 0.001) ** 2;
       }
       const male = [m.a, m.b].find(
         (c) => c.kind === "stud" || c.kind === "pin",

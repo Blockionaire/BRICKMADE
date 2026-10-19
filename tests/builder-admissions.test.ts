@@ -23,7 +23,17 @@ describe("Source-backed expanded port qualification", () => {
     const runtime = JSON.parse(
       fs.readFileSync("public/catalog/builder-runtime.json", "utf8"),
     );
-    const expected = structuredClone(data);
+    const expected = structuredClone(data) as Omit<
+      typeof data,
+      "libraryBatch"
+    > & {
+      libraryBatch?: unknown;
+    };
+    delete expected.libraryBatch;
+    expected.parts = expected.parts.filter(
+      (p) => (p as { batch?: string }).batch !== "library",
+    );
+    delete runtime.library;
     for (const p of expected.parts) {
       delete (p as Record<string, unknown>).portAudit;
       delete (p as Record<string, unknown>).rejectedPorts;
@@ -39,6 +49,23 @@ describe("Source-backed expanded port qualification", () => {
       ) as typeof p.admission;
     }
     expect(JSON.stringify(runtime)).toBe(JSON.stringify(expected));
+  });
+  it("unpacks every parts-library profile exactly as reviewed", () => {
+    const library = auditParts.filter((p) => p.batch === "library");
+    expect(library.length).toBeGreaterThan(1500);
+    for (const source of library) {
+      const shipped = PART_PROFILES.get(source.id)!;
+      expect(shipped.connectors).toEqual(source.connectors);
+      expect(shipped.mesh).toEqual(source.mesh);
+      expect(shipped.source.url).toBe(source.source.url);
+      expect(shipped.collision!.file).toBe(source.collision!.file);
+      expect(shipped.collision!.sha256).toBe(source.collision!.sha256);
+      expect(shipped.collision!.occupiedCells).toBe(
+        source.collision!.occupiedCells,
+      );
+      expect(shipped.admission!.status).toBe(source.admission!.status);
+      expect(shipped.rebrickableId).toBe(source.rebrickableId);
+    }
   });
   for (const part of auditParts.filter((p) => p.batch === "expansion"))
     it(`${part.id} ${part.name}: audit every proposed port`, () => {
@@ -103,7 +130,7 @@ afterAll(() => {
   }
   fs.writeFileSync(
     "public/catalog/builder-parts.json",
-    JSON.stringify(data, null, 2) + "\n",
+    JSON.stringify(data) + "\n",
   );
   const manifest = JSON.parse(
     fs.readFileSync("public/catalog/manifest.json", "utf8"),

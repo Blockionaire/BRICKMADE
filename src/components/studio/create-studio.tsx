@@ -19,10 +19,13 @@ import {
   ShieldCheck,
   Check,
   TriangleAlert,
+  Layers,
 } from "lucide-react";
 import { PageHeading } from "@/components/ui";
 import {
   STUDIO_CATEGORIES,
+  DETAIL_LABELS,
+  EXPERIENCE_LABELS,
   DEFAULT_STUDIO_OPTIONS,
   type StudioCategory,
   type StudioOptions,
@@ -404,30 +407,38 @@ export function CreateStudio() {
               <span>
                 <Sparkles size={17} /> Make it your kind of build
               </span>
-              <div role="group" aria-label="Model detail">
-                {(["easy", "normal", "hard"] as const).map((d, i) => (
+              <div role="group" aria-label="Design quality">
+                {(["easy", "normal", "hard"] as const).map((d) => (
                   <button
                     key={d}
                     aria-pressed={options.detail === d}
                     disabled={!!busy}
                     onClick={() => setOptions((o) => ({ ...o, detail: d }))}
                   >
-                    <b>{["Simple", "Balanced", "Detailed"][i]}</b>
-                    <small>
-                      {
-                        [
-                          "Bigger pieces, clean shapes",
-                          "Our recommended starting point",
-                          "Finer brickwork and features",
-                        ][i]
-                      }
-                    </small>
+                    <b>{DETAIL_LABELS[d].name}</b>
+                    <small>{DETAIL_LABELS[d].hint}</small>
+                  </button>
+                ))}
+              </div>
+              <span>
+                <Layers size={17} /> Your building experience
+              </span>
+              <div role="group" aria-label="Building experience">
+                {(["easy", "medium", "hard"] as const).map((pace) => (
+                  <button
+                    key={pace}
+                    aria-pressed={options.pace === pace}
+                    disabled={!!busy}
+                    onClick={() => setOptions((o) => ({ ...o, pace }))}
+                  >
+                    <b>{EXPERIENCE_LABELS[pace].name}</b>
+                    <small>{EXPERIENCE_LABELS[pace].hint}</small>
                   </button>
                 ))}
               </div>
               <p>
-                You can change detail and building pace after your design is
-                ready.
+                You can change design quality, size and building experience
+                after your design is ready.
               </p>
             </div>
             {configured === false && (
@@ -488,34 +499,44 @@ export function CreateStudio() {
             </div>
           </div>
           <aside className="studio-guide">
-            <span className="studio-guide-icon">
-              <House size={45} />
-            </span>
-            <span className="tag">House · First edition</span>
-            <h2>
-              A familiar place.
-              <br />A new perspective.
-            </h2>
-            <p>
-              We look for its footprint, storeys, roof, colours and visible
-              windows—then construct a model using real, supported parts.
-            </p>
-            <div>
-              <Check size={17} />
-              <span>Real model, parts and instructions</span>
-            </div>
-            <div>
-              <Check size={17} />
-              <span>Automatic digital assembly checks</span>
-            </div>
-            <div>
-              <Check size={17} />
-              <span>Saved progress, at your pace</span>
-            </div>
-            <small>
-              Buildings are approximated at brick scale. Hidden details and
-              physical strength remain unverified.
-            </small>
+            {(() => {
+              const c = STUDIO_CATEGORIES.find((c) => c.id === category)!;
+              const Icon = icons[c.id];
+              return (
+                <>
+                  <span className="studio-guide-icon">
+                    <Icon size={45} />
+                  </span>
+                  <span className="tag">{c.guide.tag}</span>
+                  <h2>
+                    {c.guide.headline.split("\n").map((line, i) => (
+                      <span key={i}>
+                        {i > 0 && <br />}
+                        {line}
+                      </span>
+                    ))}
+                  </h2>
+                  <p>{c.guide.looksFor}</p>
+                  {c.guide.tips.map((tip) => (
+                    <div key={tip}>
+                      <Camera size={17} />
+                      <span>{tip}</span>
+                    </div>
+                  ))}
+                  <div>
+                    <Check size={17} />
+                    <span>
+                      Real parts, exact instructions, checked digitally
+                    </span>
+                  </div>
+                  <small>
+                    Models are carved from AI-drawn reference views of your
+                    photos at brick scale. Hidden sides are estimated; physical
+                    strength remains unverified.
+                  </small>
+                </>
+              );
+            })()}
           </aside>
         </section>
       )}

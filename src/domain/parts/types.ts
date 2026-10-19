@@ -1,7 +1,24 @@
 export type Vec3 = [number, number, number];
 export type Quaternion = [number, number, number, number];
 export type ConnectorKind =
-  "stud" | "anti-stud" | "pin" | "pin-hole" | "window-seat" | "window-insert";
+  | "stud"
+  | "anti-stud"
+  | "pin"
+  | "pin-hole"
+  | "window-seat"
+  | "window-insert"
+  /** LDCad-derived cylinder snaps: axles, pins, bars and their holes. */
+  | "cyl-male"
+  | "cyl-female"
+  /** A clip that grips a bar of the same radius. */
+  | "clip";
+/** One cylinder section along a connector's axis (scene units: 1 = one stud). */
+export interface CylinderSection {
+  /** R round, A axle (cross), S square stud seat, C clip grip; others are treated as round. */
+  shape: string;
+  radius: number;
+  length: number;
+}
 export interface Connector {
   id: string;
   kind: ConnectorKind;
@@ -17,6 +34,10 @@ export interface Connector {
   up?: Vec3;
   procedure?: "manual-flex";
   allowedContactRegions?: number[][];
+  /** Cylinder snaps: sections laid out from `position` along `normal`. */
+  sections?: CylinderSection[];
+  /** The mate may sit anywhere along the overlapping length (axles, bars, clips). */
+  slide?: boolean;
   status: "geometry-reviewed";
   evidence: { file: string; method: string; primitive?: string };
 }
@@ -43,7 +64,10 @@ export interface BuilderPart {
     meshSha256: string;
     method: string;
   };
-  batch?: "core" | "expansion";
+  /** "library": the LDCad-connected parts library (scripts/catalog/package_parts_library.py). */
+  batch?: "core" | "expansion" | "library";
+  /** Building role from the Rebrickable category (library parts). */
+  role?: string;
   admission?: {
     status:
       "candidate" | "legacy-reviewed" | "connection-tested" | "geometry-only";
@@ -104,6 +128,6 @@ export interface Mate {
   a: WorldConnector;
   b: WorldConnector;
   distance: number;
-  family: "stud" | "pin" | "window";
+  family: "stud" | "pin" | "window" | "cylinder";
   status: "geometry-compatible";
 }

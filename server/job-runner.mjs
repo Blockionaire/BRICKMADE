@@ -2,13 +2,15 @@ import { Worker } from "node:worker_threads";
 import { fileURLToPath } from "node:url";
 import { randomUUID } from "node:crypto";
 import { supabaseClient, StudioError, digest } from "./supabase.mjs";
-import { interpretStudioPhotos } from "./studio-vision.mjs";
+import { interpretSculpt, prepareReference } from "./sculpt-pipeline.mjs";
 import { validatePhotoRequest } from "./handler.mjs";
 import { parseStudioOptions } from "../shared/studio.ts";
 import {
   parseDesignDescription,
-  moduleVersionFor,
+  describedModuleVersion,
+  sculptModuleVersion,
 } from "../shared/design-description.ts";
+import { isSculptDesign } from "../shared/sculpt-design.ts";
 import { generateCheckedDesign } from "./generate-design.mjs";
 import { parseStudioArtifact } from "../shared/studio-artifact.ts";
 import { planDesignScene } from "../shared/design-scene.ts";
@@ -98,7 +100,8 @@ export async function runStudioJob(
     db,
     env = process.env,
     signal = undefined,
-    interpret = interpretStudioPhotos,
+    interpret = interpretSculpt,
+    reference = prepareReference,
     compile = compileInThread,
     logger = (e) => console.info(JSON.stringify(e)),
   } = {},
@@ -167,22 +170,26 @@ export async function runStudioJob(
   }, 15000);
   try {
     const options = parseStudioOptions(job.options);
-    const moduleVersion = moduleVersionFor(options.category);
     await step("preparing", 5);
-    let description,
+    let description = job.checkpoint?.description
+        ? parseDesignDescription(job.checkpoint.description, options.category)
+        : null,
       providerModel =
-        job.checkpoint?.providerModel || env.OPENAI_MODEL || "gpt-5.2";
-    if (job.checkpoint?.description)
-      description = parseDesignDescription(
-        job.checkpoint.description,
-        options.category,
-      );
-    else {
-      if (job.checkpoint?.interpretationStarted)
+        job.checkpoint?.providerModel || env.OPENAI_MODEL || "gpt-5.5";
+    // Sculpture descriptions are complete once their reference views are attached.
+    const ready = (d) => d && (!isSculptDesign(d) || d.reference);
+    if (!ready(description)) {
+      if (!description && job.checkpoint?.interpretationStarted)
         throw new StudioError(
           409,
           "interpretation-interrupted",
           "A previous photo-analysis call was interrupted before its result was saved. Start a new build; it will not be charged again automatically.",
+        );
+      if (description && job.checkpoint?.referenceStarted)
+        throw new StudioError(
+          409,
+          "reference-interrupted",
+          "Preparing the reference views was interrupted before its result was saved. Start a new build; it will not be charged again automatically.",
         );
       const ids = job.input_ids;
       const assets = await db.rows(
@@ -200,7 +207,8 @@ export async function runStudioJob(
           "photos-expired",
           "The temporary photos have expired. Please upload them again.",
         );
-      const photos = [];
+      const photos = [],
+        buffers = [];
       for (const a of assets) {
         combined.throwIfAborted();
         const bytes = await db.download("bm-inputs", a.path);
@@ -210,32 +218,54 @@ export async function runStudioJob(
             "photo-checksum",
             "A photo changed during upload. Please upload it again.",
           );
+        buffers.push(Buffer.from(bytes));
         photos.push(
           `data:image/jpeg;base64,${Buffer.from(bytes).toString("base64")}`,
         );
       }
       validatePhotoRequest({ version: 1, consent: true, photos });
-      await step("interpreting", 15, {
-        interpretationStarted: true,
-        moduleVersion,
-      });
-      const result = await interpret(photos, {
-        env,
-        signal: combined,
-        categoryId: options.category,
-      });
-      description = parseDesignDescription(
-        result.description,
-        options.category,
-      );
-      providerModel = result.model;
-      await step("planning", 40, {
-        description,
-        providerModel,
-        moduleVersion: result.moduleVersion,
-        inputHashes: assets.map((a) => a.sha256),
-      });
+      const inputHashes = assets.map((a) => a.sha256);
+      if (!description) {
+        await step("interpreting", 15, {
+          interpretationStarted: true,
+          moduleVersion: sculptModuleVersion(options.category),
+        });
+        const result = await interpret(photos, {
+          env,
+          signal: combined,
+          categoryId: options.category,
+        });
+        description = parseDesignDescription(
+          result.description,
+          options.category,
+        );
+        providerModel = result.model;
+        await step("interpreting", 25, {
+          description,
+          providerModel,
+          moduleVersion: describedModuleVersion(description, options.category),
+          inputHashes,
+        });
+      }
+      if (isSculptDesign(description) && !description.reference) {
+        await step("interpreting", 28, { referenceStarted: true });
+        const prepared = await reference(buffers, description, {
+          env,
+          signal: combined,
+        });
+        description = parseDesignDescription(
+          { ...description, reference: prepared.reference },
+          options.category,
+        );
+        await step("planning", 40, {
+          description,
+          providerModel,
+          moduleVersion: describedModuleVersion(description, options.category),
+          inputHashes,
+        });
+      }
     }
+    const moduleVersion = describedModuleVersion(description, options.category);
     await step("planning", 40, {
       description,
       providerModel,
@@ -250,7 +280,11 @@ export async function runStudioJob(
     const repairCount = result.repairCount;
     await step("finalizing", 94, { repairCount });
     const artifact = parseStudioArtifact({
-      version: options.category === "house" ? 1 : 2,
+      version: isSculptDesign(description)
+        ? 3
+        : options.category === "house"
+          ? 1
+          : 2,
       jobId: job.id,
       projectId: job.project_id,
       createdAt: new Date().toISOString(),

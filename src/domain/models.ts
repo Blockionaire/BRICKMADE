@@ -4,6 +4,8 @@ import { parseHouseDesign } from "../../shared/studio";
 import { createStudioHouse } from "./studio/house";
 import { createStudioSubject } from "./studio/subject";
 import { parseSubjectDesign } from "../../shared/subject-design";
+import { parseSculptDesign } from "../../shared/sculpt-design";
+import { createSculptModel } from "./studio/sculpt-model";
 import { partCapabilities } from "./parts/selection";
 import { countParts } from "./inventory";
 import { planBuildSteps } from "./build-steps";
@@ -71,7 +73,17 @@ export const MODEL_KINDS: {
 ];
 export const kindFor = (settings: GenerationSettings) =>
   settings.modelKind ??
-  (settings.subjectDesign
+  (settings.sculptDesign
+    ? (
+        {
+          house: "house",
+          car: "rover",
+          flower: "plant",
+          animal: "animal",
+          free: "sculpture",
+        } as const
+      )[settings.sculptDesign.category]
+    : settings.subjectDesign
     ? (
         {
           car: "rover",
@@ -82,6 +94,17 @@ export const kindFor = (settings: GenerationSettings) =>
       )[settings.subjectDesign.category]
     : "house");
 export const modelInfo = (settings: GenerationSettings) => {
+  if (settings.sculptDesign)
+    return {
+      id: kindFor(settings),
+      name: settings.sculptDesign.title,
+      description: settings.sculptDesign.summary,
+      details: [
+        "Whole bricks, a coarser silhouette and only the main colours.",
+        "Plate-level shaping, real slopes and fitted details such as windows.",
+        "A finer grid, more colours, smooth slopes and a studless tiled finish.",
+      ],
+    };
   if (settings.subjectDesign)
     return {
       id: kindFor(settings),
@@ -150,7 +173,11 @@ export class Assembly {
   ): Placement {
     const part = CATALOG[partId];
     if (!part) throw Error(`No curated part ${partId}`);
-    if (this.settings.houseBrief || this.settings.subjectDesign) {
+    if (
+      this.settings.houseBrief ||
+      this.settings.subjectDesign ||
+      this.settings.sculptDesign
+    ) {
       const profile = BUILDER_BY_REBRICKABLE.get(partId);
       if (!profile || !partCapabilities(profile).supported)
         throw Error(`Part ${partId} has no supported connection rules.`);
@@ -176,7 +203,8 @@ export class Assembly {
             .match(/../g)!
             .map((v) => parseInt(v, 16));
         const requested = rgb(color);
-        const replacement = this.settings.subjectDesign
+        const replacement =
+          this.settings.subjectDesign || this.settings.sculptDesign
           ? (Object.keys(COLORS) as ColorId[])
               .filter(
                 (c) =>
@@ -947,6 +975,16 @@ function pavilion(a: Assembly) {
   );
 }
 export function createModel(settings: GenerationSettings): HouseModel {
+  if (settings.sculptDesign) {
+    const description = parseSculptDesign(settings.sculptDesign);
+    const key = JSON.stringify({ ...settings, sculptDesign: description });
+    const previous = cache.get(key);
+    if (previous) return previous;
+    const result = createSculptModel(description, settings);
+    cache.set(key, result);
+    if (cache.size > 32) cache.delete(cache.keys().next().value!);
+    return result;
+  }
   if (settings.subjectDesign) {
     const description = parseSubjectDesign(settings.subjectDesign);
     const key = JSON.stringify({ ...settings, subjectDesign: description });
